@@ -8,6 +8,6 @@
 <body>
 
 <%@include file ="header.jsp" %>
-	<h2>허허</h2>
+	<h2>허허gjgjgjgjgjg</h2>
 </body>
 </html>
