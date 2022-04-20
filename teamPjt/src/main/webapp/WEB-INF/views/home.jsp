@@ -5,9 +5,8 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-<P> test3!!</P>
+
+<%@include file ="header.jsp" %>
+	
 </body>
 </html>
