@@ -1,5 +1,7 @@
 Manifest-Version: 1.0
-Built-By: song
-Build-Jdk: 1.8.0_292
+
+Built-By: wngus
+Build-Jdk: 13.0.2
+
 Created-By: Maven Integration for Eclipse
 
