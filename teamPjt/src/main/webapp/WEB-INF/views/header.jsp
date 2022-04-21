@@ -14,7 +14,8 @@
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #CCFF90;">
   <div class="container-fluid">
   <!-- Ttile 변경 - Logo 변경 -->
-    <a class="navbar-brand" href="#">Petdding</a>
+  <!--   <a class="navbar-brand" href="#">Petdding</a> -->
+  <img width="100px" height="100px"   src="resources/image/111.png"/>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
