@@ -28,7 +28,7 @@
             <!--회원정보-->
             <div class="col-md-3 col-sm-12" style="margin-top: 10%;">
                 <div class="row"> 
-                    <div class="col-sm-6"><h5>***님</h5></div>
+                    <div class="col-sm-6"><h5>****님</h5></div>
                     <div class="col-sm-6" style="text-align: right;"><button type="button" class="btn btn-light" style="width: 100px;">정보 수정</button></div>
                 </div>
             	
