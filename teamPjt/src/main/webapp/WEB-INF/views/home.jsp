@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<%@include file ="header.jsp" %>
+<c:import url="/header.do"></c:import>
 
 <br>
 
