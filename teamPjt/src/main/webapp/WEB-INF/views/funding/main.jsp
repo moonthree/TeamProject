@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,30 +14,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="resources/css/funding_css/funding_main.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/funding_css/funding_main.css">
 </head>
 <body>
-	<%@include file ="../header.jsp" %>
+	<c:import url="/header.do"></c:import>
 	
 	<div class="container">
         <div class="row" id="category">
             <div class="col-md-4 col-sm-12">
                 <a href="#">
-                    <img src="resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+                    <img src="../resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
                     강아지abcd
                 </a>
             </div>
             <div class="col-md-4 col-sm-12">
                 <a href="#">
-                    <img src="resources/image/funding_main/cat123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+                    <img src="../resources/image/funding_main/cat123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
                     고양이
                 </a>
             </div>
             <div class="col-md-4 col-sm-12">
                 <a href="#">
-                    <img src="resources/image/funding_main//other123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+                    <img src="../resources/image/funding_main//other123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
                     기타
                 </a>
@@ -71,7 +72,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                    <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                    <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -91,7 +92,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -111,7 +112,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#" class="aimg">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                     </a>
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
@@ -133,7 +134,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                    <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                    <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -153,7 +154,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -173,7 +174,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -195,7 +196,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -215,7 +216,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
@@ -235,7 +236,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card">
                     <a href="#">
-                        <img src="resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
+                        <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
                     </a>
