@@ -28,7 +28,7 @@
             <!--회원정보-->
             <div class="col-md-3 col-sm-12" style="margin-top: 10%;">
                 <div class="row"> 
-                    <div class="col-sm-6"><h5>**님</h5></div>
+                    <div class="col-sm-6"><h5>***님</h5></div>
                     <div class="col-sm-6" style="text-align: right;"><button type="button" class="btn btn-light" style="width: 100px;">정보 수정</button></div>
                 </div>
             	
@@ -36,7 +36,7 @@
                     <thead class="table-light">
                       <tr>
                           <th colspan="2">
-                              	프로필
+                              프로필
                           </th>
                       </tr>
                     </thead>
@@ -95,7 +95,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                              	펀딩 금액 : 1,100,000
+                              펀딩 금액 : 1,100,000
                               <div class="progress">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
                                 aria-valuemin="0" aria-valuemax="100" style="width:40%">
@@ -120,7 +120,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                              	펀딩 금액 : 1,100,000
+                              펀딩 금액 : 1,100,000
                               <div class="progress">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
                                 aria-valuemin="0" aria-valuemax="100" style="width:40%">
@@ -145,7 +145,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                             	 펀딩 금액 : 1,100,000
+                              펀딩 금액 : 1,100,000
                               <div class="progress">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
                                 aria-valuemin="0" aria-valuemax="100" style="width:40%">
@@ -183,7 +183,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                             	 내용내용내용
+                              내용내용내용
                             </p>
                             <div class="row" style="text-align: right;">
                               <div class="col">
@@ -206,7 +206,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                              	내용내용내용
+                              내용내용내용
                             </p>
                             <div class="row" style="text-align: right;">
                               <div class="col">
@@ -229,7 +229,7 @@
                           <div class="card-body">
                             <h5 class="card-title">제목 : 제목제목</h5>
                             <p class="card-text">
-                           		내용내용내용
+                              내용내용내용
                             </p>
                             <div class="row" style="text-align: right;">
                               <div class="col">
