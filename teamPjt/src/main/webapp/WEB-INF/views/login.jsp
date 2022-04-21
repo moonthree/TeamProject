@@ -33,9 +33,9 @@
                     <button type="button" class="btn btn-outline-info" style="width: 100%;">로그인</button>
                     <br>
                     <br>
-                    <a data-toggle="modal" data-target="#myModal">아이디 찾기</a>
+                    <a href="#">아이디 찾기</a>
                     |
-                    <a href="find.do">비밀번호 찾기</a> 
+                    <a href="#">비밀번호 찾기</a> 
                     |
                     <a href="#">회원가입</a>
                 </form>
@@ -44,19 +44,6 @@
             
             </div>
             
-            <div class="modal fade" id="myModal" role="dialog"> 
-            	<div class="modal-dialog"> 
-            		<div class="modal-content"> 
-            			<div class="modal-header"> 
-            				<button type="button" class="close" data-dismiss="modal">×</button> 
-            				<h5 class="modal-title">닫기</h5> 
-            			</div> 
-            		<div class="modal-body"> 
-            			<p>아이디 찾기</p> 
-            		</div> 
-            	<div class="modal-footer"> <p>팝업 footer</p> </div> 
-            </div> </div> 
-            </div>
         </div>
     </div>
 </body>

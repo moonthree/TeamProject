@@ -45,8 +45,4 @@ public class HomeController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/find.do", method = RequestMethod.GET)
-	public String find(Locale locale, Model model) {
-		return "find";
-	}
 }
