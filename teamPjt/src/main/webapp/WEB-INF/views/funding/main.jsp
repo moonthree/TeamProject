@@ -24,7 +24,7 @@
                 <a href="#">
                     <img src="resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
-                    강아지
+                    강아지abcd
                 </a>
             </div>
             <div class="col-md-4 col-sm-12">
