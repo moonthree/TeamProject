@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+#category{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#chosenCategory{
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 10px;
+}
+
+.dropdown-item{
+    height: 40px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.img2{
+    height: 300px;
+    width: max;
+}
+
+.remainDay{
+    float: right;
+}
+
+.fundingProgress{
+    color: #00b2b2;
+    font-weight: bold;
+}
+
+.fundingRow{
+    margin-bottom: 20px;
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+#paging{
+    text-align: center;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
