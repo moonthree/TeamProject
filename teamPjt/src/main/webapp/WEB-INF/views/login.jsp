@@ -33,7 +33,7 @@
                     <button type="button" class="btn btn-outline-info" style="width: 100%;">로그인</button>
                     <br>
                     <br>
-                    <a href="#">아이디 찾기</a> 
+                    <a href="#">아이디 찾기</a>
                     |
                     <a href="#">비밀번호 찾기</a> 
                     |
@@ -43,6 +43,7 @@
             <div class="col-sm">
             
             </div>
+            
         </div>
     </div>
 </body>
