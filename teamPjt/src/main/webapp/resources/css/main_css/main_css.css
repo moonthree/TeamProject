@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.col-8{
+    border: 1px black solid;
+}
+.col-4{
+    border: 1px black solid;
+}
+
+.d-block {
+max-width: 100%; 
+max-height: 200px;
+}
