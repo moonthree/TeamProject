@@ -26,7 +26,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <c:import url="/header.do"></c:import> --%>
+	
 	<c:import url="/header.do"></c:import>
 	
 	
