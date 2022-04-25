@@ -15,4 +15,9 @@ public class FundingController {
 		return "funding/main";
 	}
 	
+	@RequestMapping(value = "/view.do")
+	public String view() {
+		return "funding/view";
+	}
+	
 }
