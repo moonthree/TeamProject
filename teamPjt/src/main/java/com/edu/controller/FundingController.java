@@ -12,8 +12,6 @@ public class FundingController {
 	
 	@RequestMapping(value = "/main.do")
 	public String main() {
-		
-		
 		return "funding/main";
 	}
 	

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/funding_css/funding_main.css">
 </head>
 <body>
-	<%@include file ="../header.jsp" %>
+	<c:import url="/header.do"></c:import>
 	
 	<div class="container">
         <div class="row" id="category">
