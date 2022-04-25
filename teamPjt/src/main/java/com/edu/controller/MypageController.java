@@ -18,5 +18,11 @@ public class MypageController {
 		return "mypage/mypage2";
 	}
 	
+	@RequestMapping(value = "/funding_register.do")
+	public String funding_register() {
+		return "mypage/funding_register";
+	}
+	
+	
 	
 }

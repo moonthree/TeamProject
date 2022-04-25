@@ -12,8 +12,20 @@
 </head>
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
-<c:import url="/header.do"></c:import> 
-	<a href="mypage2.do">마이페이지2</a>
+<c:import url="/header.do"></c:import>
+	<div style="text-align:center;">
+		<table style="border:1px solid black; text-align : center;">
+			<thead>		
+				<tr>
+					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
+					<td style="width:20%"><a href="funding_register.do">펀딩 등록 페이지</a></td>
+					<td style="width:20%">abcd</td>
+					<td style="width:20%">abcd</td>
+					<td style="width:20%">abcd</td>
+				</tr>
+			</thead>
+		</table>
+	</div>
     <div class="container" >
         <div class="row">
             <!--회원정보-->
