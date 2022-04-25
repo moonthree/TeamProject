@@ -42,7 +42,7 @@
 	<c:import url="/header.do"></c:import>
 	
 	
-    <div class="container" style="text-align: center; margin-top: 10%; margin-bottom: 10%;">
+    <div class="container" style="text-align: center; margin-top: 6%; margin-bottom: 6%;">
         <div class="row" style="width: 400px; margin: 0px auto;">
             <div class="col-sm-12" style="text-align: left;">
                 <div><h3 style="margin-bottom: 50px; font-weight: 600; text-align: center;">회원가입</h3></div>
