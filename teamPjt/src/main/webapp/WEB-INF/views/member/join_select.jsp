@@ -23,7 +23,7 @@
     </script>
     
 <style>
-    button{
+    .btnmargin{
         margin-top: 20px;
     }
     
@@ -34,7 +34,7 @@
 	
 	<c:import url="/header.do"></c:import>
 	
-    <div class="container" style="text-align: center; margin-top: 10%; margin-bottom: 10%;">
+    <div class="container" style="text-align: center; margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-sm-1 col-md-1"></div>
             <div class="col-sm-10 col-md-10">
@@ -48,9 +48,9 @@
                 <div class="card" style="width: 20rem; height: 270px; margin: 0 auto; border-top: 3px solid #FF8C32; margin-bottom: 30px;">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #FF8C32;">일반 회원가입</h5>
-                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'" class="btn btn-outline-dark" style="width: 60%;">이메일로 회원가입</button>
-                        <button type="button" class="btn btn-outline-warning" style="width: 60%;">카카오</button><br>
-                        <button type="button" class="btn btn-outline-success" style="width: 60%;">네이버</button><br>
+                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'" class="btn btn-outline-dark btnmargin" style="width: 60%;">이메일로 회원가입</button>
+                        <button type="button" class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
+                        <button type="button" class="btn btn-outline-success btnmargin" style="width: 60%;">네이버</button><br>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="card" style="width: 20rem; height: 270px; margin: 0 auto; border-top: 3px solid #06113C">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #06113C;">판매자 회원가입</h5>
-                        <button type="button" class="btn btn-outline-dark" style="width: 60%;">이메일로 회원가입</button>
+                        <button type="button" class="btn btn-outline-dark btnmargin" style="width: 60%;">이메일로 회원가입</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div style="margin-top: 80px;">회원가입 후 Petdding의 다양한 혜택을 누려보세요!</div>
                 <div style="margin-top: 20px; font-size: small;">
                     이미 계정이 있으신가요?
-                    <a href="#" style="margin-left: 16px; text-decoration: underline;">로그인</a>
+                    <a href="login.do" style="margin-left: 16px; color:blue">로그인</a>
                 </div>
             </div>
         </div>
