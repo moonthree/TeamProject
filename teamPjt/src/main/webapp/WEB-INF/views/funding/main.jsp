@@ -15,6 +15,11 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resources/css/funding_css/funding_main.css">
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        $(".dropdown-toggle").dropdown();
+	    });
+    </script>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
