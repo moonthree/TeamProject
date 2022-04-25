@@ -19,7 +19,7 @@
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
 					<td style="width:20%"><a href="funding_register.do">펀딩 등록 페이지</a></td>
-					<td style="width:20%">abcd</td>
+					<td style="width:20%"><a href="approval.do">상품 승인 페이지(관리자)</a></td>
 					<td style="width:20%">abcd</td>
 					<td style="width:20%">abcd</td>
 				</tr>

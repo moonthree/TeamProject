@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.viewtab{
+    width: 50%;
+}
+.apptitle {
+    text-align: center;
+    font-weight: bold;
+    color: #693907;
+}
+
+a.nav-item{
+    text-align: center;
+}
+
+.nav-link.active{
+    background-color: #614124 !important;
+}
+
+
+
+.ortd{
+    text-align: center;
+}
+
+.tdtitle{
+    text-align: left;
+}

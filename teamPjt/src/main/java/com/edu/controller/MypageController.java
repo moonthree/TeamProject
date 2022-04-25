@@ -23,6 +23,12 @@ public class MypageController {
 		return "mypage/funding_register";
 	}
 	
+	@RequestMapping(value = "/approval.do")
+	public String approval() {
+		return "mypage/approval";
+	}
+	
+	
 	
 	
 }
