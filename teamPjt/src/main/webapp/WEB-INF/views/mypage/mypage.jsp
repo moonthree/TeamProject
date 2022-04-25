@@ -13,7 +13,7 @@
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import> 
-
+	<a href="mypage2.do">마이페이지2</a>
     <div class="container" >
         <div class="row">
             <!--회원정보-->

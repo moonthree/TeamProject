@@ -13,6 +13,10 @@ public class MypageController {
 		
 		return "mypage/mypage";
 	}
+	@RequestMapping(value = "/mypage2.do")
+	public String mypage2() {
+		return "mypage/mypage2";
+	}
 	
 	
 }
