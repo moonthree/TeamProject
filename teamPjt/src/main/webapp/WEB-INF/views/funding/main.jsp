@@ -15,6 +15,13 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
+
+<!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        $(".dropdown-toggle").dropdown();
+	    });
+    </script>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
