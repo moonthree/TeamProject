@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@include file ="header.jsp" %>
+	
+	<c:import url="/header.do"></c:import>
+	
     <div class="container" style="text-align: center; margin-top: 10%; margin-bottom: 10%;">
         <div class="row">
             <div class="col-sm-1 col-md-1"></div>
@@ -31,7 +35,7 @@
                 <div class="card" style="width: 20rem; height: 270px; margin: 0 auto; border-top: 3px solid #FF8C32; margin-bottom: 30px;">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #FF8C32;">일반 회원가입</h5>
-                        <button type="button" onclick="javascript:location.href='/join_company.do';" class="btn btn-outline-dark" style="width: 60%;">이메일로 회원가입</button>
+                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'" class="btn btn-outline-dark" style="width: 60%;">이메일로 회원가입</button>
                         <button type="button" class="btn btn-outline-warning" style="width: 60%;">카카오</button><br>
                         <button type="button" class="btn btn-outline-success" style="width: 60%;">네이버</button><br>
                     </div>

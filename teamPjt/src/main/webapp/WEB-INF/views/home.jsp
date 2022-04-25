@@ -14,10 +14,11 @@
 </head>
 
 <body>
-<%@include file ="header.jsp" %>
+<c:import url="/header.do"></c:import>
+
+<br>
 
 
-<div class="container">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -40,7 +41,7 @@
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F17%2F05%2F08%2F170508b4b0c207586b4a9aa58184b69f--funny-animals-adorable-animals.jpg&type=sc960_832" class="d-block w-100" alt="...">
+        <img src="https://pixabay.com/get/g0f5caf78b94797efa3ecf3d1a66ed8a15042fb71fee54a851d89dcc180e7058bfbf8558cafbda74ba8c6d6a85c292321ef8377cf793d6573c3ce1d99342a1381cad2a49f824eb7951e01cea6cae4f2ad_640.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
           <p>Some representative placeholder content for the third slide.</p>
@@ -56,7 +57,7 @@
       <span class="sr-only">Next</span>
     </button>
   </div>
-</div>
+
 
 <div class="container">
     <div class="row">
