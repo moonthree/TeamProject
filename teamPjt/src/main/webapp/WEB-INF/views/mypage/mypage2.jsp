@@ -40,6 +40,7 @@
 <title>마이페이지</title>
 </head>
 <body>
+	<c:import url="/header.do"></c:import>
     <div class="container">
         <div class="row">
             <!--회원정보-->
