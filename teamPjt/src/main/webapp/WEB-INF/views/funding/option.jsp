@@ -49,7 +49,7 @@
                                 본체 프레임 + 의자 스킨 + 전용 가방<br>
                                 배송비 없음 | 리워드 제공 예상일 : 2022년 05월 초 (1~10일) 예정
                             </div><br>
-                            <div>수량 &nbsp; <input type="number" class="" id="exampleFormControlInput1" value="1" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 100px;"></div>
+                            <div>수량 &nbsp; <input type="number" min="0" class="" id="exampleFormControlInput1" value="1" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 100px;"></div>
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; padding-left: 60px; margin-bottom: 20px;">
@@ -63,7 +63,7 @@
                                 본체 프레임*2 + 의자 스킨 *2 + 전용 가방*2<br>
                                 배송비 없음 | 리워드 제공 예상일 : 2022년 05월 초 (1~10일) 예정<br>
                             </div><br>
-                            <div>수량 &nbsp; <input type="number" class="" id="exampleFormControlInput1" value="1" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 100px;"></div>
+                            <div>수량 &nbsp; <input type="number" min="0" class="" id="exampleFormControlInput1" value="1" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 100px;"></div>
                         </label>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <h5 style="font-weight: 600; float: left; text-align: left; width: 200px; height: 100px;">후원금 (선택)</h5>
                 <div>
                     후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?<br>
-                    <input type="number" value="0">원을 추가로 후원합니다.
+                    <input type="number" value="0" min="0">원을 추가로 후원합니다.
                 </div>
             </div>
         </div>
