@@ -38,6 +38,25 @@ public class MypageController {
 		return "mypage/management_member";
 	}
 	
+	@RequestMapping(value = "/info_funding.do")
+	public String info_funding() {
+		return "mypage/info_funding";
+	}
+	
+	@RequestMapping(value = "/info_zzim.do")
+	public String info_zzim() {
+		return "mypage/info_zzim";
+	}
+	
+	@RequestMapping(value = "/my_info.do")
+	public String my_info() {
+		return "mypage/my_info";
+	}
+	
+	@RequestMapping(value = "/my_info_modify.do")
+	public String my_info_modify() {
+		return "mypage/my_info_modify";
+	}
 	
 	
 }

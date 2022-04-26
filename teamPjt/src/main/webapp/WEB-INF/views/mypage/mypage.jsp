@@ -24,11 +24,11 @@
 					<td style="width:20%"><a href="management_member.do">회원 관리 페이지(관리자)</a></td>
 				</tr>
 				<tr>
-					<td style="width:20%"><a href="#">인포 펀딩</a></td>
+					<td style="width:20%"><a href="info_funding.do">인포 펀딩</a></td>
 					<td style="width:20%"><a href="#">인포 펀딩 디테일</a></td>
-					<td style="width:20%"><a href="#">인포 찜</a></td>
-					<td style="width:20%"><a href="#">?</a></td>
-					<td style="width:20%"><a href="#">?</a></td>
+					<td style="width:20%"><a href="info_zzim.do">인포 찜</a></td>
+					<td style="width:20%"><a href="my_info.do">내 정보</a></td>
+					<td style="width:20%"><a href="my_info_modify.do">내 정보 수정</a></td>
 				</tr>
 			</thead>
 		</table>
