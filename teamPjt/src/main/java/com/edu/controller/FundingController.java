@@ -29,4 +29,9 @@ public class FundingController {
 	public String reserve() {
 		return "funding/reserve";
 	}
+	
+	@RequestMapping(value = "/reserve_complete.do")
+	public String reserveComplete() {
+		return "funding/reserve_complete";
+	}
 }
