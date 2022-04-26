@@ -14,7 +14,7 @@
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
 	<div style="text-align:center;">
-		<table style="border:1px solid black; text-align : center;">
+		<table style="border:1px solid black; text-align : center; font-size : 20px;">
 			<thead>		
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
@@ -22,6 +22,13 @@
 					<td style="width:20%"><a href="approval.do">상품 승인 페이지(관리자)</a></td>
 					<td style="width:20%"><a href="management_product.do">상품 관리 페이지(관리자)</a></td>
 					<td style="width:20%"><a href="management_member.do">회원 관리 페이지(관리자)</a></td>
+				</tr>
+				<tr>
+					<td style="width:20%"><a href="#">인포 펀딩</a></td>
+					<td style="width:20%"><a href="#">인포 펀딩 디테일</a></td>
+					<td style="width:20%"><a href="#">인포 찜</a></td>
+					<td style="width:20%"><a href="#">?</a></td>
+					<td style="width:20%"><a href="#">?</a></td>
 				</tr>
 			</thead>
 		</table>
