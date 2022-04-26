@@ -43,6 +43,11 @@ public class MypageController {
 		return "mypage/info_funding";
 	}
 	
+	@RequestMapping(value = "/info_funding_detail.do")
+	public String info_funding_detail() {
+		return "mypage/info_funding_detail";
+	}
+	
 	@RequestMapping(value = "/info_zzim.do")
 	public String info_zzim() {
 		return "mypage/info_zzim";
