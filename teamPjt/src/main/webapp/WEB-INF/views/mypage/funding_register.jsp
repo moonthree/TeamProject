@@ -45,32 +45,36 @@
                 <input type="number" class="form-control" id="fTargetPrice" placeholder="가격 입력" min="0">
             </div>
 
-            <div class="form-group">
+             <div class="form-group">
                 <label>제품 옵션</label>&nbsp;<span class="ftime">*최대 5개</span>
                 <button type="button" class="btn btn-outline-secondary" id="ADD">옵션 추가</button>
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
                         <colgroup>
-                            <col width="30%" />
-                            <col width="30%" />
-                            <col width="30%" />
+                            <col width="25%" />
+                            <col width="25%" />
+                            <col width="25%" />
+                            <col width="25%" />
                         </colgroup>
                         <tr style="text-align: center;">
                             <th scope="col">옵션명</th>
-                            <th scope="col">펀딩액</th>
+                            <th scope="col">금액</th>
                             <th scope="col">상세</th>
+                            <th scope="col">수량</th>
                         </tr>
                         <tr>
                             <td><input type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
-                            <td><input type="number" class="text" name="name2" style="width:100%;"  placeholder="펀딩액"/></td>
-                            <td><input type="text" class="text" name="name33" style="width:100%;" placeholder="상세" /></td>
+                            <td><input type="number" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
+                            <td><input type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
+                            <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                         </tr>
                     </table>
                     <textarea id="template" style="display:none;">
                             <tr id="addRow">
                                 <td><input type="text" class="text"    name="name1"   style="width:100%;"  placeholder="옵션명"/></td>            
-                                <td><input type="text" class="text"    name="name2"   style="width:100%;"  placeholder="펀딩액"/></td>
-                                <td><input type="text" class="text"    name="name33"  style="width:100%;"   placeholder="상세"/></td>
+                                <td><input type="text" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
+                                <td><input type="text" class="text"    name="name3"  style="width:100%;"   placeholder="상세"/></td>
+                                <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                             </tr>
                     </textarea>
                 </div>
