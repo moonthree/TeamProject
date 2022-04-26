@@ -28,6 +28,10 @@ public class MypageController {
 		return "mypage/approval";
 	}
 	
+	@RequestMapping(value = "/management_product.do")
+	public String management_product() {
+		return "mypage/management_product";
+	}
 	
 	
 	
