@@ -20,4 +20,13 @@ public class FundingController {
 		return "funding/view";
 	}
 	
+	@RequestMapping(value = "/option.do")
+	public String option() {
+		return "funding/option";
+	}
+	
+	@RequestMapping(value = "/reserve.do")
+	public String reserve() {
+		return "funding/reserve";
+	}
 }
