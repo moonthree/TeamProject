@@ -23,6 +23,12 @@
     </script>
     
 <style>
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
+
     .btnmargin{
         margin-top: 20px;
     }
@@ -33,7 +39,7 @@
 <body>
 	
 	<c:import url="/header.do"></c:import>
-	
+	<main>
     <div class="container" style="text-align: center; margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-sm-1 col-md-1"></div>
@@ -74,5 +80,7 @@
             </div>
         </div>
     </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

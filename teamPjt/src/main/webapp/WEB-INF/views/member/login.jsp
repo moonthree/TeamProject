@@ -21,13 +21,20 @@
 	    });
     </script>
 <title>Insert title here</title>
+<style>
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
+</style>
 </head>
 <body>
 	<%-- <%@include file ="../header.jsp" %> --%>
 	
 	<c:import url="/header.do"></c:import>
 	
-	
+	<main>
     <div class="container" style="text-align: center; margin-top: 10%;">
         <div class="row">
             <div class="col-sm">
@@ -60,5 +67,7 @@
             
         </div>
     </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

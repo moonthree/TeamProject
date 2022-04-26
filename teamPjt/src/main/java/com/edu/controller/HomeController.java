@@ -33,6 +33,13 @@ public class HomeController {
 		return "header";
 	}
 	
+	@RequestMapping(value = "/footer.do", method = RequestMethod.GET)
+	public String footer(Locale locale, Model model) {
+	
+		
+		return "footer";
+	}
+	
 	@RequestMapping(value = "/index.do")
 	public String home2() {
 	

@@ -116,5 +116,6 @@
             </div>
         </div>
     </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>
