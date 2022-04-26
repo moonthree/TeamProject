@@ -153,7 +153,7 @@
              $("#Table").append($(template).val());
 
          } else {
-             alert("더이상 생성할수 없습니다.");
+             alert("더 이상 생성할 수 없습니다.");
 
          }
 
