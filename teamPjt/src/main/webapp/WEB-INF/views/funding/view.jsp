@@ -52,7 +52,7 @@
                 <h3>50<span class="smalltext"> %달성</span></h3>
                 <h3>17,609,700<span class="smalltext"> 원 펀딩</span></h3>
                 <h3>500<span class="smalltext"> 명의 서포터</span></h3>
-                <button type="button" class="btn btn-info FVbtn">펀딩하기</button>
+                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
                 <button type="button" class="FVbtn2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                         viewBox="0 0 16 16">
