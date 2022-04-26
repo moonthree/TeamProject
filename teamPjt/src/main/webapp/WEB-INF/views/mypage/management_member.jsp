@@ -25,6 +25,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
+<main id="wrapper">
 	<div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -143,7 +144,7 @@
             </div>
         </div>
     </div>
-    
+</main>
     <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
         footer자리
     </div>

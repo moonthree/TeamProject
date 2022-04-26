@@ -25,6 +25,7 @@
 </head>
 <body>
     <c:import url="/header.do"></c:import>
+<main id="wrapper">    
     <div class="container">
         <h2 class="rftitle">펀딩 상품 등록</h2>
         <form>
@@ -120,6 +121,7 @@
         <input type="button" class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;">
         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
     </div>
+</main>
     <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
         footer자리
     </div>

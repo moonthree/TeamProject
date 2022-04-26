@@ -41,6 +41,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
+<main id="wrapper">
     <div class="container">
         <div class="row">
             <!--회원정보-->
@@ -263,7 +264,12 @@
                 </div>
               </div>
 
-            
+            </div>
         </div>
     </div>
+</main>
+    <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
+        footer자리
+    </div>
 </body>
+</html>

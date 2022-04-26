@@ -24,7 +24,9 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/approval.css">
 </head>
 <body>
+
 	<c:import url="/header.do"></c:import>
+<main id="wrapper">
 	<div class="container">
         <h2 class="apptitle">승인 대기 페이지</h2>
         <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
@@ -88,7 +90,7 @@
             </div>
         </div>
     </div>
-
+</main>
     <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
         footer자리
     </div>
