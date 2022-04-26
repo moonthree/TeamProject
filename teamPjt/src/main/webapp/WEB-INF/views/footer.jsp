@@ -5,37 +5,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
- 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<title>Insert title here</title>
+<style>
+    footer {
+        height: 300px;
+        position: relative;
+        transform: translateY(100%);
+    }
+    a{
+        color: black;
+    }
+    .nav-link {
+        padding: 0;
+    }
+    li{
+        margin-bottom: 7px;
+        padding: 0px 10px 0px 10px;
+    }
+</style>
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	        $(".dropdown-toggle").dropdown();
-	    });
-    </script>
- 
-
- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/footer.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown-toggle").dropdown();
+    });
+</script>
 </head>
 <body>
-	<footer>
-        <div class="ftr_01">
+    <footer>
+        <div style="border: 1px solid lightgray;">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12 ftrcol">
-                        <div class="ftrdrop01">
-                            <a href="#" class="ftr_alink01">
+                <div class="row" style="align-items: center; line-height: 3;">
+                    <div class="col-lg-2 col-sm-6" >
+                        <div>
+                            <a href="#">
                                 공지사항
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right"
-                                    viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
                                         d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
                                     <path fill-rule="evenodd"
@@ -43,14 +50,15 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="ftrdrop02">
-                            <ul class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown"
-                                    aria-expanded="false">
+                    </div>
+                    <div class="col-lg-2 col-sm-6">
+                        <div>
+                            <ul class="nav-item dropdown" style="padding-left: 0px; margin: 0 auto;">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                                     SNS
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li class="ftr_l01">
+                                    <li>
                                         <a href="https://www.youtube.com/">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube"
                                                 viewBox="0 0 16 16">
@@ -60,7 +68,7 @@
                                             유튜브
                                         </a>
                                     </li>
-                                    <li class="ftr_l01">
+                                    <li>
                                         <a href="https://www.instagram.com/">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram"
                                                 viewBox="0 0 16 16">
@@ -70,7 +78,7 @@
                                             인스타그램
                                         </a>
                                     </li>
-                                    <li class="ftr_l01">
+                                    <li>
                                         <a href="https://twitter.com/">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter"
                                                 viewBox="0 0 16 16">
@@ -82,80 +90,81 @@
                                     </li>
                                 </ul>
                             </ul>
-                        </div>                     
+                        </div>
                     </div>
-                    <div class="col-lg-4">
-
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="ftrdrop03">
-                            <ul class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown"
-                                    aria-expanded="false">
-                                    제휴문의
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li class="ftr_l01">
-                                        <span class="ftr_sp01">광고 서비스 문의</span><br>
-                                        pdAD@petdding.kr
-                                    </li>
-                                    <li class="ftr_l01">
-                                        <span class="ftr_sp01">파트너 제휴 문의</span><br>
-                                        pdPartnership@petdding.kr
-                                    </li>
-                                    <li class="ftr_l01">
-                                        <span class="ftr_sp01">IP 제휴 문의</span><br>
-                                        pdIP@petdding.kr
-                                    </li>
-                                </ul>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2 col-sm-6">
+                        <ul class="nav-item dropdown" style="padding-left: 0px; margin: 0 auto;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown"
+                                aria-expanded="false">
+                                제휴문의
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li>
+                                    <div style="font-weight: bold;">광고 서비스 문의</div>
+                                    <div style="font-size: 11pt;">pdAD@petdding.kr</div>
+                                </li>
+                                <li>
+                                    <div style="font-weight: bold;">파트너 제휴 문의</div>
+                                    <div style="font-size: 11pt;">pdPartnership@petdding.kr</div>
+                                </li>
+                                <li>
+                                    <div style="font-weight: bold;">IP 제휴 문의</div>
+                                    <div style="font-size: 11pt;">pdIP@petdding.kr</div>
+                                </li>
                             </ul>
-                        </div>
-                        <div class="ftrdrop04">
-                            <a href="#">개인정보처리방침
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="ftrdrop04 ftrdrop042">
-                            <a href="#">정책 · 약관
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-                                    <path fill-rule="evenodd"
-                                        d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-                                </svg>
-                            </a>
-                        </div>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-sm-6">
+                        <a href="#">정책 · 약관
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                                <path fill-rule="evenodd"
+                                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-sm-6">
+                        <a href="#">개인정보처리방침
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                                <path fill-rule="evenodd"
+                                    d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container ftr_02">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        소비자 고객센터&nbsp; <span class="verticalbar">|</span> &nbsp;사업자 고객센터<br>
-                        <span class="csnum">1111-1111</span>&nbsp;&nbsp;&nbsp;<span class="csnum">2222-2222</span><br>
-                        상담 가능 시간 : 평일 오전 9시 ~ 오후 6시 (주말, 공휴일 제외)<br>
-                        <br>
-                        <span class="spbold">이메일(24시간 접수 가능)</span><br>
-                        펀딩 : help.funding@petdding@.kr<br>
-                        스토어 : help.store@petdding@.kr<br>
+    <div style="margin: 20px 0px; padding-bottom: 50px;">
+        <div class="container">
+            <div class="row" style="line-height: 2;">
+                <div class="col-lg-6 col-sm-12">
+                    <div>
+                        <div style="display: inline-block; padding-right: 20px; text-align: center; font-weight: bold;">소비자 고객센터<br>1111-1111</div>
+                        <div style="display: inline-block; padding-left: 20px; border-left: 2px solid lightgray; text-align: center; font-weight: bold;">사업자 고객센터<br>2222-2222</div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
-                        펫딩㈜ <span class="verticalbar">|</span> 대표이사 펫딩딩 <span class="verticalbar">|</span> 사업자등록번호 000-00-00000<br>
-                        전라북도 전주시 덕진구 백제대로 572 4층 407호<br>
-                        <span class="spbold">© petdding Co., Ltd.</span>
+                    <div style="font-size: small; margin: 10px 0px; color: gray;">
+                        	상담 가능 시간 : 평일 오전 9시 ~ 오후 6시 (주말, 공휴일 제외)
                     </div>
+                <br>
+                <div style="margin-bottom: 20px;">
+                    <div style="font-weight: bold;">이메일(24시간 접수 가능)</div>
+			                    펀딩 : help.funding@petdding@.kr<br>
+			                    스토어 : help.store@petdding@.kr<br>
                 </div>
             </div>
+            <div class="col-lg-6 col-sm-12">
+		                펫딩㈜ <span class="verticalbar">|</span> 대표이사 펫딩딩 <span class="verticalbar">|</span> 사업자등록번호 000-00-00000<br>
+		                전라북도 전주시 덕진구 백제대로 572 4층 407호<br>
+                © petdding Co., Ltd.
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 </body>
 </html>
