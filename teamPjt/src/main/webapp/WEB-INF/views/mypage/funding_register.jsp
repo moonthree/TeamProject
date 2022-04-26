@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <td><input type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
-                            <td><input type="number" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
+                            <td><input type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
                             <td><input type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
                             <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                         </tr>
@@ -72,7 +72,7 @@
                     <textarea id="template" style="display:none;">
                             <tr id="addRow">
                                 <td><input type="text" class="text"    name="name1"   style="width:100%;"  placeholder="옵션명"/></td>            
-                                <td><input type="text" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
+                                <td><input type="text" min="0" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
                                 <td><input type="text" class="text"    name="name3"  style="width:100%;"   placeholder="상세"/></td>
                                 <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                             </tr>
@@ -96,22 +96,21 @@
             <div class="form-group">
                 <label>썸네일</label>
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="" placeholder="썸네일 등록"
-                        style="width: 68%;"> &nbsp;
+                    <input type="file" class="form-control" id="" placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
                     <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
                 </div>
             </div>
             <div class="form-group">
                 <label>프로젝트 계획</label>
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="" placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
+                    <input type="file" class="form-control" id="" placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
                     <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
                 </div>
             </div>
             <div class="form-group">
                 <label>공지 등록</label>
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="" placeholder="공지 등록" style="width: 68%;"> &nbsp;
+                    <input type="file" class="form-control" id="" placeholder="공지 등록" style="width: 68%;"> &nbsp;
                     <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
                 </div>
             </div>
