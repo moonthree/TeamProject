@@ -33,6 +33,11 @@ public class MypageController {
 		return "mypage/management_product";
 	}
 	
+	@RequestMapping(value = "/management_member.do")
+	public String management_member() {
+		return "mypage/management_member";
+	}
+	
 	
 	
 }
