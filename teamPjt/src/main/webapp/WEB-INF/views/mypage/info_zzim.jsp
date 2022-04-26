@@ -28,7 +28,7 @@
 </head>
 <body>
 <c:import url="/header.do"></c:import> 
-
+<main id="wrapper">
     <div class="container" style="background-color: white;">
         <div class="row">
             <!--펀딩&스토어&찜-->
@@ -207,6 +207,8 @@
     
         
       </div>
-
+</main>
+<c:import url="/footer.do"></c:import>
     
 </body>
+</html>

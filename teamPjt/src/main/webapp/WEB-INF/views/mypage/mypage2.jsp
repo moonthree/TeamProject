@@ -41,6 +41,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
+<main id="wrapper">
     <div class="container">
         <div class="row">
             <!--회원정보-->
@@ -263,7 +264,10 @@
                 </div>
               </div>
 
-            
+            </div>
         </div>
     </div>
+</main>
+<c:import url="/footer.do"></c:import>
 </body>
+</html>

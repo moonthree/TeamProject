@@ -13,6 +13,7 @@
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
+<main id="wrapper">
 	<div style="text-align:center;">
 		<table style="border:1px solid black; text-align : center; font-size : 20px;">
 			<thead>		
@@ -25,7 +26,7 @@
 				</tr>
 				<tr>
 					<td style="width:20%"><a href="info_funding.do">인포 펀딩</a></td>
-					<td style="width:20%"><a href="#">인포 펀딩 디테일</a></td>
+					<td style="width:20%"><a href="info_funding_detail.do">인포 펀딩 디테일</a></td>
 					<td style="width:20%"><a href="info_zzim.do">인포 찜</a></td>
 					<td style="width:20%"><a href="my_info.do">내 정보</a></td>
 					<td style="width:20%"><a href="my_info_modify.do">내 정보 수정</a></td>
@@ -186,4 +187,7 @@
         </div>
     </div>
     </div>
+</main>
+<c:import url="/footer.do"></c:import>
 </body>
+</html>
