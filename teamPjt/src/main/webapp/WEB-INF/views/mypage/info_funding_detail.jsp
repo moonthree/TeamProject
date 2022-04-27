@@ -219,7 +219,7 @@
             <div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-outline-dark" style="width: 250px;">배송지 정보 변경하기</button></div>
         </div>
         <div class="row" style="margin-top:100px"> 
-            <div class="col-sm-12"><button type="button" class="btn btn-outline-dark" style="width: 100%;">펀딩 목록 돌아가기</button></div>
+            <div class="col-sm-12"><button type="button" class="btn btn-outline-dark" style="width: 100%; height:70px" onclick="location.href='info_funding.do'">펀딩 목록 돌아가기</button></div>
         </div>
     </div>
     
