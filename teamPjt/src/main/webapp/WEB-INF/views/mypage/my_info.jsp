@@ -71,7 +71,7 @@
                     </tbody>
                 </table>
                 <div class="row"> 
-                    <div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-outline-dark" style="width: 100px;">정보 수정</button></div>
+                    <div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-outline-dark" style="width: 100px;" onclick="location.href='my_info_modify.do'">정보 수정</button></div>
                 </div>
             </div>
 
