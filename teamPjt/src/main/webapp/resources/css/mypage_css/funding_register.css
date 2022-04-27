@@ -1,5 +1,9 @@
 @charset "UTF-8";
-
+main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+}
 .rftitle{
     text-align: center;
     font-weight: bold;

@@ -21,6 +21,11 @@
 	    });
     </script>
 <style>
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
     button{
         margin-top: 10px;
     }
@@ -41,7 +46,7 @@
 	
 	<c:import url="/header.do"></c:import>
 	
-	
+	<main>
     <div class="container" style="text-align: center; margin-top: 6%; margin-bottom: 6%;">
         <div class="row" style="width: 400px; margin: 0px auto;">
             <div class="col-sm-12" style="text-align: left;">
@@ -115,5 +120,7 @@
             </div>
         </div>
     </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

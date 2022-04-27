@@ -26,7 +26,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
-	
+	<main>
 	<!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
         <img src="../resources/image/funding_main/doghome.png" class="card-img FVtitleImg" alt="...">
@@ -189,11 +189,9 @@
             </div>
         </div>
     </div>
-
+	</main>
     
 
-    <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
-        footer자리
-    </div>
+    <c:import url="/footer.do"></c:import>
 </body>
-</html>>
+</html>

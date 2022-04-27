@@ -9,6 +9,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <style>
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
     th{
         width: 90px;
     }
@@ -20,7 +25,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
-
+	<main>
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row" style="width: 100%;">
             <div class="col-xs-12">
@@ -96,5 +101,7 @@
             </div>
         </div>
     </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

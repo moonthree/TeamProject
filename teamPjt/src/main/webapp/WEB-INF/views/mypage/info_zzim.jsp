@@ -208,10 +208,7 @@
         
       </div>
 </main>
-<div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
-    footer자리
-</div>
-
+<c:import url="/footer.do"></c:import>
     
 </body>
 </html>

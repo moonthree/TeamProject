@@ -30,7 +30,7 @@
 </head>
 <body>
 	<%@include file ="../header.jsp" %>
-	
+	<main>
 	<div class="container">
         <div class="row" id="category">
             <div class="col-md-4 col-sm-12">
@@ -282,9 +282,7 @@
         </nav>
       
     </div>
-    
-    <div style="height: 300px; background-color: bisque; text-align: center; font-size: 30px; margin-top: 30px;">
-        footer 자리
-    </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

@@ -122,9 +122,7 @@
         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
     </div>
 </main>
-    <div style="height: 300px; background-color: antiquewhite; margin-top: 50px;">
-        footer자리
-    </div>
+<c:import url="/footer.do"></c:import>
 </body>
 
 <script>
