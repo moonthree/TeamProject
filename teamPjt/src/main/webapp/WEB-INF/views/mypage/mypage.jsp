@@ -35,6 +35,12 @@ $(document).on("click", ".menu div", function() {
 
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
+main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+}
+
 :root {
   --base-color: #303F9F;
   --second-color: #3F51B5;
@@ -148,12 +154,14 @@ ul.nacc li p {
   margin: 0;
 }
 
+
+
 </style>
 </head>
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
-<main id="wrapper">
+<main>
 	<div style="text-align:center;">
 		<table style="border:1px solid black; text-align : center; font-size : 20px;">
 			<thead>		
