@@ -181,7 +181,7 @@
                   </div>
                   <div class="row" style="text-align: center;">
                     <div class="col">
-                      <button type="button" class="btn btn-primary">새 펀딩 오픈 등록하기</button>
+                      <button type="button" class="btn btn-primary" onclick="location.href='funding_register.do'">새 펀딩 오픈 등록하기</button>
                     </div>
                   </div>
                 </div>

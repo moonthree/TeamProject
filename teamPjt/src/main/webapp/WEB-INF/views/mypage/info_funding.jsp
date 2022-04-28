@@ -50,9 +50,9 @@
                   <!--이미지-->
                   <div class="col-md-4 col-sm-12">
                       <div class="card">
-                          <a href="#">
+                          <a href="info_funding_detail.do">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat3.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
@@ -91,9 +91,9 @@
                   <!--이미지-->
                   <div class="col-md-4 col-sm-12">
                       <div class="card">
-                          <a href="#">
+                          <a href="info_funding_detail.do">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat3.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
@@ -132,9 +132,9 @@
                   <!--이미지-->
                   <div class="col-md-4 col-sm-12">
                       <div class="card">
-                          <a href="#">
+                          <a href="info_funding_detail.do">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat3.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
