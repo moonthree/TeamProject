@@ -35,6 +35,12 @@ $(document).on("click", ".menu div", function() {
 
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
+main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+}
+
 :root {
   --base-color: #303F9F;
   --second-color: #3F51B5;
@@ -150,20 +156,24 @@ main {
     min-height: 100%;
     padding-bottom: 800px;
 }
+.card{
+    border: none !important; 
+}
 @media screen and (max-width: 767px) { #outer { display: none; } }
+
+
 
 </style>
 </head>
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
-<main id="wrapper">
+<main>
 	<div style="text-align:center;">
 		<table style="border:1px solid black; text-align : center; font-size : 20px;">
 			<thead>		
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-					<td style="width:20%"><a href="funding_register.do">펀딩 등록 페이지</a></td>
 					<td style="width:20%"><a href="approval.do">상품 승인 페이지(관리자)</a></td>
 					<td style="width:20%"><a href="management_product.do">상품 관리 페이지(관리자)</a></td>
 					<td style="width:20%"><a href="management_member.do">회원 관리 페이지(관리자)</a></td>
@@ -174,16 +184,24 @@ main {
     <div class="container" >
         <!--회원정보 & 갯수-->
         <div class="row" style="margin-top: 10%;">
-            <div class="col-md-3 col-sm-12" >
+            <div class="col-md-4 col-sm-12" >
               <div style="box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05); border-radius: 10px;">
                 <div class="row"> 
                     <div class="col-sm-12">
-                      <button type="button" class="btn" onclick="location.href='my_info.do'"><h5>***님 ></h5></button>
-                      &nbsp;&nbsp;abcd@naver.com
+                     
                     </div>
                 </div>
               
               <table class="table">
+              	<thead>
+              	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
+              		<th colspan="3">
+              			<h5>***님 > </h5>
+              			asdseef@naver.com
+                    </th>
+              	</tr>
+              		
+              	</thead>
                 <tbody>
                   <tr>
                       <td>이름</td>
@@ -204,13 +222,13 @@ main {
                   
             </div>
               
-              <div class="col-md-9 cols-sm-12">
+              <div class="col-md-8 cols-sm-12">
                 <div class="container" style="width: 90%;">
                   
                   <div class="row row-cols-3 row-cols-md-3" id="outer">
                     <div class="col">
                       <div class="card">
-                        <div class="card-body" style=" height: 200px; text-align: center; background-color: #e3efe7;">
+                        <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">0</h5>
                           <strong class="card-text" style="font-size: x-large;">펀딩</strong>
                         </div>
@@ -218,7 +236,7 @@ main {
                     </div>
                     <div class="col">
                       <div class="card">
-                        <div class="card-body" style=" height: 200px; text-align: center; background-color: #e3efe7;">
+                        <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">3</h5>
                           <strong class="card-text" style="font-size: x-large;">상품</strong>
                         </div>
@@ -226,7 +244,7 @@ main {
                     </div>
                     <div class="col">
                       <div class="card">
-                        <div class="card-body" style=" height: 200px; text-align: center; background-color: #e3efe7;">
+                        <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">3</h5>
                           <strong class="card-text" style="font-size: x-large;">찜</strong>
                         </div>
@@ -242,7 +260,7 @@ main {
 
             <!-- 펀딩내역 & 주문 내역 & 찜 목록 -->
             <div class="row mt-5" style="position:relative;">
-              <div class="col-md-3 col-sm-12">
+              <div class="col-md-4 col-sm-12">
                 <div class="menu">
                   <div class="active"><span class="light"></span><span>펀딩 내역</span></div>
                   <div><span class="light"></span><span>주문 내역</span></div>
@@ -259,7 +277,7 @@ main {
               
             <div class="col-md-1 col-sm-12"></div>
             <!--펀딩&스토어&찜-->
-            <div class="col-md-7 col-sm-12" style="margin-left: 30px;">
+            <div class="col-md-6 col-sm-12" style="margin-left: 30px;">
               <!--아코디언 탭-->
               <div class="naccs">
                 <div class="grid">

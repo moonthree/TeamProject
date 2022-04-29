@@ -1,0 +1,308 @@
+
+
+svg:hover{
+    fill: #00a2a2;
+}
+
+/*
+    section01 (취향 맞춤 펀딩 프로젝트) css 시작 
+*/
+.section01_taste{
+    height: 570px;
+    border-right: 1px solid #e5e5e5;
+}
+
+.section01_h3{
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.section01_p{
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+.section01_card{
+    width: 100%;
+    border: none;
+}
+
+.section01_card > img{
+    height: 130px;
+    width: 100%;
+}
+
+.card-body{
+    padding-top: 3px;
+    padding-left: 0px;
+    padding-bottom: 10px;
+}
+.card-text{
+    font-size: 15px;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+.card_text02{
+    padding-top: 0px;
+    color: #00a2a2;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.card_text02 > span{
+    color: #9aa8b9;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .section01_card > .card-img-top{
+        height: 180px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .section01_taste{
+        border-right: none;
+    }
+    .section01_card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .section01_taste {
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+        height: 100%;
+    }
+
+    .section01_card {
+        width: 70%;
+        height: 100%;
+    }
+}
+
+/*section01 (실시간 랭킹) */
+.section01_rank{
+    padding-left: 30px;
+    padding-right: 0px;
+}
+#pills-tab{
+    margin-bottom: 0px!important;
+}
+
+.section01_nav > a{
+    color: gray;
+    padding-left: 0px;
+}
+.section01_nav > a.active{
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+}
+
+.card_rank_num{
+    padding-top: 3px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.section01_rank_card{
+    border: none;
+    margin-bottom: 0px !important;
+}
+
+.section01_rank_img{
+    width: 100%;
+    height: 75px;
+    border-radius: 10px;
+}
+
+.card_rank_text02 {
+    padding-top: 0px;
+    color: #00a2a2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.card_rank_text02>span {
+    color: #9aa8b9;
+}
+
+.won{
+    color: #515558!important;
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .section01_rank {
+        padding-left: 0px;
+        padding-right: 0px;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .section01_rank_img01{
+        text-align: right;
+    }
+    .section01_rank_img {
+        width: 50%;
+        height: 75px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section01_rank {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .section01_rank_img01 {
+        text-align: right;
+    }
+    
+    .section01_rank_img {
+        width: 50%;
+        height: 75px;
+        margin-bottom: 20px;
+    }
+}
+
+/*
+    section03 스토어 추천 제품
+*/
+.section03{
+    margin-top: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.section03_h3 {
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.section03_p {
+    opacity: 0.8;
+    font-weight: bold;
+}
+.section03_card{
+    border: none;
+}
+
+.card_store_text02 {
+    padding-top: 0px;
+    color: #00a2a2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.card-img-top{
+    border-radius: 10px;
+}
+
+.card_store_text02>span {
+    color: #9aa8b9;
+}
+
+.won {
+    color: #515558 !important;
+}
+
+@media (min-width: 992px) {
+    .section03_carttop > .col-lg-2{
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .section03_card {
+        margin-bottom: 10px;
+    }
+}
+
+
+/*
+    section04 주목 하세요! 새로 오픈한 프로젝트
+*/
+.section04 {
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+.section04_h3 {
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.section04_p {
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+.section04_card{
+    height: 180px;
+}
+
+.section04_card_text{
+    padding-left: 13px !important;
+}
+
+.section04_img{
+    width: 100%;
+    height: 93%;
+    border-radius: 10px;
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+.section04_card_text > p.card-text{
+    font-size: 17px;
+}
+
+.section04_card_text>p.card-title {
+    margin-bottom: 0px !important;
+}
+
+.section04_funding{
+    color: #00a2a2;
+    font-weight: bold;
+}
+
+.section04_funding >span {
+    color: #9aa8b9;
+}
+
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .section04_card_text>p.card-text {
+        font-size: 14px;
+    }
+
+    .section04_img {
+        width: 100%;
+        height: 85%;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 992px) {
+    .section04_card_text>p.card-text {
+        font-size: 16px;
+    }
+
+    .section04_img {
+        width: 100%;
+        height: 80%;
+    }
+    
+    .section04_row01 > .col-lg-4{
+        margin-bottom: 20px;
+    }
+}

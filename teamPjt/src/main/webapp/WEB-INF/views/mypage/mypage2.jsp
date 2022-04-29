@@ -32,38 +32,40 @@
 <main id="wrapper">
  <div class="container">
         <div class="row" style="margin-top: 10%;">
-          <div class="col-md-3 col-sm-12" >
+          <div class="col-md-4 col-sm-12" >
             <div style="box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05); border-radius: 10px;">
-              <div class="row"> 
-                  <div class="col-sm-12">
-                    <button type="button" class="btn"><h5>***님 ></h5></button>
-                    &nbsp;&nbsp;abcd@naver.com
-                  </div>
-              </div>
-            
-            <table class="table">
-              <tbody>
-                <tr>
-                    <td>이름</td>
-                    <td>***</td>
-                </tr>
-                <tr>
-                    <td>전화번호</td>
-                    <td>***</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>***</td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="table">
+              	<thead>
+              	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
+              		<th colspan="3">
+              			<h5>***님 > </h5>
+              			asdseef@naver.com
+                    </th>
+              	</tr>
+              		
+              	</thead>
+                <tbody>
+                  <tr>
+                      <td>이름</td>
+                      <td>***</td>
+                  </tr>
+                  <tr>
+                      <td>전화번호</td>
+                      <td>***</td>
+                  </tr>
+                  <tr>
+                      <td>이메일</td>
+                      <td>***</td>
+                  </tr>
+                </tbody>
+              </table>
 
             </div>
             
             <!--소비자 & 메이커 전환-->
             <div class="row mt-3">
               <div class="col">
-                <button type="button" class="button-13">서포터 페이지</button>
+                <button type="button" class="button-13" onclick="location.href='mypage.do'">서포터 페이지</button>
               </div>
             </div>
             <div class="row">
@@ -73,13 +75,13 @@
             </div>
             <div class="row">
               <div class="col">
-                <button type="button" class="button-59"><span style="display : block;">새 펀딩 오픈</span></button>
+                <button type="button" class="button-59" onclick="location.href='funding_register.do'"><span style="display : block;">새 펀딩 오픈</span></button>
               </div>
             </div>
           </div>
 
             
-            <div class="col-md-9 col-sm-12 scroll_item">
+            <div class="col-md-8 col-sm-12 scroll_item">
               
 
               <!--펀딩&스토어 전환버튼-->
@@ -193,7 +195,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
@@ -219,7 +221,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
@@ -245,7 +247,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
