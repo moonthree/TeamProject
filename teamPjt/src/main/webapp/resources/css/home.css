@@ -3,6 +3,12 @@
 svg:hover{
     fill: #00a2a2;
 }
+.d-block{
+    height: 400px;
+    width: 100%;
+}
+
+
 
 /*
     section01 (취향 맞춤 펀딩 프로젝트) css 시작 
