@@ -4,11 +4,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<meta charset="UTF-8">	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+
+<!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        $(".dropdown-toggle").dropdown();
+	    });
+    </script>
 <style>
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
     button{
         margin-top: 10px;
     }
@@ -29,8 +46,8 @@
 	
 	<c:import url="/header.do"></c:import>
 	
-	
-    <div class="container" style="text-align: center; margin-top: 10%; margin-bottom: 10%;">
+	<main>
+    <div class="container" style="text-align: center; margin-top: 6%; margin-bottom: 6%;">
         <div class="row" style="width: 400px; margin: 0px auto;">
             <div class="col-sm-12" style="text-align: left;">
                 <div><h3 style="margin-bottom: 50px; font-weight: 600; text-align: center;">회원가입</h3></div>
@@ -103,5 +120,7 @@
             </div>
         </div>
     </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>

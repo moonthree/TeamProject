@@ -1,0 +1,16 @@
+@charset "UTF-8";
+footer {
+        height: 300px;
+        position: relative;
+        transform: translateY(100%);
+    }
+    a{
+        color: black;
+    }
+    .nav-link {
+        padding: 0;
+    }
+    li{
+        margin-bottom: 7px;
+        padding: 0px 10px 0px 10px;
+    }

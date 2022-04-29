@@ -23,5 +23,10 @@ public class MemberController {
 	public String join_company() {
 		return "member/join_company";
 	}
+	
+	@RequestMapping(value = "/emailpw_find.do")
+	public String find() {
+		return "member/emailpw_find";
+	}
 
 }

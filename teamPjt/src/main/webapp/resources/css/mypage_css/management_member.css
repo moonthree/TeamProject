@@ -1,0 +1,43 @@
+@charset "UTF-8";
+main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+}
+.viewtab{
+    width: 50%;
+}
+.apptitle {
+    text-align: left;
+    font-weight: bold;
+    color: #693907;
+}
+
+a.nav-item{
+    text-align: center;
+}
+
+.nav-link.active{
+    background-color: #614124 !important;
+}
+
+th{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+
+td{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.tdtitle{
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .PMsearch{
+        float: right;
+    }
+}

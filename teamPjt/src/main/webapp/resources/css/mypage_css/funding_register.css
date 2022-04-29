@@ -1,0 +1,36 @@
+@charset "UTF-8";
+main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+}
+.rftitle{
+    text-align: center;
+    font-weight: bold;
+    color: #693907;
+}
+
+.inputtext{
+    width: 100%;
+}
+
+.table{
+    width: 50%;
+}
+
+#fCategory{
+    width: 100%;
+}
+
+.ftime{
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+label{
+    font-weight: bold;
+    color: #cea36b;
+    margin-top: 20px;
+    font-size: 30px;
+}
+

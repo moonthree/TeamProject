@@ -12,9 +12,26 @@ public class FundingController {
 	
 	@RequestMapping(value = "/main.do")
 	public String main() {
-		
-		
 		return "funding/main";
 	}
 	
+	@RequestMapping(value = "/view.do")
+	public String view() {
+		return "funding/view";
+	}
+	
+	@RequestMapping(value = "/option.do")
+	public String option() {
+		return "funding/option";
+	}
+	
+	@RequestMapping(value = "/reserve.do")
+	public String reserve() {
+		return "funding/reserve";
+	}
+	
+	@RequestMapping(value = "/reserve_complete.do")
+	public String reserveComplete() {
+		return "funding/reserve_complete";
+	}
 }

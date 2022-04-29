@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -14,18 +16,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/funding_css/funding_main.css">
+        
+     
+    <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
+<!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        $(".dropdown-toggle").dropdown();
+	    });
+    </script>
+ 
+ 
 </head>
 <body>
-	<c:import url="/header.do"></c:import>
-	
+	<%@include file ="../header.jsp" %>
+	<main>
 	<div class="container">
         <div class="row" id="category">
             <div class="col-md-4 col-sm-12">
                 <a href="#">
                     <img src="../resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
-                    강아지abcd
+                    강아지
                 </a>
             </div>
             <div class="col-md-4 col-sm-12">
@@ -71,7 +83,7 @@
         <div class="row fundingRow">
             <div class="col-md-4 col-sm-12">
                 <div class="card">
-                    <a href="#">
+                    <a href="view.do">
                     <img src="../resources/image/funding_main/doghome.png" class="card-img-top img2" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h5>
@@ -270,9 +282,7 @@
         </nav>
       
     </div>
-    
-    <div style="height: 300px; background-color: bisque; text-align: center; font-size: 30px; margin-top: 30px;">
-        footer 자리
-    </div>
+    </main>
+    <c:import url="/footer.do"></c:import>
 </body>
 </html>
