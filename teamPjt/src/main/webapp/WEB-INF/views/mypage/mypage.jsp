@@ -46,7 +46,6 @@ $(document).on("click", ".menu div", function() {
 
 
 body {
-  position: relative;
   font-family: 'Oswald', sans-serif;
   background: var(--light);
 }
@@ -58,7 +57,7 @@ body {
 
 .gc {
   box-sizing: border-box;
-  display: inline-block;
+  
   margin-right: -.25em;
   min-height: 1px;
   padding-left: 40px;
@@ -74,7 +73,7 @@ body {
 }
 
 .naccs {
-  position: relative;
+  
   max-width: 100%;
 }
 
@@ -85,7 +84,6 @@ body {
   background: --;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  position: relative;
   vertical-align: middle;
   font-weight: 700;
   transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -98,7 +96,7 @@ body {
 .menu div span.light {
   height: 10px;
   width: 10px;
-  position: absolute;
+ 
   top: 24px;
   left: 15px;
   background-color: var(--green-color);
@@ -147,6 +145,12 @@ ul.nacc li.active {
 ul.nacc li p {
   margin: 0;
 }
+main {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 800px;
+}
+@media screen and (max-width: 767px) { #outer { display: none; } }
 
 </style>
 </head>
@@ -203,7 +207,7 @@ ul.nacc li p {
               <div class="col-md-9 cols-sm-12">
                 <div class="container" style="width: 90%;">
                   
-                  <div class="row row-cols-3 row-cols-md-3">
+                  <div class="row row-cols-3 row-cols-md-3" id="outer">
                     <div class="col">
                       <div class="card">
                         <div class="card-body" style=" height: 200px; text-align: center; background-color: #e3efe7;">
@@ -237,7 +241,7 @@ ul.nacc li p {
             </div>
 
             <!-- 펀딩내역 & 주문 내역 & 찜 목록 -->
-            <div class="row mt-5">
+            <div class="row mt-5" style="position:relative;">
               <div class="col-md-3 col-sm-12">
                 <div class="menu">
                   <div class="active"><span class="light"></span><span>펀딩 내역</span></div>
@@ -246,11 +250,9 @@ ul.nacc li p {
                 </div>
                 <!--공지사항 & 고객센터-->
                 <div class="row">
-                  <div class="col-md-6 col-sm-6">
-                    <button type="button" class="btn" style="background-color: white;">공지사항</button>
-                  </div>
-                  <div class="col-md-6 col-sm-6" style="text-align: right;">
-                    <button type="button" class="btn" style="background-color: white;">고객센터</button>
+                  <div class="col" style="text-align:right;">
+                    <button type="button" class="btn" style="background-color: white; width:130px">공지사항</button>
+                    <button type="button" class="btn" style="background-color: white; width:130px;">고객센터</button>
                   </div>
                 </div>
               </div>
@@ -285,7 +287,7 @@ ul.nacc li p {
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
+                  <div class="col-lg-4 col-md-12 col-sm-12" id="outer">
                     <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
                       <img src="../resources/image/funding_main/dog123.png" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
@@ -319,7 +321,7 @@ ul.nacc li p {
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
+                  <div class="col-lg-4 col-md-12 col-sm-12" id="outer">
                     <div class="card">
                       <img src="../resources/image/funding_main/dog123.png" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
@@ -353,7 +355,7 @@ ul.nacc li p {
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-12 col-sm-12" id="outer">
                   <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
                     <img src="../resources/image/funding_main/cat123.png" class="card-img-top embed-responsive-item" alt="funding_img">
                     <div class="card-body">
@@ -373,7 +375,7 @@ ul.nacc li p {
     </div>
 </main>
 <c:import url="/footer.do"></c:import>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
