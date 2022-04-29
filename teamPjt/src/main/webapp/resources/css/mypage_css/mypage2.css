@@ -1,0 +1,165 @@
+@charset "UTF-8";
+.card{
+    border: none !important; 
+}
+ .mydiv{
+    height: 800px;
+    overflow: auto;
+    overflow-x: hidden
+  }
+  card {
+    object-fit: cover;
+  }
+  .nav-link.active{
+      background-color: #6141245f !important;
+      color: white !important;
+  }
+  .nav-link:hover{
+  	color:black;
+  }
+
+/*이미지 콘테이너 1:1 비율*/
+.img-container{
+        overflow: hidden;
+    }
+    .card-img-top{
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        transition: all 0.1s linear;
+    }
+    .card-img-top:hover{
+        transform: scale(1.05);
+    }
+    .card{
+        border: none;
+    }
+    
+
+/* CSS */
+.button-6 {
+  align-items : center;
+  background-color : #FFFFFF;
+  border : 1px solid rgba(0, 0, 0, 0.1);
+  border-radius : .25rem;
+  box-shadow : rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing : border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 10px;
+  margin: 0;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position : relative;
+  text-decoration : none;
+  transition : all 250ms;
+  user-select : none;
+  -webkit-user-select : none;
+  touch-action : manipulation;
+  vertical-align : baseline;
+  width : auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.button-6:hover {
+  transform: translateY(-1px);
+}
+
+.button-6:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+/* CSS */
+.button-13 {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 13px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.button-13:hover {
+  background-color: #f7fafa;
+}
+
+.button-13:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+
+/* CSS */
+.button-59 {
+  background-color: #fff;
+  border: 3px solid #6141245f;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,sans-serif;
+  font-size: 15x;
+  font-weight: 600;
+  line-height: 29px;
+  height: 48px;
+  padding: 0 13px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100%;
+  margin: 20px 0px;
+}
+
+.button-59:focus {
+  color: #171e29;
+}
+
+.button-59:hover {
+  border-color: rgba(249, 201, 10, 0.838);
+  color: rgba(249, 201, 10, 0.838);
+  fill: rgba(249, 201, 10, 0.838);
+}
+
+
+@media (min-width: 767px) and (max-width: 992px){
+  .card {
+    min-width: 690px;
+  }
+  .card-img-top{
+	height:200px;
+}
+
+
