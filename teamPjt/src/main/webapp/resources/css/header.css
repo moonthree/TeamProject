@@ -1,29 +1,25 @@
 @charset "UTF-8";
-
 a.navtext{
-    font-weight: bold;
-    color: #c19a6b;
-    font-size: 25px;
-    padding-left: 20px;
+    font-weight: 300;
+    color: #1B1A17;
+    font-size: 28px;
+    font-family: 'Jua', sans-serif;    
+    padding: 0px 8px;
     text-decoration: none;
 }
 a.navtext:hover {
-    color: #693907;
+    color: #191919;
 }
 
 a.navtext:link{
-    color: #c19a6b;
+    color: #191919;
 }
 
 a.navtext:visited {
-    color: #c19a6b;
+    color: #191919;
 }
 a.navtext:active {
     color: #693907;
-}
-
-a{
-    font-size: 15px;
 }
 
 a:hover{
@@ -37,4 +33,138 @@ a:visited{
 }
 a:active{
     color: black;
+}
+.more a.dropdown-item{
+    font-family: 'Jua', sans-serif;    
+    font-size: 20px;
+}
+.more .dropdown-menu {
+    text-align: center;
+}
+.more .dropdown-menu.show {
+    font-size: 25px;
+    display: block;
+    width: 30%;
+}
+
+.navbar-nav{
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: auto;
+}
+
+.navbar-toggler {
+    color: rgba(0,0,0,.5);
+    border-color: rgba(0,0,0,.1);
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    min-height: 44px;
+}
+
+/* 검색 */
+.search_container{
+    margin: 10px 10px;
+}
+.search_box{
+    width: 100%;
+    padding: 12px 12px;
+
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    
+    color: #575756;
+    background-color: transparent;
+
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 2px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+.search_input{
+    border: none;
+}
+
+.search_input::placeholder{
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.search_box:hover, .search_box:focus{
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+.search_input:focus{
+    outline: 0;
+}
+
+
+/* 로그인 회원가입 마이페이지 */
+.before_login a{
+    margin: 0;
+}
+
+.before_login, .after_login{
+    width: 180px;
+} 
+
+.mypage_box{
+    margin-left: 10px;
+    position: relative;
+    /* padding: 16px; */
+    display: inline-flex;
+    width: 180px;
+    min-width: 30px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(223, 223, 223);
+    box-sizing: border-box;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mypage_name{
+    display: inline-flex;
+    color: rgb(25, 25, 25);
+    font-size: 12px;
+    line-height: 28px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.mypage_name a{
+    text-decoration: none;
+    color: rgb(106, 104, 104);
+}
+
+@media (min-width: 0px) and (max-width: 992px) {
+    .before_login, .after_login{
+        visibility: hidden;
+    }
+}
+
+@media screen and (min-width: 992px){
+    .before_login2, .after_login2{
+        display: none;
+    }
+    .navbar-nav{
+        flex-direction: row;
+    }
 }

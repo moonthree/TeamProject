@@ -85,7 +85,7 @@
         </div>
         <!-- 선택 금액, 버튼 -->
         <div class="row">
-            <div style="margin-top: 50px auto; text-align: center;">
+            <div style="margin: 50px auto; text-align: center;">
                 <div style="font-weight: bold; font-size: 20px;">
                     어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <span style="color:#83BD75; text-decoration: underline;">100,000</span>원을 펀딩합니다.
                 </div>

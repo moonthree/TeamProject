@@ -46,4 +46,10 @@ public class HomeController {
 	
 		return "home";
 	}
+	
+	@RequestMapping(value = "/search.do")
+	public String search() {
+		
+		return "search";
+	}
 }
