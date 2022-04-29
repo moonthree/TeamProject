@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_view.css">
+    
 <title>펀딩 상세 내역</title>
 <style>
     main {
@@ -32,39 +34,22 @@
         padding: 30px;
         text-align: center;
     }
-    .background{
-        background-image: url(../resources/image/cat4.png);
-        background-size: cover;
-        width: 100%;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .backdrop{
-        width: 100%;
-        height: 200px;
-        
-        background-color: rgba(255,255,192,0.1);
-        backdrop-filter: blur(10px);
-        box-shadow: 2px 7px 15px 8px rgba(0,0,0,0.1);
-    }
 </style>
 </head>
 <body>
 <main id="wrapper">
 <c:import url="/header.do"></c:import>
-    <!--상단 제목-->
-        <!--이미지-->
-        <div class="background">
-            <div class="backdrop"></div>
+   <!-- 썸네일 -->
+    <div class="card bg-dark text-white topcard">
+        <img src="../resources/image/cat4.png" class="card-img FVtitleImg" alt="...">
+        <div class="card-img-overlay">
+            <br>
+            <h5 class="card-category">고양이 용품</h5>
+            <br>
+            <h3 class="card-title">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</h3>
         </div>
-        <!--텍스트-->
-        <div class="bg-text" style="margin-top:80px">
-            <h1 style="font-size:40px">[마지막 앵콜] 신개념 타이벡 커버 고양이 화장실 왕감자밭2</h1>
-        </div>
-        
-        
+    </div>
+    <!-- -->    
     <div class="container" >
         
     <!--본문-->
@@ -234,7 +219,7 @@
             <div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-outline-dark" style="width: 250px;">배송지 정보 변경하기</button></div>
         </div>
         <div class="row" style="margin-top:100px"> 
-            <div class="col-sm-12"><button type="button" class="btn btn-outline-dark" style="width: 100%;">펀딩 목록 돌아가기</button></div>
+            <div class="col-sm-12"><button type="button" class="btn btn-outline-dark" style="width: 100%; height:70px" onclick="location.href='info_funding.do'">펀딩 목록 돌아가기</button></div>
         </div>
     </div>
     

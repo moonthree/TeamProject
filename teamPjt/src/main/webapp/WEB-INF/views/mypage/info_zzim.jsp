@@ -42,7 +42,7 @@
                       <div class="card">
                           <a href="#">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat4.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
@@ -97,7 +97,7 @@
                       <div class="card">
                           <a href="#">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat4.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
@@ -152,7 +152,7 @@
                       <div class="card">
                           <a href="#">
                             <div class="embed-responsive embed-responsive-4by3">
-                              <img src="cat4.jpg" class="card-img-top embed-responsive-item" alt="tree">
+                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
                             </div>
                             </a>
                       </div>
