@@ -67,6 +67,10 @@ a:active{
     min-height: 44px;
 }
 
+.header li{
+	margin-bottom: 7px;
+    padding: 15px 10px 0px 10px;
+}
 /* 검색 */
 .search_container{
     margin: 10px 10px;
@@ -166,5 +170,11 @@ a:active{
     }
     .navbar-nav{
         flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .search_container{
+        display: none;;
     }
 }
