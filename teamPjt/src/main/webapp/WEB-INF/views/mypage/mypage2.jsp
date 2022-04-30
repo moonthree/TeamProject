@@ -22,8 +22,7 @@
     </script>
 
 
- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
-
+ <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/mypage2.css">
 
 <title>마이페이지</title>
 </head>
