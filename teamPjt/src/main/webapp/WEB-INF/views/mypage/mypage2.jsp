@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
 	    $(document).ready(function() {
@@ -22,7 +22,6 @@
     </script>
 
 
- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 
 
 <title>마이페이지</title>
@@ -30,12 +29,14 @@
 <body>
 <c:import url="/header.do"></c:import>
 <main id="wrapper">
- <div class="container">
+<div class="container">
         <div class="row" style="margin-top: 10%;">
           <div class="col-md-4 col-sm-12" >
             <div style="box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05); border-radius: 10px;">
-              <table class="table">
-              	<thead>
+              
+            
+            <table class="table">
+            <thead>
               	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
               		<th colspan="3">
               			<h5>***님 > </h5>
@@ -44,21 +45,21 @@
               	</tr>
               		
               	</thead>
-                <tbody>
-                  <tr>
-                      <td>이름</td>
-                      <td>***</td>
-                  </tr>
-                  <tr>
-                      <td>전화번호</td>
-                      <td>***</td>
-                  </tr>
-                  <tr>
-                      <td>이메일</td>
-                      <td>***</td>
-                  </tr>
-                </tbody>
-              </table>
+              <tbody>
+                <tr>
+                    <td>이름</td>
+                    <td>***</td>
+                </tr>
+                <tr>
+                    <td>전화번호</td>
+                    <td>***</td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td>***</td>
+                </tr>
+              </tbody>
+            </table>
 
             </div>
             
@@ -195,7 +196,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
@@ -221,7 +222,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
@@ -247,7 +248,7 @@
                               <div class="row">
                                 <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
                               </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:30px">
+                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
                                 <div class="col">
                                   <button type="button" class="button-6">수정</button>
                                 </div>
