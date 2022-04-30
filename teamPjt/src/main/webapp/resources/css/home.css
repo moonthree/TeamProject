@@ -3,6 +3,12 @@
 svg:hover{
     fill: #00a2a2;
 }
+.d-block{
+    height: 400px;
+    width: 100%;
+}
+
+
 
 .d-block{
 	height: 450px;
