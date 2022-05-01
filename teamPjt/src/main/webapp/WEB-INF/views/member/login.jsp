@@ -28,6 +28,7 @@
         padding-bottom: 300px;
     }
 </style>
+
 </head>
 <body>
 	<%-- <%@include file ="../header.jsp" %> --%>
