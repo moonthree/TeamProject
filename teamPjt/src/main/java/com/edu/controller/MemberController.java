@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,46 @@ public class MemberController {
 	@Autowired
 	private memberService memberService;
 
-	@RequestMapping(value = "/login.do")
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
 
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(MemberVO vo, HttpServletRequest request) {
+		
+		MemberVO member = memberService.selectOne(vo);
+		
+		if(member != null) {
+			
+			HttpSession session = request.getSession(true);
+			
+			MemberVO login = new MemberVO();
+			login.setMember_idx(member.getMember_idx());
+			login.setMember_email(member.getMember_email());
+			login.setMember_password(member.getMember_password());
+			login.setMember_name(member.getMember_name());
+			
+			session.setAttribute("login", login);
+			
+			return "redirect:/.do";
+			
+		}else {
+			return "regirect:login.do";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/logout.do")
+	public String logout(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value = "/join_select.do")
 	public String join_select() {
 		return "member/join_select";

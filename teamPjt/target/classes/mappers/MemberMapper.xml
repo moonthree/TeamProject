@@ -27,7 +27,26 @@
 			,#{member_level}
 			,now()
 		)
-
 	</insert>
-
+	
+	<select id="selectOne" parameterType="MemberVO" resultType="MemberVO">
+		SELECT member_idx
+			 , member_email
+			 , member_password
+			 , member_name
+			 , member_addr
+			 , member_phone
+			 , member_pet
+			 , member_level
+			 , member_join_date
+		FROM member
+	<if test="member_idx == 0">
+		WHERE member_email = #{member_email}
+		  AND member_password = #{member_password}
+	</if>
+	<if test="member_idx != 0">
+		WHERE member_idx = #{member_idx}
+	</if>
+	</select>
+	
 </mapper>

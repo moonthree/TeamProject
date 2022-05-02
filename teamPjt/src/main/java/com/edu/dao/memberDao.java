@@ -18,4 +18,7 @@ public class memberDao {
 		return sqlSession.insert("memberMapper.memberJoin",vo);
 	}
 	
+	public MemberVO selectOne(MemberVO vo) {
+		return sqlSession.selectOne("memberMapper.selectOne", vo);
+	}
 }
