@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+	
+	<insert id="memberJoin" parameterType="MemberVO">
+	INSERT INTO member
+		( 
+		   member_email
+		   ,member_password
+		   ,member_name
+		   ,member_addr
+		   ,member_phone
+		   ,member_pet
+		   ,member_level
+		   ,member_join_date
+		   
+		)
+		VALUES(
+			#{member_email}
+			,#{member_password}
+			,#{member_name}
+			,#{member_addr}
+			,#{member_phone}
+			,#{member_pet}
+			,#{member_level}
+			,now()
+		)
+
+	</insert>
+
+</mapper>

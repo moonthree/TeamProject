@@ -14,12 +14,53 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+        
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
+    
+    
+    
 	    $(document).ready(function() {
 	        $(".dropdown-toggle").dropdown();
+	        
 	    });
+	    //카카오 앱키 등록 
+	  	 Kakao.init('64ed36d1841e64546a5f0ad441b1cfe8');
+	   
+	    function Fnkakao() {
+	    	Kakao.Auth.login({
+	    		success: function(auth) {
+	    		  
+	    		    Kakao.API.request({
+	    		        url: '/v2/user/me',
+	    		        success: function(response) {
+	    		            console.log(response);
+	    		            var account = response.kakao_account;
+							
+							$('#form-kakao-login input[name=member_email]').val(account.email);
+							$('#form-kakao-login input[name=member_name]').val(account.profile.nickname);
+							$('#form-kakao-login input[name=member_img]').val(account.profile.image);
+							// 사용자 정보가 포함된 폼을 서버로 제출한다.
+							document.querySelector('#form-kakao-login').submit();
+	    		            
+	    		        },
+	    		        fail: function(error) {
+	    		            console.log(error);
+	    		        }
+	    		    });
+	    		    
+	    		  },
+	    		  fail: function(error) {
+	    		    console.log("카카오 로그인 실패");
+	    		  },
+	    			
+	    		
+	    	});
+	    	
+		  
+		}
     </script>
     
 <style>
@@ -55,7 +96,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #FF8C32;">일반 회원가입</h5>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'" class="btn btn-outline-dark btnmargin" style="width: 60%;">이메일로 회원가입</button>
-                        <button type="button" class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
+                        <button type="button" onclick="Fnkakao()"    class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
                         <button type="button" class="btn btn-outline-success btnmargin" style="width: 60%;">네이버</button><br>
                     </div>
                 </div>
@@ -81,6 +122,11 @@
         </div>
     </div>
     </main>
+    <form id="form-kakao-login" method="post" action="join_kakao.do">
+		    			<input type="hidden" name="member_email"/>
+		    			<input type="hidden" name="member_name"/>
+		    			<input type="hidden" name="member_img"/>
+	</form>
     <c:import url="/footer.do"></c:import>
 </body>
 </html>
