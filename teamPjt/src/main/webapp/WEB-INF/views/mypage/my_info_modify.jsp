@@ -78,28 +78,87 @@
         });
     })
 </script>
+<style>
+
+    /* Profile Section */
+
+.profile {
+    padding: 5rem 0;
+}
+
+.profile::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.profile-image {
+    float: left;
+    display: flex;
+    margin-right: 3rem;
+}
+
+.profile-image img {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 70%;
+}
+
+.profile-user-settings,
+.profile-stats,
+.profile-bio {
+    float: left;
+    width: calc(66.666% - 2rem);
+}
+
+.profile-user-settings {
+    margin-top: 1.5rem;
+}
+
+.profile-user-name {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.profile-edit-btn {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.8;
+    border: 0.1rem solid #dbdbdb;
+    border-radius: 0.3rem;
+    padding: 0 1rem;
+}
+
+
+</style>
 <title>내 정보 수정</title>
 </head>
 <body>
 <c:import url="/header.do"></c:import> 
 <main id="wrapper">
-    <div class="container" >
+    <div class="container" style="width: 100%;">
         <div class="row">
             <!--회원정보-->
             <div class="col-md-12 col-sm-12" style="margin-top: 10%;">
-                <h2>정보 수정</h2>
-                <table class="table">
-                    <thead class="table-light" style="border-bottom: 3px solid #06113C;">
-                        <tr>
-                            <th colspan="2">
-                                *** 님
-                            </th>
-                        </tr>
-                    </thead>
+                <h2>정보 수정 <button class="btn profile-edit-btn">수정 완료</button></h2> 
+                <div class="profile">
+                    <div class="profile-image">
+                        <img src="dog.jpg" alt="">
+                    </div>
+                    <div class="profile-user-settings">
+                        <h1 class="profile-user-name">홍길동</h1>
+                        <h5>일반 회원</h5>
+                        <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+
+                <table class="table" style="border-top: 3px solid #06113C;">
                     <tbody>
                         <tr>
                             <td>이메일</td>
-                            <td>***</td>
+                            <td>abfd123@naver.com</td>
                         </tr>
                         <tr>
                             <td>전화번호</td>
@@ -111,7 +170,23 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>우편번호</td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>주소</td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>나머지 주소</td>
                             <td>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
