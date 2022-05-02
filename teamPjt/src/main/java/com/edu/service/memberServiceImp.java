@@ -18,6 +18,11 @@ public class memberServiceImp implements memberService{
 		return dao.memberJoin(vo);
 	}
 
+	@Override
+	public MemberVO selectOne(MemberVO vo) {
+		return dao.selectOne(vo);
+	}
+
 	
 	
 }

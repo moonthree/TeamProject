@@ -6,4 +6,5 @@ public interface memberService {
 
 	int memberJoin(MemberVO vo);
 	
+	MemberVO selectOne(MemberVO vo);
 }
