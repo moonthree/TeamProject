@@ -62,12 +62,13 @@
                     <li class="nav-item">
                         <a class="navtext" href="#">기획전</a>
                     </li>
+                   
                     <li class="nav-item dropdown">
                     	<div class="more">
                             <a class="navtext dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-expanded="false">더보기</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">공지사항</a>
+                                <a class="dropdown-item" href="<%=request.getContextPath()%>/notice/notice_list.do">공지사항</a>
                                 <a class="dropdown-item" href="#">소개</a>
                                 <a class="dropdown-item" href="#">고객센터</a>
                             </div>

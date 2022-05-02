@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.memberService;
 import com.edu.vo.MemberVO;
@@ -52,9 +53,10 @@ public class MemberController {
 			phone += "-";
 		}
 		phone = phone.substring(0, phone.length() - 1);
-		System.out.println(phone);
 		vo.setMember_phone(phone);
 		System.out.println("post방식 " + vo.toString());
+		
+		
 
 		int result = memberService.memberJoin(vo);
 		response.setContentType("text/html; charset=euc-kr;");
@@ -71,11 +73,30 @@ public class MemberController {
 	@RequestMapping(value = "/join_kakao.do")
 	public String join_kakao(MemberVO vo, Model model, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
-
-		model.addAttribute("kakaoVo", vo);
-		return "member/join_company";
-
+		
+		int result = memberService.checkEmail(vo.getMember_email());
+		
+		if(result>=1) {
+			
+			return "member/login";
+		}
+		else {
+			System.out.println("섬네일 이미지 : " + vo.getMember_photo());
+			model.addAttribute("kakaoVo", vo);
+			return "member/join_company";
+			
+		}
+		
 	}
+	
+	
+	@RequestMapping(value="/check.do",method = RequestMethod.POST)
+	@ResponseBody
+	public int check(String email) {
+		
+		return memberService.checkEmail(email);
+	}
+	
 
 	@RequestMapping(value = "/emailpw_find.do")
 	public String find() {

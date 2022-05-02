@@ -32,7 +32,7 @@
 	    function Fnkakao() {
 	    	Kakao.Auth.login({
 	    		success: function(auth) {
-	    		  
+	 
 	    		    Kakao.API.request({
 	    		        url: '/v2/user/me',
 	    		        success: function(response) {
@@ -41,9 +41,17 @@
 							
 							$('#form-kakao-login input[name=member_email]').val(account.email);
 							$('#form-kakao-login input[name=member_name]').val(account.profile.nickname);
-							$('#form-kakao-login input[name=member_img]').val(account.profile.image);
+							
+							//섬네일 이미지
+							console.log(account.profile.thumbnail_image_url);
+							
+							//프로필 이미지
+							console.log(account.profile.profile_image_url);
+							
+							
+							$('#form-kakao-login input[name=member_photo]').val(account.profile.thumbnail_image_url);
 							// 사용자 정보가 포함된 폼을 서버로 제출한다.
-							document.querySelector('#form-kakao-login').submit();
+							  document.querySelector('#form-kakao-login').submit();
 	    		            
 	    		        },
 	    		        fail: function(error) {
@@ -125,7 +133,8 @@
     <form id="form-kakao-login" method="post" action="join_kakao.do">
 		    			<input type="hidden" name="member_email"/>
 		    			<input type="hidden" name="member_name"/>
-		    			<input type="hidden" name="member_img"/>
+		    			<input type="hidden" name="member_photo"/>
+		    				
 	</form>
     <c:import url="/footer.do"></c:import>
 </body>

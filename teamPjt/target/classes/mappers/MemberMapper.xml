@@ -15,6 +15,7 @@
 		   ,member_pet
 		   ,member_level
 		   ,member_join_date
+		   ,member_photo
 		   
 		)
 		VALUES(
@@ -26,8 +27,15 @@
 			,#{member_pet}
 			,#{member_level}
 			,now()
+			,#{member_photo}
 		)
 
 	</insert>
+	<select id="checkEmail" parameterType="String" resultType="int">
+		SELECT COUNT(*) 
+		FROM member
+		WHERE member_email = #{email}
+	</select>
+	
 
 </mapper>
