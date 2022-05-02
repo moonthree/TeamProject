@@ -33,21 +33,21 @@
 	<main>
 	<div class="container">
         <div class="row" id="category">
-            <div class="col-md-4 col-sm-12">
+            <div class="col-4">
                 <a href="#">
                     <img src="../resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
                     강아지
                 </a>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-4">
                 <a href="#">
                     <img src="../resources/image/funding_main/cat123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
                     고양이
                 </a>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-4">
                 <a href="#">
                     <img src="../resources/image/funding_main//other123.png" alt="photo" class="rounded-circle" width="300" height="300" />
                     <br>
