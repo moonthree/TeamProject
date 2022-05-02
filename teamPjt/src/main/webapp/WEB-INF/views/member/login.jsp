@@ -30,8 +30,6 @@
 </style>
 </head>
 <body>
-	<%-- <%@include file ="../header.jsp" %> --%>
-	
 	<c:import url="/header.do"></c:import>
 	
 	<main>
@@ -43,17 +41,17 @@
                 <button type="button" class="btn btn-outline-warning" style="width: 49%;">카카오</button>
                 <button type="button" class="btn btn-outline-success" style="width: 49%;">네이버</button>
                 <br><br>
-                <form>
+                <form action="login.do" method="post" id="login">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="email" name="member_email" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" name="member_password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
                     <br>
-                    <button type="button" class="btn btn-outline-info" style="width: 100%;">로그인</button>
+                    <button type="button" onclick="document.getElementById('login').submit();"  class="btn btn-outline-info" style="width: 100%;">로그인</button>
                     <br>
                     <br>
                     <a href="emailpw_find.do">이메일, 비밀번호 찾기</a> 
