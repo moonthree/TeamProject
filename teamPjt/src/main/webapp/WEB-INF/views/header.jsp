@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
  
-	
 
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
@@ -24,7 +23,8 @@
 
 </head>
 <body>
-    <!-- 로그인 전 -->
+
+<!-- 로그인 전 -->
 	<div style="box-shadow: 0 0 10px rgb(0 0 0 / 35%);">
 	<div class="container">
         <div class="header">
@@ -50,7 +50,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse header" id="navbarSupportedContent">
                 <!-- 펀딩 스토어 기획전 더보기 -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -103,6 +103,7 @@
     </div>
     </div>
 
+
     <!-- 로그인 후 -->
 	<div style="box-shadow: 0 0 10px rgb(0 0 0 / 35%);">
     <div class="container">
@@ -135,7 +136,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse header" id="navbarSupportedContent">
                 <!-- 펀딩 스토어 기획전 더보기 -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
