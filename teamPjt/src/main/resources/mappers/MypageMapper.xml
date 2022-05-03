@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MypageMapper">
+	
+	<update id="update_photo" parameterType="fileuploadVO">
+		UPDATE member
+		SET    member_photo = #{path}
+		WHERE  member_idx = #{member_idx}
+	</update>
+	
+	<update id="update_profile" parameterType="memberVO">
+		UPDATE member
+		SET	   member_addr = #{member_addr}
+			 , member_phone = #{member_phone}
+			 , member_pet = #{member_pet}
+	<if test="member_password != null and member_password neq ''">
+		, member_password = #{member_password}
+	</if>
+		WHERE  member_idx = #{member_idx}
+	</update>
+	
+	
+</mapper>
