@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Pagination;
 
 @Repository
@@ -15,7 +16,7 @@ public class fundingMainDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<FundingMainVO> list(Pagination page) throws Exception{
+	public List<FundingMainVO> listDog(Pagination page) throws Exception{
 		return sqlSession.selectList("FundingMainMapper.list", page);
 	}
 	public List<FundingMainVO> listCat(Pagination page) throws Exception{
@@ -36,5 +37,8 @@ public class fundingMainDAO {
 		return sqlSession.selectOne("FundingMainMapper.listOtherCount");
 	}
 	
-
+	// 펀딩 옵션
+	public List<Funding_optionVO> list(Funding_optionVO vo){
+		return sqlSession.selectList("FundingMainMapper.list", vo);
+	}
 }
