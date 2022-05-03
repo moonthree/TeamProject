@@ -64,8 +64,8 @@ $(document).on("click", ".menu div", function() {
               	<thead>
               	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
               		<th colspan="3">
-              			<h5>***님 > </h5>
-              			asdseef@naver.com
+              			<h5>${login.member_name}님 > </h5>
+              			${login.member_email}
                     </th>
               	</tr>
               		
@@ -73,15 +73,15 @@ $(document).on("click", ".menu div", function() {
                 <tbody>
                   <tr>
                       <td>이름</td>
-                      <td>***</td>
+                      <td>${member.member_name}</td>
                   </tr>
                   <tr>
                       <td>전화번호</td>
-                      <td>***</td>
+                      <td>${member.member_phone}</td>
                   </tr>
                   <tr>
                       <td>이메일</td>
-                      <td>***</td>
+                      <td>${member.member_email}</td>
                   </tr>
                 </tbody>
               </table>

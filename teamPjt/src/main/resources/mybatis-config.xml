@@ -9,5 +9,7 @@
 		<typeAlias type="com.edu.vo.FundingMainVO" alias ="fundingMainVO"/>
 		<typeAlias type="com.edu.vo.Funding_optionVO" alias="funding_optionVO"/>
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>
+		<typeAlias type="com.edu.vo.FileUploadVO" alias ="fileuploadVO"/>
+		
 	</typeAliases>
 </configuration>

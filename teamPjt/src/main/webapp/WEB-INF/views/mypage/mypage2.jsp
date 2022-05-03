@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -39,8 +40,8 @@
             <thead>
               	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
               		<th colspan="3">
-              			<h5>***님 > </h5>
-              			asdseef@naver.com
+              			<h5>${ member.member_name }님 > </h5>
+              			${ member.member_email }
                     </th>
               	</tr>
               		
@@ -48,15 +49,15 @@
               <tbody>
                 <tr>
                     <td>이름</td>
-                    <td>***</td>
+                    <td>${ member.member_name }</td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td>***</td>
+                    <td>${ member.member_phone }</td>
                 </tr>
                 <tr>
                     <td>이메일</td>
-                    <td>***</td>
+                    <td>${ member.member_email }</td>
                 </tr>
               </tbody>
             </table>
