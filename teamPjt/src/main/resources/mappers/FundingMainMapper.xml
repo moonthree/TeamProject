@@ -51,7 +51,7 @@
 	</select>
 	
 	<!-- 카테고리 별 상품 수 -->
-	<select id="listCount" resultType="int">
+	<select id="listDogCount" resultType="int">
 		SELECT COUNT(funding_idx)
 		FROM funding
 		where funding_category=0 AND funding_current_state=1;
@@ -95,6 +95,6 @@
 			   funding_option_detail,
 			   funding_option_stock
 		  FROM funding_option
-		 WHERE funding_idx = 1
+		 WHERE funding_idx = 1;
 	</select>
 </mapper>
