@@ -16,6 +16,7 @@ public class fundingMainServiceImpl implements fundingMainService{
 	
 	@Autowired
 	private fundingMainDAO dao;
+	//펀딩 메인 리스트
 	@Override
 	public List<FundingMainVO> listDog(Pagination page) throws Exception {
 		return dao.listDog(page);
@@ -24,30 +25,34 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public List<FundingMainVO> listCat(Pagination page) throws Exception {
 		return dao.listCat(page);
 	}
-
 	@Override
 	public List<FundingMainVO> listOther(Pagination page) throws Exception {
 		return dao.listOther(page);
 	}
 
-	
-	
+		
 	//게시물 총 갯수
 	@Override
 	public int listDogCount() throws Exception {
 		return dao.listDogCount();
 	}
-
-
 	@Override
 	public int listCatCount() throws Exception {
 		return dao.listCatCount();
 	}
-
 	@Override
 	public int listOtherCount() throws Exception {
 		return dao.listOtherCount();
 	}
+	
+	//펀딩 뷰
+	@Override
+	public FundingMainVO read(int funding_idx) throws Exception {
+		return dao.read(funding_idx);
+	}
+	
+	
+	
 	
 	// 펀딩 옵션
 	@Override

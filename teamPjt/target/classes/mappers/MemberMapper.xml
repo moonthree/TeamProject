@@ -47,6 +47,7 @@
 			 , member_pet
 			 , member_level
 			 , member_join_date
+			 , member_photo
 		FROM member
 	<if test="member_idx == 0">
 		WHERE member_email = #{member_email}

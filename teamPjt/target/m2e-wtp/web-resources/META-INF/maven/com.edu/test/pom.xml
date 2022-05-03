@@ -197,7 +197,20 @@
 		</dependency> -->
 
 
-		
+		<dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.2.1</version>
+      </dependency>
+
+      
+      <!-- https://mvnrepository.com/artifact/commons-io/-->
+      <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.10.0</version>
+      </dependency>
+
 		     
 	</dependencies>
 	<!-- jdbc를 사용하기 위해 repositories 태그 사용 -->
