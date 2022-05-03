@@ -2,6 +2,7 @@ package com.edu.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -18,9 +19,25 @@ public class MypageController {
 		return "mypage/mypage2";
 	}
 	
+	/* 펀딩 등록 메소드*/
 	@RequestMapping(value = "/funding_register.do")
 	public String funding_register() {
 		return "mypage/funding_register";
+	}
+	
+	
+	/*펀딩 미리보기 페이지*/
+	@RequestMapping(value="/funding_view.do", method = RequestMethod.GET)
+	public String funding_view1() {
+		
+		return "mypage/funding_view";
+	}
+	
+	
+	@RequestMapping(value="/funding_view.do", method = RequestMethod.POST)
+	public String funding_view2() {
+		
+		return "mypage/funding_view";
 	}
 	
 	@RequestMapping(value = "/approval.do")

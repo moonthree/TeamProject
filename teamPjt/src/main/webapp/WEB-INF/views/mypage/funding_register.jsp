@@ -28,7 +28,7 @@
 <main id="wrapper">    
     <div class="container">
         <h2 class="rftitle">펀딩 상품 등록</h2>
-        <form>
+        <form action="/funding_view.do" method="post">
             <div class="form-group">
                 <label for="exampleFormControlInput1">카테고리</label><br>
                 <select name="fCategory" id="fCategory">
@@ -115,11 +115,18 @@
                     <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
                 </div>
             </div>
+            
+            <br>
+       		<br>
+         <input  type="submit" class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;">
+         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
         </form>
+        <!-- 
         <br>
         <br>
-        <input type="button" class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;">
+        <input class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;"> 
         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
+        -->
     </div>
 </main>
 <c:import url="/footer.do"></c:import>
@@ -155,9 +162,6 @@
              alert("더 이상 생성할 수 없습니다.");
 
          }
-
-
-
      });
          
 </script>
