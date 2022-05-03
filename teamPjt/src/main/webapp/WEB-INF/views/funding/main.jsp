@@ -83,10 +83,12 @@
         </div>
       
         
-        <c:if test="${list.size() == 0 }">
+        <c:if test="${listDog.size() == 0 }">
         	등록된 게시글이 없습니다.
         </c:if>
-        <c:if test="${list.size() > 0 }">
+        
+        
+        <c:if test="${listDog.size() > 0 }">
         	<div class="row fundingRow">
 		        <c:forEach var="item" items="${listDog}">
 		        	<div class="col-md-4 col-sm-12 item">
@@ -119,7 +121,7 @@
 		                        </p>
 		                    </div>
 		                </div>
-		            </div>
+		           <!--  </div> -->
 	        	</c:forEach>
 		     </div>
         </c:if>

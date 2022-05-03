@@ -17,7 +17,7 @@ public class fundingMainDAO {
 	private SqlSession sqlSession;
 	
 	public List<FundingMainVO> listDog(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.list", page);
+		return sqlSession.selectList("FundingMainMapper.listDog", page);
 	}
 	public List<FundingMainVO> listCat(Pagination page) throws Exception{
 		return sqlSession.selectList("FundingMainMapper.listCat", page);
@@ -27,8 +27,8 @@ public class fundingMainDAO {
 	}
 	
 	// 펀딩 총 갯수
-	public int listCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listCount");
+	public int listDogCount() throws Exception{
+		return sqlSession.selectOne("FundingMainMapper.listDogCount");
 	}
 	public int listCatCount() throws Exception{
 		return sqlSession.selectOne("FundingMainMapper.listCatCount");

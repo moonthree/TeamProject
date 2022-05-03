@@ -128,6 +128,18 @@ public class FundingMainVO {
 		this.funding_express_fee = funding_express_fee;
 	}
 	
+	@Override
+	public String toString() {
+		return "FundingMainVO [funding_idx=" + funding_idx + ", member_idx=" + member_idx + ", funding_title="
+				+ funding_title + ", funding_thumbnail=" + funding_thumbnail + ", funding_content=" + funding_content
+				+ ", funding_notice=" + funding_notice + ", funding_target_price=" + funding_target_price
+				+ ", funding_current_price=" + funding_current_price + ", funding_start_date=" + funding_start_date
+				+ ", funding_end_date=" + funding_end_date + ", funding_permit_state=" + funding_permit_state
+				+ ", funding_current_state=" + funding_current_state + ", funding_write_date=" + funding_write_date
+				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
+				+ ", funding_express_fee=" + funding_express_fee + ", funding_views=" + funding_views + "]";
+	}
+	
 	
 	
 

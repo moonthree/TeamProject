@@ -84,7 +84,8 @@
       	<c:if test="${listCat.size() == 0 }">
         	등록된 게시글이 없습니다.
         </c:if>
-        <c:if test="${listCat.size() > 0 }">
+        
+        <c:if test="${listCat.size() > 0}">
         	<div class="row fundingRow">
 		        <c:forEach var="item" items="${listCat}">
 		        	<div class="col-md-4 col-sm-12">

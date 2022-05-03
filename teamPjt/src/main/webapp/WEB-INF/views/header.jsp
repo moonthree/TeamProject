@@ -9,9 +9,9 @@
 
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
-	    $(document).ready(function() {
-	        $(".dropdown-toggle").dropdown();
-	    });
+       $(document).ready(function() {
+           $(".dropdown-toggle").dropdown();
+       });
 
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
@@ -23,8 +23,8 @@
 
 </head>
 <body>
-	<div style="box-shadow: 0 0 10px rgb(0 0 0 / 35%);">
-	<div class="container">
+   <div style="box-shadow: 0 0 10px rgb(0 0 0 / 35%);">
+   <div class="container">
         <div class="header">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- 로고 -->
@@ -33,7 +33,7 @@
                 </a>
                 
                 <!-- 로그인 전 -->
-    			<c:if test="${login eq null}">
+             <c:if test="${login eq null}">
                 <div class="before_login2">
                     <div>
                         <div class="mypage_box">
@@ -90,7 +90,7 @@
                     </li>
                    
                     <li class="nav-item dropdown">
-                    	<div class="more">
+                       <div class="more">
                             <a class="navtext dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-expanded="false">더보기</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -98,7 +98,7 @@
                                 <a class="dropdown-item" href="#">소개</a>
                                 <a class="dropdown-item" href="#">고객센터</a>
                             </div>
-                    	</div>
+                       </div>
                     </li>
                 </ul>
                 <!-- 검색창 -->
@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <!-- 로그인 전 -->
-				<c:if test="${login eq null}">
+            <c:if test="${login eq null}">
                 <!-- 로그인 회원가입 버튼 -->
                 <div class="before_login">
                     <div>

@@ -48,7 +48,7 @@ public class FundingController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);
-		pageMaker.setTotalCount(fms.listCount());
+		pageMaker.setTotalCount(fms.listDogCount());
 		
 		model.addAttribute("pageMaker", pageMaker);
 		

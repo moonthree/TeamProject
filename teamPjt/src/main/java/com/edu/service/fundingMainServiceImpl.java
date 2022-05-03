@@ -34,8 +34,8 @@ public class fundingMainServiceImpl implements fundingMainService{
 	
 	//게시물 총 갯수
 	@Override
-	public int listCount() throws Exception {
-		return dao.listCount();
+	public int listDogCount() throws Exception {
+		return dao.listDogCount();
 	}
 
 

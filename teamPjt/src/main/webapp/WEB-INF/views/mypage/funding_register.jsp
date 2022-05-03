@@ -28,24 +28,28 @@
 <main id="wrapper">    
     <div class="container">
         <h2 class="rftitle">펀딩 상품 등록</h2>
-        <form action="/funding_view.do" method="post">
+      
+        <form action="funding_view.do" method="post">
+        <!-- 펀딩 카테고리  필드 -->
             <div class="form-group">
                 <label for="exampleFormControlInput1">카테고리</label><br>
-                <select name="fCategory" id="fCategory">
-                    <option value="dog">강아지</option>
-                    <option value="cat">고양이</option>
-                    <option value="etc">기타</option>
+                <select name="funding_category" id="fCategory">
+                    <option  value="0">강아지</option>
+                    <option value="1">고양이</option>
+                    <option value="2">기타</option>
                 </select>
             </div>
+            <!-- 펀딩 타이틀 필드 -->
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" class="form-control" id="fTitle" placeholder="이름 입력">
+                <input name="funding_title" type="text" class="form-control" id="fTitle" placeholder="이름 입력">
             </div>
+               <!-- 펀딩 목표금액 필드 -->
             <div class="form-group">
                 <label>펀딩 목표 금액</label>
-                <input type="number" class="form-control" id="fTargetPrice" placeholder="가격 입력" min="0">
+                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="가격 입력" min="0">
             </div>
-
+			 <!-- 펀딩 옵션 필드 -->
              <div class="form-group">
                 <label>제품 옵션</label>&nbsp;<span class="ftime">*최대 5개</span>
                 <button type="button" class="btn btn-outline-secondary" id="ADD">옵션 추가</button>
@@ -64,10 +68,12 @@
                             <th scope="col">수량</th>
                         </tr>
                         <tr>
-                            <td><input type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
-                            <td><input type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
-                            <td><input type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
-                            <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
+                        <!-- 펀딩 옵션  name 맞춤-->
+                            <td><input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
+                            <td><input name="funding_option_price" type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
+                            
+                            <td><input name="funding_option_price" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
+                            <td><input name="funding_option_stock" type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                         </tr>
                     </table>
                     <textarea id="template" style="display:none;">
@@ -81,26 +87,32 @@
                 </div>
             </div>
 
+			<!-- 펀딩 기간 필드 -->
             <div class="form-group">
                 <label>펀딩 기간</label>&nbsp;<span class="ftime">*최소 15일 ~ 최대 6개월</span>
                 <br>
+                <!-- 펀딩 시작 기간 필드 -->
                 펀딩 오픈 :
-                <input type="date" id="start">
+                <input name="funding_start_date" type="date" id="start">
                 &nbsp;
                 ~
                 &nbsp;
+                <!-- 펀딩 종료 기간 필드 -->
                 펀딩 종료 :
-                <input type="date" id="end">
+                <input name="funding_end_date" type="date" id="end">
                 
             </div>
             
+            
+            <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
             <div class="form-group">
                 <label>썸네일</label>
                 <div class="form-inline">
-                    <input type="file" class="form-control" id="" placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
+                    <input name="funding_thumbnail" type="file" class="form-control" id="" placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
                     <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
                 </div>
             </div>
+             <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
             <div class="form-group">
                 <label>프로젝트 계획</label>
                 <div class="form-inline">

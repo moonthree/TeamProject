@@ -25,9 +25,11 @@
  
 </head>
 <body>
+	
 	<c:import url="/header.do"></c:import>
 	<main>
 	<!-- 썸네일 -->
+	
     <div class="card bg-dark text-white topcard">
         <img src="../resources/image/funding_main/doghome.png" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
@@ -44,13 +46,13 @@
                 <img src="../resources/image/funding_main/doghome.png" class="mainIMG" alt="...">
             </div>
             <div class="col-md-4 col-sm-12 topContent">
-                <h3>100일 남음</h3>
+                <h3></h3>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="0"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <h3>50<span class="smalltext"> %달성</span></h3>
-                <h3>17,609,700<span class="smalltext"> 원 펀딩</span></h3>
+                <h3>0<span class="smalltext"> %달성</span></h3>
+                <h3>0<span class="smalltext"> 원 펀딩</span></h3>
                 <h3>500<span class="smalltext"> 명의 서포터</span></h3>
                 <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
                 <button type="button" class="FVbtn2">
@@ -62,8 +64,8 @@
                     찜하기
                 </button>
                 <div class="fundingGoal">
-                    목표금액 : 35,219,400원<br>
-                    펀딩기간 : 2022.04.25~2022.07.25<br>
+                    목표금액 : ${funding.funding_target_price}<br>
+                    펀딩기간 : ${funding.funding_start_date}~${funding.funding_end_date}<br>
                     <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
                 </div>
             </div>

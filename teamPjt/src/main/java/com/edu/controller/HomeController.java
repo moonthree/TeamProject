@@ -26,19 +26,20 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/header.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/header.do")
 	public String header(Locale locale, Model model) {
 	
 		
 		return "header";
 	}
 	
-	@RequestMapping(value = "/footer.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/footer.do")
 	public String footer(Locale locale, Model model) {
 	
 		
 		return "footer";
 	}
+	
 	
 	@RequestMapping(value = "/index.do")
 	public String home2() {
