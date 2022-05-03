@@ -4,7 +4,7 @@
 
 <mapper namespace="FundingMainMapper">
 	<!-- 메인 페이지 리스트 출력 -->
-	<select id="list" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
+	<select id="listDog" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
 		SELECT funding_idx,
 			funding_title,
 			funding_thumbnail,
@@ -79,10 +79,10 @@
 			funding_end_date,
 			funding_permit_state,
 			funding_current_state,
-			funding_category
+			funding_category,
+			funding_views,
 		FROM funding
-		where funding_category=2
-		order by funding_idx desc limit #{rowStart}, 9;
+		where funding_idx = #{funding_idx}
 	</select>
 	
 	

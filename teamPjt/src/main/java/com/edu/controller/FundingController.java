@@ -42,9 +42,9 @@ public class FundingController {
 	private fundingMainService fms;
 		
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
-	public String list(Model model, Pagination page) throws Exception {
+	public String listDog(Model model, Pagination page) throws Exception {
 		
-		model.addAttribute("list",fms.list(page));
+		model.addAttribute("listDog",fms.list(page));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);

@@ -9,7 +9,7 @@ import com.edu.vo.Pagination;
 public interface fundingMainService {
 	
 	
-	List<FundingMainVO> list(Pagination page) throws Exception;
+	List<FundingMainVO> listDog(Pagination page) throws Exception;
 	List<FundingMainVO> listCat(Pagination page) throws Exception;
 	List<FundingMainVO> listOther(Pagination page) throws Exception;
 	

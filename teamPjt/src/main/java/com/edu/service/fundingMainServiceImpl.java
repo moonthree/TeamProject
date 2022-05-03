@@ -17,8 +17,8 @@ public class fundingMainServiceImpl implements fundingMainService{
 	@Autowired
 	private fundingMainDAO dao;
 	@Override
-	public List<FundingMainVO> list(Pagination page) throws Exception {
-		return dao.list(page);
+	public List<FundingMainVO> listDog(Pagination page) throws Exception {
+		return dao.listDog(page);
 	}
 	@Override
 	public List<FundingMainVO> listCat(Pagination page) throws Exception {

@@ -16,7 +16,7 @@ public class fundingMainDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<FundingMainVO> list(Pagination page) throws Exception{
+	public List<FundingMainVO> listDog(Pagination page) throws Exception{
 		return sqlSession.selectList("FundingMainMapper.list", page);
 	}
 	public List<FundingMainVO> listCat(Pagination page) throws Exception{

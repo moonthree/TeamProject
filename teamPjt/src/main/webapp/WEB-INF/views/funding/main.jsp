@@ -88,7 +88,7 @@
         </c:if>
         <c:if test="${list.size() > 0 }">
         	<div class="row fundingRow">
-		        <c:forEach var="item" items="${list}">
+		        <c:forEach var="item" items="${listDog}">
 		        	<div class="col-md-4 col-sm-12 item">
 		        		<div class="card">
 		                    <a href="view.do">
