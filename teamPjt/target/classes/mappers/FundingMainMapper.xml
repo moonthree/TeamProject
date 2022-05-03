@@ -79,9 +79,9 @@
 			funding_end_date,
 			funding_permit_state,
 			funding_current_state,
-			funding_category
+			funding_category,
+			funding_views,
 		FROM funding
-		where funding_category=2
-		order by funding_idx desc limit #{rowStart}, 9;
+		where funding_idx = #{funding_idx}
 	</select>
 </mapper>
