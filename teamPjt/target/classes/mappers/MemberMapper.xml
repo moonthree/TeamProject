@@ -15,6 +15,7 @@
 		   ,member_pet
 		   ,member_level
 		   ,member_join_date
+		   ,member_photo
 		   
 		)
 		VALUES(
@@ -26,8 +27,15 @@
 			,#{member_pet}
 			,#{member_level}
 			,now()
+			,#{member_photo}
 		)
 	</insert>
+
+	<select id="checkEmail" parameterType="String" resultType="int">
+		SELECT COUNT(*) 
+		FROM member
+		WHERE member_email = #{email}
+	</select>
 	
 	<select id="selectOne" parameterType="MemberVO" resultType="MemberVO">
 		SELECT member_idx
@@ -42,7 +50,12 @@
 		FROM member
 	<if test="member_idx == 0">
 		WHERE member_email = #{member_email}
-		  AND member_password = #{member_password}
+		
+		<!-- 카카오 로그인은 비밀번호가 null이기 때문에 자사 로그인과 카카오로그인 나눔 -->
+		<if test="member_password != null  ">
+			AND member_password = #{member_password}
+		</if>
+		 
 	</if>
 	<if test="member_idx != 0">
 		WHERE member_idx = #{member_idx}

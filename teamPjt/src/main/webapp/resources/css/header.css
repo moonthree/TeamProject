@@ -158,18 +158,6 @@ a:active{
     color: rgb(106, 104, 104);
 }
 
-
-.mypage_box .dropdown-item{
-	padding: 5px 20px;
-}
-
-.mypage_box li{
-	padding: 0px;
-}
-
-.mypage_box .dropdown-menu{
-	padding: 10px;
-}
 @media (min-width: 0px) and (max-width: 992px) {
     .before_login, .after_login{
         visibility: hidden;
@@ -187,6 +175,6 @@ a:active{
 
 @media screen and (max-width: 1200px) {
     .search_container{
-        display: none;
+        display: none;;
     }
 }

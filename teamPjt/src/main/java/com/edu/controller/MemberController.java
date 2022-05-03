@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.memberService;
 import com.edu.vo.MemberVO;
@@ -48,7 +49,8 @@ public class MemberController {
 			return "redirect:/.do";
 			
 		}else {
-			return "regirect:login.do";
+			
+			return "redirect:login.do";
 		}
 		
 	}
@@ -82,16 +84,22 @@ public class MemberController {
 		System.out.println("post방식");
 		String[] phones = request.getParameterValues("phone1");
 		String phone = "";
+		
+		String addr2 = request.getParameter("member_addr2");
+		
 		for (String s : phones) {
 
 			phone += s;
 			phone += "-";
 		}
 		phone = phone.substring(0, phone.length() - 1);
-		System.out.println(phone);
 		vo.setMember_phone(phone);
-		System.out.println("post방식 " + vo.toString());
-
+		String addr = vo.getMember_addr() + addr2;
+		vo.setMember_addr(addr);
+		
+		
+		System.out.println(vo.toString());
+		
 		int result = memberService.memberJoin(vo);
 		response.setContentType("text/html; charset=euc-kr;");
 		PrintWriter pw = response.getWriter();
@@ -107,11 +115,46 @@ public class MemberController {
 	@RequestMapping(value = "/join_kakao.do")
 	public String join_kakao(MemberVO vo, Model model, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
+		
+	
+		MemberVO member = memberService.selectOne(vo);
+		
+		if(member != null) {
+			//카카오 회원으로 회원가입 이미 했을 경우 자동 로그인됨
+				
+				
+				HttpSession session = request.getSession(true);
+				
+				MemberVO login = new MemberVO();
+				login.setMember_idx(member.getMember_idx());
+				login.setMember_email(member.getMember_email());
+				login.setMember_password(member.getMember_password());
+				login.setMember_name(member.getMember_name());
+				
+				
+				session.setAttribute("login", login);
+				
+				return "redirect:/.do";
+				
+		}else {
+				//카카오 회원으로 회원가입 한게 없을 경우
+				
+				model.addAttribute("kakaoVo", vo);
+				return "member/join_company";
+			}
+		}
 
-		model.addAttribute("kakaoVo", vo);
-		return "member/join_company";
-
+	
+	
+	
+	
+	@RequestMapping(value="/check.do",method = RequestMethod.POST)
+	@ResponseBody
+	public int check(String email) {
+		
+		return memberService.checkEmail(email);
 	}
+	
 
 	@RequestMapping(value = "/emailpw_find.do")
 	public String find() {
