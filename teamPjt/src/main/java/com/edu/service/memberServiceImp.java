@@ -19,11 +19,16 @@ public class memberServiceImp implements memberService{
 	}
 
 	@Override
+
 	public int checkEmail(String email) {
 		
 		return dao.checkEmail(email);
 	}
-
 	
+	public MemberVO selectOne(MemberVO vo) {
+		return dao.selectOne(vo);
+
+	}
+
 	
 }

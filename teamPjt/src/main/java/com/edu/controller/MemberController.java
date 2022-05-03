@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,47 @@ public class MemberController {
 	@Autowired
 	private memberService memberService;
 
-	@RequestMapping(value = "/login.do")
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
 
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(MemberVO vo, HttpServletRequest request) {
+		
+		MemberVO member = memberService.selectOne(vo);
+		
+		if(member != null) {
+			
+			HttpSession session = request.getSession(true);
+			
+			MemberVO login = new MemberVO();
+			login.setMember_idx(member.getMember_idx());
+			login.setMember_email(member.getMember_email());
+			login.setMember_password(member.getMember_password());
+			login.setMember_name(member.getMember_name());
+			
+			session.setAttribute("login", login);
+			
+			return "redirect:/.do";
+			
+		}else {
+			
+			return "redirect:login.do";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/logout.do")
+	public String logout(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value = "/join_select.do")
 	public String join_select() {
 		return "member/join_select";
@@ -47,6 +84,9 @@ public class MemberController {
 		System.out.println("post방식");
 		String[] phones = request.getParameterValues("phone1");
 		String phone = "";
+		
+		String addr2 = request.getParameter("member_addr2");
+		
 		for (String s : phones) {
 
 			phone += s;
@@ -54,10 +94,12 @@ public class MemberController {
 		}
 		phone = phone.substring(0, phone.length() - 1);
 		vo.setMember_phone(phone);
-		System.out.println("post방식 " + vo.toString());
+		String addr = vo.getMember_addr() + addr2;
+		vo.setMember_addr(addr);
 		
 		
-
+		System.out.println(vo.toString());
+		
 		int result = memberService.memberJoin(vo);
 		response.setContentType("text/html; charset=euc-kr;");
 		PrintWriter pw = response.getWriter();
@@ -74,20 +116,36 @@ public class MemberController {
 	public String join_kakao(MemberVO vo, Model model, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
 		
-		int result = memberService.checkEmail(vo.getMember_email());
+	
+		MemberVO member = memberService.selectOne(vo);
 		
-		if(result>=1) {
-			
-			return "member/login";
+		if(member != null) {
+			//카카오 회원으로 회원가입 이미 했을 경우 자동 로그인됨
+				
+				
+				HttpSession session = request.getSession(true);
+				
+				MemberVO login = new MemberVO();
+				login.setMember_idx(member.getMember_idx());
+				login.setMember_email(member.getMember_email());
+				login.setMember_password(member.getMember_password());
+				login.setMember_name(member.getMember_name());
+				
+				
+				session.setAttribute("login", login);
+				
+				return "redirect:/.do";
+				
+		}else {
+				//카카오 회원으로 회원가입 한게 없을 경우
+				
+				model.addAttribute("kakaoVo", vo);
+				return "member/join_company";
+			}
 		}
-		else {
-			System.out.println("섬네일 이미지 : " + vo.getMember_photo());
-			model.addAttribute("kakaoVo", vo);
-			return "member/join_company";
-			
-		}
-		
-	}
+
+	
+	
 	
 	
 	@RequestMapping(value="/check.do",method = RequestMethod.POST)

@@ -104,7 +104,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #FF8C32;">일반 회원가입</h5>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'" class="btn btn-outline-dark btnmargin" style="width: 60%;">이메일로 회원가입</button>
-                        <button type="button" onclick="Fnkakao()"    class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
+                        <button type="button" onclick="Fnkakao()" class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
                         <button type="button" class="btn btn-outline-success btnmargin" style="width: 60%;">네이버</button><br>
                     </div>
                 </div>
