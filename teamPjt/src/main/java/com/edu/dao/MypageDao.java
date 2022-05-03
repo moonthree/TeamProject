@@ -4,21 +4,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
 
 
 
 @Repository
-public class memberDao {
+public class MypageDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int memberJoin(MemberVO vo) {
-		return sqlSession.insert("memberMapper.memberJoin",vo);
+	public void update_photo(FileUploadVO vo) {
+		sqlSession.update("MypageMapper.update_photo", vo);
 	}
 	
-	public MemberVO selectOne(MemberVO vo) {
-		return sqlSession.selectOne("memberMapper.selectOne", vo);
+	public int update_profile(MemberVO vo) {
+		return sqlSession.update("MypageMapper.update_profile",vo);
 	}
+	
 }

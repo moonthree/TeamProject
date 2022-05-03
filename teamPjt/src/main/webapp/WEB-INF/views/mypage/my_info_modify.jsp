@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -79,8 +81,7 @@
     })
 </script>
 <style>
-
-    /* Profile Section */
+/* Profile Section */
 
 .profile {
     padding: 5rem 0;
@@ -130,7 +131,40 @@
     padding: 0 1rem;
 }
 
+/*파일 업로드 버튼*/
+.filebox label {
+  display: inline-block;
+  padding: .3em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .3em 25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
 
+.filebox label:hover {
+  background-color: #6ed36e;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 </style>
 <title>내 정보 수정</title>
 </head>
@@ -141,31 +175,68 @@
         <div class="row">
             <!--회원정보-->
             <div class="col-md-12 col-sm-12" style="margin-top: 10%;">
-                <h2>정보 수정 <button class="btn profile-edit-btn">수정 완료</button></h2> 
                 <div class="profile">
                     <div class="profile-image">
-                        <img src="dog.jpg" alt="">
+                        <c:choose>
+                        	<c:when test="${ empty member.member_photo }">
+                        		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                        	</c:when>
+                        	<c:otherwise>
+								<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                        	</c:otherwise>
+                        </c:choose>
                     </div>
+                    
                     <div class="profile-user-settings">
-                        <h1 class="profile-user-name">홍길동</h1>
-                        <h5>일반 회원</h5>
-                        <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                        <h1 class="profile-user-name">${ member.member_name }</h1>
+                        <h5>
+                        	<c:choose>
+                           		<c:when test="${ member.member_level eq 0 }">
+                           			일반 회원
+                           		</c:when>
+                           		<c:when test="${ member.member_level eq 1 }">
+                           			판매자
+                           		</c:when>
+                           		<c:otherwise>
+                           			관리자
+                           		</c:otherwise>
+                           	</c:choose>
+                        </h5>
+
+                        <form name="aaa" action="upload.do" method="post" enctype="multipart/form-data">
+							<div class="filebox">
+							  <label for="ex_file">파일 업로드</label>
+							  <input type="file" id="ex_file" name="fff" onchange=aa();>
+							  10Mb 이하의 JPG, GIF, PNG 파일을 지원합니다.
+							</div>
+							${ member.member_idx }
+							<input type="hidden" name="member_idx" value="${ member.member_idx }"/>
+						</form>
+						<script> 
+							function aa(){ 
+								if(document.aaa.fff.value != ""){ 
+									document.aaa.action = "upload.do"; 
+									document.aaa.submit(); 
+								} 
+							}
+						</script> 
+          
                     </div>
                 </div>
-
-
+	
+				<form action="profileUpdate.do" method="post">
                 <table class="table" style="border-top: 3px solid #06113C;">
                     <tbody>
                         <tr>
                             <td>이메일</td>
-                            <td>abfd123@naver.com</td>
+                            <td>${ member.member_email }</td>
                         </tr>
                         <tr>
                             <td>전화번호</td>
                             <td>
                                 <div class="input-group mb-3">
-                                    <input type="tel" class="form-control m-input" name="tel" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
-                                    aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                    <input type="tel" class="form-control m-input" name="member_phone" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                    aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_phone }">
                                 </div>
                             </td>
                         </tr>
@@ -181,7 +252,7 @@
                             <td>주소</td>
                             <td>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" class="form-control" name="member_addr" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_addr }">
                                 </div>
                             </td>
                         </tr>
@@ -197,7 +268,7 @@
                             <td>선호 동물</td>
                             <td>
                                 <div class="input-group mb-3">
-                                    <select class="custom-select" id="inputGroupSelect01">
+                                    <select class="custom-select" name="member_pet" id="inputGroupSelect01">
                                         <option selected>선택</option>
                                         <option value="1">강아지</option>
                                         <option value="2">고양이</option>
@@ -210,15 +281,16 @@
                             <td>비밀번호</td>
                             <td>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" class="form-control" name="member_password" aria-label="Default" aria-describedby="inputGroup-sizing-default" value=" ${ member.member_password }">
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="row"> 
-                    <div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-outline-dark" style="width: 100px;">저장</button></div>
+                    <div class="col-sm-12" style="text-align: right;"><button type="submit" class="btn btn-outline-dark" style="width: 100px;">저장</button></div>
                 </div>
+                </form>
             </div>
 
             

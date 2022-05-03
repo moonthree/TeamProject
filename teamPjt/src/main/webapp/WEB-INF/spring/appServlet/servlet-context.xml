@@ -26,4 +26,10 @@
 	<context:component-scan base-package="com.edu.dao" />
 	
 	
+	<!-- spring file uploader -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 <beans:property name="maxUploadSize" value="268435456"/>
+	</beans:bean>
+
+  
 </beans:beans>

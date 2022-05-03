@@ -16,6 +16,7 @@ public class MemberVO {
 	private int member_level;
 	private Date member_join_date;
 	private char member_state;
+	private String member_photo;
 	
 	
 	public int getMember_idx() {
@@ -96,7 +97,13 @@ public class MemberVO {
 				+ member_password + ", member_name=" + member_name + ", member_addr=" + member_addr + ", member_phone="
 				+ member_phone + ", member_business_num=" + member_business_num + ", member_business_name="
 				+ member_business_name + ", member_pet=" + member_pet + ", member_level=" + member_level
-				+ ", member_join_date=" + member_join_date + ", member_state=" + member_state + "]";
+				+ ", member_join_date=" + member_join_date + ", member_state=" + member_state + ", member_photo=" + member_photo+"]";
+	}
+	public String getMember_photo() {
+		return member_photo;
+	}
+	public void setMember_photo(String member_photo) {
+		this.member_photo = member_photo;
 	}
 	
 	

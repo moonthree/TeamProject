@@ -113,13 +113,31 @@
                 <h2>내 정보</h2> 
                 <div class="profile">
                     <div class="profile-image">
-                        <img src="dog.jpg" alt="" class="profile_img">
+                        <c:choose>
+                        	<c:when test="${ empty member.member_photo }">
+                        		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                        	</c:when>
+                        	<c:otherwise>
+								<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                        	</c:otherwise>
+                        </c:choose>
                         <img src="../resources/image/mypage/setting.png" alt="설정" class="setting_img"  onclick="location.href='my_info_modify.do'" style="cursor:pointer;">
-                        
                     </div>
                     <div class="profile-user-settings">
-                        <h1 class="profile-user-name">홍길동</h1>
-                        <h5>일반 회원</h5>
+                        <h1 class="profile-user-name">${ member.member_name }</h1>
+                        <h5>
+                        	<c:choose>
+                           		<c:when test="${ member.member_level eq 0 }">
+                           			일반 회원
+                           		</c:when>
+                           		<c:when test="${ member.member_level eq 1 }">
+                           			판매자
+                           		</c:when>
+                           		<c:otherwise>
+                           			관리자
+                           		</c:otherwise>
+                           	</c:choose>
+                        </h5>
                         <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
                     </div>
                 </div>
@@ -127,24 +145,35 @@
                         <tbody>
                             <tr>
                                 <td>이메일</td>
-                                <td>***</td>
+                                <td>${ member.member_email }</td>
                             </tr>
                             <tr>
                                 <td>전화번호</td>
                                 <td>
-                                    ***
+                                    ${ member.member_phone }
                                 </td>
                             </tr>
                             <tr>
                                 <td>배송지</td>
                                 <td>
-                                    ***
+                                    ${ member.member_addr }
                                 </td>
                             </tr>
                             <tr>
                                 <td>선호 동물</td>
                                 <td>
-                                    ***
+                                	<c:choose>
+                                		<c:when test="${ member.member_pet eq 0 }">
+                                			강아지
+                                		</c:when>
+                                		<c:when test="${ member.member_pet eq 1 }">
+                                			고양이
+                                		</c:when>
+                                		<c:otherwise>
+                                			다른 동물
+                                		</c:otherwise>
+                                	</c:choose>
+                                    
                                 </td>
                             </tr>
                         </tbody>
