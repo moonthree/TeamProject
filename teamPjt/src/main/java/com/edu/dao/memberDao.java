@@ -18,7 +18,13 @@ public class memberDao {
 		return sqlSession.insert("memberMapper.memberJoin",vo);
 	}
 	
+
+	public int checkEmail(String email) {
+		return sqlSession.selectOne("memberMapper.checkEmail",email);
+
+	}
 	public MemberVO selectOne(MemberVO vo) {
 		return sqlSession.selectOne("memberMapper.selectOne", vo);
+
 	}
 }
