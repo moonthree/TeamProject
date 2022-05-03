@@ -79,8 +79,7 @@
 			funding_end_date,
 			funding_permit_state,
 			funding_current_state,
-			funding_category,
-			funding_views,
+			funding_category
 		FROM funding
 		where funding_idx = #{funding_idx}
 	</select>

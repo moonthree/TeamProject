@@ -36,7 +36,7 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
-            value="jdbc:mysql://localhost:3306/ezen_prit?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true">
+            value="jdbc:mysql://localhost:3306/ezen_prit?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true&amp;allowPublicKeyRetrieval=true">
         </property>
         <property name="username" value="spring"></property>
         <property name="password" value="1234"></property>

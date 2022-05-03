@@ -81,7 +81,14 @@ public class FundingController {
 		return "funding/main_other";
 	}
 	
-	
+	//펀딩 뷰
+	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
+	public String read(FundingMainVO vo, Model model) throws Exception{
+		
+		model.addAttribute("read", fms.read(vo.getFunding_idx()));
+		
+		return "funding/view";
+	}
 	// 이동
 	@RequestMapping(value = "/view.do")
 	public String view() {
