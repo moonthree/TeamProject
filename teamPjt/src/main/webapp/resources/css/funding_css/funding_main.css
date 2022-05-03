@@ -18,6 +18,10 @@ main {
     padding-top: 10px;
 }
 
+.card{
+	margin-bottom : 10px;
+}
+
 .dropdown-item{
     height: 40px;
     font-size: large;
