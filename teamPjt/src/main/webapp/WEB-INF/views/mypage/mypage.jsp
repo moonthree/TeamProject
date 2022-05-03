@@ -64,7 +64,7 @@ $(document).on("click", ".menu div", function() {
               	<thead>
               	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
               		<th colspan="3">
-              			<h5>***님 > </h5>
+              			<h5>*** > </h5>
               			asdseef@naver.com
                     </th>
               	</tr>
