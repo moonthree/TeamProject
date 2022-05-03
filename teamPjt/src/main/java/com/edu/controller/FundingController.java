@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
 import com.edu.service.fundingMainService;
@@ -88,7 +89,12 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/option.do")
-	public String option() {
+	public String option(Model model, Funding_optionVO vo) {
+		
+		List<Funding_optionVO> list = fms.list(vo);
+		
+		model.addAttribute("list", list);
+		
 		return "funding/option";
 	}
 	
