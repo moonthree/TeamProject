@@ -44,7 +44,7 @@ public class FundingController {
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String listDog(Model model, Pagination page) throws Exception {
 		
-		model.addAttribute("listDog",fms.list(page));
+		model.addAttribute("listDog",fms.listDog(page));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);
