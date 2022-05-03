@@ -1,0 +1,52 @@
+package com.edu.service;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.edu.dao.fundingMainDAO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.Pagination;
+
+@Service
+public class fundingMainServiceImpl implements fundingMainService{
+	
+	@Autowired
+	private fundingMainDAO dao;
+	@Override
+	public List<FundingMainVO> list(Pagination page) throws Exception {
+		return dao.list(page);
+	}
+	@Override
+	public List<FundingMainVO> listCat(Pagination page) throws Exception {
+		return dao.listCat(page);
+	}
+
+	@Override
+	public List<FundingMainVO> listOther(Pagination page) throws Exception {
+		return dao.listOther(page);
+	}
+
+	
+	
+	//게시물 총 갯수
+	@Override
+	public int listCount() throws Exception {
+		return dao.listCount();
+	}
+
+
+	@Override
+	public int listCatCount() throws Exception {
+		return dao.listCatCount();
+	}
+
+	@Override
+	public int listOtherCount() throws Exception {
+		return dao.listOtherCount();
+	}
+	
+
+}
