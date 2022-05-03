@@ -23,14 +23,7 @@ public class FundingMainVO {
 	private int funding_category;
 	private String funding_express_date;
 	private int funding_express_fee;
-	private int funding_views;
 	
-	public int getFunding_views() {
-		return funding_views;
-	}
-	public void setFunding_views(int funding_views) {
-		this.funding_views = funding_views;
-	}
 	public int getFunding_idx() {
 		return funding_idx;
 	}
@@ -137,7 +130,7 @@ public class FundingMainVO {
 				+ ", funding_end_date=" + funding_end_date + ", funding_permit_state=" + funding_permit_state
 				+ ", funding_current_state=" + funding_current_state + ", funding_write_date=" + funding_write_date
 				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
-				+ ", funding_express_fee=" + funding_express_fee + ", funding_views=" + funding_views + "]";
+				+ ", funding_express_fee=" + funding_express_fee + ", funding_views="  + "]";
 	}
 	
 	

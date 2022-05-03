@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,28 +30,49 @@
 	<main>
 	<!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
-        <img src="../resources/image/funding_main/doghome.png" class="card-img FVtitleImg" alt="...">
+        <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
-            <h5 class="card-category">강아지 용품</h5>
+            <h5 class="card-category">
+	           	<c:if test="${read.funding_category == 0 }">
+	           		강아지 용품
+	           	</c:if>
+	           	<c:if test="${read.funding_category == 1 }">
+	           		고양이 용품
+	           	</c:if>
+	           	<c:if test="${read.funding_category == 2 }">
+	           		반려동물 용품
+	           	</c:if>
+            </h5>
             <br>
-            <h3 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h3>
+            <h3 class="card-title">${read.funding_idx} ${read.funding_title }</h3>
         </div>
     </div>
     <!-- -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12">
-                <img src="../resources/image/funding_main/doghome.png" class="mainIMG" alt="...">
+                <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="mainIMG" alt="...">
             </div>
             <div class="col-md-4 col-sm-12 topContent">
-                <h3>100일 남음</h3>
+            
+            	<!-- 남은 날짜 계산 -->
+                <c:set var="now" value="<%=new java.util.Date()%>"/>
+                <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+
+                <fmt:parseDate var="now3" value="${now2 }" pattern="yyyy-MM-dd"/>
+                <fmt:parseDate var="end" value="${read.funding_end_date }" pattern="yyyy-MM-dd"/>
+                <fmt:parseNumber var="endDate" value="${end.time / (1000*60*60*24)}" integerOnly="true" />
+                <fmt:parseNumber var="nowDate" value="${now3.time / (1000*60*60*24)}" integerOnly="true" />
+                <!-- 남은 날짜 계산 끝 -->
+            
+                <h3>${endDate - nowDate}일 남음</h3>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${read.funding_current_price/read.funding_target_price*100}%" aria-valuenow="50"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <h3>50<span class="smalltext"> %달성</span></h3>
-                <h3>17,609,700<span class="smalltext"> 원 펀딩</span></h3>
+                <h3>${Math.round(read.funding_current_price/read.funding_target_price*100)}<span class="smalltext"> %달성</span></h3>
+                <h3><fmt:formatNumber value="${read.funding_current_price}" type="number" /><span class="smalltext"> 원 펀딩</span></h3>
                 <h3>500<span class="smalltext"> 명의 서포터</span></h3>
                 <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
                 <button type="button" class="FVbtn2">
@@ -62,8 +84,8 @@
                     찜하기
                 </button>
                 <div class="fundingGoal">
-                    목표금액 : 35,219,400원<br>
-                    펀딩기간 : 2022.04.25~2022.07.25<br>
+                    목표금액 : <fmt:formatNumber value="${read.funding_target_price}" type="number" />원<br>
+                    펀딩기간 : ${read.funding_start_date }~${read.funding_end_date }<br>
                     <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
                 </div>
             </div>

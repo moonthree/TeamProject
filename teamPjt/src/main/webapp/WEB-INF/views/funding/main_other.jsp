@@ -88,13 +88,13 @@
 		        <c:forEach var="item" items="${listOther}" varStatus="status">
 		        	<div class="col-md-4 col-sm-12">
 		        		<div class="card">
-		                    <a href="view.do">
+		                    <a href="view.do?funding_idx=${item.funding_idx} ">
 		                    	<img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
 		                    <div class="card-body">
-		                    	<a href="view.do">
-		                    		<h5 class="card-title">${item.funding_title}</h5>	
-		                    	</a>
+			                    <a href="view.do?funding_idx=${item.funding_idx} ">
+			                        <h5 class="card-title">${item.funding_title}</h5>
+			                    </a>
 		                    
 		                        <p class="card-text">${item.funding_idx} 기타 | (주)강아지용품회사</p>
 		                        <div class="progress">
@@ -151,4 +151,5 @@
 
 
 </body>
+
 </html>

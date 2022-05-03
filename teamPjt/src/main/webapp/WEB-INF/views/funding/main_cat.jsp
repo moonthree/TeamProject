@@ -90,11 +90,13 @@
 		        <c:forEach var="item" items="${listCat}">
 		        	<div class="col-md-4 col-sm-12">
 		        		<div class="card">
-		                    <a href="view.do">
-		                    <img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
-		                    <div class="card-body">
-		                        <h5 class="card-title">${item.funding_title}</h5>
+		                    <a href="view.do?funding_idx=${item.funding_idx} ">
+		                    	<img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
+		                    <div class="card-body">
+			                    <a href="view.do?funding_idx=${item.funding_idx} ">
+			                        <h5 class="card-title">${item.funding_title}</h5>
+			                    </a>
 		                        <p class="card-text">${item.funding_idx} 고양이 | (주)강아지용품회사</p>
 		                        <div class="progress">
 		                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"

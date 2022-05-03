@@ -37,6 +37,12 @@ public class fundingMainDAO {
 		return sqlSession.selectOne("FundingMainMapper.listOtherCount");
 	}
 	
+	
+	// 게시물 조회
+	public FundingMainVO read(int funding_idx) throws Exception{
+		return sqlSession.selectOne("FundingMainMapper.read", funding_idx);
+	}
+	
 	// 펀딩 옵션
 	public List<Funding_optionVO> list(Funding_optionVO vo){
 		return sqlSession.selectList("FundingMainMapper.list", vo);
