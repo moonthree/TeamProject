@@ -13,7 +13,7 @@ public interface fundingMainService {
 	List<FundingMainVO> listCat(Pagination page) throws Exception;
 	List<FundingMainVO> listOther(Pagination page) throws Exception;
 	
-	public int listCount() throws Exception;
+	public int listDogCount() throws Exception;
 	public int listCatCount() throws Exception;
 	public int listOtherCount() throws Exception;
 	
