@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FundingMainMapper">
+	<!-- 메인 페이지 리스트 출력 -->
+	<select id="listDog" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
+		SELECT funding_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category
+		FROM funding
+		where funding_category=0
+		order by funding_idx desc limit #{rowStart}, 9;
+	</select>
+	<select id="listCat" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
+		SELECT funding_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category
+		FROM funding
+		where funding_category=1
+		order by funding_idx desc limit #{rowStart}, 9;
+	</select>	
+	<select id="listOther" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
+		SELECT funding_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category
+		FROM funding
+		where funding_category=2
+		order by funding_idx desc limit #{rowStart}, 9;
+	</select>
+	
+	<!-- 카테고리 별 상품 수 -->
+	<select id="listCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		where funding_category=0 AND funding_current_state=1;
+	</select>
+	<select id="listCatCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		where funding_category=1 AND funding_current_state=1;
+	</select>
+	<select id="listOtherCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		where funding_category=2 AND funding_current_state=1;
+	</select>
+	
+	
+	<!-- 글 조회하기 -->
+	<select id="read" parameterType="int" resultType="FundingMainVO">
+		SELECT funding_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views,
+		FROM funding
+		where funding_idx = #{funding_idx}
+	</select>
+	
+	
+	<!-- 펀딩 옵션 리스트 -->
+	<select id="list" resultType="Funding_optionVO">
+		SELECT funding_idx,
+			   funding_option_idx,
+			   funding_option_name,
+			   funding_option_price,
+			   funding_option_detail,
+			   funding_option_stock
+		  FROM funding_option
+		 WHERE funding_idx = 1
+	</select>
+</mapper>

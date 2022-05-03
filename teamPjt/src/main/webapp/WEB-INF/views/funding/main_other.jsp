@@ -20,7 +20,6 @@
         
      
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
-    
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
 	    $(document).ready(function() {
@@ -28,9 +27,7 @@
 	    });
     </script>
  
- 	<style type="text/css">
-			li {list-style: none; float: left; padding: 6px;}
-	</style>
+ 
 </head>
 <body>
 	<%@include file ="../header.jsp" %>
@@ -62,7 +59,7 @@
 
         <div class="row">
             <div class="col-sm" id="chosenCategory">
-                강아지
+                기타
             </div>
             <div class="col-sm" style="text-align: right">
                 <div class="dropdown">
@@ -82,21 +79,24 @@
             <hr>
         </div>
       
-        
-        <c:if test="${list.size() == 0 }">
+        <c:if test="${listOther.size() == 0 }">
         	등록된 게시글이 없습니다.
         </c:if>
-        <c:if test="${list.size() > 0 }">
+        <c:if test="${listOther.size() > 0 }">
+        <span id="forNum" style="display:none;">${listOther.size() }</span>
         	<div class="row fundingRow">
-		        <c:forEach var="item" items="${listDog}">
-		        	<div class="col-md-4 col-sm-12 item">
+		        <c:forEach var="item" items="${listOther}" varStatus="status">
+		        	<div class="col-md-4 col-sm-12">
 		        		<div class="card">
 		                    <a href="view.do">
-		                    <img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
-		                    <div class="card-body">
-		                        <h5 class="card-title">${item.funding_title}</h5>
+		                    	<img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
-		                        <p class="card-text">${item.funding_idx} 강아지 | (주)강아지용품회사</p>
+		                    <div class="card-body">
+		                    	<a href="view.do">
+		                    		<h5 class="card-title">${item.funding_title}</h5>	
+		                    	</a>
+		                    
+		                        <p class="card-text">${item.funding_idx} 기타 | (주)강아지용품회사</p>
 		                        <div class="progress">
 		                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"
 		                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -104,7 +104,6 @@
 		                        <p class="card-text cardtext2">
 		                            <span class="fundingProgress">${Math.round(item.funding_current_price/item.funding_target_price*100)}%</span>
 		                            <span> <fmt:formatNumber value="${item.funding_current_price}" type="number" />원</span>
-		                            
 		                            
 		                            <!-- 남은 날짜 계산 -->
 		                            <c:set var="now" value="<%=new java.util.Date()%>"/>
@@ -116,37 +115,40 @@
 		                            <fmt:parseNumber var="nowDate" value="${now3.time / (1000*60*60*24)}" integerOnly="true" />
 		                            <!-- 남은 날짜 계산 끝 -->
 		                            <span class="remainDay">${endDate - nowDate}일 남음</span>
+		                            
+		                            
+		                            
 		                        </p>
 		                    </div>
 		                </div>
 		            </div>
 	        	</c:forEach>
 		     </div>
-        </c:if>
-        
+        </c:if>   
+    
+
         <div>
         	<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">
 				    <c:if test="${pageMaker.prev}">
-				    	<li class="page-item"><a class="page-link" href="main.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+				    	<li class="page-item"><a class="page-link" href="main_other.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 				    </c:if> 
 				
 				    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-				    	<li class="page-item"><a class="page-link" href="main.do${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				    	<li class="page-item"><a class="page-link" href="main_other.do${pageMaker.makeQuery(idx)}">${idx}</a></li>
 				    </c:forEach>
 				
 				    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				    	<li class="page-item"><a class="page-link" href="main.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+				    	<li class="page-item"><a class="page-link" href="main_other.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
 				    </c:if> 
 				  </ul>
 			 </nav>
 		</div>
-		
       
     </div>
     </main>
     <c:import url="/footer.do"></c:import>
-    
+
 
 </body>
 </html>

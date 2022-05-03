@@ -18,6 +18,10 @@ main {
     padding-top: 10px;
 }
 
+.card{
+	margin-bottom : 10px;
+}
+
 .dropdown-item{
     height: 40px;
     font-size: large;
@@ -56,4 +60,18 @@ a:link {
 
 a:visited {
     color: black;
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .rounded-circle{
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 576px) {
+    .rounded-circle {
+        width: 100px;
+        height: 100px;
+    }
 }
