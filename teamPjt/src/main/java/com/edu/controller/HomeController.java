@@ -29,14 +29,14 @@ public class HomeController {
 	@RequestMapping(value = "/header.do")
 	public String header(Locale locale, Model model) {
 	
-		
+		//git commit용
 		return "header";
 	}
 	
 	@RequestMapping(value = "/footer.do")
 	public String footer(Locale locale, Model model) {
 	
-		
+		//git commit용
 		return "footer";
 	}
 	

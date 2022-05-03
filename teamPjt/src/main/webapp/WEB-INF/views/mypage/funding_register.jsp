@@ -77,7 +77,7 @@
                         </tr>
                     </table>
                     <textarea id="template" style="display:none;">
-                            <tr id="addRow">
+                            <tr id="addRow ">
                                 <td><input type="text" class="text"    name="name1"   style="width:100%;"  placeholder="옵션명"/></td>            
                                 <td><input type="text" min="0" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
                                 <td><input type="text" class="text"    name="name3"  style="width:100%;"   placeholder="상세"/></td>

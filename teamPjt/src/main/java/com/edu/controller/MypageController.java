@@ -80,7 +80,7 @@ public class MypageController {
 		System.out.println(from);
 		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date to = fm.parse(from);
-		long d2= to.getTime();
+		long d2 = to.getTime();
 		
 		System.out.println("하하하 : " +d2);
 		

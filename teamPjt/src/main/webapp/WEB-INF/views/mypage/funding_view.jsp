@@ -65,7 +65,7 @@
                 </button>
                 <div class="fundingGoal">
                     목표금액 : ${funding.funding_target_price}<br>
-                    펀딩기간 : ${funding.funding_start_date}~${funding.funding_end_date}<br>
+                    펀딩기간 : ${funding.funding_start_date}&nbsp;~$&nbsp;{funding.funding_end_date}<br>
                     <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
                 </div>
             </div>
