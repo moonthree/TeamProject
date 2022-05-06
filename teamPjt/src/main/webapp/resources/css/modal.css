@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/*로그인이 필요합니다 모달*/
+.login_close{
+	text-align:left !important;
+	margin: 0px 0px 0px 0px !important;
+}
+.login_modal_header{
+	border-bottom: none !important;
+	padding: 1rem 1rem 0px 27px !important; 
+}
+.login_modal_body > h4{
+	font-weight: 600;
+	padding-left: 27px;
+}
+
+.login_modal_content{
+	padding: 20px;
+}
+
+.login_modal_footer{
+	justify-content: space-evenly !important;
+	border-top: none !important;
+}
+
+.login_modalBtn{
+	width: 40%;
+	height: 60px;
+}
+
+/*글 남기기 모달*/
+#writeModal{
+    width: 100%;
+    height: 1000px !important;
+}
+
+.div2{
+    display: flex;
+    border-radius: 50px;
+    width: 150px;
+}
+.clicked {
+    color: white;
+    background-color: #2caabe;
+}
+.clicked > span{
+    background-color: red;
+}

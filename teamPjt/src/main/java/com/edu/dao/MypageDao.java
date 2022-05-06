@@ -23,4 +23,8 @@ public class MypageDao {
 		return sqlSession.update("MypageMapper.update_profile",vo);
 	}
 	
+	public String findId(MemberVO vo) {
+		return sqlSession.selectOne("MypageMapper.findId", vo);
+	}
+	
 }

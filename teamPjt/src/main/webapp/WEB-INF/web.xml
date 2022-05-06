@@ -24,10 +24,21 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SearchController</display-name>
+		<servlet-name>SearchController</servlet-name>
+		<servlet-class>com.edu.controller.SearchController</servlet-class>
+	</servlet>
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchController</servlet-name>
+		<url-pattern>/SearchController</url-pattern>
 	</servlet-mapping>
 	
 	<!-- encoding -->

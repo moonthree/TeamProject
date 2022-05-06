@@ -88,8 +88,11 @@ $(document).on("click", ".menu div", function() {
 
               </div>
                   
+                 
             </div>
-              
+                   <button type="button" onclick="location.href='funding_register.do'">새 펀딩 오픈</button>
+                   <br>
+                   
               <div class="col-md-8 cols-sm-12">
                 <div class="container" style="width: 90%;">
                   

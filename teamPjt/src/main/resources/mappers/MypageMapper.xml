@@ -21,5 +21,12 @@
 		WHERE  member_idx = #{member_idx}
 	</update>
 	
+	<select id="findId" resultType="String">
+		SELECT member_email
+		FROM   member
+	    WHERE  member_name = #{member_name}
+	   	AND    member_phone = #{member_phone}
+	</select>
+	
 	
 </mapper>

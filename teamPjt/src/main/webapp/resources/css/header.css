@@ -117,6 +117,9 @@ a:active{
 .search_input:focus{
     outline: 0;
 }
+.searchForm{
+	margin-bottom:0px;
+}
 
 
 /* 로그인 회원가입 마이페이지 */
@@ -190,3 +193,7 @@ a:active{
         display: none;
     }
 }
+
+
+
+
