@@ -2,10 +2,12 @@ package com.edu.dao;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Pagination;
@@ -41,6 +43,24 @@ public class fundingMainDAO {
 	// 게시물 조회
 	public FundingMainVO read(int funding_idx) throws Exception{
 		return sqlSession.selectOne("FundingMainMapper.read", funding_idx);
+	}
+	
+	//펀딩 조회수
+	public void fundingViews(int funding_idx) throws Exception{
+		sqlSession.update("FundingMainMapper.fundingViews", funding_idx);
+	}
+	
+	//펀딩 커뮤니티 댓글 리스트
+	public List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception{
+		return sqlSession.selectList("FundingMainMapper.readFundingCommunityComment", funding_idx);
+	}
+	//펀딩 커뮤니티 댓글 작성
+	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception{
+		return sqlSession.insert("FundingMainMapper.writeFundingCommunityComment", vo);
+	}
+	//펀딩 커뮤니티 댓글 작성 여부
+	public String checkCommentWrite(FundingCommunityVO vo) throws Exception{
+		return sqlSession.selectOne("FundingMainMapper.checkCommentWrite", vo);
 	}
 	
 	// 펀딩 옵션
