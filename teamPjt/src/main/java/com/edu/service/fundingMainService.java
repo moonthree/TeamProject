@@ -5,6 +5,7 @@ import java.util.List;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 
 public interface fundingMainService {
@@ -30,4 +31,7 @@ public interface fundingMainService {
 	
 	// 펀딩 옵션 리스트
 	List<Funding_optionVO> list(Funding_optionVO vo);
+	
+	// 멤버 조회
+	MemberVO selectOne(MemberVO vo);
 }
