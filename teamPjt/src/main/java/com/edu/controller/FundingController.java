@@ -130,25 +130,29 @@ public class FundingController {
 		return "funding/view";
 	}
 	
-	// 옵션 선택
-	@RequestMapping(value = "/option.do")
+	// 옵션 페이지
+	@RequestMapping(value = "/option.do", method = RequestMethod.GET)
 	public String option(Model model, Funding_optionVO vo) {
-		
-		List<Funding_optionVO> list = fms.list(vo);
-		
-		model.addAttribute("list", list);
+		// 옵션 리스트 출력
+		List<Funding_optionVO> optionlist = fms.list(vo);
+		model.addAttribute("optionlist", optionlist);
 		
 		return "funding/option";
 	}
 	
-	@RequestMapping(value = "/reserve.do")
-	public String reserve() {
+	@RequestMapping(value = "/option.do", method = RequestMethod.POST)
+	public String orderForm(Model model, Funding_optionVO optionvo, HttpServletRequest request) {
+		// 옵션 리스트 출력
+		List<Funding_optionVO> optionlist = fms.list(optionvo);
+		model.addAttribute("optionlist", optionlist);
+		
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = fms.selectOne(login);
+		model.addAttribute("member", member);
+		
 		return "funding/reserve";
-	}
-	
-	@RequestMapping(value = "/reserve_complete.do")
-	public String reserveComplete() {
-		return "funding/reserve_complete";
 	}
 	
 	
