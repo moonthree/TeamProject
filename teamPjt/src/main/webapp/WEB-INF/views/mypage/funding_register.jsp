@@ -7,29 +7,41 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        
+ <!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     
-    <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
-    <script type="text/javascript">
+ 
+     
+     <script type="text/javascript">
         $(document).ready(function () {
             $(".dropdown-toggle").dropdown();
         });
     </script>
+   
+    <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
+    
+  <!--   <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown-toggle").dropdown();
+        });
+    </script> -->
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/funding_register.css">
 </head>
 <body>
+
     <c:import url="/header.do"></c:import>
 <main id="wrapper">    
     <div class="container">
         <h2 class="rftitle">펀딩 상품 등록</h2>
       
-        <form action="funding_view.do" method="post">
+        <form name="funding_upload" action="funding_view.do" method="post" enctype="multipart/form-data">
         <!-- 펀딩 카테고리  필드 -->
             <div class="form-group">
                 <label for="exampleFormControlInput1">카테고리</label><br>
@@ -77,7 +89,7 @@
                         </tr>
                     </table>
                     <textarea id="template" style="display:none;">
-                            <tr id="addRow ">
+                            <tr id="addRow">
                                 <td><input type="text" class="text"    name="name1"   style="width:100%;"  placeholder="옵션명"/></td>            
                                 <td><input type="text" min="0" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
                                 <td><input type="text" class="text"    name="name3"  style="width:100%;"   placeholder="상세"/></td>
@@ -86,7 +98,7 @@
                     </textarea>
                 </div>
             </div>
-
+		
 			<!-- 펀딩 기간 필드 -->
             <div class="form-group">
                 <label>펀딩 기간</label>&nbsp;<span class="ftime">*최소 15일 ~ 최대 6개월</span>
@@ -105,33 +117,37 @@
             
             
             <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
+            
+             
+             
             <div class="form-group">
                 <label>썸네일</label>
                 <div class="form-inline">
-                    <input name="funding_thumbnail" type="file" class="form-control" id="" placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
+                    <input name="funding_thumbnail_temp" type="file" class="form-control" id="funding_thumbnail_temp"  placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
+                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
                 </div>
             </div>
              <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
             <div class="form-group">
                 <label>프로젝트 계획</label>
                 <div class="form-inline">
-                    <input type="file" class="form-control" id="" placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
+                    <input  id="funding_Detail_temp"  type="file" class="form-control" name="funding_Detail_temp"  placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
+                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
                 </div>
             </div>
             <div class="form-group">
                 <label>공지 등록</label>
                 <div class="form-inline">
-                    <input type="file" class="form-control" id="" placeholder="공지 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;">
+                    <input type="file" class="form-control" id="funding_Notice_temp" name="funding_Notice_temp" placeholder="공지 등록" style="width: 68%;"> &nbsp;
+                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
                 </div>
             </div>
             
             <br>
        		<br>
-         <input  type="submit" class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;">
+         <input  type="submit" class="btn btn-outline-secondary"   value="미리보기" style="width: 49%; height: 50px;">
          <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
+        <input type="hidden" id="email_hidden" value="${login.member_email}">
         </form>
         <!-- 
         <br>
@@ -140,7 +156,10 @@
         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
         -->
     </div>
+    
 </main>
+    
+
 <c:import url="/footer.do"></c:import>
 </body>
 
@@ -176,6 +195,73 @@
          }
      });
          
+</script>
+<script type="text/javascript">
+
+<%-- 	function FnThum(obj){
+		var path = '<%=request.getContextPath()%>';
+		//console.log(path);
+		var email = $("#email_hidden").val();
+		//console.log(email);
+		//console.log( $(obj).prev() );
+		
+		const file = $(obj).prev()[0];
+
+		//funding_thumbnail22
+		//console.log(file.name);
+		
+		
+		const formData = new FormData();
+		//파일 업로드
+		formData.append("upload",file.files[0]);
+		//유저 email 넣기
+		formData.append("userEmail",email);
+		
+		if(file.name == "funding_thumbnail_temp") {
+			//썸네일  png file 불러오기
+			formData.append("checkForm","1");
+		}
+		else if(file.name == "funding_Detail_temp"){
+			//프로젝트 계획 pdf file 불러오기
+			formData.append("checkForm","2");
+		}
+		else{
+			formData.append("checkForm","3");
+
+		}
+		
+		if(email == null || email == ""){
+			alert('로그아웃 되었습니다. 로그인 먼저 해주세요.');
+			location.href= path+'/member/login.do';
+			
+		}
+		else{
+	$.ajax({
+		url:"testUpload.do",
+		type:"POST",
+		data: formData,
+		enctype: 'multipart/form-data',
+		processData: false,
+	    contentType: false,
+	    cache: false,
+	    success: function(result){
+	        if(result == 1){
+	        	alert('업로드 완료');
+	        }else{
+	        	alert('업로드 실패');
+	        }
+	      },
+	      err: function(err){
+	        console.log("err:", result)
+	      }
+		
+	});
+			
+			
+		}
+		
+	} --%>
+
 </script>
 
 </html>
