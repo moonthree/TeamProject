@@ -36,7 +36,7 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
-            value="jdbc:mysql://localhost:3306/ezen_prit?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true">
+            value="jdbc:mysql://localhost:3306/ezen_prit?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true&amp;allowPublicKeyRetrieval=true">
         </property>
         <property name="username" value="spring"></property>
         <property name="password" value="1234"></property>
@@ -53,5 +53,23 @@
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<!-- 이메일 발송 bean 설정 -->   
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="chesye21@gmail.com" />
+        <property name="password" value="yawslcrashawuoha" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+            </props>
+        </property>
+    </bean>
 		
 </beans>
