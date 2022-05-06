@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.dao.fundingMainDAO;
+import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 
 @Service
@@ -19,6 +21,10 @@ public class fundingMainServiceImpl implements fundingMainService{
 	
 	@Autowired
 	private fundingMainDAO dao;
+	
+	@Autowired
+	private memberDao memdao;
+	
 	//펀딩 메인 리스트
 	@Override
 	public List<FundingMainVO> listDog(Pagination page) throws Exception {
@@ -67,11 +73,13 @@ public class fundingMainServiceImpl implements fundingMainService{
 		return dao.writeFundingCommunityComment(vo);
 	}
 	
-	
-	
 	// 펀딩 옵션
 	@Override
 	public List<Funding_optionVO> list(Funding_optionVO vo) {
 		return dao.list(vo);
+	}
+	@Override
+	public MemberVO selectOne(MemberVO vo) {
+		return memdao.selectOne(vo);
 	}
 }
