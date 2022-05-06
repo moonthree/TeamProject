@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,19 +36,31 @@
         <img src="../resources/image/funding_main/doghome.png" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
-            <h5 class="card-category">강아지 용품</h5>
+            <h5 class="card-category">
+            	<c:if test="${funding.funding_category == '0'}">
+            		강아지
+            	</c:if>
+            	<c:if test="${funding.funding_category == '1'}">
+            		고양이
+            	</c:if>
+            	<c:if test="${funding.funding_category == '2'}">
+            		기타 동물
+            	</c:if>
+            		용품</h5>
             <br>
-            <h3 class="card-title">밀리옹 베이글백 아이보리 브릭 강아지 고양이 이동가방</h3>
+            <h3 class="card-title">${funding.funding_title}</h3>
         </div>
     </div>
     <!-- -->
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12">
-                <img src="../resources/image/funding_main/doghome.png" class="mainIMG" alt="...">
+               <!--  <img src="../resources/image/funding_main/doghome.png" class="mainIMG" alt="..."> -->
+                  <img src="../resources/upload/funding/${org_ThumName}" class="mainIMG" alt="...">
             </div>
             <div class="col-md-4 col-sm-12 topContent">
-                <h3></h3>
+                <h3>${difftime}일 남음</h3>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="0"
                         aria-valuemin="0" aria-valuemax="100"></div>
@@ -63,9 +77,13 @@
                     </svg>
                     찜하기
                 </button>
+                <fmt:formatNumber var="price"  value="${funding.funding_target_price }" pattern="#,###" />
+
+
                 <div class="fundingGoal">
-                    목표금액 : ${funding.funding_target_price}<br>
-                    펀딩기간 : ${funding.funding_start_date}&nbsp;~$&nbsp;{funding.funding_end_date}<br>
+                
+                    목표금액 : ${price}원<br>
+                    펀딩기간 : ${funding.funding_start_date}&nbsp;~&nbsp;${funding.funding_end_date}<br>
                     <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
                 </div>
             </div>
@@ -95,12 +113,12 @@
         <!--프로젝트/스토어/커뮤니티/Q&A상세-->
         <div class="tab-content" id="myTabContent">
             <!--프로젝트-->
-            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-                PDF 파일 올라올 예정
+            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
+            	<embed src="../resources/upload/funding/${org_DetailName}" type="application/pdf" width="100%" height="1000px">
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-                PDF 파일 올라올 예정
+               <img src="../resources/upload/funding/${org_NoticeName}" class="mainIMG" alt="...">
             </div>
             <!--커뮤니티-->
             <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
@@ -188,12 +206,12 @@
                         </tr>
                     </tbody>
                 </table>
+               
             </div>
         </div>
     </div>
 	</main>
     
-
     <c:import url="/footer.do"></c:import>
 </body>
 </html>
