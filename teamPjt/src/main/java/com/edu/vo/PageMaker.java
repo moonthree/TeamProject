@@ -1,5 +1,8 @@
 package com.edu.vo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -72,4 +75,30 @@ public class PageMaker {
 		return uriComponents.toUriString();
 	}
 	
+	//검색 시작
+	public String makeSearch(int Page)
+	{
+	  
+	 UriComponents uriComponents =
+	            UriComponentsBuilder.newInstance()
+	            .queryParam("Page", Page)
+	            .queryParam("perPageNum", page.getPerPageNum())
+	            .queryParam("searchType", ((SearchCriteria)page).getSearchType())
+	            .queryParam("keyword", encoding(((SearchCriteria)page).getKeyword()))
+	            .build(); 
+	    return uriComponents.toUriString();  
+	}
+
+	private String encoding(String keyword) {
+		if(keyword == null || keyword.trim().length() == 0) { 
+			return "";
+		}
+		 
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch(UnsupportedEncodingException e) { 
+			return ""; 
+		}
+	}
+	//검색 끝
 }

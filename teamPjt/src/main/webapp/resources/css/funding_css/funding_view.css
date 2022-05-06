@@ -134,3 +134,15 @@ main {
 .nav-pills > .active{
     background-color: #17a2b8 !important;
 }
+
+.profile_div{
+	width: 70%;
+	height: 70%;
+	border-radius: 70%;
+	overflow: hidden;
+}
+
+.profile_img{
+	width: 100%;
+	height : 100%;
+}

@@ -20,6 +20,7 @@
         
      
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
+    <!-- <script src="../resources/js/funding_js/infiniteScroll.js"></script> -->
     
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
@@ -35,7 +36,7 @@
 <body>
 	<%@include file ="../header.jsp" %>
 	<main>
-	<div class="container">
+	<div class="container infinite">
         <div class="row" id="category">
             <div class="col-md-4 col-sm-12">
                 <a href="main.do">
@@ -87,18 +88,18 @@
         	등록된 게시글이 없습니다.
         </c:if>
         <c:if test="${listDog.size() > 0 }">
-        	<div class="row fundingRow">
+        	<div id="container" class="row fundingRow">
 		        <c:forEach var="item" items="${listDog}">
 		        	<div class="col-md-4 col-sm-12 item">
 		        		<div class="card">
-		                    <a href="view.do?funding_idx=${item.funding_idx} ">
+		                    <a href="view.do?funding_idx=${item.funding_idx}">
 		                    	<img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
 		                    <div class="card-body">
-			                    <a href="view.do?funding_idx=${item.funding_idx} ">
+			                    <a href="view.do?funding_idx=${item.funding_idx}">
 			                        <h5 class="card-title">${item.funding_title}</h5>
 			                    </a>
-		                        <p class="card-text">${item.funding_idx} 강아지 | (주)강아지용품회사</p>
+		                        <p class="card-text">${item.funding_idx}(idx) 강아지 | ${item.funding_views }(조회수)(주)강아지용품회사</p>
 		                        <div class="progress">
 		                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"
 		                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -130,7 +131,7 @@
         	<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">
 				    <c:if test="${pageMaker.prev}">
-				    	<li class="page-item"><a class="page-link" href="main.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+				    	<li class="page-item"><a class="page-link prev" href="main.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 				    </c:if> 
 				
 				    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
@@ -138,7 +139,7 @@
 				    </c:forEach>
 				
 				    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				    	<li class="page-item"><a class="page-link" href="main.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+				    	<li class="page-item"><a class="page-link next" href="main.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
 				    </c:if> 
 				  </ul>
 			 </nav>
@@ -147,7 +148,7 @@
       
     </div>
     </main>
-    <c:import url="/footer.do"></c:import>
+    <%-- <c:import url="/footer.do"></c:import> --%>
     
 
 </body>

@@ -2,16 +2,23 @@ package com.edu.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
+import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 
 
@@ -19,7 +26,13 @@ import com.edu.service.fundingMainService;
 @Controller
 @RequestMapping(value = "/funding")
 public class FundingController {
+	
+	@Autowired
+	private fundingMainService fms;
 
+	@Autowired
+	private MypageService mypageService ;
+	
 	// 펀딩 메인페이지 카테고리
 	@RequestMapping(value = "/main.do")
 	public String main() {
@@ -37,14 +50,12 @@ public class FundingController {
 	}
 	
 	
-	// 펀딩 메인페이지에 데이터 가져와서 출력하기
-	@Autowired
-	private fundingMainService fms;
-		
+	// 펀딩 메인페이지에 리스트 출력	
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String listDog(Model model, Pagination page) throws Exception {
 		
 		model.addAttribute("listDog",fms.listDog(page));
+		
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPage(page);
@@ -83,12 +94,36 @@ public class FundingController {
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(FundingMainVO vo, Model model) throws Exception{
+	public String read(FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
 		
+		//funding_idx에 따른 뷰페이지 정보 가져오기
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));
+		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member",member);
+		
+		//펀딩 커뮤니티 댓글 리스트
+		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
+		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
 		
 		return "funding/view";
 	}
+	
+	//펀딩 커뮤니티 댓글 작성 ajax로 불러옴
+	@RequestMapping(value ="/serialize", method= RequestMethod.POST)
+	@ResponseBody
+	public int serialize(FundingCommunityVO vo) throws Exception {
+		//return vo.getFunding_detail_community_content() + vo.getFunding_idx() + vo.getMember_idx() + vo.getFunding_detail_community_category();
+		return fms.writeFundingCommunityComment(vo);
+	}
+	
+	
+	
+	
+	
 	// 이동
 	@RequestMapping(value = "/view.do")
 	public String view() {

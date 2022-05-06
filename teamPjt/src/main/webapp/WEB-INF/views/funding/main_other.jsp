@@ -96,7 +96,7 @@
 			                        <h5 class="card-title">${item.funding_title}</h5>
 			                    </a>
 		                    
-		                        <p class="card-text">${item.funding_idx} 기타 | (주)강아지용품회사</p>
+		                        <p class="card-text">${item.funding_idx}(idx) 기타 | ${item.funding_views }(조회수)(주)강아지용품회사</p>
 		                        <div class="progress">
 		                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"
 		                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>

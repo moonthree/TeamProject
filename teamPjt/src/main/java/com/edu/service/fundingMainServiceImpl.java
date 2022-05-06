@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.dao.fundingMainDAO;
+import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Pagination;
@@ -46,11 +49,23 @@ public class fundingMainServiceImpl implements fundingMainService{
 	}
 	
 	//펀딩 뷰
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public FundingMainVO read(int funding_idx) throws Exception {
+		dao.fundingViews(funding_idx);
 		return dao.read(funding_idx);
 	}
 	
+	@Override
+	//펀딩 커뮤니티 댓글 리스트
+	public List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception{
+		return dao.readFundingCommunityComent(funding_idx);
+	}
+	//펀딩 커뮤니티 댓글 작성
+	@Override
+	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception {
+		return dao.writeFundingCommunityComment(vo);
+	}
 	
 	
 	
@@ -59,6 +74,4 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public List<Funding_optionVO> list(Funding_optionVO vo) {
 		return dao.list(vo);
 	}
-	
-
 }

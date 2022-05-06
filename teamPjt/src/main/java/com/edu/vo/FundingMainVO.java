@@ -23,7 +23,14 @@ public class FundingMainVO {
 	private int funding_category;
 	private String funding_express_date;
 	private int funding_express_fee;
+	private int funding_views;
 	
+	public int getFunding_views() {
+		return funding_views;
+	}
+	public void setFunding_views(int funding_views) {
+		this.funding_views = funding_views;
+	}
 	public int getFunding_idx() {
 		return funding_idx;
 	}
