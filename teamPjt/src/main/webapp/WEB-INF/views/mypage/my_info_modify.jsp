@@ -188,7 +188,7 @@
                     </div>
                     
                     <div class="profile-user-settings">
-                        <h1 class="profile-user-name">${ member.member_name }</h1>
+                        <h1 class="profile-user-name">${member.member_name }</h1>
                         <h5>
                         	<c:choose>
                            		<c:when test="${ member.member_level eq 0 }">
