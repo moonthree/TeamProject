@@ -95,7 +95,7 @@ public class FundingController {
 		return "funding/view";
 	}
 	
-	// 옵션
+	// 옵션 선택
 	@RequestMapping(value = "/option.do")
 	public String option(Model model, Funding_optionVO vo) {
 		
