@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="SearchMapper">
+	<select id="SearchFunding" parameterType="com.edu.vo.SearchCriteria" resultType="FundingMainVO">
+		SELECT funding_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		where 1=1 AND funding_title LIKE CONCAT('%${keyword}%')
+		order by funding_idx desc limit #{rowStart}, 9;
+	</select>
+	
+	<select id="searchFundingCount" parameterType="com.edu.vo.SearchCriteria" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		WHERE 1=1 AND funding_title LIKE CONCAT('%${keyword}%')
+		
+		<!-- <include refid="SearchFundingCase"></include> -->
+	</select>
+	
+	<sql id="SearchFundingCase">
+		<if test="searchType != null">
+			<if test="searchType == 'dog'.toString()">AND funding_category = 0</if>
+			<if test="searchType == 'cat'.toString()">AND funding_category = 1</if>
+			<if test="searchType == 'other'.toString()">AND funding_category = 2</if>
+			<if test="searchType == 'all'.toString()"></if>
+		</if>
+	</sql>
+	
+	
+</mapper>
