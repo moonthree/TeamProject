@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="FundingMainMapper">
-	<!-- 메인 페이지 리스트 출력 -->
+	<!-- 펀딩 메인 페이지 리스트 출력 -->
 	<select id="listDog" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
 		SELECT funding_idx,
 			funding_title,
@@ -82,7 +82,8 @@
 			funding_end_date,
 			funding_permit_state,
 			funding_current_state,
-			funding_category
+			funding_category,
+			member_idx
 		FROM funding
 		where funding_idx = #{funding_idx}
 	</select>
@@ -98,6 +99,7 @@
 	<resultMap type="MemberVO" id="MemberVO">
 		<result column="member_name" property="member_name"/>
 		<result column="member_photo" property="member_photo"/>
+		<result column="member_business_name" property="member_business_name"/>
 	</resultMap>
 	<resultMap type="FundingCommunityVO" id="FundingCommunityVO">
 		<result column="funding_detail_community_idx" property="funding_detail_community_idx"/>
@@ -143,6 +145,104 @@
 				#{funding_detail_community_category}
 			)	
 	</insert>
+	
+	<!-- 펀딩 커뮤니티 댓글 수정 -->
+	<update id="modifyFundingCommunityComment" parameterType="FundingCommunityVO">
+		UPDATE funding_detail_community 
+		SET funding_detail_community_content = #{funding_detail_community_content}, funding_detail_community_category = #{funding_detail_community_category}
+		WHERE funding_idx = #{funding_idx} and member_idx = #{member_idx};
+	</update>
+	
+	<!-- 펀딩 커뮤니티 댓글 삭제 -->
+	<update id="deleteFundingCommunityComment" parameterType="FundingCommunityVO">
+		DELETE FROM funding_detail_community
+		WHERE funding_idx = #{funding_idx} and member_idx = #{member_idx};
+	</update>
+	
+	<!-- 펀딩 qna 작성 -->
+	<insert id="insertFundingQna" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="funding_qna_idx">
+		insert into funding_qna
+		(
+            funding_idx,
+            member_idx,
+            parent_id,
+            depth,
+            funding_qna_secret,
+            funding_qna_content,
+            funding_qna_writer_idx
+        )
+        values
+        (
+            #{funding_idx},
+            #{member_idx},
+            #{parent_id},
+            #{depth},
+            #{funding_qna_secret},
+            #{funding_qna_content},
+            #{funding_qna_writer_idx}
+        )
+	</insert>
+	
+	<!-- 펀딩 qna 댓글 리스트 join을 위한 resultMap -->
+	<resultMap type="FundingQnaVO" id="FundingQnaVO">
+		<result column="funding_qna_idx" property="funding_qna_idx"/>
+		<result column="funding_idx" property="funding_idx"/>
+		<result column="member_idx" property="member_idx"/>
+		<result column="parent_id" property="parent_id"/>
+		<result column="depth" property="depth"/>
+		<result column="funding_qna_state" property="funding_qna_state"/>
+		<result column="funding_qna_secret" property="funding_qna_secret"/>
+		<result column="funding_qna_content" property="funding_qna_content"/>
+		<result column="funding_qna_regdate" property="funding_qna_regdate"/>
+		<result column="funding_qna_writer_idx" property="funding_qna_writer_idx"/>
+		<collection property="memberVO" resultMap="MemberVO"></collection>
+	</resultMap>
+	
+	<!-- 펀딩 qna 댓글 리스트 -->
+	<select id="readFundingQnaList" resultType="FundingQnaVO" parameterType="java.util.HashMap" resultMap="FundingQnaVO">
+		select 
+			qna.funding_qna_idx,
+			qna.funding_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.funding_qna_state,
+			qna.funding_qna_secret,
+			qna.funding_qna_content,
+			qna.funding_qna_writer_idx,
+			qna.funding_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM funding_qna AS qna
+		JOIN member AS mem 
+		ON qna.funding_idx = #{funding_idx} and qna.member_idx = mem.member_idx
+		order by funding_qna_idx desc;
+	</select>
+	
+	<!-- 펀딩 qna 답변 등록 완료 -->
+	<update id="qnaAnswerDone" parameterType="FundingQnaVO">
+		UPDATE funding_qna 
+		SET funding_qna_state = 1
+		WHERE funding_idx = #{funding_idx} and funding_qna_idx = #{funding_qna_idx};
+	</update>
+	
+	<!-- 펀딩 qna 수정 -->
+	<update id="modifyFundingQna" parameterType="FundingQnaVO">
+		UPDATE funding_qna 
+		SET funding_qna_content = #{funding_qna_content}, funding_qna_secret = #{funding_qna_secret}
+		WHERE funding_qna_idx = #{funding_qna_idx};
+	</update>
+	
+	<!-- 펀딩 qna 삭제 -->
+	<delete id="deleteFundingQna" parameterType="FundingQnaVO">
+		DELETE FROM funding_qna
+		<if test="parent_id == 0">
+			WHERE funding_qna_idx = #{funding_qna_idx} OR parent_id = #{funding_qna_idx}; 
+		</if>
+		<if test="parent_id != 0">
+			WHERE funding_qna_idx = #{funding_qna_idx};
+		</if>
+	</delete>
 	
 	
 	<!-- 펀딩 옵션 리스트 -->

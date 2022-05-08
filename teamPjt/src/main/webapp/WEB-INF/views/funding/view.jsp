@@ -19,23 +19,28 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_view.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/modal.css">
-
+  
     <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
 	    $(document).ready(function() {
 	        $(".dropdown-toggle").dropdown();
 	    });
     </script>
+    
+    
  
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
 	<main>
+	<c:set var="loginPerson" value="${login.member_idx }"/> <!-- 로그인 한 사람 -->
+    <c:set var="seller" value="${read.member_idx }"/> <!-- 판매자 -->
 	<!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
         <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
+            
             <h5 class="card-category">
 	           	<c:if test="${read.funding_category == 0 }">
 	           		강아지 용품
@@ -148,12 +153,12 @@
             <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
                 <div class="row">
                     <div class="col-md-9 col-sm-12">
-                        <h4>${login.member_idx}응원 · 의견 · 체험리뷰</h4>
+                        <h4>응원 · 의견 · 체험리뷰</h4>
                         <span style="opacity: 0.7;">펀딩 종료전에 남긴 글입니다.</span>
                     </div>
                     <div class="col-md-3 col-sm-12" style="text-align: right;">
                     	<c:if test="${login eq null}">
-                    		<button type="button" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#loginModal">글 남기기</button>
+                    		<button type="button" class="btn btn-outline-info btn-lg commubtn" id="writeModalButton" data-toggle="modal" data-target="#loginModal">글 남기기</button>
                     	</c:if>
                     	<c:if test="${login ne null}">
                     		<button type="button" id="commuWriteBtn" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#writeModal">글 남기기</button>
@@ -171,10 +176,9 @@
 				<!-- 댓글 작성 여부를 위해 사용 -->
 				<input type="text" id="loginMember" value="${login.member_idx}" style="display:none;"/>
 				
-				
+				<!-- 댓글 테이블 시작 -->
                 <table class="table commutable">
-                    <tbody>
-                    	
+                    <tbody>             	
                     	<c:forEach items="${fundingCommunityCommentList }" var="commentList">
                     	
                 		<!-- 댓글 작성 여부를 위해 사용 -->    	
@@ -191,9 +195,9 @@
                     		<tr>
                     			<th scope="row" style= "width: 10%; border-radius: 70%">
                     				<c:choose>
-			                        	<c:when test="${commentList.memberVO.member_photo eq 'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg,'}">
+			                        	<c:when test="${commentList.memberVO.member_photo eq 'KakaoTalk_20220418_121005755.png'}">
 			                        		<div class="profile_div">
-			                        			<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+			                        			<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
 			                        		</div>
 			                        	</c:when>
 			                        	<c:otherwise>
@@ -207,8 +211,8 @@
 	                            <th scope="row" style= "width: 90%;">
 	                                <span class="commuName">${commentList.memberVO.member_name }</span>
 	                                &nbsp;
-	                                <span class="state">펀딩 참여자${commentList.member_idx}</span>
-	                                &nbsp;
+	                                <%-- <span class="state">펀딩 참여자${commentList.member_idx}</span>
+	                                &nbsp; --%>
 	                                
 	                                
 	                                <fmt:parseDate var="commuregdate1" value="${commentList.funding_detail_community_regdate }" pattern="yyyy-MM-dd"/>
@@ -242,37 +246,11 @@
 	                            <th>
 	                        </tr>
                     	</c:forEach>
-<!--                         <tr>
-                            <th scope="row">
-                                <span class="commuName">이름</span>
-                                &nbsp;
-                                <span class="state">펀딩 참여자</span>
-                                &nbsp;
-                                <span class="minute">응원•10분전</span>
-                                <br>
-                                <br>
-                                <span class="commuContent">
-                                    댓글 내용
-                                </span>    
-                            <th>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <span class="commuName">이름</span>
-                                &nbsp;
-                                <span class="state">펀딩 참여자</span>
-                                &nbsp;
-                                <span class="minute">응원•10분전</span>
-                                <br>
-                                <br>
-                                <span class="commuContent">
-                                    댓글 내용
-                                </span>
-                            </th>
-                        </tr> -->
+
                     </tbody>
                 </table>
             </div>
+            
             <!--Q&A-->
             <div class="tab-pane fade" id="FVQnA" role="tabpanel" aria-labelledby="FVQnA-tab">
                 <div class="row">
@@ -284,7 +262,14 @@
                     		<button type="button" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#loginModal">상품 Q&A 작성하기</button>
                     	</c:if>
                     	<c:if test="${login ne null}">
-                    		<button type="button" class="btn btn-outline-info btn-lg commubtn">상품 Q&A 작성하기</button>
+                    		<c:choose>
+        						<c:when test="${seller eq loginPerson}">
+                    				&nbsp;
+        						</c:when>
+        						<c:otherwise>
+                    				<button type="button" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#qnaModal">상품 Q&A 작성하기</button>
+        						</c:otherwise>
+       						</c:choose>
                     	</c:if>
                     </div>
                 </div>
@@ -292,31 +277,121 @@
                 <table class="table QnAtable">
                     <thead>
                         <tr>
-                            <th scope="col">답변상태</th>
+                            <th scope="col">답변 상태</th>
                             <th scope="col">제목</th>
                             <th scope="col">작성자</th>
                             <th scope="col">작성일</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="width: 15%;">답변대기</td>
-                            <td style="width: 55%;">비밀글입니다.
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
-                                </svg>
-                            </td>
-                            <td style="width: 15%;">abcd*******</td>
-                            <td style="width: 15%;">2022.04.25</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 15%;">답변완료</td>
-                            <td style="width: 55%;">배송 언제 시작하나요?</td>
-                            <td style="width: 15%;">ewrwe****</td>
-                            <td style="width: 15%;">2022.04.24</td>
-                        </tr>
+                    	<c:forEach items="${qnaList}" var="qnaList" varStatus="status">
+                    	
+                    		<!-- 댓글 작성 여부를 위해 사용 -->    	
+                    		<input type="text" class="qnaIdx" value="${qnaList.funding_qna_idx}" style="display:none;"/>
+                    		
+                   		<!-- 펀딩 상태 -->
+                    		<tr>
+                    			<c:set var="qnaState" value="${qnaList.funding_qna_state }"></c:set>
+                    			<c:set var="qnaSecret" value="${qnaList.funding_qna_secret }"></c:set>
+                    			<c:if test="${qnaState eq 0}">
+                    				<c:if test="${qnaList.depth eq 0}">
+                    					<td style="width: 15%;">답변 대기</td>
+                    				</c:if>
+                    				<c:if test="${qnaList.depth eq 1}">
+                    					<td style="width: 15%;">&nbsp;&nbsp;&nbsp;ㄴ<span class="reply">답변</span></td>
+                    				</c:if>
+                    				
+                    			</c:if>
+	                            <c:if test="${qnaState eq 1}">
+                    				<td style="width: 15%;">답변 완료</td>
+                    			</c:if>
+                    			
+                   			<!-- 펀딩 제목 -->		
+                    			<!-- 비밀글 아니면 -->
+                    			<c:if test="${qnaSecret eq 0}">
+                    				<td style="width: 45%;">
+                    					<!-- 작성자 본인이면 수정 아니면 뷰 -->
+                    					<div style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    						<c:choose>
+	                    						<c:when test="${qnaList.member_idx eq loginPerson}">
+	                    							<a class="doModify" data-toggle = "modal" href="#qnaModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3 ="${loginPerson}"><span class="qnaContent">${qnaList.funding_qna_content }</span></a>
+	                    						</c:when>
+	                    						<c:otherwise>
+	                    							<a href="#qnaViewModal" class="qnaViewModal2" data-toggle="modal" data-id="${qnaList.funding_qna_content }"><span class="qnaContent">${qnaList.funding_qna_content }</span></a>
+	                    						</c:otherwise>
+                    						</c:choose>
+                    					</div>
+                    				</td>
+                    			</c:if>
+                    			<!-- 비밀글이면 -->
+	                            <c:if test="${qnaSecret eq 1}">
+	                            	<td style="width: 45%;">
+	                            		<div style="max-width: 300px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+		                            		<c:choose>
+	                    						<c:when test="${qnaList.member_idx eq loginPerson || seller eq loginPerson || qnaList.funding_qna_writer_idx eq loginPerson}">
+	                    							<c:choose>
+		                    							<c:when test="${qnaList.member_idx eq loginPerson}">
+		                    								<a class="doModify" data-toggle="modal" href="#qnaModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3 ="${loginPerson}">
+		                    									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+								                                    viewBox="0 0 16 16">
+								                                    <path
+								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+								                                </svg>
+		                    									<span class="qnaContent">${qnaList.funding_qna_content }</span>
+		                    								</a>
+			                    						</c:when>
+			                    						<c:otherwise>
+			                    							<a href="#qnaViewModal" class="qnaViewModal2" data-toggle="modal" data-id="${qnaList.funding_qna_content }">
+			                    								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+								                                    viewBox="0 0 16 16">
+								                                    <path
+								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+								                                </svg>
+			                    								<span class="qnaContent">${qnaList.funding_qna_content }</span>
+			                    							</a>
+			                    						</c:otherwise>
+		                    						</c:choose>
+	                    						</c:when>
+	                    						<c:otherwise>
+	                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+					                                    viewBox="0 0 16 16">
+					                                    <path
+					                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+					                                </svg>
+			                    					비밀글입니다.
+			                    					<%-- <span class="qnaContent" style="display:none;">${qnaList.funding_qna_content }</span>  --%>
+	                    						</c:otherwise>
+	                    					</c:choose>
+                    					</div>
+                    				</td>
+                    			</c:if>
+                   			<!-- 작성자 -->
+                   				<c:if test="${qnaList.depth eq 0}">
+                   					<td style="width: 20%;">${qnaList.memberVO.member_name}</td>
+                   				</c:if>
+	                            <c:if test="${qnaList.depth eq 1}">
+                   					<td style="width: 20%;">${qnaList.memberVO.member_business_name}</td>
+                   				</c:if>
+	                            
+                           	<!-- 등록일 -->
+	                            <fmt:parseDate var="qnaRegDate" value="${qnaList.funding_qna_regdate }" pattern="yyyy-MM-dd"/>
+	                            <fmt:formatDate var="qnaRegDate2" value="${qnaRegDate }" pattern="yyyy-MM-dd"/>
+	                            
+	                            <c:choose>
+               						<c:when test="${qnaState eq 0 && seller eq loginPerson && qnaList.depth eq 0}">
+               							<td style="width: 20%;">
+               								${qnaRegDate2}
+               								&nbsp;
+               								<button class="doAnswer btn btn-outline-info" data-toggle="modal" data-target="#qnaAnswerModal" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.member_idx }">답변</button>
+               							</td>
+               						</c:when>
+               						<c:otherwise>
+               							<td style="width: 20%;">${qnaRegDate2}</td>
+               						</c:otherwise>
+            					</c:choose>
+	                            
+                        	</tr>
+                    	</c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -360,26 +435,23 @@
                         <p>응원∙의견∙체험리뷰를 남겨주세요.
                             판매자의 답변이 필요한 문의 글은 ‘Q&A’를 이용해야 답변을 받을 수 있습니다</p>
                             
-                            <button type="button" name="" class="div2 btn btn-outline-info" value=0>
-                                응원
-                            </button>
-                            
-                            <button type="button" name="" class="div2 btn btn-outline-info" value=1>
-                                의견
-                            </button>
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=0>
+                            응원
+                        </button>
+                        
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=1>
+                            의견
+                        </button>
 
-                            <button type="button" name="" class="div2 btn btn-outline-info" value=2>
-                                체험
-                            </button>
-							<input type=text name="funding_detail_community_category" value="" style="display:none;"/>
-							<input type=text name="funding_idx" value="${read.funding_idx}" style="display:none;"/>
-							<input type=text name="member_idx" value="${member.member_idx}" style="display:none;"/>
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=2>
+                            체험
+                        </button>
+						<input type=text name="funding_detail_community_category" value="" style="display:none;"/>
+						<input type=text name="funding_idx" value="${read.funding_idx}" style="display:none;"/>
+						<input type=text name="member_idx" value="${member.member_idx}" style="display:none;"/>
 
-                            <textarea name="funding_detail_community_content" id="funding_detail_community_content" cols="60" rows="10"></textarea>
-                            
-
-                    </div>
-                    <div id="result">
+                        <textarea name="funding_detail_community_content" id="funding_detail_community_content" cols="60" rows="10" placeholder="판매자에게 응원 의견 체험 리뷰를 남겨주세요"></textarea>
+                         
                     </div>
                     <div class="modal-footer write_modal_footer">
                         <button type="button" id="SubmitBtn" class="write_modalBtn btn btn-outline-info">등록</button>
@@ -388,113 +460,185 @@
             </div>
         </form>
     </div>
-	<!-- 커뮤니티 글 수정 모달 -->
-	<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content login_modal_content">
-	      <div class="modal-header login_modal_header">
-	        <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body login_modal_body">
-	      	<h4>구현 필요</h4>
-	      </div>
-	      <div class="modal-footer login_modal_footer">
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<!-- 커뮤니티 수정하기 모달 -->
+    <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="modifyform" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                        <h4>수정하기</h4>
+                        <p>
+                            회원님이 작성한 글을 수정하거나 삭제할 수 있어요
+                            <br>판매자의 답변이 필요한 문의 글은 ‘Q&A’를 이용해야 답변을 받을 수 있어요.
+                        </p>
+    
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=0>
+                            응원
+                        </button>
+                        
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=1>
+                            의견
+                        </button>
+    
+                        <button type="button" name="" class="div2 btn btn-outline-info" value=2>
+                            체험
+                        </button>
+                        <input type=number name="funding_detail_community_category" value="" style="display:none;" />
+                        <input type=text name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                        <input type=text name="member_idx" value="${member.member_idx}" style="display:none;" />
+    
+                        <textarea name="funding_detail_community_content" id="modifyText" cols="60" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                        <button type="button" id="commuModifyButton" class="write_modalBtn btn btn-outline-info">수정</button>
+                        <button type="button" id="commuDeleteButton" class="write_modalBtn btn btn-outline-danger">삭제</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Q&A 등록 모달 -->
+    <div class="modal fade" id="qnaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaSubmitForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                        
+                        <h4>펀딩 Q&A 작성하기</h4>
+                        
+                        
+                    	<input type=number id="funding_qna_secret" name="funding_qna_secret" value="" style="display:none;" />
+                        <input type=text id="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                        <input type=text id="member_idx" name="member_idx" value="${member.member_idx}" style="display:none;" />
+                        <textarea name="funding_qna_content" id="funding_qna_content" cols="60" rows="7"
+                            placeholder="펀딩에 대한 궁금증을 남겨주세요"></textarea>
+                        
+                        <input type="checkbox" id="cb1" class="cb">
+                        <label for="cb1"></label>
+                        <p class="cbp">비공개</p>
+                        
+                        <button type="button" id="qnaSubmitBtn" class="qnaBtn btn btn-outline-info">등록</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Q&A 뷰 모달 -->
+    <div class="modal fade" id="qnaViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content write_modal_content">
+                  <div class="modal-header write_modal_header">
+                      <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body write_modal_body">
+                  
+                      <h4>뷰창</h4>
+                      
+                      
+                  	  <input type=number id="funding_qna_secret" name="funding_qna_secret" value="" style="display:none;" />
+                      <input type=text id="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                      <input type=text id="member_idx" name="member_idx" value="${member.member_idx}" style="display:none;" />
+                      <!-- <div id="qnaViewDiv" style="max-width: 200px; white-space:normal;">
+                      </div> -->
+                      <textarea id="qnaViewDiv" cols="60" rows="7" readonly="readonly"></textarea>
+                  </div>
+              </div>
+          </div>
+    </div>
+    
+    <!-- Q&A 답변 모달 -->
+    <div class="modal fade" id="qnaAnswerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaAnswerForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4>답변하기</h4>
+                        
+                        <input type=number class="funding_qna_idx" name="funding_qna_idx" value="" style="display:none;" />
+                    	<input type=number class="qna_answer_secret" name="qna_answer_secret" value="" style="display:none;" />
+                    	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
+                        <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                        <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
+                        <textarea name="funding_qna_answer_content" id="funding_qna_answer_content" cols="60" rows="7"
+                            placeholder="답변을 작성해주세요"></textarea>
+                        
+                        <input type="checkbox" id="cb2" class="cb">
+                        <label for="cb2"></label>
+                        <p class="cbp">비공개</p>
+                        
+                        <button type="button" id="qnaAnswerBtn" class="qnaBtn btn btn-outline-info">답변</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Q&A 수정 모달 -->
+    <div class="modal fade" id="qnaModifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaModifyForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4>수정창</h4>
+                        
+                        <input type=number class="parent_id" name="parent_id" value="" style="display:none;" />
+                    	<input type=number class="funding_qna_idx" name="funding_qna_idx" value="" style="display:none;" />
+                    	<input type=number class="qna_answer_secret" name="funding_qna_secret" value="" style="display:none;" />
+                    	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
+                        <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                        <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
+                        <textarea name="funding_qna_content" id="funding_qna_modify" cols="60" rows="7"
+                            placeholder="펀딩에 대한 궁금증을 남겨주세요"></textarea>
+                        
+                        <input type="checkbox" id="cb3" class="cb">
+                        <label for="cb3"></label>
+                        <p class="cbp">비공개</p>
+                        
+                        
+                        <c:choose>
+	                        <c:when test ="${loginPerson eq seller }">
+	                        	<button type="button" id="qnaModifyBtn" class="qnaBtn2 btn btn-outline-info">수정</button>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<button type="button" id="qnaModifyBtn" class="qnaBtn2 btn btn-outline-info">수정</button>
+	                        	<button type="button" id="qnaDeleteBtn" class="qnaBtn3 btn btn-outline-danger">삭제</button>
+	                        </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     
 
     <c:import url="/footer.do"></c:import>
     
-<script type="text/javascript">
-// 글 남기기 모달 카테고리 클릭 이벤트 시작
-var div2 = document.getElementsByClassName("div2");
-
-function handleClick(event) {
-    console.log(event.target);
-    // console.log(this);
-    // 콘솔창을 보면 둘다 동일한 값이 나온다
-    
-    console.log(event.target.parentElement);
-
-    if (event.target.classList[1] === "clicked") {
-        event.target.classList.remove("clicked");
-    } else {
-        for (var i = 0; i < div2.length; i++) {
-            div2[i].classList.remove("clicked");
-        }
-
-        event.target.classList.add("clicked");
-    }
-    
-}
-
-function init() {
-    for (var i = 0; i < div2.length; i++) {
-        div2[i].addEventListener("click", handleClick);
-    }
-}
-
-init();
- // 글 남기기 모달 카테고리 클릭 이벤트 끝
-
- 
- // 글 남기기 모달 글 작성 시작
-var writeModal = $("#writeModal");
-    var writeModalInput = writeModal.find("textarea[name='funding_detail_community_content']");
-    var writeModalSubmit = $("#SubmitBtn");
-    var writeModalCategory = "";
-    var ModalCategory = "";
-
-    writeModalSubmit.on("click", function(e){
-    	var writeModalValue = writeModalInput.val();
-        console.log(writeModalValue);
-        writeModalCategory = document.getElementsByClassName('clicked')[0].value
-        modalCategory = document.getElementsByClassName('clicked')[0].innerText
-        console.log(modalCategory)
-        console.log(writeModalCategory)
-		$('input[name=funding_detail_community_category]').attr('value',writeModalCategory);
-        
-        if(writeModalValue == ""){
-        	alert("글을 작성해주세요")
-        }else{
-        	$.ajax({	
-                url: "serialize",
-                type: "POST",
-                data: $("#commuform").serialize(),
-           	   success: function(data){
-                      //$('#result').text(data);
-                      $('#writeModal').modal('hide')
-                      window.alert(modalCategory + ' 작성에 성공했습니다!')
-                      location.reload();
-                  },
-                  error: function(){
-                      alert("serializeerr");
-                  }   
-            });	
-        }      
-    });
- // 글 남기기 모달 글 작성 끝
- 
- // 페이지 로드시 이벤트 시작
- // 로그인 한 아이디에 커뮤니티 글 작성한 게 있으면 작성하기 버튼 숨기고 수정하기 버튼 보임
- window.addEventListener('load', function () {
-	 var writeMember = document.getElementsByClassName("writeMember");
-	 var login = document.getElementById('loginMember').value;
-	 console.log(writeMember.length)
-	 console.log(login)
-	 
-  	 for (var i = 0; i < writeMember.length; i++) {
-  		 if(writeMember[i].value == login){
-  			document.getElementById('commuWriteBtn').style.display = "none"; // hide
-  			document.getElementById('commuModifyBtn').style.display = "block"; // hide
-  		 }
-  	 }
-})
- 
-</script>
+<script src="../resources/js/view.js"></script>
 </body>
 </html>

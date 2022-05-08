@@ -1,6 +1,8 @@
 package com.edu.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.edu.dao.fundingMainDAO;
 import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
@@ -72,6 +75,79 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception {
 		return dao.writeFundingCommunityComment(vo);
 	}
+	//펀딩 커뮤니티 댓글 수정
+	@Override
+	public void modifyFundingCommunityComment(FundingCommunityVO vo) throws Exception {
+		dao.modifyFundingCommunityComment(vo);
+	}
+	//펀딩 커뮤니티 댓글 삭제
+	@Override
+	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception {
+		dao.deleteFundingCommunityComment(vo);
+	}
+	
+	// 펀딩 qna 댓글 리스트
+	@Override
+	public List<FundingQnaVO> getQnaList(Map<String, Object> paramMap) {
+		//mysql에서 계층적 쿼리 처리가 어려우니 여기서 해결 -> 답변형 게시판 위해서
+		List<FundingQnaVO> fundingQnaList = dao.getQnaList(paramMap);
+		
+		//부모
+		List<FundingQnaVO> fundingQnaListParent = new ArrayList<FundingQnaVO>();
+		//자식
+		List<FundingQnaVO> fundingQnaListChild = new ArrayList<FundingQnaVO>();
+		//통합
+		List<FundingQnaVO> fundingQnaListNew = new ArrayList<FundingQnaVO>();
+		
+		//1. 부모와 자식 분리
+		for(FundingQnaVO fundingQnaVO: fundingQnaList) {
+			if(fundingQnaVO.getDepth() == 0) {
+				fundingQnaListParent.add(fundingQnaVO);
+			}else {
+				fundingQnaListChild.add(fundingQnaVO);
+			}
+		}
+		
+		//2. 부모를 돌린다.
+		for(FundingQnaVO fundingQnaParent: fundingQnaListParent) {
+			//2-1. 부모는 무조건 넣는다.
+			fundingQnaListNew.add(fundingQnaParent);
+			
+			//3. 자식을 돌린다.
+			for(FundingQnaVO fundingQnaChild: fundingQnaListChild) {
+				//3-1. 부모의 자식인 것들만 넣는다.
+				if(fundingQnaParent.getFunding_qna_idx() == fundingQnaChild.getParent_id()){
+					fundingQnaListNew.add(fundingQnaChild);
+				}
+			}
+		}
+		
+		//정리한 list return
+		return fundingQnaListNew;
+	}
+	
+	//펀딩 qna 작성
+	@Override
+	public int qnaInsert(Map<String, Object> paramMap) {
+		return dao.qnaInsert(paramMap);
+	}
+	// 펀딩 qna 답변 작성 완료
+	@Override
+	public int qnaAnswerDone(FundingQnaVO vo) throws Exception {
+		return dao.qnaAnswerDone(vo);
+	}
+	// 펀딩 qna 삭제
+	@Override
+	public void deleteFundingQna(FundingQnaVO vo) throws Exception {
+		dao.deleteFundingQna(vo);
+	}
+	// 펀딩 qna 수정
+
+	@Override
+	public void modifyFundingQna(FundingQnaVO vo) throws Exception {
+		dao.modifyFundingQna(vo);
+	}
+	
 	
 	// 펀딩 옵션
 	@Override
@@ -82,4 +158,5 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public MemberVO selectOne(MemberVO vo) {
 		return memdao.selectOne(vo);
 	}
+	
 }

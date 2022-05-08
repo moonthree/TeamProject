@@ -1,7 +1,7 @@
 package com.edu.dao;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Pagination;
 
@@ -58,9 +59,34 @@ public class fundingMainDAO {
 	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception{
 		return sqlSession.insert("FundingMainMapper.writeFundingCommunityComment", vo);
 	}
-	//펀딩 커뮤니티 댓글 작성 여부
-	public String checkCommentWrite(FundingCommunityVO vo) throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.checkCommentWrite", vo);
+	//펀딩 커뮤니티 댓글 수정
+	public void modifyFundingCommunityComment(FundingCommunityVO vo) throws Exception{
+		sqlSession.update("FundingMainMapper.modifyFundingCommunityComment", vo);	
+	}
+	//펀딩 커뮤니티 댓글 삭제
+	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception{
+		sqlSession.delete("FundingMainMapper.deleteFundingCommunityComment", vo);	
+	}
+	
+	//펀딩 qna 리스트
+	public List<FundingQnaVO> getQnaList(Map<String, Object> paramMap) {
+		return sqlSession.selectList("FundingMainMapper.readFundingQnaList", paramMap);
+	}
+	//펀딩 qna 작성
+	public int qnaInsert(Map<String, Object> paramMap) {
+		return sqlSession.insert("FundingMainMapper.insertFundingQna", paramMap);
+	}
+	//펀딩 qna 답변 작성 완료
+	public int qnaAnswerDone(FundingQnaVO vo) throws Exception{
+		return sqlSession.update("FundingMainMapper.qnaAnswerDone", vo);
+	}
+	//펀딩 QNA 삭제
+	public void deleteFundingQna(FundingQnaVO vo) throws Exception{
+		sqlSession.delete("FundingMainMapper.deleteFundingQna", vo);
+	}
+	//펀딩 qna 수정
+	public void modifyFundingQna(FundingQnaVO vo) throws Exception{
+		sqlSession.update("FundingMainMapper.modifyFundingQna", vo);	
 	}
 	
 	// 펀딩 옵션

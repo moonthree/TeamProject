@@ -1,6 +1,8 @@
 package com.edu.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
@@ -94,7 +98,7 @@ public class FundingController {
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
+	public String read(@RequestParam Map<String, Object> paramMap, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));
@@ -109,6 +113,16 @@ public class FundingController {
 		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
 		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
 		
+		
+		//펀딩 qna 댓글 리스트
+		model.addAttribute("qnaList", fms.getQnaList(paramMap));
+		
+		/*
+		 * List<FundingQnaVO> fundingQnaCommentList =
+		 * fms.readFundingQnaComent(vo.getFunding_idx());
+		 * model.addAttribute("fundingQnaCommentList", fundingQnaCommentList);
+		 */
+		
 		return "funding/view";
 	}
 	
@@ -120,6 +134,59 @@ public class FundingController {
 		return fms.writeFundingCommunityComment(vo);
 	}
 	
+	//펀딩 커뮤니티 댓글 수정 ajax로 불러옴
+	@RequestMapping(value ="/commuModify", method= RequestMethod.POST)
+	@ResponseBody
+	public void commuModify(FundingCommunityVO vo) throws Exception {
+		//return vo.getFunding_detail_community_content() + vo.getFunding_idx() + vo.getMember_idx() + vo.getFunding_detail_community_category();
+		fms.modifyFundingCommunityComment(vo);
+	}
+	//펀딩 커뮤니티 댓글 삭제ajax로 불러옴
+	@RequestMapping(value ="/commuDelete", method= RequestMethod.POST)
+	@ResponseBody
+	public void commuDelete(FundingCommunityVO vo) throws Exception {
+		//return vo.getFunding_detail_community_content() + vo.getFunding_idx() + vo.getMember_idx() + vo.getFunding_detail_community_category();
+		fms.deleteFundingCommunityComment(vo);
+	}
+	
+	//펀딩 qna 작성 ajax로 불러옴
+	@RequestMapping(value ="/qnaInsert", method= RequestMethod.POST)
+	@ResponseBody
+	public Object qnaInsert(@RequestParam Map<String, Object> paramMap){
+		
+		//리턴값
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		int result = fms.qnaInsert(paramMap);
+		if(result>0) {
+			retVal.put("code", "OK");
+			retVal.put("funding_qna_idx", paramMap.get("funding_qna_idx"));
+			retVal.put("parent_id", paramMap.get("parent_id"));
+			retVal.put("message", "등록 성공!");
+		}else {
+			retVal.put("code", "FAIL");
+			retVal.put("message", "등록 실패!");
+		}
+		return retVal;
+	}
+	
+	//펀딩 qna 상태 업데이트
+	@RequestMapping(value ="/qnaAnswerDone", method= RequestMethod.POST)
+	@ResponseBody
+	public int qnaAnswerDone(FundingQnaVO vo) throws Exception{
+		return fms.qnaAnswerDone(vo);
+	}
+	// 펀딩 qna 삭제
+	@RequestMapping(value ="/qnaDelete", method= RequestMethod.POST)
+	@ResponseBody
+	public void deleteFundingQna(FundingQnaVO vo) throws Exception {
+		fms.deleteFundingQna(vo);
+	}
+	// 펀딩 qna 수정
+	@RequestMapping(value ="/qnaModify", method= RequestMethod.POST)
+	@ResponseBody
+	public void modifyFundingQna(FundingQnaVO vo) throws Exception {
+		fms.modifyFundingQna(vo);
+	}
 	
 	
 	
