@@ -10,11 +10,6 @@
 		<result column="member_photo" property="member_photo"/>
 		<result column="member_business_name" property="member_business_name"/>
 	</resultMap>
-	<resultMap type="FundingOrderVO" id="FundingOrderVO">
-		<result column="funding_order_idx" property="funding_order_idx"/>
-		<result column="funding_idx" property="funding_idx"/>
-		<result column="member_idx" property="member_idx"/>
-	</resultMap>
 	<resultMap type="FundingMainVO" id="FundingMainVO">
 		<result column="funding_idx" property="funding_idx"/>
 		<result column="member_idx" property="member_idx"/>
@@ -29,7 +24,6 @@
 		<result column="funding_views" property="funding_views"/>
 		<result column="funding_thumbnail" property="funding_thumbnail"/>
 		<collection property="memberVO" resultMap="MemberVO"></collection>
-		<collection property="fundingOrderVO" resultMap="FundingOrderVO"></collection>
 	</resultMap>
 	<resultMap type="FundingCommunityVO" id="FundingCommunityVO">
 		<result column="funding_detail_community_idx" property="funding_detail_community_idx"/>

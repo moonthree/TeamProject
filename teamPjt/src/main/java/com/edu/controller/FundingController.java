@@ -22,7 +22,6 @@ import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
-import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
@@ -124,9 +123,10 @@ public class FundingController {
 		
 		return "funding/view";
 	}
+	//오더 카운트
 	@RequestMapping(value ="/read_funding_form", method= RequestMethod.POST)
 	@ResponseBody
-	public int orderCount(FundingOrderVO vo) throws Exception {
+	public int orderCount(Funding_orderVO vo) throws Exception {
 		return fms.orderCount(vo);
 	}
 	

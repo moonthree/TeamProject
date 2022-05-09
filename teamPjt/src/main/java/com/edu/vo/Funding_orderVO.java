@@ -1,9 +1,9 @@
+
 package com.edu.vo;
-
-import java.util.Date;
-
+import java.util.Date;	
+			
 public class Funding_orderVO {			
-	
+			
 	private int funding_order_idx;		
 	private int funding_order_total_price;		
 	private int funding_order_pay_state;		

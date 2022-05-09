@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
-import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
@@ -30,7 +29,7 @@ public interface fundingMainService {
 	//펀딩 뷰
 	public FundingMainVO read(int funding_idx) throws Exception;
 	//오더 카운트
-	public int orderCount(FundingOrderVO vo) throws Exception;
+	public int orderCount(Funding_orderVO vo) throws Exception;
 	
 	//펀딩 커뮤니티 댓글 리스트
 	List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception;

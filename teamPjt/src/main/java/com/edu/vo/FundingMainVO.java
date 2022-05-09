@@ -1,6 +1,4 @@
 package com.edu.vo;
-import com.edu.vo.MemberVO;
-import com.edu.vo.FundingOrderVO;
 
 public class FundingMainVO {
 	//git 넘기기용
@@ -28,7 +26,6 @@ public class FundingMainVO {
 	private int funding_views;
 	
 	private MemberVO memberVO;
-	private FundingOrderVO fundingOrderVO;
 	
 	
 	public MemberVO getMemberVO() {
@@ -150,12 +147,6 @@ public class FundingMainVO {
 				+ ", funding_current_state=" + funding_current_state + ", funding_write_date=" + funding_write_date
 				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
 				+ ", funding_express_fee=" + funding_express_fee + ", funding_views="  + "]";
-	}
-	public FundingOrderVO getFundingOrderVO() {
-		return fundingOrderVO;
-	}
-	public void setFundingOrderVO(FundingOrderVO fundingOrderVO) {
-		this.fundingOrderVO = fundingOrderVO;
 	}
 	
 	

@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
-import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
@@ -56,7 +55,7 @@ public class fundingMainDAO {
 		sqlSession.update("FundingMainMapper.fundingViews", funding_idx);
 	}
 	//오더 카운트
-	public int orderCount(FundingOrderVO vo) throws Exception{
+	public int orderCount(Funding_orderVO vo) throws Exception{
 		return sqlSession.selectOne("FundingMainMapper.orderCount", vo);
 	}
 	//펀딩 커뮤니티 댓글 리스트
