@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
+import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
@@ -37,6 +38,8 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 
+	@Autowired 
+	private fundingMainService fundingMainServiece;
 	@RequestMapping(value = "/mypage.do")
 	public String mypage(Model model, HttpServletRequest request) {
 		// 세션에 있는 사용자의 정보 가져옴
@@ -60,9 +63,25 @@ public class MypageController {
 	}
 
 	/* 펀딩 등록 메소드 */
-	@RequestMapping(value = "/funding_register.do")
+	@RequestMapping(value = "/funding_register.do", method = RequestMethod.GET)
 	public String funding_register() {
+		
 		return "mypage/funding_register";
+	}
+	@RequestMapping(value = "/funding_register.do", method = RequestMethod.POST)
+	public String funding_register2(FundingMainVO vo, Model model,HttpServletRequest request) {
+		
+		
+		
+		int result = fundingMainServiece.fun_reg(vo);
+		if(result  == 1) {
+			return "redirect:/mypage/mypage2.do";
+		}
+		else {
+			
+			return "redirect:/request.getContextPath()";
+		}
+	
 	}
 
 	
@@ -75,6 +94,8 @@ public class MypageController {
 			HttpServletRequest request) throws ParseException, IllegalStateException, IOException {
 		
 		//MemberVO vo  = request.getSession().getAttribute("login");
+		
+		System.out.println(vo.toString());
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
 	
@@ -130,7 +151,7 @@ public class MypageController {
 		HttpSession session = request.getSession();
 		
 		login = (MemberVO) session.getAttribute("login");
-		System.out.println(login.toString());
+		
 		 
 		return "mypage/funding_view"; 
 	}

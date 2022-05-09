@@ -74,4 +74,9 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public List<Funding_optionVO> list(Funding_optionVO vo) {
 		return dao.list(vo);
 	}
+	@Override
+	public int fun_reg(FundingMainVO vo) {
+		
+		return dao.fun_reg(vo);
+	}
 }

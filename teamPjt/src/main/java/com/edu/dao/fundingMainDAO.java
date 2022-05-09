@@ -67,4 +67,9 @@ public class fundingMainDAO {
 	public List<Funding_optionVO> list(Funding_optionVO vo){
 		return sqlSession.selectList("FundingMainMapper.list", vo);
 	}
+	
+	//펀딩 등록
+	public int fun_reg(FundingMainVO vo) {
+		return sqlSession.insert("Funding_reg",vo);
+	}
 }

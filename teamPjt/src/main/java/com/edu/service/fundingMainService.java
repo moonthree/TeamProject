@@ -30,4 +30,7 @@ public interface fundingMainService {
 	
 	// 펀딩 옵션 리스트
 	List<Funding_optionVO> list(Funding_optionVO vo);
+	
+	//펀딩 상품 등록
+	int fun_reg(FundingMainVO vo);
 }

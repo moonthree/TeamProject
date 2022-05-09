@@ -65,23 +65,23 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	
+
 	@RequestMapping(value = "/join_select.do")
 	public String join_select() {
 		return "member/join_select";
 	}
-
 	
-	  @RequestMapping(value = "/join_company.do", method = RequestMethod.GET)
-	  public String join_company() { 
+		/*소비자 계정 회원가입 페이지 이동 시 get방식으로 */
+	  @RequestMapping(value = "/join_seller.do", method = RequestMethod.GET)
+	  public String join_seller() { 
 			 System.out.println("get방식"); 
-		  return "member/join_company"; 
+		  return "member/join_seller"; 
 	  }
 	 
-
-	@RequestMapping(value = "/join_company.do", method = RequestMethod.POST)
-	public void join_company(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		System.out.println("post방식");
+	  /*post 방식 소비자 계정 회원가입 페이지 연동 즉, 입력폼들을 받아온다.  */
+	@RequestMapping(value = "/join_seller.do", method = RequestMethod.POST)
+	public void join_seller(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String[] phones = request.getParameterValues("phone1");
 		String phone = "";
 		
@@ -93,12 +93,12 @@ public class MemberController {
 			phone += "-";
 		}
 		phone = phone.substring(0, phone.length() - 1);
+		
 		vo.setMember_phone(phone);
-		String addr = vo.getMember_addr() + addr2;
-		vo.setMember_addr(addr);
 		
 		
-		System.out.println(vo.toString());
+		// 소비자 계정 회원가입 이므로  DB의 member_level칼럼을 0으로 지정
+		vo.setMember_level(0);
 		
 		int result = memberService.memberJoin(vo);
 		response.setContentType("text/html; charset=euc-kr;");
@@ -111,7 +111,53 @@ public class MemberController {
 		pw.flush();
 
 	}
+	
+	
+	/*판매자 계정 로그인*/
+	@RequestMapping(value = "/join_company.do", method = RequestMethod.GET)
+	public String join_company() {
+		
+		return "member/join_company";
+	}
+	
+	@RequestMapping(value = "/join_company.do", method = RequestMethod.POST)
+	public void join_company(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String[] phones = request.getParameterValues("phone1");
+		String phone = "";
+		
+		String addr2 = request.getParameter("member_addr2");
+		
+		for (String s : phones) {
 
+			phone += s;
+			phone += "-";
+		}
+		phone = phone.substring(0, phone.length() - 1);
+		
+		vo.setMember_phone(phone);
+		
+		// 소비자 계정 회원가입 이므로  DB의 member_level칼럼을 1로 지정
+		
+		vo.setMember_level(1);
+		
+		int result = memberService.memberJoin(vo);
+		response.setContentType("text/html; charset=euc-kr;");
+		PrintWriter pw = response.getWriter();
+		if (result > 0) { // 회원가입 성공 -> home으로 이동
+			pw.println("<script>alert('회원가입 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+		} else {
+			pw.println("<script>alert('회원가입 실패');location.href='" + request.getContextPath() + "'" + "</script>");
+		}
+		pw.flush();
+		
+		
+	
+	}
+	
+	
+	
+	/*카카오 계정 회원 가입 및 로그인*/
 	@RequestMapping(value = "/join_kakao.do")
 	public String join_kakao(MemberVO vo, Model model, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
@@ -132,6 +178,7 @@ public class MemberController {
 				login.setMember_name(member.getMember_name());
 				
 				
+				/*세션 등록 */
 				session.setAttribute("login", login);
 				
 				return "redirect:/.do";
@@ -140,14 +187,10 @@ public class MemberController {
 				//카카오 회원으로 회원가입 한게 없을 경우
 				
 				model.addAttribute("kakaoVo", vo);
-				return "member/join_company";
+				return "member/join_seller";
 			}
 		}
 
-	
-	
-	
-	
 	@RequestMapping(value="/check.do",method = RequestMethod.POST)
 	@ResponseBody
 	public int check(String email) {

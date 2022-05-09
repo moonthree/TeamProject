@@ -204,7 +204,7 @@
                 
                 
                 <!-- 자기자신 페이지로 post 방식으로 회원가입 요청 -->
-                <form id="mem_frm" name="mem_frm" action="join_company.do" method="post" accept-charset="utf-8">
+                <form id="mem_frm" name="mem_frm" action="join_seller.do" method="post" accept-charset="utf-8">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">이름</label>
                         <input  name="member_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="이름 입력"
@@ -281,17 +281,24 @@
                             &nbsp;-&nbsp;<input name="phone1" type="text" class="form-control" id="exampleFormControlInput3" style="width: 30%;">
                             &nbsp;-&nbsp;<input  name="phone1" type="text" class="form-control" id="exampleFormControlInput4" style="width: 30%;">
                          
+                           
                         </div>
                     </div>
-                     <div class="form-group">
-                       <label for="exampleFormControlInput1">사업자명(회사명)</label>
-                       <input name=" member_business_name" type="text" class="form-control" id="exampleFormControlInput3" style="width: 80%;">                
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">선호 애완동물</label><br>
+                        <div class="form-check form-check-inline">
+                            <input name="member_pet" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
+                            <label class="form-check-label" for="inlineRadio1">강아지</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="member_pet" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1">
+                            <label class="form-check-label" for="inlineRadio2">고양이</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="member_pet" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="2">
+                            <label class="form-check-label" for="inlineRadio2">다른 동물</label>
+                        </div>
                     </div>
-                      <div class="form-group">
-                      <label for="exampleFormControlInput1">사업자 등록번호</label>
-                       <input name="member_business_num" type="text" class="form-control" id="exampleFormControlInput3" style="width: 50%;">                
-                    </div>
-                 
                     <hr>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
