@@ -121,6 +121,10 @@ public class fundingMainDAO {
 		return sqlSession.selectList("FundingMainMapper.list", vo);
 	}
 	
+	//펀딩 등록
+	public int fun_reg(FundingMainVO vo) {
+		return sqlSession.insert("Funding_reg",vo);
+	}
 	// 결제 예약
 	// 주문 번호
 	public int insertOrder(Funding_orderVO ordervo) {

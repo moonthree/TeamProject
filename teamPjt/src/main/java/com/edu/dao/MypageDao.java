@@ -10,7 +10,7 @@ import com.edu.vo.ChangePwVO;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
 
-
+//git 넘기기용
 
 @Repository
 public class MypageDao {

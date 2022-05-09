@@ -3,7 +3,7 @@ import com.edu.vo.MemberVO;
 import com.edu.vo.FundingOrderVO;
 
 public class FundingMainVO {
-	
+	//git 넘기기용
 	private int funding_idx;
 	private int member_idx;
 	

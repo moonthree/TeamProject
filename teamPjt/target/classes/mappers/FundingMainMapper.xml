@@ -135,6 +135,8 @@
 			funding_idx,
 			funding_title,
 			funding_thumbnail,
+			funding_content,
+			funding_notice,
 			funding_target_price,
 			funding_current_price,
 			funding_start_date,
@@ -325,6 +327,50 @@
 		  FROM funding_option
 		 WHERE funding_idx = 1;
 	</select>
+	
+	
+	<!-- 펀딩 등록 하기 -->
+	<insert id="Funding_reg" parameterType="fundingMainVO">
+		INSERT INTO funding(
+		 member_idx
+		,funding_title
+		,funding_thumbnail
+		,funding_content
+		,funding_notice
+		,funding_target_price
+		,funding_current_price
+		,funding_start_date
+		,funding_end_date
+		,funding_permit_state
+		,funding_current_state
+		,funding_category
+		,funding_express_date
+		,funding_express_fee
+		,funding_views
+		)
+		VALUES(
+		#{member_idx}
+		,#{funding_title}
+		,#{funding_thumbnail}
+		,#{funding_content}
+		,#{funding_notice}
+		,#{funding_target_price}
+		,#{funding_current_price}
+		,#{funding_start_date}
+		,#{funding_end_date}
+		,#{funding_permit_state}
+		,#{funding_current_state}
+		,#{funding_category}
+		,#{funding_express_date}
+		,#{funding_express_fee}
+		,#{funding_views}
+		)
+		
+		
+	
+	
+	
+	</insert>
 	
 	<!-- 주문 번호 -->
 	<insert id="insertOrder" parameterType="Funding_orderVO">

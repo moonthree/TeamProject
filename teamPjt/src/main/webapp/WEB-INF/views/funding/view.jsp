@@ -58,7 +58,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12">
-                <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="mainIMG" alt="...">
+               <img src="../resources/upload/funding/${read.funding_thumbnail}" class="card-img-top img2" alt="...">
             </div>
             <div class="col-md-4 col-sm-12 topContent">
             
@@ -161,10 +161,17 @@
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
                 PDF 파일 올라올 예정
+          <%--      <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=1" style="width:100%; height:150vh;"></iframe>  --%>
+          
+               <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
+            <%--    <embed src="../resources/upload/funding/${read.funding_content}#toolbar=0" type="application/pdf" width="100%" height="1000px">  --%>
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-                PDF 파일 올라올 예정
+                공지 사항 사진 파일 올라올 예정
+                 <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
+                 
+                 
             </div>
             <!--커뮤니티-->
             <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">

@@ -191,6 +191,11 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public MemberVO selectOne(MemberVO vo) {
 		return memdao.selectOne(vo);
 	}
+	@Override
+	public int fun_reg(FundingMainVO vo) {
+		
+		return dao.fun_reg(vo);
+	}
 	
 	// 결제 예약
 	// 주문 번호

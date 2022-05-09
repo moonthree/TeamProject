@@ -7,6 +7,8 @@ import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
 
+
+//git 넘기기용
 public interface MypageService {
 
 	//프로필 정보 가져오기

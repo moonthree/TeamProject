@@ -65,6 +65,8 @@ public interface fundingMainService {
 	
 	// 멤버 조회
 	MemberVO selectOne(MemberVO vo);
+	//펀딩 상품 등록
+	int fun_reg(FundingMainVO vo);
 	
 	// 결제 예약
 	// 주문 번호

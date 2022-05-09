@@ -91,7 +91,7 @@
 		        	<div class="col-md-4 col-sm-12">
 		        		<div class="card">
 		                    <a href="view.do?funding_idx=${item.funding_idx} ">
-		                    	<img src="../resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
+		                    	<img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
 		                    <div class="card-body">
 			                    <a href="view.do?funding_idx=${item.funding_idx} ">
