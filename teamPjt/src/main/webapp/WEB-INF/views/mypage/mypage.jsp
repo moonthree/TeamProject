@@ -165,11 +165,12 @@ $(document).on("click", ".menu div", function() {
                         </div>
                       </div>
                   </div>
+                  
                   <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/dog123.png" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <img src="../resources/image/funding_main/#{ funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
-                        <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
+                        <p class="card-text">#{ funding_title }/p>
                       </div>
                     </div>
                   </div>

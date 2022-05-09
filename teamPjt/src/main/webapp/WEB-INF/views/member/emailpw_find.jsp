@@ -10,20 +10,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 <style>
-	main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-    }
     th{
         width: 90px;
     }
     td, input{
         width: 80%;
     }
-    
-   
 </style>
+<link rel="stylesheet" type="text/css" href="../resources/css/modal.css">
 <script>
 function autoHypenTel(str) {
     str = str.replace(/[^0-9]/g, '');
@@ -102,13 +96,13 @@ $(document).on('click','#findId',function(){
 			data : {"member_name":$("#nameInput").val(),"member_phone":$("#telInput").val()},
 	        success:function(data){
 	        	if(data==""){
-	        		$("#getCodeModal").modal("toggle");
+	        		$("#getIdModal").modal("toggle");
 	           	 	var html = "해당하는 회원 정보가 없습니다 다시 입력해주세요 <br>"+data;
-	                $("#getCode").html(html);
+	                $("#getId").html(html);
 	        	}else{
-	        		$("#getCodeModal").modal("toggle");
+	        		$("#getIdModal").modal("toggle");
 	           	 	var html = "조회한 이메일은 다음과 같습니다 <br>"+data;
-	                $("#getCode").html(html);
+	                $("#getId").html(html);
 	        	}
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
@@ -126,16 +120,17 @@ $(document).on('click','#findPw',function(){
 	console.log("이름 : "+$("#nameInput2").val());
 	console.log("번호 : "+$("#telInput2").val());
 	
+	
 	$.ajax({
 		url : "findPw.do",
 		type : "post",
 		data : {"member_email":$("#emailInput2").val(),"member_name":$("#nameInput2").val(),"member_phone":$("#telInput2").val()},
         success:function(data){
+        	$("#pwModal").modal("toggle");
         	console.log(data);
-        	
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
-        	alert('에이잭스 오류.' );
+        	alert('입력하신 정보가 올바르지 않습니다');
         }
 	});
 });
@@ -162,16 +157,16 @@ $(document).on('click','#findPw',function(){
                         <td><input type="text" name="member_name" class="form-control" id="nameInput" placeholder="이름을 입력해주세요" ></td>
                     </tr>
                     <tr>
-                        <th>연락처</th>
+                        <th><div style="margin-top:20px">연락처</div></th>
                         <td>
-                            <div class="input-group mb-3" style="margin-top:20px">
+                            <div class="input-group mb-3" style="margin-top:40px">
                                     <input type="tel" class="form-control m-input telCheckSize" name="member_phone" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
                                     aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_phone }">
                             </div>
                         </td>
                     </tr>
                 </table>
-                <div style="text-align: center; margin-bottom: 15px;">
+                <div style="text-align: center; margin-top: -10px;">
                     <button type="button" class="btn btn-primary" style="background-color: #5584AC; border: none;" id="findId">이메일 찾기</button>
                 </div>
             </div>
@@ -191,7 +186,7 @@ $(document).on('click','#findPw',function(){
                     <tr>
                         <th>연락처</th>
                         <td>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                     <input type="tel" class="form-control m-input telCheckSize" name="member_phone" id="telInput2" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
                                     aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_phone }">
                             </div>
@@ -207,32 +202,50 @@ $(document).on('click','#findPw',function(){
             <div class="col-xs-12" style="width: 100%;">
                 <div style="font-weight: 600; margin-bottom: 10px;">이메일 / 비밀번호 조회결과</div>
                 <div style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; line-height: 3;">
-                    &#183; 고객님께서 검색하신 이메일에 대한 결과값이 여기에 보여집니다.<br>
                     &#183; 검색하신 비밀번호는 회원가입 시 등록된 이메일 주소로 발송됩니다.<br>
                     &#183; 비밀번호 찾기는 이메일, 이름, 전화번호를 모두 입력하셔야 조회가 가능합니다.
-                    	
-					<a href="write.do">이메일 발송</a> 
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- 모달 창  -->
     <!-- Modal -->
-	 <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	   <div class="modal-dialog modal-lg">
-	      <div class="modal-content">
-	       <div class="modal-header head">
-	         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	         <h5 class="modal-title" id="myModalLabel"> 닫기 </h5>
-	       </div>
-	       <div class="modal-body content" id="getCode" style="overflow-x: scroll;">
-	          ajax success content here.
-	       </div>
-	    </div>
-	   </div>
-	 </div>
     
+	<!-- 아이디 찾기 모달 -->
+	<div class="modal fade" id="getIdModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content login_modal_content">
+	      <div class="modal-header login_modal_header">
+	        <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body login_modal_body" id="getId">
+	      	ajax success content here
+	      </div>
+	      	<div class="modal-footer login_modal_footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+	<!-- 비밀번호 찾기 모달 -->
+	<div class="modal fade" id="pwModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content login_modal_content">
+	      <div class="modal-header login_modal_header">
+	        <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body login_modal_body">
+	      	<h4>님의 임시 비밀번호를 등록한 이메일로 보냈습니다</h4>
+	      </div>
+	      	<div class="modal-footer login_modal_footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     
     </main>

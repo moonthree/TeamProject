@@ -13,6 +13,8 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
 
@@ -123,4 +125,14 @@ public class fundingMainDAO {
 	public int fun_reg(FundingMainVO vo) {
 		return sqlSession.insert("Funding_reg",vo);
 	}
+	// 결제 예약
+	// 주문 번호
+	public int insertOrder(Funding_orderVO ordervo) {
+		return sqlSession.insert("FundingMainMapper.insertOrder", ordervo);
+	}
+	// 주문 옵션 정보 등록
+	public int insertOption(Funding_order_optionVO orderOptionvo) {
+		return sqlSession.insert("FundingMainMapper.insertOption", orderOptionvo);
+	}
+	
 }

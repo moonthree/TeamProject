@@ -372,4 +372,33 @@
 	
 	</insert>
 	
+	<!-- 주문 번호 -->
+	<insert id="insertOrder" parameterType="Funding_orderVO">
+		INSERT INTO funding_order(
+			funding_order_total_price
+		  , funding_order_pay_state
+		  , funding_order_date
+		  , member_idx
+		  , funding_idx
+		)VALUES(
+			#{funding_order_total_price}
+		  , #{funding_order_pay_state}
+		  , now()
+		  , #{member_idx}
+		  , #{funding_idx}
+		)
+	</insert>
+	
+	<!-- 주문 옵션 번호 -->
+	<insert id="insertOption" parameterType="Funding_order_optionVO">
+		INSERT INTO funding_order_option(
+			funding_order_idx
+		  , funding_order_option_select_idx
+		  , funding_order_option_select_count
+		)VALUES(
+			#{funding_order_idx}
+		  , #{funding_order_option_select_idx}
+		  , #{funding_order_option_select_count}
+		)
+	</insert>
 </mapper>

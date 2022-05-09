@@ -4,12 +4,14 @@
 
 <mapper namespace="MypageMapper">
 	
+	<!-- 프로필 사진 업데이트 -->
 	<update id="update_photo" parameterType="fileuploadVO">
 		UPDATE member
 		SET    member_photo = #{path}
 		WHERE  member_idx = #{member_idx}
 	</update>
 	
+	<!-- 프로필 업데이트 -->
 	<update id="update_profile" parameterType="memberVO">
 		UPDATE member
 		SET	   member_addr = #{member_addr}
@@ -21,6 +23,7 @@
 		WHERE  member_idx = #{member_idx}
 	</update>
 	
+	<!-- 아이디 찾기 MypageController2 -->
 	<select id="findId" resultType="String">
 		SELECT member_email
 		FROM   member
@@ -28,6 +31,42 @@
 	   	AND    member_phone = #{member_phone}
 	</select>
 	
+	<!-- 비밀번호 찾기 MypageController2 (필요없음, 나중에 삭제할것)-->
+	<select id="findPw" resultType="String">
+		SELECT member_password
+		FROM   member
+	    WHERE  member_name = #{member_name}
+	   	AND    member_phone = #{member_phone}
+	   	AND	   member_email = #{member_email}
+	</select>
+	
+	<!-- 비밃번호 변경 MypageController2 -->
+	<update id="changePw" parameterType="changePwVO">
+		UPDATE member 
+		SET    member_password = ifnull(#{changedPw},0)
+		WHERE  member_email = #{member_email}
+		AND    member_name = #{member_name}
+		AND    member_phone = #{member_phone}
+	</update>
+	
+	<!-- mypage1 리스트 출력 3개 -->
+	<select id="listMyfunding" parameterType="int" resultType="FundingMainVO">
+		SELECT  funding_idx,
+				funding_title,
+				funding_thumbnail,
+				funding_target_price,
+				funding_current_price,
+				funding_start_date,
+				funding_end_date,
+				funding_permit_state,
+				funding_current_state,
+				funding_category,
+				funding_views
+		FROM    funding AS ft RIGHT JOIN myorder AS mot
+		ON      mot.member_idx = ft.member_idx
+		AND     mot.member_idx = #{member_idx}
+		ORDER BY mot.order_date DESC LIMIT 3
+	</select>
 	
 	
 	
