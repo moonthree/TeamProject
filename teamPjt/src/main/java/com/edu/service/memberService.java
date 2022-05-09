@@ -1,5 +1,7 @@
 package com.edu.service;
 
+import java.util.Map;
+
 import com.edu.vo.MemberVO;
 
 public interface memberService {
@@ -12,5 +14,8 @@ public interface memberService {
 	int checkEmail(String email);
 	
 	MemberVO selectOne(MemberVO vo);
+	
+	
+	
 
 }

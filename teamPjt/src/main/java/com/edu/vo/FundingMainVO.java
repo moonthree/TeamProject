@@ -1,7 +1,7 @@
 package com.edu.vo;
 
 public class FundingMainVO {
-	
+	//git 넘기기용
 	private int funding_idx;
 	private int member_idx;
 	
@@ -25,6 +25,15 @@ public class FundingMainVO {
 	private int funding_express_fee;
 	private int funding_views;
 	
+	private MemberVO memberVO;
+	
+	
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 	public int getFunding_views() {
 		return funding_views;
 	}

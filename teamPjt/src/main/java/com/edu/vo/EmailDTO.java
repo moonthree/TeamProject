@@ -3,6 +3,7 @@ package com.edu.vo;
 public class EmailDTO {
     private String senderName;    //발신자 이름
     private String senderMail;    //발신자 이메일 주소
+    private String receiveName;
     private String receiveMail;    //수신자 이메일 주소
     private String subject;            //제목
     private String message;            //본문
@@ -43,6 +44,12 @@ public class EmailDTO {
         return "EmailDTO [senderName=" + senderName + ", senderMail=" + senderMail + ", receiveMail=" + receiveMail
                 + ", subject=" + subject + ", message=" + message + "]";
     }
+	public String getReceiveName() {
+		return receiveName;
+	}
+	public void setReceiveName(String receiveName) {
+		this.receiveName = receiveName;
+	}
     
 }
  

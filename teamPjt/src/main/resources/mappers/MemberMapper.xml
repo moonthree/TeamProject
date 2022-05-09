@@ -11,11 +11,17 @@
 		   ,member_password
 		   ,member_name
 		   ,member_addr
+		   ,member_addr2
+		   ,member_postnum
 		   ,member_phone
 		   ,member_pet
 		   ,member_level
 		   ,member_join_date
 		   ,member_photo
+		    <if test="member_level == 1">
+		   	,member_business_num
+		   	,member_business_name
+		   </if>
 		   
 		)
 		VALUES(
@@ -23,11 +29,17 @@
 			,#{member_password}
 			,#{member_name}
 			,#{member_addr}
+			,#{member_addr2}
+		   	,#{member_postnum}
 			,#{member_phone}
 			,#{member_pet}
 			,#{member_level}
 			,now()
 			,#{member_photo}
+			 <if test="member_level == 1">
+		   	,#{member_business_num}
+		   	,#{member_business_name}
+		   </if>
 		)
 	</insert>
 

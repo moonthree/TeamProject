@@ -24,7 +24,7 @@
 	        $(".dropdown-toggle").dropdown();
 	    });
     </script>
- 
+ <!-- //git 넘기기용 -->
 </head>
 <body>
 	
@@ -114,7 +114,7 @@
         <div class="tab-content" id="myTabContent">
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
-            	<embed src="../resources/upload/funding/${org_DetailName}" type="application/pdf" width="100%" height="1000px">
+            	<iframe class="iframe" src="../resources/upload/funding/${org_DetailName}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
@@ -210,6 +210,14 @@
             </div>
         </div>
     </div>
+    <input type="button" onclick="Fnclose()" class="btn btn-secondary" value="확인"/> 
+    
+    <script type="text/javascript">
+   function Fnclose(){
+	   window.open('','_self').close();
+	   
+   }
+    </script>
 	</main>
     
     <c:import url="/footer.do"></c:import>
