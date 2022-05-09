@@ -3,7 +3,7 @@ package com.edu.vo;
 import java.util.Date;
 
 public class MemberVO {
-
+	//git 넘기기용
 	private int member_idx;
 	private String member_email;
 	private String member_password;

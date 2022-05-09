@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+<!-- //git 넘기기용 -->
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

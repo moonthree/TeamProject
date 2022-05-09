@@ -28,6 +28,7 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
+	//git 넘기기용
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(MemberVO vo, HttpServletRequest request) {

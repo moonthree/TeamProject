@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- //git 넘기기용 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"

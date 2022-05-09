@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
 
-
+//git 넘기기용
 
 @Repository
 public class MypageDao {

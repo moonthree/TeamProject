@@ -65,7 +65,7 @@ public class MypageController {
 	/* 펀딩 등록 메소드 */
 	@RequestMapping(value = "/funding_register.do", method = RequestMethod.GET)
 	public String funding_register() {
-		
+		//git 넘기기용
 		return "mypage/funding_register";
 	}
 	@RequestMapping(value = "/funding_register.do", method = RequestMethod.POST)

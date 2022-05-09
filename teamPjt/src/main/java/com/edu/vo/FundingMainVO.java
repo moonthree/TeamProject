@@ -1,7 +1,7 @@
 package com.edu.vo;
 
 public class FundingMainVO {
-	
+	//git 넘기기용
 	private int funding_idx;
 	private int member_idx;
 	
