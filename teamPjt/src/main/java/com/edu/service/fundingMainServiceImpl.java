@@ -20,6 +20,8 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
@@ -190,5 +192,17 @@ public class fundingMainServiceImpl implements fundingMainService{
 		return memdao.selectOne(vo);
 	}
 	
+	// 결제 예약
+	// 주문 번호
+	@Override
+	public int insertOrder(Funding_orderVO ordervo) {
+		return dao.insertOrder(ordervo);
+	}
+	// 주문 옵션 정보 등록
+	@Override
+	public int insertOption(Funding_order_optionVO orderOptionvo) {
+		return dao.insertOption(orderOptionvo);
+	}
+		
 	
 }

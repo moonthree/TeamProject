@@ -10,6 +10,9 @@
 		<typeAlias type="com.edu.vo.FundingCommunityVO" alias ="fundingCommunityVO"/>
 		<typeAlias type="com.edu.vo.FundingQnaVO" alias ="fundingQnaVO"/>
 		<typeAlias type="com.edu.vo.Funding_optionVO" alias="funding_optionVO"/>
+		<!-- 펀딩 오더 하나로 맞추기 -->
+		<typeAlias type="com.edu.vo.Funding_orderVO" alias="funding_orderVO"/>
+		<typeAlias type="com.edu.vo.Funding_order_optionVO" alias="funding_order_optionVO"/>
 		<typeAlias type="com.edu.vo.FundingOrderVO" alias ="fundingOrderVO"/>
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>
 		<typeAlias type="com.edu.vo.FileUploadVO" alias ="fileuploadVO"/>

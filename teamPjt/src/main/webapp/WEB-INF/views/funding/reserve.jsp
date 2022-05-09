@@ -78,24 +78,7 @@
 <%-- 	<c:import url="/header.do"></c:import> --%>
 	<%@include file ="../header.jsp" %>
     <main>
-    	<%
-			String[] check = request.getParameterValues("check");
-			for (String t : check) {
-				out.println(t);
-				if(t.equals("1")){
-					%>${param.p_num1}<%
-				}
-				if(t.equals("2")){
-					%>${param.p_num2}<%
-				}
-				if(t.equals("3")){
-					%>${param.p_num3}<%
-				}
-				
-			}
-			
-		%>
-		${param.addDonation}
+    	
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
@@ -109,12 +92,16 @@
                 </div>
             </div>
         </div>
-        <form action="orderform.do" method="post">
+        <form id="reserveform" action="reserve.do" method="post">
         <!-- 옵션 정보 -->
         <div class="row" style="margin-top: 30px;">
             <div class="col-xs-12" style="width: 100%;">
-                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; line-height: 2; vertical-align: middle;" class="table order">
+            <input type="hidden" name="funding_order_idx" value="1">
+            <input type="hidden" name="funding_idx" value="1">
+            <input type="hidden" name="member_idx" value="${member.member_idx}">
+                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
                 	<c:forEach var="check" items="${paramValues.check}">
+                		<input type="hidden" name="funding_order_option_select_idx" value="${check}">
                 		<c:forEach var="list" items="${optionlist}">
                 			<c:if test="${list.funding_option_idx eq check}">
 			                	<tr>
@@ -134,22 +121,51 @@
 			                        <td style="border-top: 1px dashed gray;">
 			                            <div>
 			                            <c:if test="${check eq 1 }">
-			                            	<input type="hidden" id="count" value="${param.p_num1}">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num1}">
 											수량: ${param.p_num1}개
 			                            </c:if>
 			                            <c:if test="${check eq 2 }">
-			                            	<input type="hidden" id="count" value="${param.p_num2}">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num2}">
 											수량: ${param.p_num2}개
 			                            </c:if>
 			                            <c:if test="${check eq 3 }">
-			                            	<input type="hidden" id="count" value="${param.p_num3}">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
 											수량: ${param.p_num3}개
+			                            </c:if>
+			                            <c:if test="${check eq 4 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
+											수량: ${param.p_num4}개
+			                            </c:if>
+			                            <c:if test="${check eq 5 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
+											수량: ${param.p_num5}개
 			                            </c:if>
 			                            </div>
 			                        </td>
 			                        <td style="border-top: 1px dashed gray;">
 			                        	<!-- 펀딩 옵션별 금액 -->
-				                        <div class="sum" id="sum"></div>
+				                        <div class="sum" id="sum">
+				                        	<c:if test="${check eq 1 }">
+				                        		<input type="hidden" id="sum1" value="${list.funding_option_price*param.p_num1}">
+			                            		${list.funding_option_price*param.p_num1}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 2 }">
+				                            	<input type="hidden" id="sum2" value="${list.funding_option_price*param.p_num2}">
+			                            		${list.funding_option_price*param.p_num2}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 3 }">
+			                            		<input type="hidden" id="sum3" value="${list.funding_option_price*param.p_num3}">
+			                            		${list.funding_option_price*param.p_num3}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 4 }">
+			                            		<input type="hidden" id="sum4" value="${list.funding_option_price*param.p_num4}">
+			                            		${list.funding_option_price*param.p_num4}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 5 }">
+			                            		<input type="hidden" id="sum5" value="${list.funding_option_price*param.p_num5}">
+			                            		${list.funding_option_price*param.p_num5}원
+			                            	</c:if>
+				                        </div>
 			                        </td>
 			                    </tr>
                 			</c:if>
@@ -162,26 +178,22 @@
                             <div>추가 후원금</div>
                         </th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
-	                        <c:if test="${param.addDonation eq ''}">
-	                        	<input type="hidden" id="addDonation" value="0">
-	                        	<div></div>
-	                        </c:if>
-	                        <c:if test="${param.addDonation ne ''}">
-	                        	<input type="hidden" id="addDonation" value="${param.addDonation}">
-	                        	<div></div>
-	                        </c:if>
+	                        <input type="hidden" id="addDonation_id" value="${param.addDonation}">
+	                        	<div id="addDonation"></div>
                         </td>
                     </tr>
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">배송비</th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
-                        	<input type="hidden" id="expressFee" value="30000">
+                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
                         	<div></div>
                         </td>
                     </tr>
                     <tr class="thead-light">
                         <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
                         <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
+                        	<!-- 배송비 추가 해야 함 -->
+                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
                         	<div id="sumTotal"></div>
                         </th>
                     </tr>
@@ -234,11 +246,11 @@
                 <div class="addressInfo_button_div">
 	                <div class="form-group">
 	                    <div class="form-check form-check-inline">
-	                        <input class="form-check-input" type="radio" onclick="showAdress('1')" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+	                        <input class="form-check-input" type="radio" onclick="showAdre('1')" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
 	                        <label class="form-check-label" for="inlineRadio1">새로 입력</label>
 	                    </div>
 	                    <div class="form-check form-check-inline">
-	                        <input class="form-check-input" type="radio" onclick="showAdress('2')" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+	                        <input class="form-check-input" type="radio" onclick="showAdre('2')" name="inlineRadioOptions" id="inlineRadio2" value="option2">
 	                        <label class="form-check-label" for="inlineRadio2">기존 주소</label>
 	                    </div>
                 	</div>
@@ -446,12 +458,13 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px;">
-            <button type="button" class="btn btn-success" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/reserve_complete.do'" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
+            <button type="button" class="btn btn-success" onclick="document.getElementById('reserveform').submit();" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
         </div>
     </div>
     </main>
 <%--     <c:import url="/footer.do"></c:import> --%>
    	<%@include file ="../footer.jsp" %>
+   	
 <script type="text/javascript">
 	$(function(){
 		// 옵션
@@ -459,22 +472,14 @@
 		var price = parseInt(item.getAttribute('value'));
 		var count = item.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.value;
 		var total = parseInt(price * count);
-		//sum
-		item.parentElement.parentElement.parentElement.lastElementChild.firstElementChild.textContent = total.formatNumber()+"원";
-		
-		var totalPrice = 0;
-		
-		totalPrice += total;
 		
 		// 후원금
-		var item2 = document.querySelector('#addDonation');
-		var addDonation = parseInt(item2.getAttribute('value'));
-        if (addDonation == '') {
-          addDonation = 0;
+		var donation = document.querySelector('#addDonation_id').getAttribute('value');
+		if (donation == '') {
+		    document.querySelector('#addDonation').textContent = "0원";
+        }else{
+	    	document.querySelector('#addDonation').textContent = parseInt(donation).formatNumber()+"원";
         }
-        addDonation = parseInt(addDonation);
-        item2.nextElementSibling.textContent = addDonation.formatNumber()+"원";
-        totalPrice += addDonation;
 		
         // 배송비
         var item3 = document.querySelector('#expressFee');
@@ -484,10 +489,12 @@
         }
         expressFee = parseInt(expressFee);
         item3.nextElementSibling.textContent = expressFee.formatNumber()+"원";
-        totalPrice += expressFee;
         
-        var sumTotal = document.querySelector('#sumTotal');
-        sumTotal.textContent = totalPrice.formatNumber()+"원";
+        // 합계
+        var element = parseInt(document.querySelector('#sumTotal_id').getAttribute('value'));
+	    document.querySelector('#sumTotal').textContent = element.formatNumber()+"원";
+
+        
 	});
 	
 	Number.prototype.formatNumber = function(){
@@ -500,7 +507,7 @@
 	
 	
 	/* 주소입력란 버튼 동작(숨김, 등장) */
-	function showAdress(className){
+	function showAdre(className){
 		/* 컨텐츠 동작 */
 			/* 모두 숨기기 */
 			$(".addressInfo_input_div").css('display', 'none');
