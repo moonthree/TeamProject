@@ -5,6 +5,8 @@ import java.util.List;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 
@@ -34,4 +36,10 @@ public interface fundingMainService {
 	
 	// 멤버 조회
 	MemberVO selectOne(MemberVO vo);
+	
+	// 결제 예약
+	// 주문 번호
+	int insertOrder(Funding_orderVO ordervo);
+	// 주문 옵션 정보 등록
+	int insertOption(Funding_order_optionVO orderOptionvo);
 }

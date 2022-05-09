@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.Pagination;
 
 @Repository
@@ -67,4 +69,15 @@ public class fundingMainDAO {
 	public List<Funding_optionVO> list(Funding_optionVO vo){
 		return sqlSession.selectList("FundingMainMapper.list", vo);
 	}
+	
+	// 결제 예약
+	// 주문 번호
+	public int insertOrder(Funding_orderVO ordervo) {
+		return sqlSession.insert("FundingMainMapper.insertOrder", ordervo);
+	}
+	// 주문 옵션 정보 등록
+	public int insertOption(Funding_order_optionVO orderOptionvo) {
+		return sqlSession.insert("FundingMainMapper.insertOption", orderOptionvo);
+	}
+	
 }

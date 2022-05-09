@@ -1,8 +1,11 @@
 package com.edu.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
@@ -132,16 +137,20 @@ public class FundingController {
 	
 	// 옵션 페이지
 	@RequestMapping(value = "/option.do", method = RequestMethod.GET)
-	public String option(Model model, Funding_optionVO vo) {
+	public String option(Model model, FundingMainVO mainvo, Funding_optionVO optionvo) throws Exception {
+		
+		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));
+		
 		// 옵션 리스트 출력
-		List<Funding_optionVO> optionlist = fms.list(vo);
+		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);
 		
 		return "funding/option";
 	}
 	
 	@RequestMapping(value = "/option.do", method = RequestMethod.POST)
-	public String orderForm(Model model, Funding_optionVO optionvo, HttpServletRequest request) {
+	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request) throws Exception {
+		
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);
@@ -153,6 +162,32 @@ public class FundingController {
 		model.addAttribute("member", member);
 		
 		return "funding/reserve";
+	}
+	
+	// 결제 예약 페이지
+	@RequestMapping(value = "/reserve.do", method = RequestMethod.POST)
+	public void orderForm(Model model, Funding_orderVO ordervo, Funding_order_optionVO orderOptionvo, HttpServletResponse response) throws IOException {
+		// 펀딩 주문 번호
+		int result = fms.insertOrder(ordervo);
+		
+		// 펀딩 주문 옵션 저장
+		int result2 = fms.insertOption(orderOptionvo);
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
+		if(result2>0) {
+			// 저장 완료
+			pw.println("<script>alert('결제 예약이 완료되었습니다.');location.href='reserve_complete.do';</script>");
+		}else {
+			// 저장 안됭
+			pw.println("<script>alert('결제 예약이 실패하었습니다.');location.href='reserve.do';</script>");
+		}
+		pw.flush();
+		
+	}
+	
+	@RequestMapping(value = "/reserve_complete.do")
+	public String reserveComplete() {
+		return "funding/reserve_complete";
 	}
 	
 	
