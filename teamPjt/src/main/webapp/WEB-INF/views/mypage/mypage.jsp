@@ -168,9 +168,9 @@ $(document).on("click", ".menu div", function() {
                   
                   <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/#{ funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <img src="../resources/image/funding_main/${ funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
-                        <p class="card-text">#{ funding_title }/p>
+                        <p class="card-text">${ funding_title }/p>
                       </div>
                     </div>
                   </div>

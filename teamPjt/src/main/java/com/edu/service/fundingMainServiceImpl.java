@@ -17,7 +17,6 @@ import com.edu.dao.fundingMainDAO;
 import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
-import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
@@ -73,7 +72,7 @@ public class fundingMainServiceImpl implements fundingMainService{
 	}
 	//오더 카운트
 	@Override
-	public int orderCount(FundingOrderVO vo) throws Exception {
+	public int orderCount(Funding_orderVO vo) throws Exception {
 		return dao.orderCount(vo);
 	}
 	
