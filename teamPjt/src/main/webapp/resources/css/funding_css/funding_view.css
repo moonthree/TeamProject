@@ -120,6 +120,11 @@ main {
     opacity: 0.5;
 }
 
+.reply{
+	background-color : #a3a9b3;
+	color: white;
+}
+
 @media (min-width: 768px) and (max-width: 1200px){
     .fundingGoal {
         height: 30%;

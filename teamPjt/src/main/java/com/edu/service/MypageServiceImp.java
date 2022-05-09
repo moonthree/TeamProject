@@ -1,5 +1,7 @@
 package com.edu.service;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -90,6 +92,8 @@ public class MypageServiceImp implements MypageService{
             e.printStackTrace();
         }
     }
-
+    
+    
+   
 	
 }
