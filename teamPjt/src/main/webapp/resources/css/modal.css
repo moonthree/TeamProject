@@ -35,9 +35,10 @@
 }
 
 .div2{
-    display: flex;
+    display: inline-block;
     border-radius: 50px;
     width: 150px;
+    margin-bottom: 10px;
 }
 .clicked {
     color: white;
@@ -45,4 +46,48 @@
 }
 .clicked > span{
     background-color: red;
+}
+
+/*qna모달*/
+/*비공개 버튼*/
+input[class="cb"]+label {
+    display: inline-block;
+    border-radius: 30px;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #bcbcbc;
+    cursor: pointer;
+    margin-top: 5px;
+}
+input[class="cb"]:checked+label {
+    background-color: #17a2b8;
+    border: 2px solid #17a2b8;
+}
+input[class="cb"] {
+    display: none;
+}
+
+/*비공개 버튼 끝*/
+
+.cbp{
+    width: 100px;
+    display:inline-block;
+    margin-bottom: 30px;
+    position: relative;
+    bottom: 14px;
+}
+.qnaBtn{
+    position: relative;
+    bottom: 14px;
+    left: 274px;
+}
+.qnaBtn2{
+    position: relative;
+    bottom: 14px;
+    left: 205px;
+}
+.qnaBtn3{
+    position: relative;
+    bottom: 14px;
+    left: 210px;
 }

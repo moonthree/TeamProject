@@ -1,6 +1,8 @@
 package com.edu.service;
 
 import com.edu.vo.ChangePwVO;
+import java.util.Map;
+
 import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
@@ -27,4 +29,5 @@ public interface MypageService {
 	
 	//이메일 보내기
 	public void sendMail(EmailDTO dto);
+	
 }
