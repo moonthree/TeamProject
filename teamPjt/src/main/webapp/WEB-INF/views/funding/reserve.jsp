@@ -82,7 +82,7 @@
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-                <div><h3 style="text-align: center; font-weight: bold;">어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자</h3></div>
+                <div><h3 style="text-align: center; font-weight: bold;">${param.funding_title}</h3></div>
                 <div class="wrap" style="margin: 30px 0px 10px auto;">
                     <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
                         <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">옵션 선택</div>

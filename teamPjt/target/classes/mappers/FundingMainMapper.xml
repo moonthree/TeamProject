@@ -319,7 +319,7 @@
 			   funding_option_detail,
 			   funding_option_stock
 		  FROM funding_option
-		 WHERE funding_idx = 1;
+		 WHERE funding_idx = #{funding_idx};
 	</select>
 	
 	

@@ -105,7 +105,8 @@
 		             </button> 
                 </c:if>
                 <c:if test="${login ne null}">
-	                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
+                	<!-- funding_idx 값 포함해서 option 페이지로 이동 -->
+	                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do?funding_idx=${read.funding_idx}'" class="btn btn-info FVbtn">펀딩하기</button>
 	        
                 		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
 		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
