@@ -73,12 +73,10 @@
             </div>
             <div class="row">
               <div class="col">
-                <button type="button" class="button-59"><span style="display : block;">새 펀딩 오픈</span></button>
+                <button type="button" class="button-59" onclick="location.href='funding_register.do'"><span style="display : block;">새 펀딩 오픈</span></button>
               </div>
             </div>
           </div>
-
-            
             <div class="col-md-9 col-sm-12 scroll_item">
               
 

@@ -17,7 +17,7 @@ import com.edu.vo.MemberVO;
 
 @Service
 public class MypageServiceImp implements MypageService{
-	
+	//git 넘기기용
 	@Autowired
 	private memberDao dao;
 	
