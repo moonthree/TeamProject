@@ -16,7 +16,7 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     
- 
+ <!-- //git 넘기기용 -->
      
      <script type="text/javascript">
         $(document).ready(function () {
@@ -41,7 +41,12 @@
     <div class="container">
         <h2 class="rftitle">펀딩 상품 등록</h2>
       
-        <form name="funding_upload" action="funding_view.do" method="post" enctype="multipart/form-data">
+        <form name="funding_upload" id="funding_upload" action="funding_register.do"  method="post" enctype="multipart/form-data">
+        
+        <input type="hidden" name="member_idx" id="member_idx" value="${login.member_idx}">
+         <input type="hidden" name="funding_notice" id="funding_notice" value="" >
+         <input type="hidden" name="funding_thumbnail" id="funding_thumbnail" value="" >
+         <input type="hidden" name="funding_content" id="funding_content" value="" >
         <!-- 펀딩 카테고리  필드 -->
             <div class="form-group">
                 <label for="exampleFormControlInput1">카테고리</label><br>
@@ -83,21 +88,43 @@
                         <!-- 펀딩 옵션  name 맞춤-->
                             <td><input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
                             <td><input name="funding_option_price" type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
-                            
-                            <td><input name="funding_option_price" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
+                            <td><input name="funding_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
                             <td><input name="funding_option_stock" type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                         </tr>
                     </table>
                     <textarea id="template" style="display:none;">
                             <tr id="addRow">
-                                <td><input type="text" class="text"    name="name1"   style="width:100%;"  placeholder="옵션명"/></td>            
-                                <td><input type="text" min="0" class="text"    name="name2"   style="width:100%;"  placeholder="금액"/></td>
-                                <td><input type="text" class="text"    name="name3"  style="width:100%;"   placeholder="상세"/></td>
-                                <td><input type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
+                                <td><input type="text" class="text"    name="funding_option_name"   style="width:100%;"  placeholder="옵션명"/></td>            
+                                <td><input type="number" min="0" class="text"    name="funding_option_price"   style="width:100%;"  placeholder="금액"/></td>
+                                <td><input type="text" class="text"    name="funding_option_detail"  style="width:100%;"   placeholder="상세"/></td>
+                                <td><input type="text" class="text" name="funding_option_stock" style="width:100%;" placeholder="수량" /></td>
                             </tr>
                     </textarea>
                 </div>
             </div>
+            <input type="button" onclick="FnOption()">
+            <script type="text/javascript">
+            
+            	function FnOption(){
+				
+					var rows =  document.getElementById("Table").getElementsByTagName("tr");
+					for(var i=1; i<=rows.length; i++){
+						var cells = rows[i].getElementsByTagName("td");	
+						  var cell_1 = cells[0].firstChild.data;// 이름
+						  var cell_2 = cells[1].firstChild.data;// 금액
+						  var cell_3 = cells[2].firstChild.data;// 상세
+						  var cell_4 = cells[3].firstChild.data;// 수량
+						  
+
+					      console.log(cell_1);	// 홍길동, 김영희
+					      console.log(cell_2);	// 23, 25
+					      console.log(cell_3);	// 남자,여자
+					      console.log(cell_4);
+						
+					}
+				}
+            
+            </script>
 		
 			<!-- 펀딩 기간 필드 -->
             <div class="form-group">
@@ -118,13 +145,11 @@
             
             <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
             
-             
-             
             <div class="form-group">
                 <label>썸네일</label>
                 <div class="form-inline">
                     <input name="funding_thumbnail_temp" type="file" class="form-control" id="funding_thumbnail_temp"  placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
+                    <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
             </div>
              <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
@@ -132,29 +157,22 @@
                 <label>프로젝트 계획</label>
                 <div class="form-inline">
                     <input  id="funding_Detail_temp"  type="file" class="form-control" name="funding_Detail_temp"  placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
+                   <!--  <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
             </div>
             <div class="form-group">
                 <label>공지 등록</label>
                 <div class="form-inline">
                     <input type="file" class="form-control" id="funding_Notice_temp" name="funding_Notice_temp" placeholder="공지 등록" style="width: 68%;"> &nbsp;
-                    <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)">
+                   <!--  <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
             </div>
             
             <br>
        		<br>
-         <input  type="submit" class="btn btn-outline-secondary"   value="미리보기" style="width: 49%; height: 50px;">
-         <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
-        <input type="hidden" id="email_hidden" value="${login.member_email}">
+         <input type="button" onclick="Fn_priev()" class="btn btn-outline-secondary"  value="미리보기" style="width: 49%; height: 50px;">
+         <input type="button" class="btn btn-outline-success" value="등록" onclick="Fun_reg()" style="width: 49%; height: 50px;">
         </form>
-        <!-- 
-        <br>
-        <br>
-        <input class="btn btn-outline-secondary" value="미리보기" style="width: 49%; height: 50px;"> 
-        <input type="button" class="btn btn-outline-success" value="등록" style="width: 49%; height: 50px;">
-        -->
     </div>
     
 </main>
@@ -197,70 +215,113 @@
          
 </script>
 <script type="text/javascript">
-
-<%-- 	function FnThum(obj){
+var flagg = false;
+	function Fn_priev(){
 		var path = '<%=request.getContextPath()%>';
-		//console.log(path);
-		var email = $("#email_hidden").val();
-		//console.log(email);
-		//console.log( $(obj).prev() );
-		
-		const file = $(obj).prev()[0];
-
-		//funding_thumbnail22
-		//console.log(file.name);
-		
-		
-		const formData = new FormData();
-		//파일 업로드
-		formData.append("upload",file.files[0]);
-		//유저 email 넣기
-		formData.append("userEmail",email);
-		
-		if(file.name == "funding_thumbnail_temp") {
-			//썸네일  png file 불러오기
-			formData.append("checkForm","1");
-		}
-		else if(file.name == "funding_Detail_temp"){
-			//프로젝트 계획 pdf file 불러오기
-			formData.append("checkForm","2");
-		}
-		else{
-			formData.append("checkForm","3");
-
-		}
-		
-		if(email == null || email == ""){
+		var midx = $("#member_idx").val();
+		if(midx == null || midx == "" || midx == 0 ){
 			alert('로그아웃 되었습니다. 로그인 먼저 해주세요.');
 			location.href= path+'/member/login.do';
-			
 		}
 		else{
-	$.ajax({
-		url:"testUpload.do",
-		type:"POST",
-		data: formData,
-		enctype: 'multipart/form-data',
-		processData: false,
-	    contentType: false,
-	    cache: false,
-	    success: function(result){
-	        if(result == 1){
-	        	alert('업로드 완료');
-	        }else{
-	        	alert('업로드 실패');
-	        }
-	      },
-	      err: function(err){
-	        console.log("err:", result)
-	      }
+			
+			var form_control = $("#funding_upload input.form-control");
+			var flag = true;
+			for(var i=0; i<form_control.length; i++){	
+				
+				 if("" == $(form_control[i]).val() || null == $(form_control[i]).val()){
+
+					flag = false;
+					}  
+			}
+			if(flag ==false){
+				alert("입력하지 않은 양식이 존재합니다.");
+			}
+			
+			else{
+			
+			var theForm =  document.querySelector('form[name=funding_upload]');
+			
+			var notice_path = document.getElementById("funding_Notice_temp");
+			var thumnail_path = document.getElementById("funding_thumbnail_temp");
+			var detail_path = document.getElementById("funding_Detail_temp");
+			
 		
-	});
+			var thum_path = file_pathReader(thumnail_path);
+			var not_path = file_pathReader(notice_path);
+			var det_path = file_pathReader(detail_path);
+			
+
+			$("#funding_thumbnail").val(thum_path);
+			$("#funding_notice").val(not_path);
+			$("#funding_content").val(det_path);
 			
 			
+			var url = "funding_view.do";
+			window.open("","popOpen");
+			flagg = true;
+		 	theForm.target="popOpen";
+			theForm.action = url;
+			theForm.submit(); 
+			}
 		}
 		
-	} --%>
+	}
+	
+	function Fun_reg() {
+		
+		
+ 		var path = '<%=request.getContextPath()%>';
+		var midx = $("#member_idx").val();
+		
+			if(midx == null || midx == "" || midx == 0 ){
+				alert('로그아웃 되었습니다. 로그인 먼저 해주세요.');
+				location.href= path+'/member/login.do';
+			}
+			
+			else{
+				
+				if(flagg == false){
+					alert("파일 업로드 후 미리보기 버튼을 클릭해 주세요");
+					
+				}
+				else{
+					var theForm =  document.querySelector('form[name=funding_upload]');
+					theForm.action = "funding_register.do";
+					theForm.submit();
+					
+				}
+			
+			} 
+			
+		
+		
+		
+		
+	}
+	function file_pathReader(obj) {
+		
+		var filePath = obj.value;
+		//전체경로를 \ 나눔.
+		var filePathSplit = filePath.split('\\'); 
+		//전체경로를 \로 나눈 길이.
+		var filePathLength = filePathSplit.length;
+		//마지막 경로를 .으로 나눔.
+		var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+		
+		//파일명 : .으로 나눈 앞부분
+		var fileName = fileNameSplit[0];
+		//파일 확장자 : .으로 나눈 뒷부분
+		var fileExt = fileNameSplit[1];
+	
+		var file1_path = fileName + "." +fileExt;
+		
+		return file1_path;
+		
+	}
+
+	
+
 
 </script>
 

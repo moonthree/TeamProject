@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+ <!-- 다음주소 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     main {
         height: auto;
@@ -25,9 +28,10 @@
         border-radius: 2px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
-    .table td, .table th {
+    .order td, .order th {
         padding: 20px;
         vertical-align: middle;
+        border-top: 1px solid black;
     }
     
     table td{
@@ -40,6 +44,24 @@
         margin: 0;
     }
     
+    .addressInfo_button_div::after{
+		content:'';
+		display:block;
+		clear:both;
+	}
+	.addressInfo_input_div{
+		padding:12px;
+		text-align: left;
+		display: none;
+		line-height: 40px;
+	}
+	
+	input[type="radio"] {
+		zoom: 1.5;
+	}
+	label{
+		cursor: pointer;
+	}
 </style>
 <script>
     function handleOnInput(el, maxlength) {
@@ -48,13 +70,15 @@
             = el.value.substr(0, maxlength);
         }
     }
-
+	
 </script>
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="/header.do"></c:import>
+<%-- 	<c:import url="/header.do"></c:import> --%>
+	<%@include file ="../header.jsp" %>
     <main>
+    	
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
@@ -68,56 +92,119 @@
                 </div>
             </div>
         </div>
+        <form id="reserveform" action="reserve.do" method="post">
         <!-- 옵션 정보 -->
         <div class="row" style="margin-top: 30px;">
             <div class="col-xs-12" style="width: 100%;">
-                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; line-height: 2; vertical-align: middle;" class="table">
-                    <tr>
-                        <th width="70%" style="border-top: 1px solid black;">
-                            <div style="min-height: 50px;">
-                                <div style="color: #4E944F;">
-                                    5050WORKSHOP 반려동물 캠핑의자 M 사이즈 싱글 세트 (블랙 컬러)
-                                </div>
-                                <div style="color: gray; font-weight: lighter; font-size: 14px;">
-                                    본체 프레임 + 의자 스킨 + 전용 가방
-                                </div>
-                            </div>
-                        </th>
-                        <td style="border-top: 1px solid black;">
-                            <div>
-                                수량: 1개
-                            </div>
-                        </td>
-                        <td style="border-top: 1px solid black;">
-                            60,000원
-                        </td>
-                    </tr>
+            <input type="hidden" name="funding_order_idx" value="1">
+            <input type="hidden" name="funding_idx" value="1">
+            <input type="hidden" name="member_idx" value="${member.member_idx}">
+                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
+                	<c:forEach var="check" items="${paramValues.check}">
+                		<input type="hidden" name="funding_order_option_select_idx" value="${check}">
+                		<c:forEach var="list" items="${optionlist}">
+                			<c:if test="${list.funding_option_idx eq check}">
+			                	<tr>
+			                        <th width="70%" style="border-top: 1px dashed gray;">
+			                            <div style="min-height: 50px;">
+			                            	<!-- 옵션 이름  -->
+			                                <div style="color: #4E944F;">
+			                                    ${list.funding_option_name}
+			                                </div>
+			                                <!-- 옵션 설명 -->
+			                                <div style="color: gray; font-weight: lighter; font-size: 14px;">
+			                                   ${list.funding_option_detail}
+			                                </div>
+			                                <input type="hidden" name="price" id="price" value="${list.funding_option_price}">
+			                            </div>
+			                        </th>
+			                        <td style="border-top: 1px dashed gray;">
+			                            <div>
+			                            <c:if test="${check eq 1 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num1}">
+											수량: ${param.p_num1}개
+			                            </c:if>
+			                            <c:if test="${check eq 2 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num2}">
+											수량: ${param.p_num2}개
+			                            </c:if>
+			                            <c:if test="${check eq 3 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
+											수량: ${param.p_num3}개
+			                            </c:if>
+			                            <c:if test="${check eq 4 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
+											수량: ${param.p_num4}개
+			                            </c:if>
+			                            <c:if test="${check eq 5 }">
+			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
+											수량: ${param.p_num5}개
+			                            </c:if>
+			                            </div>
+			                        </td>
+			                        <td style="border-top: 1px dashed gray;">
+			                        	<!-- 펀딩 옵션별 금액 -->
+				                        <div class="sum" id="sum">
+				                        	<c:if test="${check eq 1 }">
+				                        		<input type="hidden" id="sum1" value="${list.funding_option_price*param.p_num1}">
+			                            		${list.funding_option_price*param.p_num1}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 2 }">
+				                            	<input type="hidden" id="sum2" value="${list.funding_option_price*param.p_num2}">
+			                            		${list.funding_option_price*param.p_num2}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 3 }">
+			                            		<input type="hidden" id="sum3" value="${list.funding_option_price*param.p_num3}">
+			                            		${list.funding_option_price*param.p_num3}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 4 }">
+			                            		<input type="hidden" id="sum4" value="${list.funding_option_price*param.p_num4}">
+			                            		${list.funding_option_price*param.p_num4}원
+			                            	</c:if>
+			                            	<c:if test="${check eq 5 }">
+			                            		<input type="hidden" id="sum5" value="${list.funding_option_price*param.p_num5}">
+			                            		${list.funding_option_price*param.p_num5}원
+			                            	</c:if>
+				                        </div>
+			                        </td>
+			                    </tr>
+                			</c:if>
+                		</c:forEach>
+                	</c:forEach>
+				
+                    <!-- 후원금 -->
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">
-                            <div>
-                                추가 후원금</th>
-                            </div>
-                        <td style="border-top: 1px dashed gray;" colspan="2">3000원</td>
+                            <div>추가 후원금</div>
+                        </th>
+                        <td style="border-top: 1px dashed gray;" colspan="2">
+	                        <input type="hidden" id="addDonation_id" value="${param.addDonation}">
+	                        	<div id="addDonation"></div>
+                        </td>
                     </tr>
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">배송비</th>
-                        <td style="border-top: 1px dashed gray;" colspan="2">0원</td>
+                        <td style="border-top: 1px dashed gray;" colspan="2">
+                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
+                        	<div></div>
+                        </td>
                     </tr>
                     <tr class="thead-light">
                         <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
-                        <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">63,000원</th>
+                        <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
+                        	<!-- 배송비 추가 해야 함 -->
+                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
+                        	<div id="sumTotal"></div>
+                        </th>
                     </tr>
-                    <div>
-
-                    </div>
                 </table>
             </div>
         </div>
         <div class="row" style="margin-top: 30px;">
             <!-- 구매자 정보 -->
             <div class="col-md-6" style="padding: 30px;">
-                <table style="margin: 0px auto; width: 100%; line-height: 2; vertical-align: middle; background-color:#E9EFC0; border-radius: 3px; " class="table table-borderless card">
-                    <thead">
+                <table style="margin: 0px auto; width: 100%; line-height: 2; vertical-align: middle; background-color:#E9EFC0; border-radius: 3px; border:none; padding: 20px;" class="table table-borderless card">
+                    <thead>
                       <tr>
                         <th scope="col" colspan="2">
                             <div style="font-size: 20pt;">구매자 정보</div>
@@ -127,22 +214,22 @@
                     <tbody>
                       <tr>
                         <th scope="row" width="30%">이름</th>
-                        <td>강아지</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">이메일</th>
-                        <td>dog@google.com</td>
+                        <td>${member.member_name}</td>
                       </tr>
                       <tr>
                         <th scope="row">연락처</th>
-                        <td>01011112222</td>
+                        <td>${member.member_phone}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">이메일</th>
+                        <td>${member.member_email}</td>
                       </tr>
                       <tr>
                           <td colspan="2" style="padding-top: 0px">
                               <hr>
                             <div class="form-check" style="text-align: left;">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" style="zoom: 1.5;">
+                                <label class="form-check-label" for="defaultCheck1" style="cursor:pointer; ">
                                   <span style="font-weight: bold;">(필수)</span> 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.
                                 </label>
                               </div>
@@ -151,64 +238,107 @@
                     </tbody>
                 </table>
             </div>
+            
             <!-- 배송지 정보 -->
             <div class="col-md-6" style="padding: 30px;">
-                <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">새로 입력</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">기존 주소</label>
-                    </div>
+                <div class="addressInfo_div" style="font-size: 20pt; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+                <!-- 선택 버튼  (새로입력/기존주소) -->
+                <div class="addressInfo_button_div">
+	                <div class="form-group">
+	                    <div class="form-check form-check-inline">
+	                        <input class="form-check-input" type="radio" onclick="showAdre('1')" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+	                        <label class="form-check-label" for="inlineRadio1">새로 입력</label>
+	                    </div>
+	                    <div class="form-check form-check-inline">
+	                        <input class="form-check-input" type="radio" onclick="showAdre('2')" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+	                        <label class="form-check-label" for="inlineRadio2">기존 주소</label>
+	                    </div>
+                	</div>
                 </div>
                 <hr>
-                <div>
-                    <form>
+                <!-- 배송지 입력란 -->
+                <div class="addressInfo_input_div_wrap">
+                	<!-- 새로 입력 -->
+                    <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
                         <div class="form-group row">
-                          <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="">
-                          </div>
+                            <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
+                          	<div class="col-sm-9">
+                            	<input type="text" class="form-control" id="">
+                          	</div>
                         </div>
                         <div class="form-group row">
-                          <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
-                          <div class="col-sm-9">
-                            <input type="number" class="form-control" id="">
-                          </div>
+                          	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
+                          	<div class="col-sm-9">
+                            	<input type="text" class="form-control" id="">
+                          	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                              <input type="number" class="form-control" id="" placeholder="우편번호">
+                        	    <input type="number" class="form-control address1_input" id="" placeholder="우편번호">
                             </div>
                             <div class="col-sm-5">
-                                <button type="submit" class="btn btn-primary" style="background-color: #83BD75; border: none;">주소 찾기</button>
+                                <button type="submit" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                              <input type="number" class="form-control" id="" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" id="" placeholder="기본 주소">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                              <input type="number" class="form-control" id="" placeholder="상세 주소">
+                                <input type="text" class="form-control address3_input" id="" placeholder="상세 주소">
                             </div>
                         </div>
-                      </form>
+                	</div>
+                	
+                	<!-- 기존 주소 -->
+                	<div class="addressInfo_input_div addressInfo_input_div_2">
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
+                          	<div class="col-sm-9">
+                            	<input type="text" class="form-control" id="" value="${member.member_name}">
+                          	</div>
+                        </div>
+                        <div class="form-group row">
+                          	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
+                          	<div class="col-sm-9">
+                            	<input type="text" class="form-control" id="" value="${member.member_phone}">
+                          	</div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
+                            <div class="col-sm-4">
+                        	    <input type="number" class="form-control address1_input" id="" placeholder="우편번호">
+                            </div>
+                            <div class="col-sm-5">
+                                <button type="submit" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control address2_input" id="" placeholder="기본 주소">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control address3_input" id="" placeholder="상세 주소">
+                            </div>
+                        </div>
+                	</div>
                 </div>
-                <hr>
-                <div>
-                    <div style="font-weight: bold; margin-bottom: 10px;">배송 시 요청사항 (선택)</div>
-                    <div>
-                        <input type="text" class="form-control" id="">
-                    </div>
-                </div>
+<!--                 <hr> -->
+<!--                 <div> -->
+<!--                     <div style="font-weight: bold; margin-bottom: 10px;">배송 시 요청사항 (선택)</div> -->
+<!--                     <div> -->
+<!--                         <input type="text" class="form-control" id=""> -->
+<!--                     </div> -->
+<!--                 </div> -->
             </div>
         </div>
 
@@ -281,6 +411,7 @@
                 </div>
             </div>
         </div>
+        </form>
         
         <!-- 동의 -->
         <div class="row">
@@ -327,10 +458,120 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px;">
-            <button type="button" class="btn btn-success" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/reserve_complete.do'" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
+            <button type="button" class="btn btn-success" onclick="document.getElementById('reserveform').submit();" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
         </div>
     </div>
     </main>
-    <c:import url="/footer.do"></c:import>
+<%--     <c:import url="/footer.do"></c:import> --%>
+   	<%@include file ="../footer.jsp" %>
+   	
+<script type="text/javascript">
+	$(function(){
+		// 옵션
+		var item = document.querySelector('#price');
+		var price = parseInt(item.getAttribute('value'));
+		var count = item.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.value;
+		var total = parseInt(price * count);
+		
+		// 후원금
+		var donation = document.querySelector('#addDonation_id').getAttribute('value');
+		if (donation == '') {
+		    document.querySelector('#addDonation').textContent = "0원";
+        }else{
+	    	document.querySelector('#addDonation').textContent = parseInt(donation).formatNumber()+"원";
+        }
+		
+        // 배송비
+        var item3 = document.querySelector('#expressFee');
+		var expressFee = parseInt(item3.getAttribute('value'));
+        if (expressFee == '') {
+        	expressFee = 0;
+        }
+        expressFee = parseInt(expressFee);
+        item3.nextElementSibling.textContent = expressFee.formatNumber()+"원";
+        
+        // 합계
+        var element = parseInt(document.querySelector('#sumTotal_id').getAttribute('value'));
+	    document.querySelector('#sumTotal').textContent = element.formatNumber()+"원";
+
+        
+	});
+	
+	Number.prototype.formatNumber = function(){
+	    if(this==0) return 0;
+	    let regex = /(^[+-]?\d+)(\d{3})/;
+	    let nstr = (this + '');
+	    while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+	    return nstr;
+	};
+	
+	
+	/* 주소입력란 버튼 동작(숨김, 등장) */
+	function showAdre(className){
+		/* 컨텐츠 동작 */
+			/* 모두 숨기기 */
+			$(".addressInfo_input_div").css('display', 'none');
+			/* 컨텐츠 보이기 */
+			$(".addressInfo_input_div_" + className).css('display', 'block');		
+		
+	}
+	
+	
+	/* 다음 주소 연동 */
+	function execution_daum_address(){
+	 		console.log("동작");
+		   new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            
+		        	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+	 
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+	 
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                 	// 추가해야할 코드
+	                    // 주소변수 문자열과 참고항목 문자열 합치기
+	                      addr += extraAddr;
+	                
+	                } else {
+	                	addr += ' ';
+	                }
+	 
+	             	// 제거해야할 코드
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                $(".address1_input").val(data.zonecode);
+	                $(".address2_input").val(addr);				
+	                // 커서를 상세주소 필드로 이동한다.
+	                $(".address3_input").attr("readonly", false);
+	                $(".address3_input").focus();	 
+		            
+		            
+		        }
+		    }).open();  	
+		
+	}
+</script>    
 </body>
 </html>

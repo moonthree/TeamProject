@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,8 +48,10 @@
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
+            <input type="hidden" name="funding_idx" value="${read.funding_idx}">
+            ${param.funding_idx}
             	<!-- 펀딩 제목  -->
-                <div><h3 style="text-align: center; font-weight: bold;">어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자</h3></div>
+                <div><h3 style="text-align: center; font-weight: bold;">${read.funding_title }</h3></div>
                 <div class="wrap" style="margin: 30px 0px 10px auto;">
                     <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
                         <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">옵션 선택</div>
@@ -58,19 +61,19 @@
                 </div>
             </div>
         </div>
+        <form name="order" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
         <div class="row">
-        <form name="orderform" id="orderform" method="post" class="orderform" style="width: 100%">
             <div class="" id="option" style="width: 90%; margin: 20px auto;">
             	<!-- 옵션 선택 -->
                 <h5 style="font-weight: 600;">옵션 선택</h5>
                 <p>펀딩해주시는 금액에 따라 감사의 의미로 리워드를 제공해 드립니다.</p>
                 <!-- 옵션 박스 -->
-                <c:if test="${list.size() > 0}">
-                	<c:forEach var="item" items="${list}">
+                <c:if test="${optionlist.size() > 0}">
+                	<c:forEach var="item" items="${optionlist}">
                 		<div class="option_select">
 		                    <div class="custom-control custom-checkbox" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; padding-left: 60px; margin-bottom: 20px;">
-		                        <input type="checkbox" name="buy" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_price}">
-		                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}">
+		                        <input type="checkbox" name="check" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_idx}">
+		                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}" style="cursor: pointer;">
 		                        	<!-- 옵션 가격 -->
 		                            <div class="price" style="font-weight: 600;">${item.funding_option_price}원 펀딩합니다.</div>
 		                            <div class="detail" style="font-size: 14px; line-height: 2; color: gray;">
@@ -83,20 +86,21 @@
 		                            </div>
 		                        </label>
 		                        <div>
-			                    	<div class="optionprice"><input type="hidden" name="p_price" id="p_price${item.funding_option_idx}" class="p_price" value="${item.funding_option_price}"></div>
+			                    	<div class="optionprice"><input type="hidden" name="p_price${item.funding_option_idx}" id="p_price${item.funding_option_idx}" class="p_price" value="${item.funding_option_price}"></div>
 			                        <div class="checked_area" style="margin-top: 10px; height: 60px;">
 			                        	<div class="count" style="float: left; width: 180px;">
 				                        	<div style="font-size: 13px; margin-bottom: 5px; color: gray;">수량 </div>
-				                        	<div class="updown">
+				                        	<div class="updown" style="cursor: pointer; width: 130px;">
 				                        		<span onclick="javascript:option.changePNum(${item.funding_option_idx});">
-				                        			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="down" viewBox="0 0 16 16">
+				                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="down" viewBox="0 0 16 16">
 													  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 													  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 													</svg>
 				                        		</span>
-				                                <input type="number" name="p_num${item.funding_option_idx}" id="p_num${item.funding_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${item.funding_option_idx});" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 100px;" autocomplete="off">
+				                        		<!-- 수량  -->
+				                                <input type="number" name="p_num${item.funding_option_idx}" id="p_num${item.funding_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${item.funding_option_idx});" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 80px;" autocomplete="off">
 				                                <span onclick="javascript:option.changePNum(${item.funding_option_idx});">
-				                                	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="up" viewBox="0 0 16 16">
+				                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="up" viewBox="0 0 16 16">
 													  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 													  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 													</svg>
@@ -127,21 +131,22 @@
                 </div>
             </div>
             </div>
-        </form>
         </div>
         
         <!-- 선택 금액, 버튼 -->
         <div class="row">
             <div style="margin: 50px auto; text-align: center;">
                 <div style="font-weight: bold; font-size: 20px;">
-                    	어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
+                	<input type="hidden" name="sum_p_price" value="">
+					어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
                 </div>
                 <br>
                 <div>
-                    <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/reserve.do'" class="btn btn-secondary" style="background-color: #83BD75; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button>
+                    <button type="button" onclick="document.getElementById('orderform').submit();" class="btn btn-secondary" style="background-color: #83BD75; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button>
                 </div>
             </div>
         </div>
+    	</form>
     </div>
     </main>
     <c:import url="/footer.do"></c:import>
@@ -157,6 +162,7 @@
 	        this.totalCount = 0;
 	        this.totalPrice = 0;
 	        this.sumTotal = 0;
+	        //p_num : 수량
 	        document.querySelectorAll(".p_num").forEach(function (item) {
 	            if(item.parentElement.parentElement.parentElement.parentElement.parentElement.firstElementChild.checked == true){
 	            	var count = parseInt(item.getAttribute('value'));
@@ -176,6 +182,7 @@
 
 	    //화면 업데이트
 	    updateUI: function () {
+	    	document.querySelector('[name="sum_p_price"]').value = this.sumTotal;
 	        document.querySelector('#sum_p_price').textContent = this.sumTotal.formatNumber();
 	    },
 	    
@@ -191,6 +198,7 @@
 	        item.value = newval;
 	        
             var price = item.parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.value;
+	        //sum
 	        item.parentElement.parentElement.nextElementSibling.lastElementChild.textContent = (newval * price).formatNumber()+"원";
 
 	        this.reCalc();
@@ -204,6 +212,12 @@
 	    
       // 후원금
 	    changeDonation: function () {
+	    	
+	    	var addDonation = $('#addDonation').val();
+            if (addDonation == "") {
+              addDonation = 0;
+            }
+            
 	        this.reCalc();
 	        this.updateUI();
 	    },
