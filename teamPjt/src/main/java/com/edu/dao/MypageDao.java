@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.vo.ChangePwVO;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
 
@@ -25,6 +26,14 @@ public class MypageDao {
 	
 	public String findId(MemberVO vo) {
 		return sqlSession.selectOne("MypageMapper.findId", vo);
+	}
+	
+	public String findPw(ChangePwVO vo) {
+		return sqlSession.selectOne("MypageMapper.findPw", vo);
+	}
+	
+	public int changePw(ChangePwVO vo) {
+		return sqlSession.update("MypageMapper.changePw", vo);
 	}
 	
 }
