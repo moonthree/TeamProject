@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
+import com.edu.vo.ZzimVO;
 import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 
@@ -101,29 +104,26 @@ public class FundingController {
 	public String read(@RequestParam Map<String, Object> paramMap, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
-		model.addAttribute("read", fms.read(vo.getFunding_idx()));
+		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
 		
 		//세션사용자정보 가져옴
 		session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
-		model.addAttribute("member",member);
-		
+		model.addAttribute("member",member);	
 		//펀딩 커뮤니티 댓글 리스트
 		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
 		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
-		
-		
+	
 		//펀딩 qna 댓글 리스트
 		model.addAttribute("qnaList", fms.getQnaList(paramMap));
 		
-		/*
-		 * List<FundingQnaVO> fundingQnaCommentList =
-		 * fms.readFundingQnaComent(vo.getFunding_idx());
-		 * model.addAttribute("fundingQnaCommentList", fundingQnaCommentList);
-		 */
-		
 		return "funding/view";
+	}
+	@RequestMapping(value ="/read_funding_form", method= RequestMethod.POST)
+	@ResponseBody
+	public int orderCount(FundingOrderVO vo) throws Exception {
+		return fms.orderCount(vo);
 	}
 	
 	//펀딩 커뮤니티 댓글 작성 ajax로 불러옴
@@ -159,8 +159,8 @@ public class FundingController {
 		int result = fms.qnaInsert(paramMap);
 		if(result>0) {
 			retVal.put("code", "OK");
-			retVal.put("funding_qna_idx", paramMap.get("funding_qna_idx"));
-			retVal.put("parent_id", paramMap.get("parent_id"));
+			retVal.put("funding_idx", paramMap.get("funding_idx"));
+			retVal.put("member_idx", paramMap.get("member_idx"));
 			retVal.put("message", "등록 성공!");
 		}else {
 			retVal.put("code", "FAIL");
@@ -187,6 +187,43 @@ public class FundingController {
 	public void modifyFundingQna(FundingQnaVO vo) throws Exception {
 		fms.modifyFundingQna(vo);
 	}
+	
+	// 찜 insert
+	@RequestMapping(value ="/insertZzim", method= RequestMethod.POST)
+	@ResponseBody
+	public Object insertZzim(@RequestParam Map<String, Object> paramMap){
+		
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		int result = fms.insertZzim(paramMap);
+		if(result>0) {
+			retVal.put("code", "OK");
+			retVal.put("message", "찜 성공!");
+		}else {
+			retVal.put("code", "FAIL");
+			retVal.put("message", "찜 실패!");
+		}
+		return retVal;
+	}
+	
+	// 찜 select
+	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> selectZzim = new HashMap<String, Object>();
+		List<ZzimVO> result = fms.selectZzim(paramMap);		
+		return result;		
+	}
+	
+	// 찜 delete
+	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)
+	@ResponseBody
+	public Object deleteZzim(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> deleteZzim = new HashMap<String, Object>();
+		int result = fms.deleteZzim(paramMap);
+		return result;
+	}
+
+	
 	
 	
 	

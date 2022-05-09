@@ -20,21 +20,19 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_view.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/modal.css">
   
-    <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	        $(".dropdown-toggle").dropdown();
-	    });
-    </script>
-    
-    
- 
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
 	<main>
 	<c:set var="loginPerson" value="${login.member_idx }"/> <!-- 로그인 한 사람 -->
     <c:set var="seller" value="${read.member_idx }"/> <!-- 판매자 -->
+    <input type="number" id="member_idx" name="member_idx" value="${login.member_idx}" style="display:none;"/>
+    
+    
+    <!-- 글 번호 -->
+    <form id="read_funding_form">
+    	<input type="number" id="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;"/> 
+    </form>
 	<!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
         <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
@@ -53,7 +51,7 @@
 	           	</c:if>
             </h5>
             <br>
-            <h3 class="card-title">${read.funding_title }</h3>
+            <h3 class="card-title">${zzim.size()}${read.funding_title }</h3>
         </div>
     </div>
     <!-- -->
@@ -81,7 +79,7 @@
                 </div>
                 <h3>${Math.round(read.funding_current_price/read.funding_target_price*100)}<span class="smalltext"> %달성</span></h3>
                 <h3><fmt:formatNumber value="${read.funding_current_price}" type="number" /><span class="smalltext"> 원 펀딩</span></h3>
-                <h3>500<span class="smalltext"> 명의 서포터</span></h3>
+                <h3><span id="supportNum"></span><span class="smalltext"> 명의 서포터</span></h3>
                 
                 <!-- 로그인 처리 -->
                 <c:if test="${login eq null}">
@@ -96,18 +94,37 @@
 	                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 	                    </svg>
 	                    찜하기
-	                </button>  
+	                </button>
+	                <button type="button" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart"
+		                        viewBox="0 0 16 16">
+		                        <path
+		                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+		                    </svg>
+		                    찜 취소하기
+		             </button> 
                 </c:if>
                 <c:if test="${login ne null}">
 	                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
-	                <button type="button" class="FVbtn2">
-	                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-	                        viewBox="0 0 16 16">
-	                        <path
-	                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-	                    </svg>
-	                    찜하기
-	                </button>       
+	        
+                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+		                        viewBox="0 0 16 16">
+		                        <path
+		                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+		                    </svg>
+		                    찜하기
+		                </button>
+		                
+		                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart"
+		                        viewBox="0 0 16 16">
+		                        <path
+		                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+		                    </svg>
+		                    찜 취소하기
+		                </button> 
+	                          
                 </c:if>
                 <!-- 로그인 처리 끝 -->
                 <div class="fundingGoal">
@@ -394,6 +411,7 @@
                     	</c:forEach>
                     </tbody>
                 </table>
+                <div id="pagination"></div>
             </div>
         </div>
     </div>

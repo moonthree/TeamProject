@@ -2,6 +2,131 @@
  * 
  */
  
+ // 하단 탭들 새로고침해도 유지하는 기능
+ 	$('#myTab a').click(function(e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	  
+	  window.scrollTo(100, 100);
+	});
+	
+	// store the currently selected tab in the hash value
+	$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+	  var id = $(e.target).attr("href").substr(1);
+	  window.location.hash = id;
+	  window.scrollTo(100, 100);
+	});
+	
+	// on load of the page: switch to the currently selected tab
+	var hash = window.location.hash;
+	$('#myTab a[href="' + hash + '"]').tab('show');
+	
+	
+	$(document).ready(function() {
+	    	// 부트스트랩 드랍다운 작동하게 해주는 자바스크립트
+	        $(".dropdown-toggle").dropdown();
+	        
+	      	// 서포터 숫자 구하기
+	    	$.ajax({
+	    	    type: "POST",
+	    	    url: "read_funding_form",
+	    	    data:  $("#read_funding_form").serialize(),
+	    	    success: function (data) {
+	    	      $("#supportNum").text(data);
+	    	    },	    
+	        });
+	        
+	        var objParams = {
+			member_idx : $('#member_idx').val(),
+			funding_idx : $('#funding_idx').val()
+			};
+			//console.log(objParams)
+	        
+	        $.ajax({
+				url : "selectZzim",
+				dataType : "json",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				type : "post",
+				async : false,
+				data : objParams,
+				success : function(result){
+					//console.log(result.length)
+					//$('#zzimLength').val(result.length)
+					if(result.length == 0){
+						document.getElementsByClassName("notZzim")[0].style.display = "none";
+					}else{
+						document.getElementsByClassName("doZzim")[0].style.display = "none";
+					}
+				},
+				error : function(){
+	                alert("abcdefu2");
+	            }   
+			});
+			
+			
+	    });
+	    
+	    
+// 찜 등록 시작
+var zzimBtn = $("#zzimBtn");
+
+	zzimBtn.on("click", function(){
+		
+		var objParams = {
+			member_idx : $(this).data('id'),
+			funding_idx : $(this).data('id2'),
+			store_idx : 0
+		};
+		$.ajax({
+			url : "insertZzim",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "post",
+			async : false,
+			data : objParams,
+			success : function(){
+				alert("찜 등록")
+				document.getElementsByClassName("doZzim")[0].style.display = "none";
+				document.getElementsByClassName("notZzim")[0].style.display = "block";
+			},
+			error : function(){
+                alert("찜 등록 에러");
+            }   
+		});
+			
+	});
+
+// 찜 취소 시작
+var zzimDelBtn = $("#zzimDelBtn");
+	zzimDelBtn.on("click", function(){
+		var objParams = {
+			member_idx : $(this).data('id'),
+			funding_idx : $(this).data('id2'),
+			store_idx : 0
+		};
+		
+		console.log(objParams)
+		$.ajax({
+			url : "deleteZzim",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "post",
+			async : false,
+			data : objParams,
+			success : function(){
+				alert("찜 취소")
+				document.getElementsByClassName("notZzim")[0].style.display = "none";
+				document.getElementsByClassName("doZzim")[0].style.display = "block";
+			},
+			error : function(){
+                alert("찜 취소 에러");
+            }   
+		});
+	})
+
+ 
+
+ 
  // 글 남기기 모달 카테고리 클릭 이벤트 시작
 
 var div2 = document.getElementsByClassName("div2");
@@ -63,7 +188,9 @@ var writeModal = $("#writeModal");
            	   success: function(data){
                       //$('#result').text(data);
                       $('#writeModal').modal('hide')
+                      
                       window.alert(modalCategory + ' 작성에 성공했습니다!')
+                      
                       location.reload();
                   },
                   error: function(){
@@ -98,11 +225,14 @@ var modifyModal = $("#modifyModal");
                 url: "commuModify",
                 type: "POST",
                 data: $("#modifyform").serialize(),
-           	   success: function(data){
-                      //$('#result').text(data);
-                      $('#modifyModal').modal('hide')
-                      window.alert('수정에 성공했습니다!')
-                      location.reload();
+           	   success: function(){
+					  
+         			  $('#modifyModal').modal('hide')
+                      window.alert('수정에 성공했습니다!')        
+                      
+                      
+         			  location.reload();
+         			        			  
                   },
                   error: function(){
                       alert("serializeerr");
@@ -137,6 +267,7 @@ var modifyModal = $("#modifyModal");
 		
 	})
 //수정하기 모달 글 삭제 끝
+
 
 // qna 모달 작성 시작
 var qnaModal = $("#qnaModal");
@@ -406,6 +537,9 @@ var qnaDeleteBtn = $("#qnaDeleteBtn");
   			var trim = modifyContent.trim()
   			$('#modifyText').text(trim)
   		 }
-  	 } 	 	 
+  	 }
+  	 
+	
+  	
 });
 

@@ -3,12 +3,15 @@ package com.edu.service;
 import java.util.List;
 import java.util.Map;
 
+
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
+import com.edu.vo.ZzimVO;
 
 public interface fundingMainService {
 	
@@ -24,6 +27,8 @@ public interface fundingMainService {
 	
 	//펀딩 뷰
 	public FundingMainVO read(int funding_idx) throws Exception;
+	//오더 카운트
+	public int orderCount(FundingOrderVO vo) throws Exception;
 	
 	//펀딩 커뮤니티 댓글 리스트
 	List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception;
@@ -33,7 +38,6 @@ public interface fundingMainService {
 	public void modifyFundingCommunityComment(FundingCommunityVO vo) throws Exception;
 	//펀딩 커뮤니티 댓글 삭제
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception;
-	
 	
 	//펀딩 qna 댓글 리스트
 	List<FundingQnaVO> getQnaList(Map<String, Object> paramMap);
@@ -46,12 +50,19 @@ public interface fundingMainService {
 	//펀딩 qna 수정
 	public void modifyFundingQna(FundingQnaVO vo) throws Exception;
 	
-	
+
+	//찜 insert
+	public int insertZzim(Map<String, Object> paramMap);
+	//찜 select
+	List<ZzimVO> selectZzim(Map<String, Object> paramMap);
+	//찜 delete
+	public int deleteZzim(Map<String, Object> paramMap);
 	
 	// 펀딩 옵션 리스트
 	List<Funding_optionVO> list(Funding_optionVO vo);
 	
 	// 멤버 조회
 	MemberVO selectOne(MemberVO vo);
+	
 	
 }

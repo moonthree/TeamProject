@@ -1,5 +1,7 @@
 package com.edu.service;
 
+import java.util.Map;
+
 import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.MemberVO;
@@ -20,4 +22,5 @@ public interface MypageService {
 	
 	//비밀번호 찾기
 	public void sendMail(EmailDTO dto);
+	
 }

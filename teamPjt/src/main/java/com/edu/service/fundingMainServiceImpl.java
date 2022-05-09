@@ -1,23 +1,28 @@
 package com.edu.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.edu.dao.fundingMainDAO;
 import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingOrderVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
+import com.edu.vo.ZzimVO;
 
 @Service
 public class fundingMainServiceImpl implements fundingMainService{
@@ -63,6 +68,11 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public FundingMainVO read(int funding_idx) throws Exception {
 		dao.fundingViews(funding_idx);
 		return dao.read(funding_idx);
+	}
+	//오더 카운트
+	@Override
+	public int orderCount(FundingOrderVO vo) throws Exception {
+		return dao.orderCount(vo);
 	}
 	
 	@Override
@@ -126,6 +136,9 @@ public class fundingMainServiceImpl implements fundingMainService{
 		return fundingQnaListNew;
 	}
 	
+
+	
+	
 	//펀딩 qna 작성
 	@Override
 	public int qnaInsert(Map<String, Object> paramMap) {
@@ -148,6 +161,24 @@ public class fundingMainServiceImpl implements fundingMainService{
 		dao.modifyFundingQna(vo);
 	}
 	
+	 // insert찜
+	@Override
+	public int insertZzim(Map<String, Object> paramMap) {
+		return dao.insertZzim(paramMap);
+	}
+	//select찜
+	@Override
+	public List<ZzimVO> selectZzim(Map<String, Object> paramMap) {
+		return dao.selectZzim(paramMap);
+	}
+	// delete 찜
+
+	@Override
+	public int deleteZzim(Map<String, Object> paramMap) {
+		return dao.deleteZzim(paramMap);
+	}
+	
+	
 	
 	// 펀딩 옵션
 	@Override
@@ -158,5 +189,6 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public MemberVO selectOne(MemberVO vo) {
 		return memdao.selectOne(vo);
 	}
+	
 	
 }
