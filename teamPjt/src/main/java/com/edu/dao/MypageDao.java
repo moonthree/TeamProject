@@ -1,5 +1,7 @@
 package com.edu.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,5 +28,7 @@ public class MypageDao {
 	public String findId(MemberVO vo) {
 		return sqlSession.selectOne("MypageMapper.findId", vo);
 	}
+	
+	
 	
 }
