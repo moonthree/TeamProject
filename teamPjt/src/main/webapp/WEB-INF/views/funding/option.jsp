@@ -48,8 +48,10 @@
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
+            <input type="hidden" name="funding_idx" value="${read.funding_idx}">
+            ${param.funding_idx}
             	<!-- 펀딩 제목  -->
-                <div><h3 style="text-align: center; font-weight: bold;">어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자</h3></div>
+                <div><h3 style="text-align: center; font-weight: bold;">${read.funding_title }</h3></div>
                 <div class="wrap" style="margin: 30px 0px 10px auto;">
                     <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
                         <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">옵션 선택</div>
@@ -59,8 +61,8 @@
                 </div>
             </div>
         </div>
+        <form name="order" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
         <div class="row">
-        <form name="orderform" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
             <div class="" id="option" style="width: 90%; margin: 20px auto;">
             	<!-- 옵션 선택 -->
                 <h5 style="font-weight: 600;">옵션 선택</h5>
@@ -129,14 +131,14 @@
                 </div>
             </div>
             </div>
-        </form>
         </div>
         
         <!-- 선택 금액, 버튼 -->
         <div class="row">
             <div style="margin: 50px auto; text-align: center;">
                 <div style="font-weight: bold; font-size: 20px;">
-                    	어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
+                	<input type="hidden" name="sum_p_price" value="">
+					어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
                 </div>
                 <br>
                 <div>
@@ -144,6 +146,7 @@
                 </div>
             </div>
         </div>
+    	</form>
     </div>
     </main>
     <c:import url="/footer.do"></c:import>
@@ -179,6 +182,7 @@
 
 	    //화면 업데이트
 	    updateUI: function () {
+	    	document.querySelector('[name="sum_p_price"]').value = this.sumTotal;
 	        document.querySelector('#sum_p_price').textContent = this.sumTotal.formatNumber();
 	    },
 	    

@@ -3,12 +3,14 @@ package com.edu.vo;
 import java.util.Date;
 
 public class MemberVO {
-
+	//git 넘기기용
 	private int member_idx;
 	private String member_email;
 	private String member_password;
 	private String member_name;
 	private String member_addr;
+	private String member_addr2;
+	private String member_postnum;
 	private String member_phone;
 	private String member_business_num;
 	private String member_business_name;
@@ -98,6 +100,8 @@ public class MemberVO {
 	public void setMember_photo(String member_photo) {
 		this.member_photo = member_photo;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "MemberVO [member_idx=" + member_idx + ", member_email=" + member_email + ", member_password="
@@ -106,6 +110,18 @@ public class MemberVO {
 				+ member_business_name + ", member_pet=" + member_pet + ", member_level=" + member_level
 				+ ", member_join_date=" + member_join_date + ", member_state=" + member_state + ", member_photo="
 				+ member_photo + "]";
+	}
+	public String getMember_addr2() {
+		return member_addr2;
+	}
+	public void setMember_addr2(String member_addr2) {
+		this.member_addr2 = member_addr2;
+	}
+	public String getMember_postnum() {
+		return member_postnum;
+	}
+	public void setMember_postnum(String member_postnum) {
+		this.member_postnum = member_postnum;
 	}
 	
 	
