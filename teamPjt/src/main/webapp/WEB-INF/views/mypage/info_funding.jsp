@@ -20,7 +20,6 @@
 <title>펀딩 내역</title>
 </head>
 <body>
-
 <c:import url="/header.do"></c:import> 
 <main id="wrapper">
 
@@ -35,140 +34,252 @@
                         <div class="dropdown">
                             <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-expanded="false">
-                                전체
+                                	전체
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown">
-                                <a class="dropdown-item" href="#">결제 예약</a>
-                                <a class="dropdown-item" href="#">결제 완료</a>
-                                <a class="dropdown-item" href="#">결제 실패</a>
+                                <a class="dropdown-item" href="info_funding.do?funding_state=0">결제 예약</a>
+                                <a class="dropdown-item" href="info_funding.do?funding_state=1">결제 완료</a>
+                                <a class="dropdown-item" href="info_funding.do?funding_state=2">결제 실패</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <br>
-                <div class="row fundingRow">
-                  <!--이미지-->
-                  <div class="col-md-4 col-sm-12">
-                      <div class="card">
-                          <a href="info_funding_detail.do">
-                            <div class="embed-responsive embed-responsive-4by3">
-                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
-                            </div>
-                            </a>
-                      </div>
-                  </div>
-                  <!--내용-->
-                  <div class="col-md-8 col-sm-12">
-                    <table class="table">
-                      <thead class="table-light" style="border-bottom: 2px solid gray;">
-                        <tr>
-                            <th colspan="2" style="text-align: center;">
-                                펀딩 제목
-                            </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr> 
-                            <th>펀딩 상태</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                        <tr> 
-                            <th style="border-top:none;">펀딩 금액</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>         
-                </div>
-                <br>
-                <div class="row fundingRow">
-                  <!--이미지-->
-                  <div class="col-md-4 col-sm-12">
-                      <div class="card">
-                          <a href="info_funding_detail.do">
-                            <div class="embed-responsive embed-responsive-4by3">
-                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
-                            </div>
-                            </a>
-                      </div>
-                  </div>
-                  <!--내용-->
-                  <div class="col-md-8 col-sm-12">
-                    <table class="table">
-                      <thead class="table-light" style="border-bottom: 2px solid gray;">
-                        <tr>
-                            <th colspan="2" style="text-align: center;">
-                                펀딩 제목
-                            </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr> 
-                            <th>펀딩 상태</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                        <tr> 
-                            <th style="border-top:none;">펀딩 금액</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>         
-                </div>
-                <br>
-                <div class="row fundingRow">
-                  <!--이미지-->
-                  <div class="col-md-4 col-sm-12">
-                      <div class="card">
-                          <a href="info_funding_detail.do">
-                            <div class="embed-responsive embed-responsive-4by3">
-                              <img src="../resources/image/cat4.png" class="card-img-top embed-responsive-item" alt="tree">
-                            </div>
-                            </a>
-                      </div>
-                  </div>
-                  <!--내용-->
-                  <div class="col-md-8 col-sm-12">
-                    <table class="table">
-                      <thead class="table-light" style="border-bottom: 2px solid gray;">
-                        <tr>
-                            <th colspan="2" style="text-align: center;">
-                                펀딩 제목
-                            </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr> 
-                            <th>펀딩 상태</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                        <tr> 
-                            <th style="border-top:none;">펀딩 금액</th>
-                        </tr>
-                        <tr>
-                            <td style="border-top:none;"/">
-                            <td style="border-top:none;">***</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>         
-                </div>
-                <br>
+                <c:if test="${myFundingList.size()>0}">
+				<c:forEach var="item" items="${myFundingList}">
+	                <c:choose>
+	                
+	                	<c:when test="${ param.funding_state eq 0 }"> 
+	                		<c:if test="${ item.funding_current_state eq 0 }">
+	                		<div class="row fundingRow">
+			                  <!--이미지-->
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                      <div class="card">
+				                          
+				                            <div class="embed-responsive embed-responsive-4by3">
+				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                            </div>
+				                            
+				                      </div>
+				                  </div>
+			                  <!--내용-->
+			                  <div class="col-md-8 col-sm-12">
+			                  
+			                    <table class="table">
+			                      <thead class="table-light" style="border-bottom: 2px solid gray;">
+			                        <tr>
+			                            <th colspan="2" style="text-align: center;">
+			                                ${item.funding_title }
+			                            </th>
+			                        </tr>
+			                      </thead>
+			                      <tbody>
+			                        <tr> 
+			                            <th>펀딩 상태</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+			                            	<c:choose>
+			                            		<c:when test="${ item.funding_current_state == 0}">진행중</c:when>
+			                            		<c:when test="${ item.funding_current_state == 1}">성공</c:when>
+			                            		<c:otherwise>실패</c:otherwise>
+			                            	</c:choose>
+			                            </td>
+			                        </tr>
+			                        <tr> 
+			                            <th style="border-top:none;">펀딩 금액</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+											${ item.funding_current_price }/${ item.funding_target_price }
+										</td>
+			                        </tr>
+			                      </tbody>
+			                    </table>
+			                  </div>         
+			                </div>
+			                <br>
+	                	</c:if>
+	                	
+	                	</c:when>
+	                	
+	                	
+	                	<c:when test="${ param.funding_state eq 1 }">
+	                	
+	                	<c:if test="${ item.funding_current_state eq 1 }">
+	                		<div class="row fundingRow">
+			                  <!--이미지-->
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                      <div class="card">
+				                          
+				                            <div class="embed-responsive embed-responsive-4by3">
+				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                            </div>
+				                            
+				                      </div>
+				                  </div>
+			                  <!--내용-->
+			                  <div class="col-md-8 col-sm-12">
+			                  
+			                    <table class="table">
+			                      <thead class="table-light" style="border-bottom: 2px solid gray;">
+			                        <tr>
+			                            <th colspan="2" style="text-align: center;">
+			                                ${item.funding_title }
+			                            </th>
+			                        </tr>
+			                      </thead>
+			                      <tbody>
+			                        <tr> 
+			                            <th>펀딩 상태</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+			                            	<c:choose>
+			                            		<c:when test="${ item.funding_current_state == 0}">진행중</c:when>
+			                            		<c:when test="${ item.funding_current_state == 1}">성공</c:when>
+			                            		<c:otherwise>실패</c:otherwise>
+			                            	</c:choose>
+			                            </td>
+			                        </tr>
+			                        <tr> 
+			                            <th style="border-top:none;">펀딩 금액</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+											${ item.funding_current_price }/${ item.funding_target_price }
+										</td>
+			                        </tr>
+			                      </tbody>
+			                    </table>
+			                  </div>         
+			                </div>
+			                <br>
+	                	</c:if>
+	                	
+	                	</c:when>
+	                	
+	                	
+	                	<c:when test="${ param.funding_state eq 2 }">
+	                		<c:if test="${ item.funding_current_state eq 2 }">
+	                		<div class="row fundingRow">
+			                  <!--이미지-->
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                      <div class="card">
+				                          
+				                            <div class="embed-responsive embed-responsive-4by3">
+				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                            </div>
+				                            
+				                      </div>
+				                  </div>
+			                  <!--내용-->
+			                  <div class="col-md-8 col-sm-12">
+			                  
+			                    <table class="table">
+			                      <thead class="table-light" style="border-bottom: 2px solid gray;">
+			                        <tr>
+			                            <th colspan="2" style="text-align: center;">
+			                                ${item.funding_title }
+			                            </th>
+			                        </tr>
+			                      </thead>
+			                      <tbody>
+			                        <tr> 
+			                            <th>펀딩 상태</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+			                            	<c:choose>
+			                            		<c:when test="${ item.funding_current_state == 0}">진행중</c:when>
+			                            		<c:when test="${ item.funding_current_state == 1}">성공</c:when>
+			                            		<c:otherwise>실패</c:otherwise>
+			                            	</c:choose>
+			                            </td>
+			                        </tr>
+			                        <tr> 
+			                            <th style="border-top:none;">펀딩 금액</th>
+			                        </tr>
+			                        <tr>
+			                            <td style="border-top:none;"/">
+			                            <td style="border-top:none;">
+											${ item.funding_current_price }/${ item.funding_target_price }
+										</td>
+			                        </tr>
+			                      </tbody>
+			                    </table>
+			                  </div>         
+			                </div>
+			                <br>
+	                	</c:if>
+	                	
+	                	</c:when>
+	                	
+	                	<c:otherwise>
+	                	
+	                	<div class="row fundingRow">
+	                  <!--이미지-->
+		                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+		                      <div class="card">
+		                          
+		                            <div class="embed-responsive embed-responsive-4by3">
+		                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+		                            </div>
+		                            
+		                      </div>
+		                  </div>
+	                  <!--내용-->
+	                  <div class="col-md-8 col-sm-12">
+	                  
+	                    <table class="table">
+	                      <thead class="table-light" style="border-bottom: 2px solid gray;">
+	                        <tr>
+	                            <th colspan="2" style="text-align: center;">
+	                                ${item.funding_title }
+	                            </th>
+	                        </tr>
+	                      </thead>
+	                      <tbody>
+	                        <tr> 
+	                            <th>펀딩 상태</th>
+	                        </tr>
+	                        <tr>
+	                            <td style="border-top:none;"/">
+	                            <td style="border-top:none;">
+	                            	<c:choose>
+	                            		<c:when test="${ item.funding_current_state == 0}">진행중</c:when>
+	                            		<c:when test="${ item.funding_current_state == 1}">성공</c:when>
+	                            		<c:otherwise>실패</c:otherwise>
+	                            	</c:choose>
+	                            </td>
+	                        </tr>
+	                        <tr> 
+	                            <th style="border-top:none;">펀딩 금액</th>
+	                        </tr>
+	                        <tr>
+	                            <td style="border-top:none;"/">
+	                            <td style="border-top:none;">
+									${ item.funding_current_price }/${ item.funding_target_price }
+								</td>
+	                        </tr>
+	                      </tbody>
+	                    </table>
+	                  </div>         
+	                </div>
+	                <br>
+	                	
+	                	</c:otherwise>
+	                </c:choose>
+	                
+	                
+	             </c:forEach>
+	             </c:if>
+                
         	</div>
     	</div>
     </div>

@@ -1,7 +1,8 @@
 package com.edu.vo;
 
-public class FundingMainVO {
-	//git 넘기기용
+import java.util.Date;
+
+public class FundingInfoDetailVO {
 	private int funding_idx;
 	private int member_idx;
 	
@@ -25,120 +26,13 @@ public class FundingMainVO {
 	private int funding_express_fee;
 	private int funding_views;
 	
-	private MemberVO memberVO;
 	
-	private String keyword = "";
-
-	private String dog;
-	private String cat;
-	private String other;
-	
-	private String sortNew;
-	private String sortView;
-	private String sortPrice;
-	
-
-	private int startRowNum;
-	private int endRowNum;
-	private int rowCount;
-	private int totalRow;
-
-	private boolean prev;
-	private boolean next;
+	private int funding_order_idx;		
+	private int funding_order_total_price;		
+	private int funding_order_pay_state;		
+	private Date funding_order_date;
 	
 	
-	public int getTotalRow() {
-		return totalRow;
-	}
-	public void setTotalRow(int totalRow) {
-		this.totalRow = totalRow;
-	}
-	public boolean isPrev() {
-		return prev;
-	}
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
-	public boolean isNext() {
-		return next;
-	}
-	public void setNext(boolean next) {
-		this.next = next;
-	}
-	public String getSortNew() {
-		return sortNew;
-	}
-	public void setSortNew(String sortNew) {
-		this.sortNew = sortNew;
-	}
-	public String getSortView() {
-		return sortView;
-	}
-	public void setSortView(String sortView) {
-		this.sortView = sortView;
-	}
-	public String getSortPrice() {
-		return sortPrice;
-	}
-	public void setSortPrice(String sortPrice) {
-		this.sortPrice = sortPrice;
-	}
-	public String getKeyword() {
-		return keyword;
-	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-	
-	public String getDog() {
-		return dog;
-	}
-	public void setDog(String dog) {
-		this.dog = dog;
-	}
-	public String getCat() {
-		return cat;
-	}
-	public void setCat(String cat) {
-		this.cat = cat;
-	}
-	public String getOther() {
-		return other;
-	}
-	public void setOther(String other) {
-		this.other = other;
-	}
-	
-	public int getStartRowNum() {
-		return startRowNum;
-	}
-	public void setStartRowNum(int startRowNum) {
-		this.startRowNum = startRowNum;
-	}
-	public int getEndRowNum() {
-		return endRowNum;
-	}
-	public void setEndRowNum(int endRowNum) {
-		this.endRowNum = endRowNum;
-	}
-	public int getRowCount() {
-		return rowCount;
-	}
-	public void setRowCount(int rowCount) {
-		this.rowCount = rowCount;
-	}
-	public MemberVO getMemberVO() {
-		return memberVO;
-	}
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
-	}
-	public int getFunding_views() {
-		return funding_views;
-	}
-	public void setFunding_views(int funding_views) {
-		this.funding_views = funding_views;
-	}
 	public int getFunding_idx() {
 		return funding_idx;
 	}
@@ -235,19 +129,37 @@ public class FundingMainVO {
 	public void setFunding_express_fee(int funding_express_fee) {
 		this.funding_express_fee = funding_express_fee;
 	}
-	
-	@Override
-	public String toString() {
-		return "FundingMainVO [funding_idx=" + funding_idx + ", member_idx=" + member_idx + ", funding_title="
-				+ funding_title + ", funding_thumbnail=" + funding_thumbnail + ", funding_content=" + funding_content
-				+ ", funding_notice=" + funding_notice + ", funding_target_price=" + funding_target_price
-				+ ", funding_current_price=" + funding_current_price + ", funding_start_date=" + funding_start_date
-				+ ", funding_end_date=" + funding_end_date + ", funding_permit_state=" + funding_permit_state
-				+ ", funding_current_state=" + funding_current_state + ", funding_write_date=" + funding_write_date
-				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
-				+ ", funding_express_fee=" + funding_express_fee + ", funding_views="  + "]";
+	public int getFunding_views() {
+		return funding_views;
+	}
+	public void setFunding_views(int funding_views) {
+		this.funding_views = funding_views;
+	}
+	public int getFunding_order_idx() {
+		return funding_order_idx;
+	}
+	public void setFunding_order_idx(int funding_order_idx) {
+		this.funding_order_idx = funding_order_idx;
+	}
+	public int getFunding_order_total_price() {
+		return funding_order_total_price;
+	}
+	public void setFunding_order_total_price(int funding_order_total_price) {
+		this.funding_order_total_price = funding_order_total_price;
+	}
+	public int getFunding_order_pay_state() {
+		return funding_order_pay_state;
+	}
+	public void setFunding_order_pay_state(int funding_order_pay_state) {
+		this.funding_order_pay_state = funding_order_pay_state;
+	}
+	public Date getFunding_order_date() {
+		return funding_order_date;
+	}
+	public void setFunding_order_date(Date funding_order_date) {
+		this.funding_order_date = funding_order_date;
 	}
 	
 	
-
+	
 }
