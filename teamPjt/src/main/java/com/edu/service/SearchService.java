@@ -12,4 +12,8 @@ public interface SearchService {
 		// 검색 펀딩 총 갯수
 		public int searchFundingCount(SearchCriteria scri) throws Exception;
 		
+		List<FundingMainVO> searchList(FundingMainVO vo) throws Exception;
+		public int searchCount(FundingMainVO vo) throws Exception;
+		
+		
 }

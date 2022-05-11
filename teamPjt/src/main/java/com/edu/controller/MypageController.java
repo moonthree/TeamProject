@@ -74,9 +74,10 @@ public class MypageController {
 	@RequestMapping(value = "/funding_register.do", method = RequestMethod.POST)
 	public String funding_register2(FundingMainVO vo, Model model,HttpServletRequest request) {
 		
-		
+	System.out.println(vo.toString());
 		
 		int result = fundingMainServiece.fun_reg(vo);
+		
 		if(result  == 1) {
 			return "redirect:/mypage/mypage2.do";
 		}

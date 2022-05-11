@@ -2,6 +2,8 @@ package com.edu.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
@@ -62,50 +67,297 @@ public class FundingController {
 	
 	
 	// 펀딩 메인페이지에 리스트 출력	
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)
-	public String listDog(Model model, Pagination page) throws Exception {
+	/*
+	 * @RequestMapping(value="/main.do", method=RequestMethod.GET) public String
+	 * listDog(Model model, Pagination page) throws Exception {
+	 * 
+	 * model.addAttribute("listDog",fms.listDog(page));
+	 * 
+	 * 
+	 * PageMaker pageMaker = new PageMaker(); pageMaker.setPage(page);
+	 * pageMaker.setTotalCount(fms.listDogCount());
+	 * 
+	 * model.addAttribute("pageMaker", pageMaker);
+	 * 
+	 * return "funding/main"; }
+	 */
+
+	/*
+	 * @RequestMapping(value="/main_cat.do", method=RequestMethod.GET) public String
+	 * listCat(Model model, Pagination page) throws Exception {
+	 * 
+	 * model.addAttribute("listCat",fms.listCat(page));
+	 * 
+	 * PageMaker pageMaker = new PageMaker(); pageMaker.setPage(page);
+	 * pageMaker.setTotalCount(fms.listCatCount());
+	 * 
+	 * model.addAttribute("pageMaker", pageMaker);
+	 * 
+	 * return "funding/main_cat"; }
+	 */
+	/*
+	 * @RequestMapping(value = "/main_infinite.do", method=RequestMethod.GET) public
+	 * String main_infinite(HttpServletRequest request, HttpSession session) throws
+	 * Exception { final int PAGE_ROW_COUNT = 9; //한 페이지에 몇개씩 표시할 것인지 int pageNum =
+	 * 1; //보여줄 페이지의 번호를 일단 1이라고 초기값 지정 String strPageNum =
+	 * request.getParameter("pageNum"); //페이지 번호가 파라미터로 전달되는지 읽어와 본다. if(strPageNum
+	 * != null) { //만일 페이지 번호가 파라미터로 넘어 온다면 pageNum = Integer.parseInt(strPageNum);
+	 * //숫자로 바꿔서 보여줄 페이지 번호로 지정한다. }
+	 * 
+	 * int startRowNum = 0 + (pageNum -1) * PAGE_ROW_COUNT; //보여줄 페이지의 시작 ROWNUM 0부터
+	 * 시작 int endRowNum= pageNum * PAGE_ROW_COUNT; //보여줄 페이지의 끝 ROWNUM int rowCount
+	 * = PAGE_ROW_COUNT;
+	 * 
+	 * String categorySelect = request.getParameter("categorySelect"); String
+	 * condition= request.getParameter("condition");
+	 * 
+	 * if(categorySelect == null) { categorySelect = ""; }
+	 * 
+	 * if(condition == null) { condition = ""; } System.out.println(categorySelect);
+	 * System.out.println(condition);
+	 * 
+	 * String encodedk = URLEncoder.encode(condition); //특수기호를 인코딩한 키워드를 준비한다.
+	 * 
+	 * FundingMainVO vo = new FundingMainVO(); //ROWNUM과 ROWCOUNT를 FundingMainVO 객체에
+	 * 담는다. vo.setStartRowNum(startRowNum); vo.setEndRowNum(endRowNum);
+	 * vo.setRowCount(rowCount);
+	 * 
+	 * if(condition.equals("sortNew")) { vo.setSortNew("a"); }else
+	 * if(condition.equals("sortView")){ vo.setSortView("b"); }else
+	 * if(condition.equals("sortPrice")) { vo.setSortPrice("c"); }
+	 * if(categorySelect.equals("dog")) { vo.setDog("dog"); }else
+	 * if(categorySelect.equals("cat")){ vo.setCat("cat"); }else
+	 * if(categorySelect.equals("other")) { vo.setOther("other"); }
+	 * 
+	 * ArrayList<FundingMainVO> listMain = null; //ArrayList 객체의 참조값을 담을 지역변수를 미리
+	 * 만든다. int totalRow = 0; //전체 row의 개수를담을 지역변수를 미리 만든다.
+	 * 
+	 * //글 목록 얻어오기 listMain = (ArrayList<FundingMainVO>) fms.listMain(vo);
+	 * 
+	 * // 글의 개수 totalRow = fms.listMainCount(vo);
+	 * 
+	 * // 전체 페이지의 갯수 int totalPageCount = (int)Math.ceil(totalRow /
+	 * (double)PAGE_ROW_COUNT);
+	 * 
+	 * request.setAttribute("listMain", listMain);
+	 * request.setAttribute("totalPageCount", totalPageCount);
+	 * request.setAttribute("condition", condition);
+	 * request.setAttribute("categorySelect", categorySelect);
+	 * request.setAttribute("totalRow", totalRow); request.setAttribute("pageNum",
+	 * pageNum);
+	 * 
+	 * System.out.println("startRowNum = " + startRowNum);
+	 * System.out.println("endRowNum = " + endRowNum);
+	 * System.out.println("rowCount = " + rowCount); System.out.println("totalRow= "
+	 * + totalRow); System.out.println("totalPageCount=" + totalPageCount);
+	 * System.out.println("=====================");
+	 * 
+	 * return "funding/main_infinite"; }
+	 */
+	/*
+	 * @RequestMapping(value = "/main_cat.do", method=RequestMethod.GET) public
+	 * String listCat(HttpServletRequest request, HttpSession session) throws
+	 * Exception { final int PAGE_ROW_COUNT = 9; //한 페이지에 몇개씩 표시할 것인지 int pageNum =
+	 * 1; //보여줄 페이지의 번호를 일단 1이라고 초기값 지정 String strPageNum =
+	 * request.getParameter("pageNum"); //페이지 번호가 파라미터로 전달되는지 읽어와 본다. if(strPageNum
+	 * != null) { //만일 페이지 번호가 파라미터로 넘어 온다면 pageNum = Integer.parseInt(strPageNum);
+	 * //숫자로 바꿔서 보여줄 페이지 번호로 지정한다. }
+	 * 
+	 * int startRowNum = 0 + (pageNum -1) * PAGE_ROW_COUNT; //보여줄 페이지의 시작 ROWNUM 0부터
+	 * 시작 int endRowNum= pageNum * PAGE_ROW_COUNT; //보여줄 페이지의 끝 ROWNUM int rowCount
+	 * = PAGE_ROW_COUNT;
+	 * 
+	 * 
+	 * String condition= request.getParameter("condition");
+	 * 
+	 * if(condition == null) { condition = ""; }
+	 * 
+	 * System.out.println(condition);
+	 * 
+	 * String encodedk = URLEncoder.encode(condition); //특수기호를 인코딩한 키워드를 준비한다.
+	 * 
+	 * FundingMainVO vo = new FundingMainVO(); //ROWNUM과 ROWCOUNT를 FundingMainVO 객체에
+	 * 담는다. vo.setStartRowNum(startRowNum); vo.setEndRowNum(endRowNum);
+	 * vo.setRowCount(rowCount);
+	 * 
+	 * if(condition.equals("sortNew")) { vo.setSortNew("a"); }else
+	 * if(condition.equals("sortView")){ vo.setSortView("b"); }else
+	 * if(condition.equals("sortPrice")) { vo.setSortPrice("c"); }
+	 * ArrayList<FundingMainVO> listCat = null; //ArrayList 객체의 참조값을 담을 지역변수를 미리
+	 * 만든다. int totalRow = 0; //전체 row의 개수를담을 지역변수를 미리 만든다.
+	 * 
+	 * //글 목록 얻어오기 listCat = (ArrayList<FundingMainVO>) fms.listCat(vo);
+	 * 
+	 * // 글의 개수 totalRow = fms.listCatCount();
+	 * 
+	 * // 전체 페이지의 갯수 int totalPageCount = (int)Math.ceil(totalRow /
+	 * (double)PAGE_ROW_COUNT);
+	 * 
+	 * request.setAttribute("listCat", listCat);
+	 * request.setAttribute("totalPageCount", totalPageCount);
+	 * request.setAttribute("condition", condition);
+	 * request.setAttribute("totalRow", totalRow); request.setAttribute("pageNum",
+	 * pageNum);
+	 * 
+	 * return "funding/main_cat"; }
+	 * 
+	 * @RequestMapping(value="/main_other.do", method=RequestMethod.GET) public
+	 * String listOther(Model model, Pagination page) throws Exception {
+	 * 
+	 * model.addAttribute("listOther",fms.listOther(page));
+	 * 
+	 * PageMaker pageMaker = new PageMaker(); pageMaker.setPage(page);
+	 * pageMaker.setTotalCount(fms.listOtherCount());
+	 * 
+	 * model.addAttribute("pageMaker", pageMaker);
+	 * 
+	 * return "funding/main_other"; }
+	 * 
+	 * @RequestMapping(value = "/infinite_page.do", method=RequestMethod.GET) public
+	 * String infinite_page(HttpServletRequest request, HttpSession session) throws
+	 * Exception { final int PAGE_ROW_COUNT = 9; //한 페이지에 몇개씩 표시할 것인지 int pageNum =
+	 * 1; //보여줄 페이지의 번호를 일단 1이라고 초기값 지정 String strPageNum =
+	 * request.getParameter("pageNum"); //페이지 번호가 파라미터로 전달되는지 읽어와 본다. if(strPageNum
+	 * != null) { //만일 페이지 번호가 파라미터로 넘어 온다면 pageNum = Integer.parseInt(strPageNum);
+	 * //숫자로 바꿔서 보여줄 페이지 번호로 지정한다. }
+	 * 
+	 * int startRowNum = 0 + (pageNum -1) * PAGE_ROW_COUNT; //보여줄 페이지의 시작 ROWNUM 0부터
+	 * 시작 int endRowNum= pageNum * PAGE_ROW_COUNT; //보여줄 페이지의 끝 ROWNUM int rowCount
+	 * = PAGE_ROW_COUNT;
+	 * 
+	 * 
+	 * String condition= request.getParameter("condition");
+	 * 
+	 * if(condition == null) { condition = ""; }
+	 * 
+	 * System.out.println(condition);
+	 * 
+	 * String encodedk = URLEncoder.encode(condition); //특수기호를 인코딩한 키워드를 준비한다.
+	 * 
+	 * FundingMainVO vo = new FundingMainVO(); //ROWNUM과 ROWCOUNT를 FundingMainVO 객체에
+	 * 담는다. vo.setStartRowNum(startRowNum); vo.setEndRowNum(endRowNum);
+	 * vo.setRowCount(rowCount);
+	 * 
+	 * if(condition.equals("sortNew")) { vo.setSortNew("a"); }else
+	 * if(condition.equals("sortView")){ vo.setSortView("b"); }else
+	 * if(condition.equals("sortPrice")) { vo.setSortPrice("c"); }
+	 * ArrayList<FundingMainVO> listCat = null; //ArrayList 객체의 참조값을 담을 지역변수를 미리
+	 * 만든다. int totalRow = 0; //전체 row의 개수를담을 지역변수를 미리 만든다.
+	 * 
+	 * //글 목록 얻어오기 listCat = (ArrayList<FundingMainVO>) fms.listCat(vo);
+	 * 
+	 * // 글의 개수 totalRow = fms.listCatCount();
+	 * 
+	 * // 전체 페이지의 갯수 int totalPageCount = (int)Math.ceil(totalRow /
+	 * (double)PAGE_ROW_COUNT);
+	 * 
+	 * request.setAttribute("listCat", listCat);
+	 * request.setAttribute("totalPageCount", totalPageCount);
+	 * request.setAttribute("condition", condition);
+	 * request.setAttribute("totalRow", totalRow); request.setAttribute("pageNum",
+	 * pageNum);
+	 * 
+	 * return "funding/infinite_page"; }
+	 */
+	@RequestMapping(value = "/main.do", method=RequestMethod.GET)
+	public String listMain(HttpServletRequest request, HttpSession session) throws Exception {
+		final int PAGE_ROW_COUNT = 9; 							//한 페이지에 몇개씩 표시할 것인지
+		final int displayPageNum = 3;							//페이징 번호 몇 개
 		
-		model.addAttribute("listDog",fms.listDog(page));
+		int pageNum = 1; 										//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		String strPageNum = request.getParameter("pageNum"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNum != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNum = Integer.parseInt(strPageNum);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}															
+		
+		int startRowNum = (pageNum -1) * PAGE_ROW_COUNT;	//보여줄 페이지의 시작 ROWNUM  0부터 시작
+		int endRowNum= startRowNum * PAGE_ROW_COUNT - 1;				//보여줄 페이지의 끝 ROWNUM
+		int rowCount = PAGE_ROW_COUNT;
+		
+		String categorySelect = request.getParameter("categorySelect");
+		String condition= request.getParameter("condition");
+		
+		if(categorySelect == null) {
+			categorySelect = "";
+		}
+		
+		if(condition == null) {
+			condition = "";
+		}
+		System.out.println(categorySelect);
+		System.out.println(condition);
+		
+		String encodedk = URLEncoder.encode(condition);			//특수기호를 인코딩한 키워드를 준비한다.
+		
+		FundingMainVO vo = new FundingMainVO();							//ROWNUM과 ROWCOUNT를 FundingMainVO 객체에 담는다.
+		vo.setStartRowNum(startRowNum);
+		vo.setEndRowNum(endRowNum);
+		vo.setRowCount(rowCount);
 		
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setPage(page);
-		pageMaker.setTotalCount(fms.listDogCount());
 		
-		model.addAttribute("pageMaker", pageMaker);
+
+		if(condition.equals("sortNew")) {
+			vo.setSortNew("a");
+		}else if(condition.equals("sortView")){
+			vo.setSortView("b");
+		}else if(condition.equals("sortPrice")) {
+			vo.setSortPrice("c");
+		}
+		if(categorySelect.equals("dog")) {
+			vo.setDog("dog");
+		}else if(categorySelect.equals("cat")){
+			vo.setCat("cat");
+		}else if(categorySelect.equals("other")) {
+			vo.setOther("other");
+		}
 		
+		ArrayList<FundingMainVO> listMain = null;					//ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+		int totalRow = 0;										//전체 row의 개수를담을 지역변수를 미리 만든다.
+		
+		//글 목록 얻어오기
+		listMain = (ArrayList<FundingMainVO>) fms.listMain(vo);
+		
+		// 글의 개수
+		totalRow = fms.listMainCount(vo);
+		
+		// 전체 페이지의 갯수
+		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
+		
+		int endPage = (int) (Math.ceil(pageNum / (double)displayPageNum) * displayPageNum);
+		int startPage = (endPage - displayPageNum) + 1;
+		
+		int tempEndPage = (int) (Math.ceil(totalRow / (double)PAGE_ROW_COUNT));
+		if (endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		
+		boolean prev = startPage == 1 ? false : true;
+		boolean next = endPage * PAGE_ROW_COUNT >= totalRow ? false : true;
+		
+		
+		
+		request.setAttribute("listMain", listMain);
+		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("condition", condition);
+		request.setAttribute("categorySelect", categorySelect);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("startRowNum", startRowNum);
+		request.setAttribute("endRowNum", endRowNum);
+		request.setAttribute("prev", prev);
+		request.setAttribute("next", next);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("startPage", startPage);
+	
 		return "funding/main";
 	}
-	@RequestMapping(value="/main_cat.do", method=RequestMethod.GET)
-	public String listCat(Model model, Pagination page) throws Exception {
-		
-		model.addAttribute("listCat",fms.listCat(page));
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setPage(page);
-		pageMaker.setTotalCount(fms.listCatCount());
-		
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "funding/main_cat";
-	}
-	@RequestMapping(value="/main_other.do", method=RequestMethod.GET)
-	public String listOther(Model model, Pagination page) throws Exception {
-		
-		model.addAttribute("listOther",fms.listOther(page));
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setPage(page);
-		pageMaker.setTotalCount(fms.listOtherCount());
-		
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "funding/main_other";
-	}
+
+	
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(@RequestParam Map<String, Object> paramMap, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
+	public String read(@RequestParam Map<String, Object> paramMap, FundingCommunityVO fcvo, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request, Pagination page) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
@@ -118,6 +370,10 @@ public class FundingController {
 		//펀딩 커뮤니티 댓글 리스트
 		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
 		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
+		
+		PageMaker pageMaker = new PageMaker(); pageMaker.setPage(page);
+		pageMaker.setTotalCount(fms.countFundingCommunityComment(fcvo));		 
+		model.addAttribute("pageMaker", pageMaker);
 	
 		//펀딩 qna 댓글 리스트
 		model.addAttribute("qnaList", fms.getQnaList(paramMap));
@@ -166,6 +422,9 @@ public class FundingController {
 			retVal.put("code", "OK");
 			retVal.put("funding_idx", paramMap.get("funding_idx"));
 			retVal.put("member_idx", paramMap.get("member_idx"));
+			retVal.put("funding_qna_idx", paramMap.get("funding_qna_idx"));
+			retVal.put("parent_id", paramMap.get("parent_id"));
+			retVal.put("funding_qna_secret", paramMap.get("funding_qna_secret"));
 			retVal.put("message", "등록 성공!");
 		}else {
 			retVal.put("code", "FAIL");

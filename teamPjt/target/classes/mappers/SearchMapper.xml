@@ -3,6 +3,27 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="SearchMapper">
+	<resultMap type="MemberVO" id="MemberVO">
+		<result column="member_name" property="member_name"/>
+		<result column="member_photo" property="member_photo"/>
+		<result column="member_business_name" property="member_business_name"/>
+	</resultMap>
+	<resultMap type="FundingMainVO" id="FundingMainVO">
+		<result column="funding_idx" property="funding_idx"/>
+		<result column="member_idx" property="member_idx"/>
+		<result column="funding_title" property="funding_title"/>
+		<result column="funding_target_price" property="funding_target_price"/>
+		<result column="funding_current_price" property="funding_current_price"/>
+		<result column="funding_start_date" property="funding_start_date"/>
+		<result column="funding_end_date" property="funding_end_date"/>
+		<result column="funding_permit_state" property="funding_permit_state"/>
+		<result column="funding_current_state" property="funding_current_state"/>
+		<result column="funding_category" property="funding_category"/>
+		<result column="funding_views" property="funding_views"/>
+		<result column="funding_thumbnail" property="funding_thumbnail"/>
+		<collection property="memberVO" resultMap="MemberVO"></collection>
+	</resultMap>
+	
 	<select id="SearchFunding" parameterType="com.edu.vo.SearchCriteria" resultType="FundingMainVO">
 		SELECT funding_idx,
 			funding_title,
@@ -36,6 +57,41 @@
 			<if test="searchType == 'all'.toString()"></if>
 		</if>
 	</sql>
+	
+	<select id="searchCount" parameterType="FundingMainVO" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		WHERE 1=1 
+		AND funding_title LIKE CONCAT('%${keyword}%') 
+		AND funding_current_state = 1
+	</select>
+	
+	<select id="searchList" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
+		SELECT 
+			fd.funding_idx,
+			fd.member_idx,
+			fd.funding_title,
+			fd.funding_thumbnail,
+			fd.funding_target_price,
+			fd.funding_current_price,
+			fd.funding_start_date,
+			fd.funding_end_date,
+			fd.funding_permit_state,
+			fd.funding_current_state,
+			fd.funding_category,
+			fd.funding_views,
+			mem.member_business_name,
+			mem.member_idx
+		FROM funding AS fd
+		JOIN member AS mem
+		ON 	1=1 
+			AND fd.funding_title LIKE CONCAT('%${keyword}%')
+			AND fd.funding_current_state = 1
+			AND fd.member_idx = mem.member_idx
+		order by fd.funding_idx desc limit #{startRowNum}, 6;
+	</select>
+	
+	
 	
 	
 </mapper>
