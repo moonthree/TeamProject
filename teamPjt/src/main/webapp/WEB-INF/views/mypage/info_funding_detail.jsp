@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,12 +42,18 @@
 <c:import url="/header.do"></c:import>
    <!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
-        <img src="../resources/image/cat4.png" class="card-img FVtitleImg" alt="...">
+        <img src="../resources/image/funding_main/${ detail.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
-            <h5 class="card-category">고양이 용품</h5>
+            <h5 class="card-category">
+            	<c:choose>
+            		<c:when test="${ detail.funding_category eq 0 }">강아지 용품</c:when>
+            		<c:when test="${ detail.funding_category eq 1 }">고양이 용품</c:when>
+            		<c:when test="${ detail.funding_category eq 2 }">다른 동물 용품</c:when>
+            	</c:choose>
+            </h5>
             <br>
-            <h3 class="card-title">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</h3>
+            <h3 class="card-title">${ detail.funding_title }</h3>
         </div>
     </div>
     <!-- -->    
@@ -60,31 +67,37 @@
                     <thead class="table-light" style="border-bottom: 3px solid #06113C;">
                         <tr>
                             <th colspan="2">
-                                펀딩 내역
+                                	펀딩 내역
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>펀딩 번호</td>
-                            <td>***</td>
+                            <td>${ detail.funding_idx }</td>
                         </tr>
                         <tr>
                             <td>펀딩 예약 날짜</td>
                             <td>
-                                2022-04-06
+                               
+                                <fmt:formatDate type="time" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
+                               
                             </td>
                         </tr>
                         <tr>
                             <td>펀딩 종료일</td>
                             <td>
-                                2022-05-01
+                                ${ detail.funding_end_date }
                             </td>
                         </tr>
                         <tr>
                             <td>펀딩 상태</td>
                             <td>
-                                ***
+                                <c:choose>
+                                	<c:when test="${ detail.funding_current_state eq 0 }">진행중</c:when>
+                                	<c:when test="${ detail.funding_current_state eq 1 }">성공</c:when>
+                                	<c:when test="${ detail.funding_current_state eq 2 }">실패</c:when>
+                                </c:choose>
                             </td>
                         </tr>
                         <tr>
@@ -102,7 +115,7 @@
                         <tr>
                             <td>발송 시작일</td>
                             <td>
-                                2022-05-02
+                                ${ detail.funding_express_date }
                             </td>
                         </tr>
                     </tbody>
@@ -124,7 +137,7 @@
                     <tbody>
                         <tr>
                             <td>결제 금액</td>
-                            <td>***</td>
+                            <td>${ detail.funding_order_total_price - detail.funding_express_fee }</td>
                         </tr>
                         <tr>
                             <td>추가 후원금</td>
@@ -135,13 +148,13 @@
                         <tr>
                             <td>배송비</td>
                             <td>
-                                ***
+                                ${ detail.funding_express_fee }
                             </td>
                         </tr>
                         <tr>
                             <td>최종 결제 금액</td>
                             <td>
-                                ***
+                                ${ detail.funding_order_total_price }
                             </td>
                         </tr>
                     </tbody>
@@ -193,20 +206,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <!-- 로그인(MemberVO)에서 가져오는게 아니라 다른 배송 테이블을 만들어야함  -->
                         <tr>
                             <td>이름</td>
-                            <td>***</td>
+                            <td>${ login.member_name }</td>
                         </tr>
                         <tr>
                             <td>전화번호</td>
                             <td>
-                                ***
+                                ${ login.member_phone }
                             </td>
                         </tr>
                         <tr>
                             <td>주소</td>
                             <td>
-                                ***
+                                (${login.member_postnum})${ login.member_addr }<br>
+                                ${ login.member_addr2 }
+                                
                             </td>
                         </tr>
                     </tbody>

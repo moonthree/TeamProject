@@ -55,6 +55,8 @@
 			 , member_password
 			 , member_name
 			 , member_addr
+			 , member_addr2
+			 , member_postnum
 			 , member_phone
 			 , member_pet
 			 , member_level
