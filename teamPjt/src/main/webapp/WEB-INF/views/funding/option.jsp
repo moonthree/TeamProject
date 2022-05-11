@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -75,7 +76,8 @@
 		                        <input type="checkbox" name="check" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_idx}">
 		                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}" style="cursor: pointer;">
 		                        	<!-- 옵션 가격 -->
-		                            <div class="price" style="font-weight: 600;">${item.funding_option_price}원 펀딩합니다.</div>
+		                            <div class="price" style="font-weight: 600;">
+		                            	<fmt:formatNumber value="${item.funding_option_price}" type="number" />원 펀딩합니다.</div>
 		                            <div class="detail" style="font-size: 14px; line-height: 2; color: gray;">
 		                            	<!-- 옵션 제목 -->
 		                               	${item.funding_option_name}<br>
@@ -110,7 +112,7 @@
 			                        	</div>
 			                        	<div class="totalPrice" style="float: left;">
 					                        <div style="font-size: 13px; margin-bottom: 5px; color: gray;">금액</div>
-					                    	<div class="sum">${item.funding_option_price}원</div>
+					                    	<div class="sum"><fmt:formatNumber value="${item.funding_option_price}" type="number" />원</div>
 			                        	</div>
 			                        </div>
 		                        </div>

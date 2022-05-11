@@ -384,15 +384,53 @@
 	</insert>
 	
 	<!-- 주문 옵션 번호 -->
-	<insert id="insertOption" parameterType="Funding_order_optionVO">
+	<insert id="insertOrderOption" parameterType="Funding_order_optionVO">
 		INSERT INTO funding_order_option(
 			funding_order_idx
 		  , funding_order_option_select_idx
 		  , funding_order_option_select_count
 		)VALUES(
-			#{funding_order_idx}
+			(SELECT MAX(funding_order_idx) FROM funding_order)
 		  , #{funding_order_option_select_idx}
 		  , #{funding_order_option_select_count}
+		)
+	</insert>
+	
+	<!-- 주문 배송지 정보 -->
+	<insert id="insertExpress" parameterType="Funding_expressVO">
+		INSERT INTO funding_express(
+			funding_order_idx
+		  , member_idx
+		  , funding_express_postnum
+		  , funding_express_addr1
+		  , funding_express_addr2
+		  , funding_express_phone
+		  , funding_express_name
+		)VALUES(
+			(SELECT MAX(funding_order_idx) FROM funding_order)
+		  , #{member_idx}
+		  , #{funding_express_postnum}
+		  , #{funding_express_addr1}
+		  , #{funding_express_addr2}
+		  , #{funding_express_phone}
+		  , #{funding_express_name}
+		)
+	</insert>
+	
+	<!-- 결제 정보 -->
+	<insert id="insertPay" parameterType="Funding_order_payVO">
+		INSERT INTO funding_order_pay(
+			funding_order_idx
+		  , funding_order_pay_card_num
+		  , funding_order_pay_card_valid
+		  , funding_order_pay_card_password
+		  , funding_order_pay_register_num
+		)VALUES(
+			(SELECT MAX(funding_order_idx) FROM funding_order)
+		  , #{funding_order_pay_card_num}
+		  , #{funding_order_pay_card_valid}
+		  , #{funding_order_pay_card_password}
+		  , #{funding_order_pay_register_num}
 		)
 	</insert>
 </mapper>

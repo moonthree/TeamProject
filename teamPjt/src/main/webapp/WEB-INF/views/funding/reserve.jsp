@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -50,10 +51,7 @@
 		clear:both;
 	}
 	.addressInfo_input_div{
-		padding:12px;
-		text-align: left;
 		display: none;
-		line-height: 40px;
 	}
 	
 	input[type="radio"] {
@@ -82,6 +80,7 @@
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
+            	<input type="hidden" name="funding_title" value="${param.funding_title}">
                 <div><h3 style="text-align: center; font-weight: bold;">${param.funding_title}</h3></div>
                 <div class="wrap" style="margin: 30px 0px 10px auto;">
                     <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
@@ -96,8 +95,7 @@
         <!-- 옵션 정보 -->
         <div class="row" style="margin-top: 30px;">
             <div class="col-xs-12" style="width: 100%;">
-            <input type="hidden" name="funding_order_idx" value="1">
-            <input type="hidden" name="funding_idx" value="1">
+            <input type="hidden" name="funding_idx" value="${param.funding_idx }">
             <input type="hidden" name="member_idx" value="${member.member_idx}">
                 <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
                 	<c:forEach var="check" items="${paramValues.check}">
@@ -147,23 +145,23 @@
 				                        <div class="sum" id="sum">
 				                        	<c:if test="${check eq 1 }">
 				                        		<input type="hidden" id="sum1" value="${list.funding_option_price*param.p_num1}">
-			                            		${list.funding_option_price*param.p_num1}원
+				                        		<fmt:formatNumber value="${list.funding_option_price*param.p_num1}" type="number" />원
 			                            	</c:if>
 			                            	<c:if test="${check eq 2 }">
 				                            	<input type="hidden" id="sum2" value="${list.funding_option_price*param.p_num2}">
-			                            		${list.funding_option_price*param.p_num2}원
+			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num2}" type="number" />원
 			                            	</c:if>
 			                            	<c:if test="${check eq 3 }">
 			                            		<input type="hidden" id="sum3" value="${list.funding_option_price*param.p_num3}">
-			                            		${list.funding_option_price*param.p_num3}원
+			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num3}" type="number" />원
 			                            	</c:if>
 			                            	<c:if test="${check eq 4 }">
 			                            		<input type="hidden" id="sum4" value="${list.funding_option_price*param.p_num4}">
-			                            		${list.funding_option_price*param.p_num4}원
+			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num4}" type="number" />원
 			                            	</c:if>
 			                            	<c:if test="${check eq 5 }">
 			                            		<input type="hidden" id="sum5" value="${list.funding_option_price*param.p_num5}">
-			                            		${list.funding_option_price*param.p_num5}원
+			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num5}" type="number" />원
 			                            	</c:if>
 				                        </div>
 			                        </td>
@@ -242,15 +240,16 @@
             <!-- 배송지 정보 -->
             <div class="col-md-6" style="padding: 30px;">
                 <div class="addressInfo_div" style="font-size: 20pt; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+
                 <!-- 선택 버튼  (새로입력/기존주소) -->
                 <div class="addressInfo_button_div">
 	                <div class="form-group">
 	                    <div class="form-check form-check-inline">
-	                        <input class="form-check-input" type="radio" onclick="showAdre('1')" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+	                        <input class="form-check-input" type="radio" onchange="setDisplay()" name="inlineRadioOptions1" id="inlineRadio1" value="option1" checked>
 	                        <label class="form-check-label" for="inlineRadio1">새로 입력</label>
 	                    </div>
 	                    <div class="form-check form-check-inline">
-	                        <input class="form-check-input" type="radio" onclick="showAdre('2')" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+	                        <input class="form-check-input" type="radio" onchange="setDisplay()" name="inlineRadioOptions1" id="inlineRadio2" value="option2">
 	                        <label class="form-check-label" for="inlineRadio2">기존 주소</label>
 	                    </div>
                 	</div>
@@ -263,71 +262,71 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" id="">
+                            	<input type="text" class="form-control" name="funding_express_name1">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" id="">
+                            	 <input type="tel" onkeyup="mobile_keyup(this)" class="form-control m-input telCheckSize" name="funding_express_phone1" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                    aria-label="Default" aria-describedby="inputGroup-sizing-default">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="number" class="form-control address1_input" id="" placeholder="우편번호">
+                        	    <input type="number" class="form-control address1_input" name="funding_express_postnum1" placeholder="우편번호">
                             </div>
                             <div class="col-sm-5">
-                                <button type="submit" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button>
+                                <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #83BD75; border: none;">주소 찾기</button>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" id="" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" name="funding_express_addr1_1" placeholder="기본 주소">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" id="" placeholder="상세 주소">
+                                <input type="text" class="form-control address3_input" name="funding_express_addr2_1" placeholder="상세 주소">
                             </div>
                         </div>
                 	</div>
-                	
                 	<!-- 기존 주소 -->
                 	<div class="addressInfo_input_div addressInfo_input_div_2">
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" id="" value="${member.member_name}">
+                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" id="" value="${member.member_phone}">
+                            	<input type="text" class="form-control" name="funding_express_phone2" value="${member.member_phone}">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="number" class="form-control address1_input" id="" placeholder="우편번호">
+                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}">
                             </div>
                             <div class="col-sm-5">
-                                <button type="submit" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button>
+<!--                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button> -->
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" id="" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" id="" placeholder="상세 주소">
+                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}">
                             </div>
                         </div>
                 	</div>
@@ -348,64 +347,62 @@
             <div class="col-lg-8">
                 <div class="form-group">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">직접 입력</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3" checked>
+                        <label class="form-check-label" for="inlineRadio3">직접 입력</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">네이버 페이</label>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4">
+                        <label class="form-check-label" for="inlineRadio4">네이버 페이</label>
                     </div>
                 </div>
                 <hr>
                 <div>
-                    <form>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="number" oninput='handleOnInput(this, 4)' class="form-control">
-                                </div>
-                                <div class="col">
-                                    <input type="password" class="form-control" maxlength="4">
-                                </div>
-                                <div class="col">
-                                    <input type="password" class="form-control" maxlength="4">
-                                </div>
-                                <div class="col">
-                                    <input type="number" oninput='handleOnInput(this, 4)' class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="" style="font-weight: bold;">유효기간</label>
-                                <input type="text" class="form-control validdate" id="" placeholder="MM/YY" maxlength="5">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="" style="font-weight: bold;">카드 비밀번호</label>
-                                <input type="password" class="form-control" id="" placeholder="앞 2자리" maxlength="2">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" style="font-weight: bold; margin-bottom: 0px;">생년월일 (주민번호 앞 6자리)</label>
-                            <small id="" class="form-text text-muted" style="margin-top: 0px; margin-bottom: 10px;">무기명 법인카드는 사업자등록번호 10자리를 입력하세요.</small>
-                            <input type="text" class="form-control" id="" maxlength="10">
-                        </div>   
-                    </form>
+                     <div class="form-group">
+                         <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
+                         <div class="row">
+                             <div class="col">
+                                 <input type="number" name="card_num" oninput='handleOnInput(this, 4)' class="form-control">
+                             </div>
+                             <div class="col">
+                                 <input type="password" name="card_num" class="form-control" maxlength="4">
+                             </div>
+                             <div class="col">
+                                 <input type="password" name="card_num" class="form-control" maxlength="4">
+                             </div>
+                             <div class="col">
+                                 <input type="number" name="card_num" oninput='handleOnInput(this, 4)' class="form-control">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="form-row">
+                         <div class="form-group col-md-6">
+                             <label for="" style="font-weight: bold;">유효기간</label>
+                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5">
+                         </div>
+                         <div class="form-group col-md-6">
+                             <label for="" style="font-weight: bold;">카드 비밀번호</label>
+                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2">
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="" style="font-weight: bold; margin-bottom: 0px;">생년월일 (주민번호 앞 6자리)</label>
+                         <small id="" class="form-text text-muted" style="margin-top: 0px; margin-bottom: 10px;">무기명 법인카드는 사업자등록번호 10자리를 입력하세요.</small>
+                         <input type="text" name="funding_order_pay_register_num" class="form-control" id="" maxlength="10">
+                     </div>   
                 </div>
             </div>
             <div class="col-lg-4">
                 <div style="font-weight: 600;">[ 결제 예약시 유의사항 ]</div>
                 <div style="padding: 10px; line-height: 2;">
-                    <ul style="padding-left: 10px; list-style: circle;">
+                    <ul style="padding-left: 10px;">
                         <li>
-                            결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있으니, 결제수단이 유효한지 한번 확인하세요
+							결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있으니, 결제수단이 유효한지 한번 확인하세요
                         </li>
                         <li>
                             1차 결제 실패 시 실패일로부터 3 영업일 동안 재 결제를 실행합니다.
                         </li>
                         <li>
-                            결제 예약 이후, 결제 정보를 변경하려면 마이페이지 > 나의 펀딩의 결제 정보에서 결제 정보를 변경해주세요.
+							결제 예약 이후, 결제 정보를 변경하려면 마이페이지 > 나의 펀딩의 결제 정보에서 결제 정보를 변경해주세요.
                         </li>
                     </ul>
                 </div>
@@ -506,20 +503,12 @@
 	};
 	
 	
-	/* 주소입력란 버튼 동작(숨김, 등장) */
-	function showAdre(className){
-		/* 컨텐츠 동작 */
-			/* 모두 숨기기 */
-			$(".addressInfo_input_div").css('display', 'none');
-			/* 컨텐츠 보이기 */
-			$(".addressInfo_input_div_" + className).css('display', 'block');		
+	function showPay(className){
 		
 	}
 	
-	
 	/* 다음 주소 연동 */
 	function execution_daum_address(){
-	 		console.log("동작");
 		   new daum.Postcode({
 		        oncomplete: function(data) {
 		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
@@ -572,6 +561,40 @@
 		    }).open();  	
 		
 	}
+	//  연락처
+		function mobile_keyup(obj){
+		    let mobile_len=obj.value.length;
+		    console.log(mobile_len)
+		    if(event.keyCode==8){
+		        obj.value=obj.value.slice(0,mobile_len); 
+		        return 0; 
+		    }else if (mobile_len==3 || mobile_len==8){
+		        obj.value += '-';
+		    }
+		}
+		
+	//  유효기간
+		function date_keyup(obj){
+		    let date_len = obj.value.length;
+		    if (event.keyCode==8){
+		        obj.value = obj.value.slice(0,date_len)
+		        return 0;
+		    }else if(date_len==2){
+		        obj.value += '/';
+		    }
+		}
+	
+		function setDisplay(){
+		    if($('input:radio[id=inlineRadio1]').is(':checked')){
+		        $('.addressInfo_input_div_1').show();
+		        $('.addressInfo_input_div_2').hide();
+		    }else{
+		        $('.addressInfo_input_div_1').hide();
+		        $('.addressInfo_input_div_2').show();
+		    }
+		}
+
+
 </script>    
 </body>
 </html>
