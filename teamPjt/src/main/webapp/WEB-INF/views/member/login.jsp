@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/member_css/login.css">
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
 	    $(document).ready(function() {
@@ -68,6 +68,22 @@
 		  
 		}
     </script>
+<script>
+    // 아이디 비밀번호 입력 안 한 경우
+    function loginCheck(){
+    	var loginForm = document.loginForm;
+    	var memEmail = document.getElementById('memEmail').value;
+    	var memPw = document.getElementById('memPw').value;
+    	
+    	if(memEmail == ""){
+    		alert("아이디를 입력해주세요.");
+    	} else if (memPw == ""){
+    		alert("비밀번호를 입력해주세요.");
+    	} else {
+    		loginForm.submit();
+    	}
+    }
+</script>
     
 <title>Insert title here</title>
 <style>
@@ -83,36 +99,42 @@
 	
 	<main>
     <div class="container" style="text-align: center; margin-top: 10%;">
-        <div class="row">
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-                <button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" style="width: 49%;">카카오</button>
-                <button type="button" class="btn btn-outline-success" style="width: 49%;">네이버</button>
-                <br><br>
-                <form action="login.do" method="post" id="login">
-                    <div class="form-floating mb-3">
-                        <input type="email" name="member_email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" name="member_password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-                    <br>
-                    <button type="button" onclick="document.getElementById('login').submit();"  class="btn btn-outline-info" style="width: 100%;">로그인</button>
-                    <br>
-                    <br>
-                    <a href="emailpw_find.do">이메일, 비밀번호 찾기</a> 
-                    |
-                    <a href="join_select.do">회원가입</a>
-                </form>
-            </div>
-            <div class="col-sm">
-            
-            </div>
-            
-        </div>
+	    <div class="row">
+	        <div class="col-sm-12">
+	        <form action="login.do" method="post" id="login" name="loginform">
+	        	<div class="card">
+	        		<h1 class="title">SNS 로그인</h1>
+	        		<div class="input-container" style="margin_bottom: 60px">
+	        			<img>
+		        		<button type="button" onclick="Fnkakao()" class="btn_img">
+		        			<img src="<%=request.getContextPath()%>/resources/image/member/kakao_login_medium_narrow.png" style="height: 48px">
+		        		</button>
+	                	<button type="button" class="btn_img">
+	                		<img src="<%=request.getContextPath()%>/resources/image/member/naver_login.png" style="height: 48px">
+	                	</button>
+	        		</div>
+					<h1 class="title">로그인</h1>
+					<div class="input-container">
+						<input type="text" class="login-input" name="member_email" id="memEmail" required="required"/>
+						<label for="memId">이메일</label>
+						<div class="bar"></div>
+					</div>
+					<div class="input-container">
+						<input type="password" class="login-input" name="member_password" id="memPw" autocomplete="off" required="required">
+						<label for="memPw">비밀번호</label>
+						<div class="bar"></div>
+					</div>
+					<div class="button-container">
+						<button id="login" onclick="document.getElementById('login').submit();"><span>로그인</span></button>
+					</div>
+					<div class="footer-join">
+						<a href="emailpw_find.do">이메일, 비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;
+						<a href="join_select.do">회원가입</a>
+					</div>
+				</div>
+			</form>
+	        </div>
+	    </div>
     </div>
     </main>
      <form id="form-kakao-login" method="post" action="join_kakao.do">

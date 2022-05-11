@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +27,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
+import com.edu.vo.FundingCommunityVO;
+import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.ZzimVO;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -38,6 +40,9 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 
+	@Autowired
+	private fundingMainService fms;
+	
 	@Autowired 
 	private fundingMainService fundingMainServiece;
 	
@@ -48,7 +53,17 @@ public class MypageController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-
+		
+		//펀딩리스트 3개씩 & 펀딩 개수
+		List<FundingMainVO> s3f = mypageService.select3Funding(login.getMember_idx());
+		model.addAttribute("select3Funding",s3f);
+		model.addAttribute("countFunding",mypageService.countFunding(login.getMember_idx()));
+		
+		//찜리스트 3개씩 & 찜 개수
+		List<ZzimVO> s3z = mypageService.select3Zzim(login.getMember_idx());
+		model.addAttribute("select3Zzim",s3z);
+		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
+		
 		return "mypage/mypage";
 	}
 
@@ -60,6 +75,10 @@ public class MypageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 
+		//판매자 펀딩 내역 가져오기
+		List<FundingMainVO> sfl = mypageService.sellerFundingList(login.getMember_idx());
+		model.addAttribute("sellerFundingList",sfl);
+		
 		return "mypage/mypage2";
 	}
 
@@ -202,17 +221,49 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/info_funding.do")
-	public String info_funding() {
+	public String info_funding(Model model, HttpServletRequest request) {
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		//펀딩리스트 3개씩 & 펀딩 개수
+		List<FundingMainVO> mfl = mypageService.myFundingList(login.getMember_idx());
+		model.addAttribute("myFundingList",mfl);
+
 		return "mypage/info_funding";
 	}
 
-	@RequestMapping(value = "/info_funding_detail.do")
-	public String info_funding_detail() {
+	@RequestMapping(value = "/info_funding_detail.do", method = RequestMethod.GET)
+	public String info_funding_detail(Model model, FundingMainVO vo, HttpServletRequest request) {
+		
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		
+		//funding_idx에 따른 주문정보가져오기
+		FundingInfoDetailParameterVO fipv = new FundingInfoDetailParameterVO();
+		fipv.setFunding_idx(vo.getFunding_idx());
+		fipv.setMember_idx(login.getMember_idx());
+		model.addAttribute("detail", mypageService.fundingDetail(fipv));
+		
 		return "mypage/info_funding_detail";
 	}
 
 	@RequestMapping(value = "/info_zzim.do")
-	public String info_zzim() {
+	public String info_zzim(Model model, FundingMainVO vo, HttpServletRequest request) throws Exception {
+		
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		// 찜리스트
+		List<FundingMainVO> mzl = mypageService.myZzimList(login.getMember_idx());
+		model.addAttribute("myZzimList",mzl);
+		
 		return "mypage/info_zzim";
 	}
 
@@ -226,6 +277,7 @@ public class MypageController {
 		model.addAttribute("member", member);
 
 		return "mypage/my_info";
+		
 	}
 
 	@RequestMapping(value = "/my_info_modify.do")
@@ -291,6 +343,54 @@ public class MypageController {
 		}
 
 	}
+	
+	// 공지사항 이동
+	@RequestMapping(value = "/notice_list.do")
+	public String notice_list() {	
+		return "notice/notice_list";
+	}
+	
+	//펀딩 뷰
+	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
+	public String read(@RequestParam Map<String, Object> paramMap, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
+		
+		//funding_idx에 따른 뷰페이지 정보 가져오기
+		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
+		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member",member);	
+		//펀딩 커뮤니티 댓글 리스트
+		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
+		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
+	
+		//펀딩 qna 댓글 리스트
+		model.addAttribute("qnaList", fms.getQnaList(paramMap));
+		
+		return "funding/view";
+	}
+	
+	// 찜 delete
+	@RequestMapping(value ="/deleteZzim.do", method= RequestMethod.GET)
+	public String deleteZzim(HttpServletRequest request, FundingMainVO vo, Model model){
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		
+		Map<String, Integer> deleteZzim = new HashMap<String, Integer>();
+		deleteZzim.put("member_idx", login.getMember_idx());
+		deleteZzim.put("funding_idx", vo.getFunding_idx());
+		
+		int result = mypageService.deleteZzim(deleteZzim);
+		if(result > 0) { //찜성공
+			return "redirect:info_zzim.do";
+		}else { //찜실패
+			System.out.println("찜실패");
+			return "redirect:info_zzim.do";
+		}
+	}
+	
 	
 	
 	

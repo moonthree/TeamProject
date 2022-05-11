@@ -18,9 +18,11 @@ import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
@@ -219,8 +221,18 @@ public class fundingMainServiceImpl implements fundingMainService{
 	}
 	// 주문 옵션 정보 등록
 	@Override
-	public int insertOption(Funding_order_optionVO orderOptionvo) {
-		return dao.insertOption(orderOptionvo);
+	public int insertOrderOption(Funding_order_optionVO orderOptionvo) {
+		return dao.insertOrderOption(orderOptionvo);
+	}
+	// 배송 정보 등록
+	@Override
+	public int insertExpress(Funding_expressVO expressvo) {
+		return dao.insertExpress(expressvo);
+	}
+	// 결제 정보 등록
+	@Override
+	public int insertPay(Funding_order_payVO payvo) {
+		return dao.insertPay(payvo);
 	}
 
 	@Override

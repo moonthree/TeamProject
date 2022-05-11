@@ -3,13 +3,14 @@ package com.edu.service;
 import java.util.List;
 import java.util.Map;
 
-
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
@@ -82,6 +83,10 @@ public interface fundingMainService {
 	// 주문 번호
 	int insertOrder(Funding_orderVO ordervo);
 	// 주문 옵션 정보 등록
-	int insertOption(Funding_order_optionVO orderOptionvo);
+	int insertOrderOption(Funding_order_optionVO orderOptionvo);
+	// 배송 정보 등록
+	int insertExpress(Funding_expressVO expressvo);
+	// 결제 정보
+	int insertPay(Funding_order_payVO payvo);
 	
 }

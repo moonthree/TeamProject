@@ -28,24 +28,24 @@
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-                <div><h3 style="text-align: center; font-weight: bold;">어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자</h3></div>
+                <div><h3 style="text-align: center; font-weight: bold;">${read.funding_title}</h3></div>
                 <div style="margin-top: 30px; padding: 30px 50px; background-color: #E9EFC0;" class="card">
-                    <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보</div>
+                    <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">펀딩 예약 정보</div>
                     <div>
                         <ul style="padding-left: 60px; list-style: disc; line-height: 2; font-size: 13pt;">
                             <li>
                                	펀딩 예약이 완료되었습니다.
                             </li>
                             <li>
-					                          프로젝트 성공 종료 시 2022.00.00에 결제됩니다.
+					                          프로젝트 성공 종료 시 ${read.funding_end_date}에 결제됩니다.
                             </li>
                             <li>
-								결제 성공 시 2022.00. 중순 발송 예정입니다.
+								결제 성공 시 !배송날짜!${read.funding_express_date} 중순 발송 예정입니다.
                             </li>
                         </ul>
                     </div>
                     <div style="display: inline-block; text-align: center;">
-                        <button type="button" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px auto;">펀딩 내역 보기</button>
+                        <button type="button" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 내역 보기</button>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/main.do'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 홈 가기</button>
                     </div>
                     </div>

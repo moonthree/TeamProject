@@ -28,9 +28,11 @@ import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
@@ -512,8 +514,7 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/option.do", method = RequestMethod.POST)
-	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request) throws Exception {
-		
+	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request, @RequestParam("check") String check) throws Exception {
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);
@@ -529,27 +530,79 @@ public class FundingController {
 	
 	// 결제 예약 페이지
 	@RequestMapping(value = "/reserve.do", method = RequestMethod.POST)
-	public void orderForm(Model model, Funding_orderVO ordervo, Funding_order_optionVO orderOptionvo, HttpServletResponse response) throws IOException {
+	public void orderForm(Model model, Funding_orderVO ordervo, Funding_order_optionVO orderOptionvo, Funding_expressVO expressvo, Funding_order_payVO payvo, HttpServletRequest request, HttpServletResponse response, @RequestParam("inlineRadioOptions1") String radio) throws IOException {
 		// 펀딩 주문 번호
 		int result = fms.insertOrder(ordervo);
 		
 		// 펀딩 주문 옵션 저장
-		int result2 = fms.insertOption(orderOptionvo);
+		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
+		String[] select_count = request.getParameterValues("funding_order_option_select_count");
+		for(int i=0; i<select_idx.length; i++) {
+			String s_i = select_idx[i];
+			String s_c = select_count[i];
+			int si = Integer.parseInt(s_i);
+			int sc = Integer.parseInt(s_c);
+			orderOptionvo.setFunding_order_option_select_idx(si);
+			orderOptionvo.setFunding_order_option_select_count(sc);
+			fms.insertOrderOption(orderOptionvo);
+		}
+		
+		// 펀딩 주문 배송지 저장
+		String name = "";
+		String phone = "";
+		String postnum = "";
+		String addr1 = "";
+		String addr2 = "";
+		if(radio.equals("option1")) {
+			name = request.getParameter("funding_express_name1");
+			phone = request.getParameter("funding_express_phone1");
+			postnum = request.getParameter("funding_express_postnum1");
+			addr1 = request.getParameter("funding_express_addr1_1");
+			addr2 = request.getParameter("funding_express_addr2_1");
+			
+		}else {
+			name = request.getParameter("funding_express_name2");
+			phone = request.getParameter("funding_express_phone2");
+			postnum = request.getParameter("funding_express_postnum2");
+			addr1 = request.getParameter("funding_express_addr1_2");
+			addr2 = request.getParameter("funding_express_addr2_2");
+		}
+		expressvo.setFunding_express_name(name);
+		expressvo.setFunding_express_phone(phone);
+		expressvo.setFunding_express_postnum(postnum);
+		expressvo.setFunding_express_addr1(addr1);
+		expressvo.setFunding_express_addr2(addr2);
+		fms.insertExpress(expressvo);
+		
+		// 결제 정보 저장
+		String[] card_number = request.getParameterValues("card_num");
+		String card = "";
+		for(String c : card_number) {
+			card += c;
+			card += " ";
+		}
+		card = card.substring(0, card.length() - 1);
+		payvo.setFunding_order_pay_card_num(card);
+		fms.insertPay(payvo);
+		
+		int funding_idx = Integer.parseInt(request.getParameter("funding_idx"));
 		response.setContentType("text/html; charset=euc-kr");
 		PrintWriter pw = response.getWriter();
-		if(result2>0) {
+		if(result>0) {
 			// 저장 완료
-			pw.println("<script>alert('결제 예약이 완료되었습니다.');location.href='reserve_complete.do';</script>");
+			pw.println("<script>alert('결제 예약이 완료되었습니다.');location.href='reserve_complete.do?funding_idx="+funding_idx+"';</script>");
 		}else {
 			// 저장 안됭
-			pw.println("<script>alert('결제 예약이 실패하었습니다.');location.href='reserve.do';</script>");
+			pw.println("<script>alert('결제 예약이 실패하었습니다.');location.href='reserInteger.parseIntve.do';</script>");
 		}
 		pw.flush();
 		
 	}
 	
 	@RequestMapping(value = "/reserve_complete.do")
-	public String reserveComplete() {
+	public String reserveComplete(FundingMainVO mainvo, Model model) throws Exception {
+		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));		
+
 		return "funding/reserve_complete";
 	}
 	

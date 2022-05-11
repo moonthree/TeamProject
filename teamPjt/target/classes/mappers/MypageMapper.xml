@@ -13,14 +13,16 @@
 	
 	<!-- 프로필 업데이트 -->
 	<update id="update_profile" parameterType="memberVO">
-		UPDATE member
-		SET	   member_addr = #{member_addr}
-			 , member_phone = #{member_phone}
-			 , member_pet = #{member_pet}
+		UPDATE 	member
+		SET	   	member_addr = #{member_addr},
+				member_addr2 = #{member_addr2},
+				member_postnum = #{member_postnum},
+			 	member_phone = #{member_phone},
+			 	member_pet = #{member_pet},
 	<if test="member_password != null and member_password neq ''">
-		, member_password = #{member_password}
+				member_password = #{member_password}
 	</if>
-		WHERE  member_idx = #{member_idx}
+		WHERE  	member_idx = #{member_idx}
 	</update>
 	
 	<!-- 아이디 찾기 MypageController2 -->
@@ -49,27 +51,148 @@
 		AND    member_phone = #{member_phone}
 	</update>
 	
-	<!-- mypage1 리스트 출력 3개 -->
-	<select id="listMyfunding" parameterType="int" resultType="FundingMainVO">
-		SELECT  funding_idx,
-				funding_title,
-				funding_thumbnail,
-				funding_target_price,
-				funding_current_price,
-				funding_start_date,
-				funding_end_date,
-				funding_permit_state,
-				funding_current_state,
-				funding_category,
-				funding_views
-		FROM    funding AS ft RIGHT JOIN myorder AS mot
-		ON      mot.member_idx = ft.member_idx
-		AND     mot.member_idx = #{member_idx}
-		ORDER BY mot.order_date DESC LIMIT 3
+	<!-- mypage1 펀딩 리스트 출력 3개 -->
+	<select id="select3Funding" parameterType="int" resultType="FundingMainVO">
+		SELECT  f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views
+		FROM  	funding_order fo, funding f 
+		WHERE 	fo.funding_idx = f.funding_idx 
+		AND 	fo.member_idx = #{member_idx}
+		ORDER BY fo.funding_order_date DESC limit 3;
+	</select>
+	
+	<!-- mypage1 펀딩 개수 -->
+	<select id="countFunding" parameterType="int" resultType="int">
+		SELECT	count(f.funding_idx)
+		FROM  	funding_order fo, funding f 
+		WHERE 	fo.funding_idx = f.funding_idx 
+		AND 	fo.member_idx = #{member_idx}
+	</select>
+	
+	<!-- 펀딩 내역 -->
+	<select id="myFundingList" parameterType="int" resultType="FundingMainVO">
+		SELECT 	f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views,
+				fo.funding_order_date
+		FROM  	funding_order fo, funding f 
+		WHERE 	fo.funding_idx = f.funding_idx 
+		AND 	fo.member_idx=1 
+		ORDER BY fo.funding_order_date DESC
 	</select>
 	
 	
+	<!-- mypage1 찜 리스트 출력 3개  -->
+	<select id="select3Zzim" parameterType="int" resultType="FundingMainVO">
+		SELECT  f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views
+		FROM  	zzim z, funding f 
+		WHERE	z.funding_idx = f.funding_idx 
+		AND	 	z.member_idx = #{member_idx} 
+		ORDER BY z.zzim_idx DESC limit 3;
+	</select>
 	
+	<!-- mypage1 찜 갯수 -->
+	<select id="countZzim" parameterType="int" resultType="int">
+		SELECT  count(z.zzim_idx)
+		FROM    zzim z, funding f 
+		WHERE 	z.funding_idx = f.funding_idx 
+		AND	 	z.member_idx = #{member_idx} 
+	</select>
 	
+	<!-- 찜 내역 -->
+	<select id="myZzimList" parameterType="int" resultType="FundingMainVO">
+		SELECT	f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views
+		FROM 	zzim z, funding f 
+		WHERE 	z.funding_idx = f.funding_idx 
+		AND 	z.member_idx = #{member_idx} 
+		ORDER BY z.zzim_idx DESC
+	</select>
+	
+	<!-- mypage2 내 펀딩 내역 -->
+	<select id="sellerFundingList" parameterType="int" resultType="FundingMainVO">
+		SELECT 	f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_content,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views 
+		FROM    funding f 
+		WHERE   f.member_idx = #{member_idx}
+	</select>
+	
+	<!-- funding_info_detail -->
+	<select id="fundingInfoDetail" parameterType="com.edu.vo.FundingInfoDetailParameterVO" resultType="com.edu.vo.FundingInfoDetailVO">
+		SELECT 	fo.funding_order_idx, 
+				fo.funding_order_date,
+				fo.funding_order_total_price,
+				fo.funding_order_pay_state,
+				f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_content,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views,
+				f.funding_express_date,
+				f.funding_express_fee
+		FROM 	funding_order fo, funding f 
+		WHERE	fo.funding_idx = f.funding_idx 
+		AND 	f.funding_idx = #{funding_idx}
+		AND		fo.member_idx = #{member_idx}
+	</select>
+	
+	<!-- 찜 취소 -->
+	<delete id="deleteZzim" parameterType="java.util.HashMap">
+		DELETE FROM zzim
+		WHERE funding_idx = #{funding_idx} AND member_idx = #{member_idx};
+	</delete>
 	
 </mapper>
