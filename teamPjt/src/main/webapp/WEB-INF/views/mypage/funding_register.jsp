@@ -236,7 +236,7 @@ var flagg = false;
 			
 			
 			var url = "funding_view.do";
-			window.open("","popOpen");
+			window.open("","popOpen","_blank");
 			flagg = true;
 		 	theForm.target="popOpen";
 			theForm.action = url;
