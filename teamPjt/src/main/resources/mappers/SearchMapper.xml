@@ -86,7 +86,7 @@
 		JOIN member AS mem
 		ON 	1=1 
 			AND fd.funding_title LIKE CONCAT('%${keyword}%')
-			AND fd.funding_current_state = 1
+			AND fd.funding_permit_state = 1
 			AND fd.member_idx = mem.member_idx
 		order by fd.funding_idx desc limit #{startRowNum}, 6;
 	</select>

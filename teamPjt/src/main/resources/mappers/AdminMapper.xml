@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="adminMapper">
+	<!-- 소비자 계정 가져오기 -->
+	<select id="listMember_seller" resultType="memberVO" parameterType="com.edu.vo.Pagination">
+		SELECT 
+			member_idx
+		   ,member_email
+		   ,member_name
+		   ,member_addr
+		   ,member_addr2
+		   ,member_postnum
+		   ,member_phone
+		   ,member_business_num
+		   ,member_business_name
+		   ,member_pet
+		   ,member_level
+		   ,member_join_date
+		   ,member_state
+		   ,member_photo
+		FROM member
+		WHERE member_level = 0
+		order by member_idx asc limit #{rowStart}, 9;
+	</select>
+	<!-- 소비자 계정 page -->
+	<select id="seller_Count" resultType="int">
+		SELECT COUNT(member_idx)
+		FROM member
+		where member_level = 0
+	</select>
+	
+	
+	<!-- 판매자 계정 가져오기 -->
+	<select id="listMember_company" resultType="memberVO" parameterType="com.edu.vo.Pagination">
+		SELECT 
+			member_idx
+		   ,member_email
+		   ,member_name
+		   ,member_addr
+		   ,member_addr2
+		   ,member_postnum
+		   ,member_phone
+		   ,member_business_num
+		   ,member_business_name
+		   ,member_pet
+		   ,member_level
+		   ,member_join_date
+		   ,member_state
+		   ,member_photo
+		FROM member
+		WHERE member_level = 1
+		order by member_idx asc limit #{rowStart}, 9;
+	</select>
+	<!-- 판매자 계정 page -->
+	<select id="company_Count" resultType="int">
+		SELECT COUNT(member_idx)
+		FROM member
+		where member_level = 1
+	</select>
+	
+	
+	<!-- 펀딩 신청한 제품 가져오기 -->
+	<select id="list_funding" resultType="fundingMainVO">
+		SELECT 
+		 funding_idx
+		,member_idx
+		,funding_title
+		,funding_permit_state
+		,funding_category
+		FROM funding
+		WHERE funding_permit_state = 0
+	</select>
+	
+	<!-- 관리자가 승인하여 펀딩 상태 업데이트함 -->
+	<update id="updateFun_State" parameterType="int">
+	UPDATE funding
+	SET funding_permit_state = 1
+	WHERE funding_idx = #{f_idx}
+	</update>
+	
+</mapper>

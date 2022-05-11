@@ -16,21 +16,6 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
     
- <!-- //git 넘기기용 -->
-     
-     <script type="text/javascript">
-        $(document).ready(function () {
-            $(".dropdown-toggle").dropdown();
-        });
-    </script>
-   
-    <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
-    
-  <!--   <script type="text/javascript">
-        $(document).ready(function () {
-            $(".dropdown-toggle").dropdown();
-        });
-    </script> -->
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/funding_register.css">
 </head>
@@ -84,6 +69,7 @@
                             <th scope="col">상세</th>
                             <th scope="col">수량</th>
                         </tr>
+                        
                         <tr>
                         <!-- 펀딩 옵션  name 맞춤-->
                             <td><input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
@@ -91,41 +77,19 @@
                             <td><input name="funding_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
                             <td><input name="funding_option_stock" type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
                         </tr>
+                     
                     </table>
                     <textarea id="template" style="display:none;">
                             <tr id="addRow">
-                                <td><input type="text" class="text"    name="funding_option_name"   style="width:100%;"  placeholder="옵션명"/></td>            
-                                <td><input type="number" min="0" class="text"    name="funding_option_price"   style="width:100%;"  placeholder="금액"/></td>
+                                <td><input type="text" class="text"   name="funding_option_name"   style="width:100%;"  placeholder="옵션명"/></td>            
+                                <td><input type="number" min="0" class="text"   name="funding_option_price"   style="width:100%;"  placeholder="금액"/></td>
                                 <td><input type="text" class="text"    name="funding_option_detail"  style="width:100%;"   placeholder="상세"/></td>
                                 <td><input type="text" class="text" name="funding_option_stock" style="width:100%;" placeholder="수량" /></td>
                             </tr>
                     </textarea>
                 </div>
             </div>
-            <input type="button" onclick="FnOption()">
-            <script type="text/javascript">
-            
-            	function FnOption(){
-				
-					var rows =  document.getElementById("Table").getElementsByTagName("tr");
-					for(var i=1; i<=rows.length; i++){
-						var cells = rows[i].getElementsByTagName("td");	
-						  var cell_1 = cells[0].firstChild.data;// 이름
-						  var cell_2 = cells[1].firstChild.data;// 금액
-						  var cell_3 = cells[2].firstChild.data;// 상세
-						  var cell_4 = cells[3].firstChild.data;// 수량
-						  
-
-					      console.log(cell_1);	// 홍길동, 김영희
-					      console.log(cell_2);	// 23, 25
-					      console.log(cell_3);	// 남자,여자
-					      console.log(cell_4);
-						
-					}
-				}
-            
-            </script>
-		
+          
 			<!-- 펀딩 기간 필드 -->
             <div class="form-group">
                 <label>펀딩 기간</label>&nbsp;<span class="ftime">*최소 15일 ~ 최대 6개월</span>
@@ -214,7 +178,14 @@
      });
          
 </script>
-<script type="text/javascript">
+     
+     <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown-toggle").dropdown();
+        });
+    </script>
+    
+    <script type="text/javascript">
 var flagg = false;
 	function Fn_priev(){
 		var path = '<%=request.getContextPath()%>';
@@ -241,7 +212,6 @@ var flagg = false;
 			else{
 			
 			var theForm =  document.querySelector('form[name=funding_upload]');
-			
 			var notice_path = document.getElementById("funding_Notice_temp");
 			var thumnail_path = document.getElementById("funding_thumbnail_temp");
 			var detail_path = document.getElementById("funding_Detail_temp");
@@ -260,16 +230,15 @@ var flagg = false;
 			var url = "funding_view.do";
 			window.open("","popOpen","_blank");
 			flagg = true;
-		 	theForm.target="popOpen";
+		 	theForm.target = "popOpen";
 			theForm.action = url;
-			theForm.submit(); 
+			theForm.submit();
 			}
 		}
 		
 	}
 	
 	function Fun_reg() {
-		
 		
  		var path = '<%=request.getContextPath()%>';
 		var midx = $("#member_idx").val();
@@ -286,44 +255,40 @@ var flagg = false;
 					
 				}
 				else{
+					
 					var theForm =  document.querySelector('form[name=funding_upload]');
-					theForm.target = "_self";
+					theForm.target="_self";
 					theForm.action = "funding_register.do";
 					theForm.submit();
-					
 				}
 			
 			} 
-			
-		
-		
-		
-		
 	}
 	function file_pathReader(obj) {
 		
 		var filePath = obj.value;
 		//전체경로를 \ 나눔.
 		var filePathSplit = filePath.split('\\'); 
-		//전체경로를 \로 나눈 길이.
-		var filePathLength = filePathSplit.length;
-		//마지막 경로를 .으로 나눔.
-		var fileNameSplit = filePathSplit[filePathLength-1].split('.');
 		
+		// 지워도됨 
+		//전체경로를 \로 나눈 길이.
+		//var filePathLength = filePathSplit.length;
+		
+		
+/* 		//마지막 경로를 .으로 나눔.
+		var fileNameSplit = filePathSplit[filePathLength-1].split('.');
 		//파일명 : .으로 나눈 앞부분
 		var fileName = fileNameSplit[0];
 		//파일 확장자 : .으로 나눈 뒷부분
 		var fileExt = fileNameSplit[1];
 	
-		var file1_path = fileName + "." +fileExt;
+		var file1_path = fileName + "." +fileExt; */
 		
-		return file1_path;
+		return filePathSplit[2];
 		
 	}
 
-	
-
-
 </script>
+
 
 </html>

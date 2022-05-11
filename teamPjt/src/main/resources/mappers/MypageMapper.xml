@@ -94,7 +94,7 @@
 				fo.funding_order_date
 		FROM  	funding_order fo, funding f 
 		WHERE 	fo.funding_idx = f.funding_idx 
-		AND 	fo.member_idx=1 
+		AND 	fo.member_idx=#{member_idx}
 		ORDER BY fo.funding_order_date DESC
 	</select>
 	

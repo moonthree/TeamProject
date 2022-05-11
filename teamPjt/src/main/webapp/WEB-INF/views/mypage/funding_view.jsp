@@ -68,7 +68,7 @@
                 <h3>0<span class="smalltext"> %달성</span></h3>
                 <h3>0<span class="smalltext"> 원 펀딩</span></h3>
                 <h3>500<span class="smalltext"> 명의 서포터</span></h3>
-                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do'" class="btn btn-info FVbtn">펀딩하기</button>
+                <button type="button" class="btn btn-info FVbtn">펀딩하기</button>
                 <button type="button" class="FVbtn2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                         viewBox="0 0 16 16">
@@ -108,6 +108,10 @@
             <li class="nav-item nav-pills viewtab" role="presentation">
                 <a class="nav-link" data-toggle="tab" href="#FVQnA" role="tab" aria-controls="FVQnA"
                     aria-selected="false">QnA</a>
+            </li>
+             <li class="nav-item nav-pills viewtab" role="presentation">
+                <a class="nav-link" data-toggle="tab" href="#FVoption" role="tab" aria-controls="FVoption"
+                    aria-selected="false">옵션 보기</a>
             </li>
         </ul>
         <!--프로젝트/스토어/커뮤니티/Q&A상세-->
@@ -206,16 +210,28 @@
                         </tr>
                     </tbody>
                 </table>
-               
-            </div>
+             </div>
+            <div class="tab-pane fade" id="FVoption" role="tabpanel" aria-labelledby="#FVoption-tab">
+       
+			<!-- 펀딩 옵션 미리보기  jsp 페이지에 옵션과 title 넘김-->
+				<jsp:include page="funding_option_temp.jsp">
+					<jsp:param value="${optionList}" name="optionList"/>
+					<jsp:param value="${funding.funding_title}" name="title"/>
+				</jsp:include>
+            </div>  
         </div>
+     
+     <br>
+     <input type="button" onclick="Fnclose()" class="btn btn-primary btn-lg btn-block" value="확인"/>   
     </div>
-    <input type="button" onclick="Fnclose()" class="btn btn-secondary" value="확인"/> 
+    
+    
+    <!-- 여기는 펀딩 등록 페이지로 보내기 -->
+   
     
     <script type="text/javascript">
    function Fnclose(){
-	   window.open('','_self').close();
-	   
+	  self.close();
    }
     </script>
 	</main>

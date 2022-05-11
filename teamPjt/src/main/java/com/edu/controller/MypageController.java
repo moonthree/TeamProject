@@ -4,8 +4,10 @@ package com.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
@@ -31,6 +32,7 @@ import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.ZzimVO;
 
@@ -45,6 +47,7 @@ public class MypageController {
 	
 	@Autowired 
 	private fundingMainService fundingMainServiece;
+	
 	@RequestMapping(value = "/mypage.do")
 	public String mypage(Model model, HttpServletRequest request) {
 		// 세션에 있는 사용자의 정보 가져옴
@@ -87,22 +90,52 @@ public class MypageController {
 		//git 넘기기용
 		return "mypage/funding_register";
 	}
-	@RequestMapping(value = "/funding_register.do", method = RequestMethod.POST)
-	public String funding_register2(FundingMainVO vo, Model model,HttpServletRequest request) {
-		
-	System.out.println(vo.toString());
-		
-		int result = fundingMainServiece.fun_reg(vo);
-		
-		if(result  == 1) {
-			return "redirect:/mypage/mypage2.do";
-		}
-		else {
-			
-			return "redirect:/request.getContextPath()";
-		}
 	
-	}
+	/* 펀등 등록 - db에 모든 내용 쓰기*/
+	   @RequestMapping(value = "/funding_register.do", method = RequestMethod.POST)
+	   public void funding_register2(FundingMainVO vo, Model model,HttpServletRequest request
+	         ,HttpServletResponse response
+	         ,String funding_option_name, int []funding_option_price, String funding_option_detail, 
+	         int []funding_option_stock) throws IOException {
+	      
+	         String []strName = funding_option_name.split(",");
+	         String []strDetail = funding_option_detail.split(",");
+	      
+	         List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
+	      
+	         int result = fundingMainServiece.fun_reg(vo);
+	         response.setContentType("text/html; charset=euc-kr;");
+	         PrintWriter pw = response.getWriter();
+	      
+
+	      if (result > 0) { // 회원가입 성공 -> home으로 이동
+	         
+	         //마지막 증가된 funding_idx 가져옴
+	         int fid = vo.getFunding_idx();
+	         
+	         for(int i=0; i<funding_option_price.length; i++) {
+	            Funding_optionVO voo = new Funding_optionVO();
+	            voo.setFunding_option_name(strName[i]);
+	            voo.setFunding_option_price(funding_option_price[i]);
+	            voo.setFunding_option_detail(strDetail[i]);
+	            voo.setFunding_option_stock(funding_option_stock[i]);
+	            voo.setFunding_idx(fid);
+	            optionVo.add(voo);
+	         }
+	         
+	      
+	         int listresult = fundingMainServiece.fun_option_reg(optionVo);
+
+	         if(listresult > 0) {
+	            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+	         }
+	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+	      } else {
+	         pw.println("<script>alert('회원가입 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+	      }
+	      pw.flush();
+
+	   }
 
 	
 	/* 펀딩 미리보기 페이지*/
@@ -111,11 +144,9 @@ public class MypageController {
 			MultipartFile funding_thumbnail_temp ,
 			MultipartFile funding_Detail_temp,
 			MultipartFile funding_Notice_temp,
-			HttpServletRequest request) throws ParseException, IllegalStateException, IOException {
-		
-		//MemberVO vo  = request.getSession().getAttribute("login");
-		
-		System.out.println(vo.toString());
+			HttpServletRequest request
+			,String funding_option_name, int []funding_option_price, String funding_option_detail, 
+			int []funding_option_stock) throws ParseException, IllegalStateException, IOException {
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
 	
@@ -141,13 +172,6 @@ public class MypageController {
 			funding_Notice_temp.transferTo(new File(path, org_NoticeName));
 		}
 		
-		/*
-		 * List<String>filepath = new ArrayList<String>();
-		 * 
-		 * filepath.add(org_ThumName); filepath.add(org_DetailName);
-		 */
-		
-		
 		 String from = vo.getFunding_end_date()+" 00:00:00";;
 		 SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 Date to = fm.parse(from);
@@ -162,123 +186,30 @@ public class MypageController {
 		  model.addAttribute("funding", vo); 
 		  model.addAttribute("difftime", diffDays);
 		  
-		  
 		  model.addAttribute("org_ThumName",org_ThumName);
 		  model.addAttribute("org_DetailName",org_DetailName);
 		  model.addAttribute("org_NoticeName",org_NoticeName);
 		  
-		MemberVO login = new MemberVO();
-		HttpSession session = request.getSession();
 		
-		login = (MemberVO) session.getAttribute("login");
+		String []strName = funding_option_name.split(",");
+		String []strDetail = funding_option_detail.split(",");
 		
-		 
+		List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
+		
+		for(int i=0; i<funding_option_price.length; i++) {
+			Funding_optionVO voo = new Funding_optionVO();
+			voo.setFunding_option_name( strName[i]);
+			voo.setFunding_option_price(funding_option_price[i]);
+			voo.setFunding_option_detail(strDetail[i]);
+			voo.setFunding_option_stock(funding_option_stock[i]);
+			optionVo.add(voo);
+			
+		}
+		
+		/*옵션 리스트 모델에 담기*/
+		model.addAttribute("optionList", optionVo);
+		
 		return "mypage/funding_view"; 
-	}
-/*
-	 @RequestMapping(value="/funding_view.do", method = RequestMethod.POST) 
-	 public String funding_view1( FundingMainVO vo, Model model, HttpServletRequest
-	  request ,@RequestParam("funding_thumbnail22") MultipartFile file ) throws ParseException {
-		 
-	 System.out.println("view.들어옴");
-	  System.out.println(vo.toString());
-	  
-	  System.out.println();
-	  
-	  String from = vo.getFunding_end_date() +" 00:00:00"; SimpleDateFormat fm =
-	  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); Date to = fm.parse(from); long
-	  d1 = to.getTime();
-	  
-	  
-	  Calendar c1 = Calendar.getInstance(); long today = c1.getTimeInMillis();
-	  
-	  long diffSec = (d1 - today) / 1000; //초 차이 long diffDays = diffSec /
-	  (24*60*60); //일자수 차이
-	  
-	  
-	  
-	  String path =
-	  request.getSession().getServletContext().getRealPath("/resources/upload");
-	  System.out.println("파일 경로 : "+path);
-	  
-	  String filename = file.getOriginalFilename(); System.out.println(filename);
-	  
-	  model.addAttribute("funding", vo); model.addAttribute("difftime", diffDays);
-	 	model.addAttribute("fuding_thum", filename);
-	  
-	
-	 
-	  return "mypage/funding_view"; 
-	 }
-	*/
-
-	
-	/*
-	@RequestMapping(value="/testUpload.do",method = RequestMethod.POST)
-	@ResponseBody
-	public int testUpload( MultipartFile upload, final String userEmail, String checkForm, HttpServletRequest request) throws IllegalStateException, IOException {
-		
-		
-		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
-		
-		System.out.println( "유저 이메일 :"+userEmail);
-		File dir = new File(path);
-		if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
-			dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
-		}
-
-		//1. 오리지널 파일명
-		String orgName = upload.getOriginalFilename();
-		//2. 파일명만 추출
-		String imgName = orgName.substring(0, orgName.lastIndexOf('.'));
-		//3. 확장자 추출
-		String ext = orgName.substring(orgName.lastIndexOf('.'));
-		
-		
-		//5. 최종 파일이름
-		
-		
-		String newName ="";
-		if(checkForm.equals("1")) {
-			newName = userEmail + "1#" +orgName;
-		}
-		else if(checkForm.equals("2")) {
-			newName = userEmail + "2#" +orgName;
-		}
-		else {
-			newName = userEmail + "3#" +orgName;
-			
-		}
-		
-		File[] files = dir.listFiles();
-		for(File f : files) {
-			if(f.isFile() && f.getName().startsWith(userEmail +checkForm+"#")) { 
-				System.out.println("찾았다 : "+f.getName());
-			
-				
-				upload.transferTo(new File(path, newName));
-				
-				return 1;
-			}
-		}
-		return 0;
-	}
-	*/
-	
-
-	@RequestMapping(value = "/approval.do")
-	public String approval() {
-		return "mypage/approval";
-	}
-
-	@RequestMapping(value = "/management_product.do")
-	public String management_product() {
-		return "mypage/management_product";
-	}
-
-	@RequestMapping(value = "/management_member.do")
-	public String management_member() {
-		return "mypage/management_member";
 	}
 
 	@RequestMapping(value = "/info_funding.do")
