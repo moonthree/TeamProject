@@ -91,6 +91,14 @@ public class MypageController {
 			
 			//마지막 증가된 funding_idx 가져옴
 			int fid = vo.getFunding_idx();
+	System.out.println(vo.toString());
+		
+		int result = fundingMainServiece.fun_reg(vo);
+		
+		if(result  == 1) {
+			return "redirect:/mypage/mypage2.do";
+		}
+		else {
 			
 			for(int i=0; i<funding_option_price.length; i++) {
 				Funding_optionVO voo = new Funding_optionVO();

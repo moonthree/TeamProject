@@ -107,7 +107,7 @@
             </li>
             <li class="nav-item nav-pills viewtab" role="presentation">
                 <a class="nav-link" data-toggle="tab" href="#FVQnA" role="tab" aria-controls="FVQnA"
-                    aria-selected="false">Q&A</a>
+                    aria-selected="false">QnA</a>
             </li>
              <li class="nav-item nav-pills viewtab" role="presentation">
                 <a class="nav-link" data-toggle="tab" href="#FVoption" role="tab" aria-controls="FVoption"

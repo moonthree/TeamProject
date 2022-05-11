@@ -418,7 +418,6 @@
                     	</c:forEach>
                     </tbody>
                 </table>
-                <div id="pagination"></div>
             </div>
         </div>
     </div>
@@ -600,7 +599,7 @@
                         <h4>답변하기</h4>
                         
                         <input type=number class="funding_qna_idx" name="funding_qna_idx" value="" style="display:none;" />
-                    	<input type=number class="qna_answer_secret" name="qna_answer_secret" value="" style="display:none;" />
+                    	<input type=number class="funding_qna_secret" name="funding_qna_secret" value="" style="display:none;" />
                     	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
                         <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
                         <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />

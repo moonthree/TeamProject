@@ -286,7 +286,7 @@
                     </div>
                      <div class="form-group">
                        <label for="exampleFormControlInput1">사업자명(회사명)</label>
-                       <input name="member_business_name" type="text" class="form-control"  style="width: 80%;">                
+                       <input name="member_business_name" type="text" class="form-control" id="exampleFormControlInput3" style="width: 80%;">                
                     </div>
                       <div class="form-group">
                       <label for="exampleFormControlInput1">사업자 등록번호</label>

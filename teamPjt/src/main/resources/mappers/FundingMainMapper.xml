@@ -50,7 +50,7 @@
 
 
 	<!-- 펀딩 메인 페이지 리스트 출력 -->
-	<select id="listDog" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO" resultMap="FundingMainVO">
+	<select id="listMain" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
 		SELECT 
 			fd.funding_idx,
 			fd.member_idx,
@@ -68,59 +68,54 @@
 			mem.member_idx
 		FROM funding AS fd
 		JOIN member AS mem
-		ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx
-		order by fd.funding_idx desc limit #{rowStart}, 9;
+		<choose>
+			<when test="dog != null">
+				ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx AND funding_current_state=1
+			</when>
+			<when test="cat != null">
+				ON fd.funding_category = 1 AND fd.member_idx = mem.member_idx AND funding_current_state=1
+			</when>
+			<when test="other != null">
+				ON fd.funding_category = 2 AND fd.member_idx = mem.member_idx AND funding_current_state=1
+			</when>
+			<otherwise>
+				ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx AND funding_current_state=1
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="sortNew != null">
+				order by funding_idx desc limit #{startRowNum}, 9;
+			</when>
+			<when test="sortView != null">
+				order by funding_views desc limit #{startRowNum}, 9;
+			</when>
+			<when test="sortPrice != null">
+				order by funding_current_price desc limit #{startRowNum}, 9;
+			</when>
+			<otherwise>
+				order by funding_idx desc limit #{startRowNum}, 9;
+			</otherwise>
+		</choose>
+	</select>
+	<select id="listMainCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		<choose>
+			<when test="dog != null">
+				where funding_category=0 AND funding_current_state=1;
+			</when>
+			<when test="cat != null">
+				where funding_category=1 AND funding_current_state=1;
+			</when>
+			<when test="other != null">
+				where funding_category=2 AND funding_current_state=1;
+			</when>
+			<otherwise>
+				where funding_category=0 AND funding_current_state=1;
+			</otherwise>
+		</choose>
 	</select>
 	
-	<select id="listCat" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
-		SELECT funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			funding_views
-		FROM funding
-		where funding_category=1
-		order by funding_idx desc limit #{rowStart}, 9;
-	</select>	
-	<select id="listOther" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
-		SELECT funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			funding_views
-		FROM funding
-		where funding_category=2
-		order by funding_idx desc limit #{rowStart}, 9;
-	</select>
-	
-	<!-- 카테고리 별 상품 수 -->
-	<select id="listDogCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=0 AND funding_current_state=1;
-	</select>
-	<select id="listCatCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=1 AND funding_current_state=1;
-	</select>
-	<select id="listOtherCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=2 AND funding_current_state=1;
-	</select>
 	
 	
 	<!-- 펀딩 글 상세 -->
@@ -170,7 +165,7 @@
 		FROM funding_detail_community AS commu
 		JOIN member AS mem 
 		ON commu.funding_idx = #{funding_idx} and commu.member_idx = mem.member_idx
-		order by funding_detail_community_idx desc;
+		order by funding_detail_community_idx desc; 
 	</select>
 	
 	<!-- 펀딩 커뮤니티 댓글 작성 -->
@@ -205,11 +200,11 @@
 	</update>
 	
 	<!-- 펀딩 커뮤니티 댓글 갯수 -->
-	<!-- <select id="countFundingCommunityComment" resultType="int">
+	<select id="countFundingCommunityComment" resultType="int">
 		SELECT COUNT(funding_detail_community_idx)
 		FROM funding_detail_community
 		where funding_idx=#{funding_idx};
-	</select> -->
+	</select>
 	
 	<!-- 펀딩 qna 작성 -->
 	<insert id="insertFundingQna" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="funding_qna_idx">

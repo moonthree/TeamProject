@@ -27,7 +27,106 @@ public class FundingMainVO {
 	
 	private MemberVO memberVO;
 	
+	private String keyword = "";
+
+	private String dog;
+	private String cat;
+	private String other;
 	
+	private String sortNew;
+	private String sortView;
+	private String sortPrice;
+	
+
+	private int startRowNum;
+	private int endRowNum;
+	private int rowCount;
+	private int totalRow;
+
+	private boolean prev;
+	private boolean next;
+	
+	
+	public int getTotalRow() {
+		return totalRow;
+	}
+	public void setTotalRow(int totalRow) {
+		this.totalRow = totalRow;
+	}
+	public boolean isPrev() {
+		return prev;
+	}
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+	public boolean isNext() {
+		return next;
+	}
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+	public String getSortNew() {
+		return sortNew;
+	}
+	public void setSortNew(String sortNew) {
+		this.sortNew = sortNew;
+	}
+	public String getSortView() {
+		return sortView;
+	}
+	public void setSortView(String sortView) {
+		this.sortView = sortView;
+	}
+	public String getSortPrice() {
+		return sortPrice;
+	}
+	public void setSortPrice(String sortPrice) {
+		this.sortPrice = sortPrice;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	public String getDog() {
+		return dog;
+	}
+	public void setDog(String dog) {
+		this.dog = dog;
+	}
+	public String getCat() {
+		return cat;
+	}
+	public void setCat(String cat) {
+		this.cat = cat;
+	}
+	public String getOther() {
+		return other;
+	}
+	public void setOther(String other) {
+		this.other = other;
+	}
+	
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+	public int getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
@@ -148,7 +247,6 @@ public class FundingMainVO {
 				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
 				+ ", funding_express_fee=" + funding_express_fee + ", funding_views="  + "]";
 	}
-	
 	
 	
 
