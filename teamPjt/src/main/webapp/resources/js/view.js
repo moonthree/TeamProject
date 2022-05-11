@@ -59,7 +59,7 @@
 					}
 				},
 				error : function(){
-	                alert("abcdefu2");
+	                alert("자바스크립트 SELECT 찜 에러");
 	            }   
 			});
 			
@@ -387,13 +387,14 @@ $('.doAnswer').click(function(){
         var objParams = {
 			funding_idx : $(".funding_idx").val(),
 			member_idx : $(".answer_member_idx").val(),
-			funding_qna_secret : $(".qna_answer_secret").val(),
+			funding_qna_secret : $(".funding_qna_secret").val(),
 			parent_id : $(".funding_qna_idx").val(),
 			funding_qna_writer_idx : $(".funding_qna_writer_idx").val(),
 			depth : '1',
 			funding_qna_content : qnaAnswerValue
 		};
 		console.log(objParams)
+		alert(objParams)
 		console.log($("#qnaAnswerForm").serialize());
 		
 		$.ajax({
@@ -412,7 +413,7 @@ $('.doAnswer').click(function(){
 				}
 			},
 			error : function(){
-                      alert("ajax_error");
+                      alert("답변 등록 ajax 에러");
             }   
 		});
 		

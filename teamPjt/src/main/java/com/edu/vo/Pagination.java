@@ -41,7 +41,7 @@ public class Pagination {
 	}
 	
 	public int getRowStart() {
-		rowStart = ((page - 1) * perPageNum);
+		rowStart = ((page - 1) * perPageNum) + 1;
 		return rowStart;
 	}
 	
