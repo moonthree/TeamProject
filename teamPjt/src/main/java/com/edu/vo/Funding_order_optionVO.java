@@ -34,7 +34,3 @@ package com.edu.vo;
 						
 						
 }						
-						
-						
-						
-						

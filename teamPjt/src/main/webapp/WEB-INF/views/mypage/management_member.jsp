@@ -50,12 +50,19 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <!--소비자-->
+           
+       
             <div class="tab-pane fade active show " id="fundingApproval" role="tabpanel"
                 aria-labelledby="fundingApproval-tab">
                 <table class="table">
+                  <c:if test="${seller.size() == 0}">
+                    	<h3>등록된 소비자 계정이 없습니다.</h3>
+                    </c:if>
+                   <c:if test="${seller.size() > 0}">
                     <thead class="thead">
                         <tr>
-                            <th scope="col" class="PMtable">번호</th>
+                        	 <th scope="col" class="PMtable"></th>
+                            <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
                             <th scope="col">
@@ -74,34 +81,54 @@
                             <th scope="col">버튼</th>
                         </tr>
                     </thead>
-                    <tbody>
+                     <tbody>
+                     <c:forEach var="seller" items="${seller}" varStatus="status_sell">
                         <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td class="tdtitle">Mark@gmail.com</td>
+                        	<th>no.${status_sell.index+1}</th>
+                            <th><span style="color:#106fc3;">${seller.member_idx}</span></th>
+                            <td class="tdtitle">${seller.member_name}</td>
+                            <td class="tdtitle">${seller.member_email}</td>
                             <td>회원</td>
                             <td>
                                 <button type="button" class="btn btn-outline-danger">추방</button>
                             </td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td class="tdtitle">Mark@gmail.com</td>
-                            <td>탈퇴한 회원</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger">추방</button>
-                            </td>
-                        </tr>
+                        </tr> 
+                      </c:forEach>
+                      </c:if>
                     </tbody>
                 </table>
-            </div>
+                
+         		<!-- 소비자 페이징 기법 -->
+		     	<div>
+		        	<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <c:if test="${pageMaker_sell.prev}">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(pageMaker_sell.startPage - 1)}">이전</a></li>
+						    </c:if> 
+						
+						    <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(idx)}">${idx}</a></li>
+						    </c:forEach>
+						
+						    <c:if test="${pageMaker_sell.next && pageMaker_sell.endPage > 0}">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(pageMaker_sell.endPage + 1)}">다음</a></li>
+						    </c:if> 
+						  </ul>
+					 </nav>
+				</div>
+			</div>
+          
             <!--판매자-->
             <div class="tab-pane fade" id="storeApproval" role="tabpanel" aria-labelledby="storeApproval-tab">
                 <table class="table">
-                    <thead class="thead">
-                        <tr>
-                            <th scope="col" class="PMtable">번호</th>
+                 <c:if test="${company.size() == 0}">
+                    	<h3>등록된 판매자 계정이 없습니다.</h3>
+                    </c:if>
+					 <c:if test="${company.size() >0}">
+                     <thead class="thead">
+              				<tr>
+                         	<th scope="col" class="PMtable"></th>
+                            <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
                             <th scope="col">
@@ -119,28 +146,44 @@
                             </th>
                             <th scope="col">버튼</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </thead>        
+                    <tbody> 
+                    <c:forEach var="company" items="${company}" varStatus="status_com">
                         <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td class="tdtitle">Mark@gmail.com</td>
+                        	<th>no.${status_com.index+1}</th>
+                            <th><span style="color:#106fc3;">${company.member_idx}</span></th>
+                            <td class="tdtitle">${company.member_name}</td>
+                            <td class="tdtitle">${company.member_email}</td>
                             <td>회원</td>
                             <td>
                                 <button type="button" class="btn btn-outline-danger">추방</button>
                             </td>
                         </tr>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td class="tdtitle">Mark@gmail.com</td>
-                            <td>탈퇴한 회원</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger">추방</button>
-                            </td>
-                        </tr>
+                        </c:forEach>
+                        </c:if>
                     </tbody>
                 </table>
+                
+                <!-- 판매자 페이징 기법 -->
+		     	<div>
+		        	<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <c:if test="${pageMaker_company.prev}">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(pageMaker_company.startPage - 1)}">이전</a></li>
+						    </c:if> 
+						
+						    <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(idx2)}">${idx2}</a></li>
+						    </c:forEach>
+						
+						    <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(pageMaker_company.endPage + 1)}">다음</a></li>
+						    </c:if> 
+						  </ul>
+					 </nav>
+				</div>
+				
+				
             </div>
         </div>
     </div>

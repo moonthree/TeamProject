@@ -76,6 +76,9 @@ public interface fundingMainService {
 	//펀딩 상품 등록
 	int fun_reg(FundingMainVO vo);
 	
+	//펀딩 상품 등록후 옵션 등록
+	int fun_option_reg(List<Funding_optionVO> vo);
+	
 	// 결제 예약
 	// 주문 번호
 	int insertOrder(Funding_orderVO ordervo);

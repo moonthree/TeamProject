@@ -234,6 +234,11 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public int insertPay(Funding_order_payVO payvo) {
 		return dao.insertPay(payvo);
 	}
+
+	@Override
+	public int fun_option_reg(List<Funding_optionVO> vo) {
 		
+		return dao.fun_option_reg(vo);
+	}
 	
 }

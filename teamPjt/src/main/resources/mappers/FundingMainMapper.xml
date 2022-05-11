@@ -319,7 +319,7 @@
 	
 	
 	<!-- 펀딩 등록 하기 -->
-	<insert id="Funding_reg" parameterType="fundingMainVO">
+	<insert id="Funding_reg" parameterType="fundingMainVO" useGeneratedKeys="true" keyProperty="funding_idx">
 		INSERT INTO funding(
 		 member_idx
 		,funding_title
@@ -354,12 +354,30 @@
 		,#{funding_express_fee}
 		,#{funding_views}
 		)
-		
-		
-	
-	
-	
 	</insert>
+	
+	
+	<!-- List<Funding_optionVO> INSERT문 -->
+	<insert id="insListOption" parameterType="java.util.List">
+		INSERT INTO funding_option(
+				funding_idx
+			   ,funding_option_name
+			   ,funding_option_price
+			   ,funding_option_detail
+			   ,funding_option_stock
+			)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.funding_idx}
+		   ,#{item.funding_option_name}
+		   ,#{item.funding_option_price}
+		   ,#{item.funding_option_detail}
+		   ,#{item.funding_option_stock}
+		)
+		</foreach>
+	</insert>
+	
 	
 	<!-- 주문 번호 -->
 	<insert id="insertOrder" parameterType="Funding_orderVO">
