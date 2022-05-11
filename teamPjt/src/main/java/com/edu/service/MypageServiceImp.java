@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,7 +17,11 @@ import com.edu.dao.memberDao;
 import com.edu.vo.ChangePwVO;
 import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
+import com.edu.vo.FundingInfoDetailParameterVO;
+import com.edu.vo.FundingInfoDetailVO;
+import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.ZzimVO;
 
 @Service
 public class MypageServiceImp implements MypageService{
@@ -402,7 +407,58 @@ public class MypageServiceImp implements MypageService{
             e.printStackTrace();
         }
     }
+
+    //펀딩 3개 & 찜 3개
+	@Override
+	public List<FundingMainVO> select3Funding(int member_idx) {
+		return mdao.select3Funding(member_idx);
+	}
+
+	@Override
+	public List<ZzimVO> select3Zzim(int member_idx) {
+		return mdao.select3Zzim(member_idx);
+	}
+
+	
+	//펀딩 개수  & 찜 개수
+	@Override
+	public int countFunding(int member_idx) {
+		return mdao.countFunding(member_idx);
+	}
     
+	@Override
+	public int countZzim(int member_idx) {
+		return mdao.countZzim(member_idx);
+	}
+
+	//펀딩 내역
+	@Override
+	public List<FundingMainVO> myFundingList(int member_idx) {
+		return mdao.myFundingList(member_idx);
+	}
+
+	@Override
+	public List<FundingMainVO> myZzimList(int member_idx) {
+		return mdao.myZzimList(member_idx);
+	}
+
+	//판매자 펀딩 내역 mypage2
+	@Override
+	public List<FundingMainVO> sellerFundingList(int member_idx) {
+		return mdao.sellerFundingList(member_idx);
+	}
+
+	//funding_info_detail
+	@Override
+	public FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo) {
+		return mdao.fundingDetail(vo);
+	}
+
+	//찜 취소
+	@Override
+	public int deleteZzim(Map<String, Integer> paramMap) {
+		return mdao.deleteZzim(paramMap);
+	}
     
    
 	
