@@ -538,12 +538,12 @@ public class FundingController {
 		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
 		String[] select_count = request.getParameterValues("funding_order_option_select_count");
 		for(int i=0; i<select_idx.length; i++) {
-			String s_i = select_idx[i];
-			String s_c = select_count[i];
-			int si = Integer.parseInt(s_i);
-			int sc = Integer.parseInt(s_c);
+			int si = Integer.parseInt(select_idx[i]);
+			int sc = Integer.parseInt(select_count[i]);
+			System.out.println(si);
+			System.out.println(sc);
 			orderOptionvo.setFunding_order_option_select_idx(si);
-			orderOptionvo.setFunding_order_option_select_count(sc);
+			orderOptionvo.setFunding_order_option_select_count(5);
 			fms.insertOrderOption(orderOptionvo);
 		}
 		

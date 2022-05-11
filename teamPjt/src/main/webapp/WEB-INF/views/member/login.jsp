@@ -105,13 +105,10 @@
 	        	<div class="card">
 	        		<h1 class="title">SNS 로그인</h1>
 	        		<div class="input-container" style="margin_bottom: 60px">
-	        			<img>
-		        		<button type="button" onclick="Fnkakao()" class="btn_img">
-		        			<img src="<%=request.getContextPath()%>/resources/image/member/kakao_login_medium_narrow.png" style="height: 48px">
-		        		</button>
-	                	<button type="button" class="btn_img">
-	                		<img src="<%=request.getContextPath()%>/resources/image/member/naver_login.png" style="height: 48px">
-	                	</button>
+	        			<button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" style="width: 100%; height: 50px;">카카오</button>
+<!-- 		        		<button type="button" onclick="Fnkakao()" class="btn_img"> -->
+<%-- 		        			<img src="<%=request.getContextPath()%>/resources/image/member/kakao_login_medium_narrow.png" style="height: 48px"> --%>
+<!-- 		        		</button> -->
 	        		</div>
 					<h1 class="title">로그인</h1>
 					<div class="input-container">

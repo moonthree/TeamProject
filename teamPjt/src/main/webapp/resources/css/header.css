@@ -131,6 +131,12 @@ a:active{
     width: 180px;
 } 
 
+.login_profile_img {
+    width: 28px;
+    height: 28px;
+    border-radius: 70%;
+}
+
 .mypage_box{
     margin-left: 10px;
     position: relative;
