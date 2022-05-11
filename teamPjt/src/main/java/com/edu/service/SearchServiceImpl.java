@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,18 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public int searchFundingCount(SearchCriteria scri) throws Exception {
 		return dao.searchFundingCount(scri);
+	}
+
+	@Override
+	public List<FundingMainVO> searchList(FundingMainVO vo) throws Exception {
+		ArrayList<FundingMainVO> searchList = (ArrayList<FundingMainVO>) dao.searchList(vo);
+		return searchList;
+	}
+
+	@Override
+	public int searchCount(FundingMainVO vo) throws Exception {
+		int result = dao.searchCount(vo);
+		return result;
 	}
 
 }

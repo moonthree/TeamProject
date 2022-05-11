@@ -35,33 +35,41 @@ public class fundingMainServiceImpl implements fundingMainService{
 	private memberDao memdao;
 	
 	//펀딩 메인 리스트
+	/*
+	 * @Override public List<FundingMainVO> listDog(Pagination page) throws
+	 * Exception { return dao.listDog(page); }
+	 */
 	@Override
-	public List<FundingMainVO> listDog(Pagination page) throws Exception {
-		return dao.listDog(page);
+	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception {
+		ArrayList<FundingMainVO> listMain = (ArrayList<FundingMainVO>) dao.listMain(vo);
+		return listMain;
 	}
-	@Override
-	public List<FundingMainVO> listCat(Pagination page) throws Exception {
-		return dao.listCat(page);
-	}
-	@Override
-	public List<FundingMainVO> listOther(Pagination page) throws Exception {
-		return dao.listOther(page);
-	}
+	/*
+	 * @Override public List<FundingMainVO> listCat(FundingMainVO vo) throws
+	 * Exception { ArrayList<FundingMainVO> listCat = (ArrayList<FundingMainVO>)
+	 * dao.listCat(vo); return listCat; }
+	 * 
+	 * @Override public List<FundingMainVO> listOther(Pagination page) throws
+	 * Exception { return dao.listOther(page); }
+	 */
 
-		
+
+	@Override
+	public int listMainCount(FundingMainVO vo) throws Exception {
+		int result = dao.listMainCount(vo);
+		return result;
+	}	
 	//게시물 총 갯수
-	@Override
-	public int listDogCount() throws Exception {
-		return dao.listDogCount();
-	}
-	@Override
-	public int listCatCount() throws Exception {
-		return dao.listCatCount();
-	}
-	@Override
-	public int listOtherCount() throws Exception {
-		return dao.listOtherCount();
-	}
+	/*
+	 * @Override public int listDogCount() throws Exception { return
+	 * dao.listDogCount(); }
+	 * 
+	 * @Override public int listCatCount() throws Exception { return
+	 * dao.listCatCount(); }
+	 * 
+	 * @Override public int listOtherCount() throws Exception { return
+	 * dao.listOtherCount(); }
+	 */
 	
 	//펀딩 뷰
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -95,6 +103,11 @@ public class fundingMainServiceImpl implements fundingMainService{
 	@Override
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception {
 		dao.deleteFundingCommunityComment(vo);
+	}
+	//펀딩 커뮤 댓글 갯수
+	@Override
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception {
+		return dao.countFundingCommunityComment(fcvo);
 	}
 	
 	// 펀딩 qna 댓글 리스트
@@ -190,6 +203,8 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public MemberVO selectOne(MemberVO vo) {
 		return memdao.selectOne(vo);
 	}
+	
+	
 	@Override
 	public int fun_reg(FundingMainVO vo) {
 		

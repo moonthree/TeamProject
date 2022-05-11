@@ -23,26 +23,40 @@ public class fundingMainDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<FundingMainVO> listDog(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listDog", page);
-	}
-	public List<FundingMainVO> listCat(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listCat", page);
-	}
-	public List<FundingMainVO> listOther(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listOther", page);
+	/*
+	 * public List<FundingMainVO> listDog(Pagination page) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listDog", page); }
+	 */
+
+	/*
+	 * public List<FundingMainVO> listCat(Pagination page) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listCat", page); }
+	 */
+	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception{
+		return sqlSession.selectList("FundingMainMapper.listMain", vo);
 	}
 	
+	/*
+	 * public List<FundingMainVO> listCat(FundingMainVO vo) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listCat", vo); }
+	 * 
+	 * public List<FundingMainVO> listOther(Pagination page) throws Exception{
+	 * return sqlSession.selectList("FundingMainMapper.listOther", page); }
+	 */
+	
 	// 펀딩 총 갯수
-	public int listDogCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listDogCount");
+	public int listMainCount(FundingMainVO vo) throws Exception{
+		return sqlSession.selectOne("FundingMainMapper.listMainCount", vo);
 	}
-	public int listCatCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listCatCount");
-	}
-	public int listOtherCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listOtherCount");
-	}
+	
+	/*
+	 * public int listDogCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listDogCount"); } public int
+	 * listCatCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listCatCount"); } public int
+	 * listOtherCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listOtherCount"); }
+	 */
 	
 	
 	// 게시물 조회
@@ -75,11 +89,11 @@ public class fundingMainDAO {
 		sqlSession.delete("FundingMainMapper.deleteFundingCommunityComment", vo);	
 	}
 	//펀딩 커뮤니티 댓글 숫자
-	/*
-	 * public int countFundingCommunityComment(FundingCommunityVO vo) throws
-	 * Exception{ return
-	 * sqlSession.selectOne("FundingMainMapper.countFundingCommunityComment", vo); }
-	 */
+	
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception{ 
+		return sqlSession.selectOne("FundingMainMapper.countFundingCommunityComment", fcvo); 
+	}
+		 
 	
 	//펀딩 qna 리스트
 	public List<FundingQnaVO> getQnaList(Map<String, Object> paramMap) {
