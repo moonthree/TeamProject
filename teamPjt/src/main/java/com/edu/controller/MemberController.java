@@ -44,6 +44,7 @@ public class MemberController {
 			login.setMember_email(member.getMember_email());
 			login.setMember_password(member.getMember_password());
 			login.setMember_name(member.getMember_name());
+			login.setMember_level(member.getMember_level());
 			
 			session.setAttribute("login", login);
 			
@@ -76,7 +77,7 @@ public class MemberController {
 		/*소비자 계정 회원가입 페이지 이동 시 get방식으로 */
 	  @RequestMapping(value = "/join_seller.do", method = RequestMethod.GET)
 	  public String join_seller() { 
-			 System.out.println("get방식"); 
+			  
 		  return "member/join_seller"; 
 	  }
 	 
@@ -123,6 +124,9 @@ public class MemberController {
 	
 	@RequestMapping(value = "/join_company.do", method = RequestMethod.POST)
 	public void join_company(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		System.out.println(vo.toString());
+		
 		
 		String[] phones = request.getParameterValues("phone1");
 		String phone = "";
