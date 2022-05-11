@@ -18,14 +18,20 @@ import com.edu.vo.ZzimVO;
 public interface fundingMainService {
 	
 	//펀딩 메인 리스트
-	List<FundingMainVO> listDog(Pagination page) throws Exception;
-	List<FundingMainVO> listCat(Pagination page) throws Exception;
-	List<FundingMainVO> listOther(Pagination page) throws Exception;
-	
+	List<FundingMainVO> listMain(FundingMainVO vo) throws Exception;
+	/*
+	 * List<FundingMainVO> listDog(Pagination page) throws Exception;
+	 * List<FundingMainVO> listCat(Pagination page) throws Exception;
+	 * List<FundingMainVO> listCat(FundingMainVO vo) throws Exception;
+	 * List<FundingMainVO> listOther(Pagination page) throws Exception;
+	 */
 	//펀딩 메인 게시글 수
-	public int listDogCount() throws Exception;
-	public int listCatCount() throws Exception;
-	public int listOtherCount() throws Exception;
+	public int listMainCount(FundingMainVO vo) throws Exception;
+	
+	/*
+	 * public int listDogCount() throws Exception; public int listCatCount() throws
+	 * Exception; public int listOtherCount() throws Exception;
+	 */
 	
 	//펀딩 뷰
 	public FundingMainVO read(int funding_idx) throws Exception;
@@ -40,6 +46,8 @@ public interface fundingMainService {
 	public void modifyFundingCommunityComment(FundingCommunityVO vo) throws Exception;
 	//펀딩 커뮤니티 댓글 삭제
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception;
+	//펀딩 커뮤니티 댓글 갯수
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception;
 	
 	//펀딩 qna 댓글 리스트
 	List<FundingQnaVO> getQnaList(Map<String, Object> paramMap);
