@@ -3,13 +3,14 @@ package com.edu.service;
 import java.util.List;
 import java.util.Map;
 
-
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
@@ -17,14 +18,20 @@ import com.edu.vo.ZzimVO;
 public interface fundingMainService {
 	
 	//펀딩 메인 리스트
-	List<FundingMainVO> listDog(Pagination page) throws Exception;
-	List<FundingMainVO> listCat(Pagination page) throws Exception;
-	List<FundingMainVO> listOther(Pagination page) throws Exception;
-	
+	List<FundingMainVO> listMain(FundingMainVO vo) throws Exception;
+	/*
+	 * List<FundingMainVO> listDog(Pagination page) throws Exception;
+	 * List<FundingMainVO> listCat(Pagination page) throws Exception;
+	 * List<FundingMainVO> listCat(FundingMainVO vo) throws Exception;
+	 * List<FundingMainVO> listOther(Pagination page) throws Exception;
+	 */
 	//펀딩 메인 게시글 수
-	public int listDogCount() throws Exception;
-	public int listCatCount() throws Exception;
-	public int listOtherCount() throws Exception;
+	public int listMainCount(FundingMainVO vo) throws Exception;
+	
+	/*
+	 * public int listDogCount() throws Exception; public int listCatCount() throws
+	 * Exception; public int listOtherCount() throws Exception;
+	 */
 	
 	//펀딩 뷰
 	public FundingMainVO read(int funding_idx) throws Exception;
@@ -39,6 +46,8 @@ public interface fundingMainService {
 	public void modifyFundingCommunityComment(FundingCommunityVO vo) throws Exception;
 	//펀딩 커뮤니티 댓글 삭제
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception;
+	//펀딩 커뮤니티 댓글 갯수
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception;
 	
 	//펀딩 qna 댓글 리스트
 	List<FundingQnaVO> getQnaList(Map<String, Object> paramMap);
@@ -67,10 +76,17 @@ public interface fundingMainService {
 	//펀딩 상품 등록
 	int fun_reg(FundingMainVO vo);
 	
+	//펀딩 상품 등록후 옵션 등록
+	int fun_option_reg(List<Funding_optionVO> vo);
+	
 	// 결제 예약
 	// 주문 번호
 	int insertOrder(Funding_orderVO ordervo);
 	// 주문 옵션 정보 등록
-	int insertOption(Funding_order_optionVO orderOptionvo);
+	int insertOrderOption(Funding_order_optionVO orderOptionvo);
+	// 배송 정보 등록
+	int insertExpress(Funding_expressVO expressvo);
+	// 결제 정보
+	int insertPay(Funding_order_payVO payvo);
 	
 }

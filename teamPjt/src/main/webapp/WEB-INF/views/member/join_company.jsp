@@ -90,7 +90,7 @@
 			var form_control = $("#mem_frm input.form-control");
 			var flag = true;
 			for(var i=0; i<form_control.length; i++){	
-				console.log($(form_control[i]).val());
+	
 				 if("" == $(form_control[i]).val() || null == $(form_control[i]).val()){
 
 					flag = false;
@@ -286,11 +286,11 @@
                     </div>
                      <div class="form-group">
                        <label for="exampleFormControlInput1">사업자명(회사명)</label>
-                       <input name=" member_business_name" type="text" class="form-control" id="exampleFormControlInput3" style="width: 80%;">                
+                       <input name="member_business_name" type="text" class="form-control" id="exampleFormControlInput3" style="width: 80%;">                
                     </div>
                       <div class="form-group">
                       <label for="exampleFormControlInput1">사업자 등록번호</label>
-                       <input name="member_business_num" type="text" class="form-control" id="exampleFormControlInput3" style="width: 50%;">                
+                       <input name="member_business_num" type="text" class="form-control" style="width: 50%;">                
                     </div>
                  
                     <hr>

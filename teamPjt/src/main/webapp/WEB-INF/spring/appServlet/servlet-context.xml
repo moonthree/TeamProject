@@ -24,12 +24,29 @@
 	<context:component-scan base-package="com.edu.controller" />
 	<context:component-scan base-package="com.edu.service" />
 	<context:component-scan base-package="com.edu.dao" />
+	<context:component-scan base-package="com.edu.interceptor" />
 	
 	
 	<!-- spring file uploader -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	 <beans:property name="maxUploadSize" value="268435456"/>
 	</beans:bean>
-
+	
+	
+	<!-- interceptor -->
+	<beans:bean id="loginInterceptor" class="com.edu.interceptor.LoginInterceptor" />
+	<beans:bean id="authInterceptor" class="com.edu.interceptor.AuthInterceptor" />
+    
+    <interceptors>
+        <interceptor>
+            <mapping path="/member/login.do"/>
+            <beans:ref bean="loginInterceptor"/>
+        </interceptor>
+        <interceptor>
+            <mapping path="/funding/option"/>
+            <mapping path="/mypage/mypage"/>
+            <beans:ref bean="authInterceptor"/>
+        </interceptor>
+    </interceptors>
   
 </beans:beans>

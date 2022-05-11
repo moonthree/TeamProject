@@ -31,29 +31,34 @@ public class MemberController {
 	//git 넘기기용
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(MemberVO vo, HttpServletRequest request) {
+	public void login(MemberVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		
 		MemberVO member = memberService.selectOne(vo);
+		
+		response.setContentType("text/html; charset=euc-kr;");
+		PrintWriter pw = response.getWriter();
 		
 		if(member != null) {
 			
 			HttpSession session = request.getSession(true);
 			
 			MemberVO login = new MemberVO();
+      
 			login.setMember_idx(member.getMember_idx());
 			login.setMember_email(member.getMember_email());
 			login.setMember_password(member.getMember_password());
 			login.setMember_name(member.getMember_name());
+			login.setMember_level(member.getMember_level());
+
 			
 			session.setAttribute("login", login);
 			
-			return "redirect:/.do";
+			pw.println("<script>location.href='" + request.getContextPath() + "'" + "</script>");
 			
 		}else {
-			
-			return "redirect:login.do";
+			pw.println("<script>alert('아이디나 비밀번호가 일치하지 않습니다.');location.href='login.do'</script>");
 		}
-		
+		pw.flush();
 	}
 	
 	@RequestMapping(value = "/logout.do")
@@ -76,7 +81,7 @@ public class MemberController {
 		/*소비자 계정 회원가입 페이지 이동 시 get방식으로 */
 	  @RequestMapping(value = "/join_seller.do", method = RequestMethod.GET)
 	  public String join_seller() { 
-			 System.out.println("get방식"); 
+			  
 		  return "member/join_seller"; 
 	  }
 	 
@@ -123,6 +128,9 @@ public class MemberController {
 	
 	@RequestMapping(value = "/join_company.do", method = RequestMethod.POST)
 	public void join_company(MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		System.out.println(vo.toString());
+		
 		
 		String[] phones = request.getParameterValues("phone1");
 		String phone = "";

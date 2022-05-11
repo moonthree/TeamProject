@@ -42,9 +42,9 @@ $(document).on("click", ".menu div", function() {
 			<thead>		
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-					<td style="width:20%"><a href="approval.do">상품 승인 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="management_product.do">상품 관리 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="management_member.do">회원 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do">회원 관리 페이지(관리자)</a></td>
 				</tr>
 			</thead>
 		</table>
@@ -97,7 +97,7 @@ $(document).on("click", ".menu div", function() {
                     <div class="col">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
-                          <h5 class="card-title display-2">0</h5>
+                          <h5 class="card-title display-2">${ countFunding }</h5>
                           <strong class="card-text" style="font-size: x-large;">펀딩</strong>
                         </div>
                       </div>
@@ -105,7 +105,7 @@ $(document).on("click", ".menu div", function() {
                     <div class="col">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
-                          <h5 class="card-title display-2">3</h5>
+                          <h5 class="card-title display-2">0</h5>
                           <strong class="card-text" style="font-size: x-large;">상품</strong>
                         </div>
                       </div>
@@ -113,7 +113,7 @@ $(document).on("click", ".menu div", function() {
                     <div class="col">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
-                          <h5 class="card-title display-2">3</h5>
+                          <h5 class="card-title display-2">${ countZzim }</h5>
                           <strong class="card-text" style="font-size: x-large;">찜</strong>
                         </div>
                       </div>
@@ -137,7 +137,7 @@ $(document).on("click", ".menu div", function() {
                 <!--공지사항 & 고객센터-->
                 <div class="row">
                   <div class="col" style="text-align:right;">
-                    <button type="button" class="btn" style="background-color: white; width:130px">공지사항</button>
+                    <button type="button" class="btn" style="background-color: white; width:130px" onclick="location.href='notice_list.do'">공지사항</button>
                     <button type="button" class="btn" style="background-color: white; width:130px;">고객센터</button>
                   </div>
                 </div>
@@ -157,31 +157,19 @@ $(document).on("click", ".menu div", function() {
                           <div class="col-md-4" style="text-align: right;"><br><button type="button" class="btn btn-light mb-3" onclick="location.href='info_funding.do'">내역 ></button></div>
                         </div>
               <div class="row g-3">
+              <c:if test="${select3Funding.size()>0}">
+				<c:forEach var="item" items="${select3Funding}">	  
+			              
                   <div class="col-lg-4 col-md-12 col-sm-12">
-                      <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                        <img src="../resources/image/funding_main/dog123.png" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <div class="card" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+                        <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                         <div class="card-body">
-                          <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
+                          <p class="card-text">${ item.funding_title }</p>
                         </div>
                       </div>
                   </div>
-                  
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/${ funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
-                      <div class="card-body">
-                        <p class="card-text">${ funding_title }/p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12" id="outer">
-                    <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/dog123.png" class="card-img-top embed-responsive-item" alt="funding_img">
-                      <div class="card-body">
-                        <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                      </div>
-                    </div>
-                  </div>
+                  </c:forEach>
+              </c:if>       
               </div>
               <br>
                     </li>
@@ -226,30 +214,20 @@ $(document).on("click", ".menu div", function() {
                       <div class="col-md-4" style="text-align: right;"><br><button type="button" class="btn btn-light mb-3" onclick="location.href='info_zzim.do'">내역 ></button></div>
               </div>
               <div class="row g-3">
+              
+              <c:if test="${select3Zzim.size()>0}">
+				<c:forEach var="item" items="${select3Zzim}">
                 <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/cat123.png" class="card-img-top embed-responsive-item" alt="funding_img">
+                    <div class="card" onclick="location.href='view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+                      <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
-                        <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
+                        <p class="card-text">${ item.funding_title }</p>
                       </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                  <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                    <img src="../resources/image/funding_main/cat123.png" class="card-img-top embed-responsive-item" alt="funding_img">
-                    <div class="card-body">
-                      <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12" id="outer">
-                  <div class="card" onclick="location.href='info_funding_detail.do'" style="cursor:pointer;">
-                    <img src="../resources/image/funding_main/cat123.png" class="card-img-top embed-responsive-item" alt="funding_img">
-                    <div class="card-body">
-                      <p class="card-text">[5점만점 앵콜] 먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                    </div>
-                  </div>
-                </div>
+                </c:forEach>
+              </c:if>
+                
             </div>
               <br>
                     </li>

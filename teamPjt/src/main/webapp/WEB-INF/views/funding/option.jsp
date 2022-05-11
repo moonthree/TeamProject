@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -46,11 +47,11 @@
 <c:import url="/header.do"></c:import>
 	<main>
     <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
+        <form name="order" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-            <input type="hidden" name="funding_idx" value="${read.funding_idx}">
-            ${param.funding_idx}
             	<!-- 펀딩 제목  -->
+            	<input type="hidden" name="funding_title" value="${read.funding_title}">
                 <div><h3 style="text-align: center; font-weight: bold;">${read.funding_title }</h3></div>
                 <div class="wrap" style="margin: 30px 0px 10px auto;">
                     <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
@@ -61,8 +62,8 @@
                 </div>
             </div>
         </div>
-        <form name="order" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
         <div class="row">
+	        <input type="hidden" name="funding_idx" value="${read.funding_idx}">
             <div class="" id="option" style="width: 90%; margin: 20px auto;">
             	<!-- 옵션 선택 -->
                 <h5 style="font-weight: 600;">옵션 선택</h5>
@@ -75,7 +76,8 @@
 		                        <input type="checkbox" name="check" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_idx}">
 		                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}" style="cursor: pointer;">
 		                        	<!-- 옵션 가격 -->
-		                            <div class="price" style="font-weight: 600;">${item.funding_option_price}원 펀딩합니다.</div>
+		                            <div class="price" style="font-weight: 600;">
+		                            	<fmt:formatNumber value="${item.funding_option_price}" type="number" />원 펀딩합니다.</div>
 		                            <div class="detail" style="font-size: 14px; line-height: 2; color: gray;">
 		                            	<!-- 옵션 제목 -->
 		                               	${item.funding_option_name}<br>
@@ -110,7 +112,7 @@
 			                        	</div>
 			                        	<div class="totalPrice" style="float: left;">
 					                        <div style="font-size: 13px; margin-bottom: 5px; color: gray;">금액</div>
-					                    	<div class="sum">${item.funding_option_price}원</div>
+					                    	<div class="sum"><fmt:formatNumber value="${item.funding_option_price}" type="number" />원</div>
 			                        	</div>
 			                        </div>
 		                        </div>
@@ -138,7 +140,7 @@
             <div style="margin: 50px auto; text-align: center;">
                 <div style="font-weight: bold; font-size: 20px;">
                 	<input type="hidden" name="sum_p_price" value="">
-					어머니 아버지, 이제 이 바닥을 떠나고 싶어요. 반려동물 캠핑의자에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
+					${read.funding_title}에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
                 </div>
                 <br>
                 <div>

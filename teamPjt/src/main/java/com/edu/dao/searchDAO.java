@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +25,14 @@ public class searchDAO {
 		return sqlSession.selectOne("SearchMapper.searchFundingCount", scri);
 	}
 	
+	//검색 리스트
+	public List<FundingMainVO> searchList(FundingMainVO vo) throws Exception{
+		return sqlSession.selectList("SearchMapper.searchList", vo);
+	}
+	//검색 갯수
+	public int searchCount(FundingMainVO vo) throws Exception{
+		return sqlSession.selectOne("SearchMapper.searchCount", vo);
+	}
 	
 
 }

@@ -50,7 +50,7 @@
 
 
 	<!-- 펀딩 메인 페이지 리스트 출력 -->
-	<select id="listDog" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO" resultMap="FundingMainVO">
+	<select id="listMain" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
 		SELECT 
 			fd.funding_idx,
 			fd.member_idx,
@@ -68,59 +68,54 @@
 			mem.member_idx
 		FROM funding AS fd
 		JOIN member AS mem
-		ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx
-		order by fd.funding_idx desc limit #{rowStart}, 9;
+		<choose>
+			<when test="dog != null">
+				ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx AND funding_permit_state=1
+			</when>
+			<when test="cat != null">
+				ON fd.funding_category = 1 AND fd.member_idx = mem.member_idx AND funding_permit_state=1
+			</when>
+			<when test="other != null">
+				ON fd.funding_category = 2 AND fd.member_idx = mem.member_idx AND funding_permit_state=1
+			</when>
+			<otherwise>
+				ON fd.funding_category = 0 AND fd.member_idx = mem.member_idx AND funding_permit_state=1
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="sortNew != null">
+				order by funding_idx desc limit #{startRowNum}, 9;
+			</when>
+			<when test="sortView != null">
+				order by funding_views desc limit #{startRowNum}, 9;
+			</when>
+			<when test="sortPrice != null">
+				order by funding_current_price desc limit #{startRowNum}, 9;
+			</when>
+			<otherwise>
+				order by funding_idx desc limit #{startRowNum}, 9;
+			</otherwise>
+		</choose>
+	</select>
+	<select id="listMainCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		<choose>
+			<when test="dog != null">
+				where funding_category=0 AND funding_permit_state=1;
+			</when>
+			<when test="cat != null">
+				where funding_category=1 AND funding_permit_state=1;
+			</when>
+			<when test="other != null">
+				where funding_category=2 AND funding_permit_state=1;
+			</when>
+			<otherwise>
+				where funding_category=0 AND funding_permit_state=1;
+			</otherwise>
+		</choose>
 	</select>
 	
-	<select id="listCat" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
-		SELECT funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			funding_views
-		FROM funding
-		where funding_category=1
-		order by funding_idx desc limit #{rowStart}, 9;
-	</select>	
-	<select id="listOther" parameterType="com.edu.vo.Pagination" resultType="FundingMainVO">
-		SELECT funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			funding_views
-		FROM funding
-		where funding_category=2
-		order by funding_idx desc limit #{rowStart}, 9;
-	</select>
-	
-	<!-- 카테고리 별 상품 수 -->
-	<select id="listDogCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=0 AND funding_current_state=1;
-	</select>
-	<select id="listCatCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=1 AND funding_current_state=1;
-	</select>
-	<select id="listOtherCount" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		where funding_category=2 AND funding_current_state=1;
-	</select>
 	
 	
 	<!-- 펀딩 글 상세 -->
@@ -170,7 +165,7 @@
 		FROM funding_detail_community AS commu
 		JOIN member AS mem 
 		ON commu.funding_idx = #{funding_idx} and commu.member_idx = mem.member_idx
-		order by funding_detail_community_idx desc;
+		order by funding_detail_community_idx desc; 
 	</select>
 	
 	<!-- 펀딩 커뮤니티 댓글 작성 -->
@@ -205,11 +200,11 @@
 	</update>
 	
 	<!-- 펀딩 커뮤니티 댓글 갯수 -->
-	<!-- <select id="countFundingCommunityComment" resultType="int">
+	<select id="countFundingCommunityComment" resultType="int">
 		SELECT COUNT(funding_detail_community_idx)
 		FROM funding_detail_community
 		where funding_idx=#{funding_idx};
-	</select> -->
+	</select>
 	
 	<!-- 펀딩 qna 작성 -->
 	<insert id="insertFundingQna" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="funding_qna_idx">
@@ -319,12 +314,12 @@
 			   funding_option_detail,
 			   funding_option_stock
 		  FROM funding_option
-		 WHERE funding_idx = 1;
+		 WHERE funding_idx = #{funding_idx};
 	</select>
 	
 	
 	<!-- 펀딩 등록 하기 -->
-	<insert id="Funding_reg" parameterType="fundingMainVO">
+	<insert id="Funding_reg" parameterType="fundingMainVO" useGeneratedKeys="true" keyProperty="funding_idx">
 		INSERT INTO funding(
 		 member_idx
 		,funding_title
@@ -359,12 +354,30 @@
 		,#{funding_express_fee}
 		,#{funding_views}
 		)
-		
-		
-	
-	
-	
 	</insert>
+	
+	
+	<!-- List<Funding_optionVO> INSERT문 -->
+	<insert id="insListOption" parameterType="java.util.List">
+		INSERT INTO funding_option(
+				funding_idx
+			   ,funding_option_name
+			   ,funding_option_price
+			   ,funding_option_detail
+			   ,funding_option_stock
+			)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.funding_idx}
+		   ,#{item.funding_option_name}
+		   ,#{item.funding_option_price}
+		   ,#{item.funding_option_detail}
+		   ,#{item.funding_option_stock}
+		)
+		</foreach>
+	</insert>
+	
 	
 	<!-- 주문 번호 -->
 	<insert id="insertOrder" parameterType="Funding_orderVO">
@@ -384,15 +397,53 @@
 	</insert>
 	
 	<!-- 주문 옵션 번호 -->
-	<insert id="insertOption" parameterType="Funding_order_optionVO">
+	<insert id="insertOrderOption" parameterType="Funding_order_optionVO">
 		INSERT INTO funding_order_option(
 			funding_order_idx
 		  , funding_order_option_select_idx
 		  , funding_order_option_select_count
 		)VALUES(
-			#{funding_order_idx}
+			(SELECT MAX(funding_order_idx) FROM funding_order)
 		  , #{funding_order_option_select_idx}
 		  , #{funding_order_option_select_count}
+		)
+	</insert>
+	
+	<!-- 주문 배송지 정보 -->
+	<insert id="insertExpress" parameterType="Funding_expressVO">
+		INSERT INTO funding_express(
+			funding_order_idx
+		  , member_idx
+		  , funding_express_postnum
+		  , funding_express_addr1
+		  , funding_express_addr2
+		  , funding_express_phone
+		  , funding_express_name
+		)VALUES(
+			(SELECT MAX(funding_order_idx) FROM funding_order)
+		  , #{member_idx}
+		  , #{funding_express_postnum}
+		  , #{funding_express_addr1}
+		  , #{funding_express_addr2}
+		  , #{funding_express_phone}
+		  , #{funding_express_name}
+		)
+	</insert>
+	
+	<!-- 결제 정보 -->
+	<insert id="insertPay" parameterType="Funding_order_payVO">
+		INSERT INTO funding_order_pay(
+			funding_order_idx
+		  , funding_order_pay_card_num
+		  , funding_order_pay_card_valid
+		  , funding_order_pay_card_password
+		  , funding_order_pay_register_num
+		)VALUES(
+			(SELECT MAX(funding_order_idx) FROM funding_order)
+		  , #{funding_order_pay_card_num}
+		  , #{funding_order_pay_card_valid}
+		  , #{funding_order_pay_card_password}
+		  , #{funding_order_pay_register_num}
 		)
 	</insert>
 </mapper>

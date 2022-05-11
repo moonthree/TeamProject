@@ -6,14 +6,15 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
 
@@ -23,26 +24,40 @@ public class fundingMainDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<FundingMainVO> listDog(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listDog", page);
-	}
-	public List<FundingMainVO> listCat(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listCat", page);
-	}
-	public List<FundingMainVO> listOther(Pagination page) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.listOther", page);
+	/*
+	 * public List<FundingMainVO> listDog(Pagination page) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listDog", page); }
+	 */
+
+	/*
+	 * public List<FundingMainVO> listCat(Pagination page) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listCat", page); }
+	 */
+	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception{
+		return sqlSession.selectList("FundingMainMapper.listMain", vo);
 	}
 	
+	/*
+	 * public List<FundingMainVO> listCat(FundingMainVO vo) throws Exception{ return
+	 * sqlSession.selectList("FundingMainMapper.listCat", vo); }
+	 * 
+	 * public List<FundingMainVO> listOther(Pagination page) throws Exception{
+	 * return sqlSession.selectList("FundingMainMapper.listOther", page); }
+	 */
+	
 	// 펀딩 총 갯수
-	public int listDogCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listDogCount");
+	public int listMainCount(FundingMainVO vo) throws Exception{
+		return sqlSession.selectOne("FundingMainMapper.listMainCount", vo);
 	}
-	public int listCatCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listCatCount");
-	}
-	public int listOtherCount() throws Exception{
-		return sqlSession.selectOne("FundingMainMapper.listOtherCount");
-	}
+	
+	/*
+	 * public int listDogCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listDogCount"); } public int
+	 * listCatCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listCatCount"); } public int
+	 * listOtherCount() throws Exception{ return
+	 * sqlSession.selectOne("FundingMainMapper.listOtherCount"); }
+	 */
 	
 	
 	// 게시물 조회
@@ -75,11 +90,11 @@ public class fundingMainDAO {
 		sqlSession.delete("FundingMainMapper.deleteFundingCommunityComment", vo);	
 	}
 	//펀딩 커뮤니티 댓글 숫자
-	/*
-	 * public int countFundingCommunityComment(FundingCommunityVO vo) throws
-	 * Exception{ return
-	 * sqlSession.selectOne("FundingMainMapper.countFundingCommunityComment", vo); }
-	 */
+	
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception{ 
+		return sqlSession.selectOne("FundingMainMapper.countFundingCommunityComment", fcvo); 
+	}
+		 
 	
 	//펀딩 qna 리스트
 	public List<FundingQnaVO> getQnaList(Map<String, Object> paramMap) {
@@ -124,14 +139,29 @@ public class fundingMainDAO {
 	public int fun_reg(FundingMainVO vo) {
 		return sqlSession.insert("Funding_reg",vo);
 	}
+	
+	// 펀딩 상품 등록 후 옵션 등록 메소드
+	public int fun_option_reg(List<Funding_optionVO> vo) {
+		
+		return sqlSession.insert("FundingMainMapper.insListOption",vo);
+	}
+	
 	// 결제 예약
 	// 주문 번호
 	public int insertOrder(Funding_orderVO ordervo) {
 		return sqlSession.insert("FundingMainMapper.insertOrder", ordervo);
 	}
 	// 주문 옵션 정보 등록
-	public int insertOption(Funding_order_optionVO orderOptionvo) {
-		return sqlSession.insert("FundingMainMapper.insertOption", orderOptionvo);
+	public int insertOrderOption(Funding_order_optionVO orderOptionvo) {
+		return sqlSession.insert("FundingMainMapper.insertOrderOption", orderOptionvo);
+	}
+	// 배송지 정보
+	public int insertExpress(Funding_expressVO expressvo) {
+		return sqlSession.insert("FundingMainMapper.insertExpress", expressvo);
+	}
+	// 결제 정보
+	public int insertPay(Funding_order_payVO payvo) {
+		return sqlSession.insert("FundingMainMapper.insertPay", payvo);
 	}
 	
 }

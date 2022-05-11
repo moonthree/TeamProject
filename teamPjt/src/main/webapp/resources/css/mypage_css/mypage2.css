@@ -131,7 +131,7 @@ main {
 
 /* 판매자 마이페이지 css */
 	 .mydiv{
-	    height: 800px;
+	    height: 1000px;
 	    overflow: auto;
 	    overflow-x: hidden
   	}

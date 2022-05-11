@@ -18,9 +18,11 @@ import com.edu.dao.memberDao;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.ZzimVO;
@@ -35,33 +37,41 @@ public class fundingMainServiceImpl implements fundingMainService{
 	private memberDao memdao;
 	
 	//펀딩 메인 리스트
+	/*
+	 * @Override public List<FundingMainVO> listDog(Pagination page) throws
+	 * Exception { return dao.listDog(page); }
+	 */
 	@Override
-	public List<FundingMainVO> listDog(Pagination page) throws Exception {
-		return dao.listDog(page);
+	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception {
+		ArrayList<FundingMainVO> listMain = (ArrayList<FundingMainVO>) dao.listMain(vo);
+		return listMain;
 	}
-	@Override
-	public List<FundingMainVO> listCat(Pagination page) throws Exception {
-		return dao.listCat(page);
-	}
-	@Override
-	public List<FundingMainVO> listOther(Pagination page) throws Exception {
-		return dao.listOther(page);
-	}
+	/*
+	 * @Override public List<FundingMainVO> listCat(FundingMainVO vo) throws
+	 * Exception { ArrayList<FundingMainVO> listCat = (ArrayList<FundingMainVO>)
+	 * dao.listCat(vo); return listCat; }
+	 * 
+	 * @Override public List<FundingMainVO> listOther(Pagination page) throws
+	 * Exception { return dao.listOther(page); }
+	 */
 
-		
+
+	@Override
+	public int listMainCount(FundingMainVO vo) throws Exception {
+		int result = dao.listMainCount(vo);
+		return result;
+	}	
 	//게시물 총 갯수
-	@Override
-	public int listDogCount() throws Exception {
-		return dao.listDogCount();
-	}
-	@Override
-	public int listCatCount() throws Exception {
-		return dao.listCatCount();
-	}
-	@Override
-	public int listOtherCount() throws Exception {
-		return dao.listOtherCount();
-	}
+	/*
+	 * @Override public int listDogCount() throws Exception { return
+	 * dao.listDogCount(); }
+	 * 
+	 * @Override public int listCatCount() throws Exception { return
+	 * dao.listCatCount(); }
+	 * 
+	 * @Override public int listOtherCount() throws Exception { return
+	 * dao.listOtherCount(); }
+	 */
 	
 	//펀딩 뷰
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -95,6 +105,11 @@ public class fundingMainServiceImpl implements fundingMainService{
 	@Override
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception {
 		dao.deleteFundingCommunityComment(vo);
+	}
+	//펀딩 커뮤 댓글 갯수
+	@Override
+	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception {
+		return dao.countFundingCommunityComment(fcvo);
 	}
 	
 	// 펀딩 qna 댓글 리스트
@@ -190,6 +205,8 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public MemberVO selectOne(MemberVO vo) {
 		return memdao.selectOne(vo);
 	}
+	
+	
 	@Override
 	public int fun_reg(FundingMainVO vo) {
 		
@@ -204,9 +221,24 @@ public class fundingMainServiceImpl implements fundingMainService{
 	}
 	// 주문 옵션 정보 등록
 	@Override
-	public int insertOption(Funding_order_optionVO orderOptionvo) {
-		return dao.insertOption(orderOptionvo);
+	public int insertOrderOption(Funding_order_optionVO orderOptionvo) {
+		return dao.insertOrderOption(orderOptionvo);
 	}
+	// 배송 정보 등록
+	@Override
+	public int insertExpress(Funding_expressVO expressvo) {
+		return dao.insertExpress(expressvo);
+	}
+	// 결제 정보 등록
+	@Override
+	public int insertPay(Funding_order_payVO payvo) {
+		return dao.insertPay(payvo);
+	}
+
+	@Override
+	public int fun_option_reg(List<Funding_optionVO> vo) {
 		
+		return dao.fun_option_reg(vo);
+	}
 	
 }
