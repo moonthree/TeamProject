@@ -119,23 +119,27 @@
 	
 	
 	<!-- 펀딩 글 상세 -->
-	<select id="read" parameterType="int" resultType="FundingMainVO">
+	<select id="read" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
 		SELECT 
-			funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_content,
-			funding_notice,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			member_idx
-		FROM funding
-		WHERE funding_idx = #{funding_idx}
+			fu.funding_idx,
+			fu.funding_title,
+			fu.funding_thumbnail,
+			fu.funding_content,
+			fu.funding_notice,
+			fu.funding_target_price,
+			fu.funding_current_price,
+			fu.funding_start_date,
+			fu.funding_end_date,
+			fu.funding_permit_state,
+			fu.funding_current_state,
+			fu.funding_category,
+			fu.member_idx,
+			mem.member_idx,
+			mem.member_photo,
+			mem.member_business_name
+		FROM funding as fu
+		JOIN member as mem
+		WHERE funding_idx = #{funding_idx} AND fu.member_idx = mem.member_idx
 	</select>
 	<!-- 펀딩 옵션 카운트 -->
 	<select id="orderCount" resultType = "int">
@@ -165,7 +169,7 @@
 		FROM funding_detail_community AS commu
 		JOIN member AS mem 
 		ON commu.funding_idx = #{funding_idx} and commu.member_idx = mem.member_idx
-		order by funding_detail_community_idx desc; 
+		order by funding_detail_community_idx desc limit #{startRowNum}, 9; 
 	</select>
 	
 	<!-- 펀딩 커뮤니티 댓글 작성 -->
@@ -200,7 +204,7 @@
 	</update>
 	
 	<!-- 펀딩 커뮤니티 댓글 갯수 -->
-	<select id="countFundingCommunityComment" resultType="int">
+	<select id="countFundingCommunityComment" parameterType="FundingCommunityVO" resultType="int">
 		SELECT COUNT(funding_detail_community_idx)
 		FROM funding_detail_community
 		where funding_idx=#{funding_idx};
@@ -230,7 +234,7 @@
         )
 	</insert>
 	
-	<!-- 펀딩 qna 댓글 리스트 -->
+	<!-- 펀딩 qna 댓글 리스트 ssss-->
 	<select id="readFundingQnaList" resultType="FundingQnaVO" parameterType="java.util.HashMap" resultMap="FundingQnaVO">
 		select 
 			qna.funding_qna_idx,
@@ -247,8 +251,28 @@
 			mem.member_business_name
 		FROM funding_qna AS qna
 		JOIN member AS mem 
-		ON qna.funding_idx = #{funding_idx} and qna.member_idx = mem.member_idx
-		order by funding_qna_idx desc;
+		ON qna.funding_idx = #{funding_idx} and qna.member_idx = mem.member_idx and qna.depth = 0
+		order by funding_qna_idx desc limit ${startRowNumQna}, 9;
+	</select>
+	
+	<!-- 펀딩 qna 댓글 답변-->
+	<select id="readFundingQnaAnswer" resultType="FundingQnaVO" parameterType="java.util.HashMap" resultMap="FundingQnaVO">
+		select 
+			qna.funding_qna_idx,
+			qna.funding_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.funding_qna_state,
+			qna.funding_qna_secret,
+			qna.funding_qna_content,
+			qna.funding_qna_writer_idx,
+			qna.funding_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM funding_qna AS qna
+		JOIN member AS mem 
+		ON qna.funding_idx = 111 and qna.member_idx = mem.member_idx and qna.parent_id = #{funding_qna_idx}
 	</select>
 	
 	<!-- 펀딩 qna 답변 등록 완료 -->
@@ -256,6 +280,13 @@
 		UPDATE funding_qna 
 		SET funding_qna_state = 1
 		WHERE funding_idx = #{funding_idx} and funding_qna_idx = #{funding_qna_idx};
+	</update>
+	
+	<!-- 펀딩 qna 답변 수정 -->
+	<update id="qnaAnswerModify" parameterType="FundingQnaVO">
+		UPDATE funding_qna 
+		SET funding_qna_content = #{funding_qna_content}
+		WHERE parent_id = #{funding_qna_idx};
 	</update>
 	
 	<!-- 펀딩 qna 수정 -->
@@ -268,13 +299,15 @@
 	<!-- 펀딩 qna 삭제 -->
 	<delete id="deleteFundingQna" parameterType="FundingQnaVO">
 		DELETE FROM funding_qna
-		<if test="parent_id == 0">
-			WHERE funding_qna_idx = #{funding_qna_idx} OR parent_id = #{funding_qna_idx}; 
-		</if>
-		<if test="parent_id != 0">
-			WHERE funding_qna_idx = #{funding_qna_idx};
-		</if>
+		WHERE funding_qna_idx = #{funding_qna_idx};
 	</delete>
+	
+	<!-- 펀딩 qna 개수 -->
+	<select id="countFundingQna" parameterType="FundingQnaVO" resultType="int">
+		SELECT COUNT(funding_qna_idx)
+		FROM funding_qna
+		where funding_idx=#{funding_idx} and depth = 0;
+	</select>
 	
 	<!-- 찜 등록 -->
 	<insert id="insertZzim" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="zzim_idx">
@@ -446,4 +479,12 @@
 		  , #{funding_order_pay_register_num}
 		)
 	</insert>
+	
+	<!-- 결제 완료 시 펀딩 옵션 수량 바뀜 -->
+	<update id="update_option" parameterType="Funding_order_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
+		where funding_option_idx = #{funding_order_option_select_idx}
+	</update>
+	
 </mapper>

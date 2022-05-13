@@ -36,24 +36,12 @@ public class fundingMainServiceImpl implements fundingMainService{
 	@Autowired
 	private memberDao memdao;
 	
-	//펀딩 메인 리스트
-	/*
-	 * @Override public List<FundingMainVO> listDog(Pagination page) throws
-	 * Exception { return dao.listDog(page); }
-	 */
+	
 	@Override
 	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception {
 		ArrayList<FundingMainVO> listMain = (ArrayList<FundingMainVO>) dao.listMain(vo);
 		return listMain;
 	}
-	/*
-	 * @Override public List<FundingMainVO> listCat(FundingMainVO vo) throws
-	 * Exception { ArrayList<FundingMainVO> listCat = (ArrayList<FundingMainVO>)
-	 * dao.listCat(vo); return listCat; }
-	 * 
-	 * @Override public List<FundingMainVO> listOther(Pagination page) throws
-	 * Exception { return dao.listOther(page); }
-	 */
 
 
 	@Override
@@ -61,17 +49,6 @@ public class fundingMainServiceImpl implements fundingMainService{
 		int result = dao.listMainCount(vo);
 		return result;
 	}	
-	//게시물 총 갯수
-	/*
-	 * @Override public int listDogCount() throws Exception { return
-	 * dao.listDogCount(); }
-	 * 
-	 * @Override public int listCatCount() throws Exception { return
-	 * dao.listCatCount(); }
-	 * 
-	 * @Override public int listOtherCount() throws Exception { return
-	 * dao.listOtherCount(); }
-	 */
 	
 	//펀딩 뷰
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -88,8 +65,9 @@ public class fundingMainServiceImpl implements fundingMainService{
 	
 	@Override
 	//펀딩 커뮤니티 댓글 리스트
-	public List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception{
-		return dao.readFundingCommunityComent(funding_idx);
+	public List<FundingCommunityVO> readFundingCommunityComent(FundingCommunityVO fcvo) throws Exception{
+		ArrayList<FundingCommunityVO> readFundingCommunityComent = (ArrayList<FundingCommunityVO>) dao.readFundingCommunityComent(fcvo);
+		return readFundingCommunityComent;
 	}
 	//펀딩 커뮤니티 댓글 작성
 	@Override
@@ -111,6 +89,15 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception {
 		return dao.countFundingCommunityComment(fcvo);
 	}
+	
+
+	//펀딩 qna 답글 리스트
+	@Override
+	public List<FundingQnaVO> getQnaAnswer(Map<String, Object> paramMap) {
+		ArrayList<FundingQnaVO> getQnaAnswer = (ArrayList<FundingQnaVO>) dao.getQnaAnswer(paramMap);
+		return getQnaAnswer;
+	}
+	
 	
 	// 펀딩 qna 댓글 리스트
 	@Override
@@ -165,16 +152,24 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public int qnaAnswerDone(FundingQnaVO vo) throws Exception {
 		return dao.qnaAnswerDone(vo);
 	}
+	// 펀딩 qna 답변 수정
+	@Override
+	public void qnaAnswerModify(FundingQnaVO vo) throws Exception {
+		dao.qnaAnswerModify(vo);
+	}
 	// 펀딩 qna 삭제
 	@Override
 	public void deleteFundingQna(FundingQnaVO vo) throws Exception {
 		dao.deleteFundingQna(vo);
 	}
 	// 펀딩 qna 수정
-
 	@Override
 	public void modifyFundingQna(FundingQnaVO vo) throws Exception {
 		dao.modifyFundingQna(vo);
+	}
+	// 펀딩 qna 개수
+	public int countFundingQna(FundingQnaVO vo) throws Exception {
+		return dao.countFundingQna(vo);
 	}
 	
 	 // insert찜
@@ -239,6 +234,13 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public int fun_option_reg(List<Funding_optionVO> vo) {
 		
 		return dao.fun_option_reg(vo);
+	}
+
+	//펀딩 옵션 수량 감소 메소드
+	@Override
+	public int update_option(Funding_order_optionVO orderOptionvo) {
+		
+		return dao.update_option(orderOptionvo);
 	}
 	
 }

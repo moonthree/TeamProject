@@ -445,7 +445,7 @@ public class MypageController {
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(@RequestParam Map<String, Object> paramMap, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
+	public String read(@RequestParam Map<String, Object> paramMap, FundingCommunityVO fcvo, FundingMainVO vo, Model model, HttpSession session, HttpServletRequest request) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
@@ -456,7 +456,7 @@ public class MypageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member",member);	
 		//펀딩 커뮤니티 댓글 리스트
-		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
+		List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(fcvo);
 		model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
 	
 		//펀딩 qna 댓글 리스트
