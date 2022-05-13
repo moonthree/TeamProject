@@ -6,6 +6,7 @@ public class Funding_expressVO {
 	private int funding_order_idx;
 	private int member_idx;		
 	private String funding_express_postnum;
+	private String funding_express_addr;
 	private String funding_express_addr1;
 	private String funding_express_addr2;
 	private String funding_express_phone;
@@ -65,6 +66,12 @@ public class Funding_expressVO {
 	}
 	public void setFunding_express_state(int funding_express_state) {
 		this.funding_express_state = funding_express_state;
+	}
+	public String getFunding_express_addr() {
+		return funding_express_addr;
+	}
+	public void setFunding_express_addr(String funding_express_addr) {
+		this.funding_express_addr = funding_express_addr;
 	}
 	
 }

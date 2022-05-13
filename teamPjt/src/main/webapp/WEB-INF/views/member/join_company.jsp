@@ -222,11 +222,13 @@
                          <div class="form-inline box ">
                          <c:if test="${kakaoVo == null}">
                         	<img src="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg" class="rounded float-left profile" alt="...">
-                         	<input type="hidden" name="member_photo" value="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg">
+                         	<input type="hidden" name="member_photo">
                           </c:if>
                           
+                          <c:if test="${kakaoVo != null}">
                           <img src="${kakaoVo.member_photo}" class="rounded float-left profile" alt="...">
                           <input type="hidden" name="member_photo" value="${kakaoVo.member_photo}">
+                          </c:if>
                          </div>
                     </div>
                  

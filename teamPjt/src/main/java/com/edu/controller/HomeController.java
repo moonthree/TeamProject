@@ -11,12 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.edu.service.MypageService;
 import com.edu.service.SearchService;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.SearchCriteria;
 
@@ -28,6 +29,9 @@ import com.edu.vo.SearchCriteria;
 public class HomeController {
 	@Autowired
 	private SearchService service;
+	
+	@Autowired
+	private MypageService mypageService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -38,8 +42,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/header.do")
-	public String header(Locale locale, Model model) {
-	
+	public String header(Model model, HttpServletRequest request) {
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		
 		//git commit용
 		return "header";
 	}

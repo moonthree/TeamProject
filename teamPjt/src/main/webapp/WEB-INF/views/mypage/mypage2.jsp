@@ -106,10 +106,10 @@
 					<c:if test="${sellerFundingList.size()>0}">
 					<c:forEach var="item" items="${sellerFundingList}">
 	                    <div class="card mb-3">
-	                      <div class="row item" onclick="location.href='view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+	                      <div class="row item" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
 	                        <div class="col-lg-5 col-md-6">
 	                          <div class="img-container">
-	                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top " alt="funding_img">
+	                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top " alt="funding_img">
 	                          </div>
 	                        </div>
 	                        <div class="col-lg-7 col-md-6">

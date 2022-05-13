@@ -239,7 +239,7 @@ $(document).on('click','#findPw',function(){
 	        </button>
 	      </div>
 	      <div class="modal-body login_modal_body">
-	      	<h4>님의 임시 비밀번호를 등록한 이메일로 보냈습니다</h4>
+	      	<h4>임시 비밀번호를 등록한 이메일로 보냈습니다</h4>
 	      </div>
 	      	<div class="modal-footer login_modal_footer">
 	      </div>
