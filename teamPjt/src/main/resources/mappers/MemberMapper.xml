@@ -37,8 +37,8 @@
 			,now()
 			,#{member_photo}
 			 <if test="member_level == 1">
-		   	,#{member_business_num}
-		   	,#{member_business_name}
+			   	,#{member_business_num}
+			   	,#{member_business_name}
 		   </if>
 		)
 	</insert>

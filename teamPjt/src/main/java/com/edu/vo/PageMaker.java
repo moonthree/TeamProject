@@ -3,6 +3,7 @@ package com.edu.vo;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.apache.xerces.util.URI;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,7 +14,7 @@ public class PageMaker {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 3;
+	private int displayPageNum = 5;
 	private Pagination page;
 	
 	public void setPage(Pagination page) {
@@ -65,15 +66,32 @@ public class PageMaker {
 		next = endPage * page.getPerPageNum() >= totalCount ? false : true;
 	}
 	
-	public String makeQuery(int Page) {
-		UriComponents uriComponents =
+	public String makeQuery1( int Page) {
+		
+		UriComponents uriComponents1 =
 		UriComponentsBuilder.newInstance()
-						    .queryParam("Page", Page)
-							.queryParam("perPageNum", page.getPerPageNum())
-							.build();
-		   
-		return uriComponents.toUriString();
+										.queryParam("Page", Page)
+										.queryParam("perPageNum", page.getPerPageNum())
+										.build();
+							   
+				return uriComponents1.toUriString();
+		
 	}
+	
+	
+	public String makeQuery2(int Page) {
+		
+		
+		UriComponents uriComponents1 =
+		UriComponentsBuilder.newInstance()
+									    .queryParam("Page", Page)
+										.queryParam("perPageNum", page.getPerPageNum())
+										.build();
+					   
+			return uriComponents1.toUriString();
+		
+	}
+	
 	
 	//검색 시작
 	public String makeSearch(int Page)

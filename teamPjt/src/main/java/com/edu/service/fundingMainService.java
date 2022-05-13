@@ -89,4 +89,7 @@ public interface fundingMainService {
 	// 결제 정보
 	int insertPay(Funding_order_payVO payvo);
 	
+	//펀딩 옵션 수량 감소 메소드
+	int update_option(Funding_order_optionVO orderOptionvo);
+	
 }

@@ -446,4 +446,12 @@
 		  , #{funding_order_pay_register_num}
 		)
 	</insert>
+	
+	<!-- 결제 완료 시 펀딩 옵션 수량 바뀜 -->
+	<update id="update_option" parameterType="Funding_order_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
+		where funding_option_idx = #{funding_order_option_select_idx}
+	</update>
+	
 </mapper>

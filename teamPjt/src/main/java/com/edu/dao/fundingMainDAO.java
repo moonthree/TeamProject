@@ -164,4 +164,9 @@ public class fundingMainDAO {
 		return sqlSession.insert("FundingMainMapper.insertPay", payvo);
 	}
 	
+	//옵션 수량 감소 메소드
+	public int update_option(Funding_order_optionVO opderOptionvo) {
+		
+		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo);
+	}
 }
