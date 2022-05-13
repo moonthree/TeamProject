@@ -40,7 +40,7 @@
         	</c:if>
         	<c:if test="${totalRow > 0 }">
         		<!-- 카드 섹션 -->
-	            <section id="card-list" class="card-list">
+	            <section id="card-list" class="card-list2">
 	                <div class="container">
 	                    <div class="row fundingRow card-list-container thumbnails">
 	                    	<c:forEach var="item" items="${searchList}">
@@ -195,7 +195,7 @@
                 //console.log(data);
                 //응답된 문자열은 html 형식이다.(/ajax_page.jsp에 응답내용이 있다.)
                 //해당 문자열을 class.card-list-container div에 html로 해석하라고 추가한다.
-                $(".card-list-container").append(data);
+                $(".card-list2").append(data);
                 //로딩바를 숨긴다.
                 $(".back-drop").hide();
                 

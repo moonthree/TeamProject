@@ -43,21 +43,21 @@
 	            <div class="col-md-4 col-sm-12" id="otherCategory" style="cursor:pointer;">
 		            <img src="../resources/image/funding_main//other123.png" alt="photo" class="rounded-circle" width="300" height="300" />
 		            <br>
-		            기타
+		            반려동물
 	            </div>
 	        </div>
 	
 	        <div class="row">
-	            <div class="col-sm" id="chosenCategory">
+	            <div class="col-6" id="chosenCategory">
 	            	
 	            </div>
 	            <input type="number" id="totalPageCount" style="display : none;" value="${totalPageCount}"/>
 		          <select id="categorySelect" name="categorySelect" class="category form-select" style="display : none;">
 		               <option value="dog" ${categorySelect eq 'dog' ? 'selected' : ''}>강아지</option>
 		               <option value="cat" ${categorySelect eq 'cat' ? 'selected' : ''}>고양이</option>
-		               <option value="other" ${categorySelect eq 'other' ? 'selected' : ''}>기타</option>
+		               <option value="other" ${categorySelect eq 'other' ? 'selected' : ''}>반려동물</option>
 		          </select>
-		          <div class="col-sm" style="text-align: right">
+		          <div class="col-6" style="text-align: right">
 		          	<select id="condition" name="condition" class="condition form-select">
 		                  <option value="sortNew" ${condition eq 'sortNew' ? 'selected' : ''}>최신순</option>
 		                  <option value="sortView" ${condition eq 'sortView' ? 'selected' : ''}>인기순</option>
@@ -95,7 +95,7 @@
 		                        		고양이
 		                        	</c:if>
 		                        	<c:if test="${item.funding_category eq 2}">
-		                        		기타
+		                        		반려동물
 		                        	</c:if>
 		                        	| ${item.memberVO.member_business_name }
 		                        </p>
