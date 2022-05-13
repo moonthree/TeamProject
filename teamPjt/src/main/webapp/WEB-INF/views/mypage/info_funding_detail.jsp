@@ -311,7 +311,7 @@ $(function(){
 	               
 	               
 	               $("[name=funding_express_postnum]").val(data.zonecode);
-	               $("[name=funding_express_addr]").val(fullRoadAddr);
+	               $("[name=funding_express_addr1]").val(fullRoadAddr);
 	               
 	               /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
 	               document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
@@ -337,7 +337,7 @@ $(function(){
 					    "<button type='button' class='btn btn-secondary' onclick='execPostCode();'><i class='fa fa-search'></i>주소 찾기</button>"+                               
 					"</div>"+
 					"<div class='form-group'>"+
-					    "<input name='funding_express_addr' class='form-control' style='top: 5px;' placeholder='도로명 주소'  id='funding_express_addr' type='text' readonly='readonly' value='${ express.funding_express_addr }'/>"+
+					    "<input name='funding_express_addr1' class='form-control' style='top: 5px;' placeholder='도로명 주소'  id='funding_express_addr1' type='text' readonly='readonly' value='${ express.funding_express_addr1 }'/>"+
 					"</div>"+
 					"<div class='input-group mb-3'>"+
                     	"<input type='text' class='form-control' name='funding_express_addr2' id='funding_express_addr2' value='${ express.funding_express_addr2 }'>"+
@@ -354,7 +354,7 @@ $(function(){
 		function changeExpress2(){
 			console.log("funding_express_name"+$("#funding_express_name").val());
 			console.log("funding_express_phone"+$("#funding_express_phone").val());
-			console.log("funding_express_addr"+$("#funding_express_addr").val());
+			console.log("funding_express_addr1"+$("#funding_express_addr1").val());
 			console.log("funding_express_addr2"+$("#funding_express_addr2").val());
 			console.log("funding_express_postnum"+$("#funding_express_postnum").val());
 			console.log("funding_order_idx : "+${ express.funding_order_idx });
@@ -366,7 +366,7 @@ $(function(){
     			data : {"funding_express_name":$("#funding_express_name").val(),
     					"funding_express_phone":$("#funding_express_phone").val(),
     					"funding_express_postnum":$("#funding_express_postnum").val(),
-    					"funding_express_addr":$("#funding_express_addr").val(),
+    					"funding_express_addr1":$("#funding_express_addr1").val(),
     					"funding_express_addr2":$("#funding_express_addr2").val(),
     					"funding_order_idx":${ express.funding_order_idx }
     			},
@@ -424,7 +424,7 @@ $(function(){
                         <tr id="funding_express">
                             <td>주소</td>
                             <td>
-                            	<div>(<span>${ express.funding_express_postnum }</span>)<span>${ express.funding_express_addr }</span></div>
+                            	<div>(<span>${ express.funding_express_postnum }</span>)<span>${ express.funding_express_addr1 }</span></div>
                                 <div>${ express.funding_express_addr2 }</div> 
                             </td>
                         </tr>
