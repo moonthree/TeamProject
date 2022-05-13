@@ -11,6 +11,76 @@ public class FundingCommunityVO {
 	private int funding_detail_community_category;
 	private MemberVO memberVO;
 	
+	//페이징 용도
+	private int startRowNum;
+	private int rowCount;
+	private int totalRow;
+	private boolean prev;
+	private boolean next;
+	
+	private int startRowNumQna;
+	private int rowCountQna;
+	private int totalRowQna;
+	private boolean prevQna;
+	private boolean nextQna;
+	
+	
+
+	public int getStartRowNumQna() {
+		return startRowNumQna;
+	}
+	public void setStartRowNumQna(int startRowNumQna) {
+		this.startRowNumQna = startRowNumQna;
+	}
+	public int getRowCountQna() {
+		return rowCountQna;
+	}
+	public void setRowCountQna(int rowCountQna) {
+		this.rowCountQna = rowCountQna;
+	}
+	public int getTotalRowQna() {
+		return totalRowQna;
+	}
+	public void setTotalRowQna(int totalRowQna) {
+		this.totalRowQna = totalRowQna;
+	}
+	public boolean isPrevQna() {
+		return prevQna;
+	}
+	public void setPrevQna(boolean prevQna) {
+		this.prevQna = prevQna;
+	}
+	public boolean isNextQna() {
+		return nextQna;
+	}
+	public void setNextQna(boolean nextQna) {
+		this.nextQna = nextQna;
+	}
+	public int getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
+	public int getTotalRow() {
+		return totalRow;
+	}
+	public void setTotalRow(int totalRow) {
+		this.totalRow = totalRow;
+	}
+	public boolean isPrev() {
+		return prev;
+	}
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+	public boolean isNext() {
+		return next;
+	}
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+	
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
@@ -61,6 +131,12 @@ public class FundingCommunityVO {
 				+ funding_detail_community_content + ", funding_detail_community_regdate="
 				+ funding_detail_community_regdate + ", funding_detail_community_category="
 				+ funding_detail_community_category + "]";
+	}
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
 	}
 	
 	
