@@ -88,5 +88,7 @@ public interface fundingMainService {
 	int insertExpress(Funding_expressVO expressvo);
 	// 결제 정보
 	int insertPay(Funding_order_payVO payvo);
+	// 결제 금액 합산
+	void addPrice(Funding_orderVO ordervo);
 	
 }

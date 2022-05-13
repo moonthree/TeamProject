@@ -540,10 +540,8 @@ public class FundingController {
 		for(int i=0; i<select_idx.length; i++) {
 			int si = Integer.parseInt(select_idx[i]);
 			int sc = Integer.parseInt(select_count[i]);
-			System.out.println(si);
-			System.out.println(sc);
 			orderOptionvo.setFunding_order_option_select_idx(si);
-			orderOptionvo.setFunding_order_option_select_count(5);
+			orderOptionvo.setFunding_order_option_select_count(sc);
 			fms.insertOrderOption(orderOptionvo);
 		}
 		
@@ -585,6 +583,9 @@ public class FundingController {
 		payvo.setFunding_order_pay_card_num(card);
 		fms.insertPay(payvo);
 		
+		// 결제 금액 합산하기
+		fms.addPrice(ordervo);
+		
 		int funding_idx = Integer.parseInt(request.getParameter("funding_idx"));
 		response.setContentType("text/html; charset=euc-kr");
 		PrintWriter pw = response.getWriter();
@@ -600,9 +601,13 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/reserve_complete.do")
-	public String reserveComplete(FundingMainVO mainvo, Model model) throws Exception {
+	public String reserveComplete(FundingMainVO mainvo, Model model, HttpServletRequest request) throws Exception {
 		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));		
-
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = fms.selectOne(login);
+		model.addAttribute("member", member);
 		return "funding/reserve_complete";
 	}
 	

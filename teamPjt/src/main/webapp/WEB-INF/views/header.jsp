@@ -31,7 +31,7 @@
                 <a class="navbar-brand" href="<%=request.getContextPath()%>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/111.png" style="width: 120px; height: 60px; padding: 5px;">
                 </a>
-                
+                <div class="space"></div>
                 <!-- 로그인 전 -->
              <c:if test="${login eq null}">
                 <div class="before_login2">

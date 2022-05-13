@@ -67,8 +67,7 @@
 	    	
 		  
 		}
-    </script>
-<script>
+	    
     // 아이디 비밀번호 입력 안 한 경우
     function loginCheck(){
     	var loginForm = document.loginForm;
@@ -76,9 +75,7 @@
     	var memPw = document.getElementById('memPw').value;
     	
     	if(memEmail == ""){
-    		alert("아이디를 입력해주세요.");
     	} else if (memPw == ""){
-    		alert("비밀번호를 입력해주세요.");
     	} else {
     		loginForm.submit();
     	}
@@ -105,7 +102,7 @@
 	        	<div class="card">
 	        		<h1 class="title">SNS 로그인</h1>
 	        		<div class="input-container" style="margin_bottom: 60px">
-	        			<button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" style="width: 100%; height: 50px;">카카오</button>
+	        			<button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" style="width: 70%; height: 50px;">카카오</button>
 <!-- 		        		<button type="button" onclick="Fnkakao()" class="btn_img"> -->
 <%-- 		        			<img src="<%=request.getContextPath()%>/resources/image/member/kakao_login_medium_narrow.png" style="height: 48px"> --%>
 <!-- 		        		</button> -->
@@ -122,7 +119,7 @@
 						<div class="bar"></div>
 					</div>
 					<div class="button-container">
-						<button id="login" onclick="document.getElementById('login').submit();"><span>로그인</span></button>
+						<button id="login" onclick="loginCheck();"><span>로그인</span></button>
 					</div>
 					<div class="footer-join">
 						<a href="emailpw_find.do">이메일, 비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;

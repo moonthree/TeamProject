@@ -382,17 +382,19 @@
 	<!-- 주문 번호 -->
 	<insert id="insertOrder" parameterType="Funding_orderVO">
 		INSERT INTO funding_order(
-			funding_order_total_price
+			member_idx
+		  , funding_idx
+		  , funding_order_donation
+		  , funding_order_total_price
 		  , funding_order_pay_state
 		  , funding_order_date
-		  , member_idx
-		  , funding_idx
 		)VALUES(
-			#{funding_order_total_price}
+			#{member_idx}
+		  , #{funding_idx}
+		  , #{funding_order_donation}
+		  , #{funding_order_total_price}
 		  , #{funding_order_pay_state}
 		  , now()
-		  , #{member_idx}
-		  , #{funding_idx}
 		)
 	</insert>
 	
@@ -446,4 +448,11 @@
 		  , #{funding_order_pay_register_num}
 		)
 	</insert>
+	
+	<!-- 결제 금액 합산 -->
+	<update id="addPrice" parameterType="Funding_orderVO">
+		UPDATE funding
+		SET    funding_current_price = (funding_current_price + #{funding_order_total_price})
+		WHERE  funding_idx = #{funding_idx}
+	</update>
 </mapper>
