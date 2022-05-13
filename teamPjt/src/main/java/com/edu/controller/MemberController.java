@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.edu.service.MypageService;
 import com.edu.service.memberService;
 import com.edu.vo.MemberVO;
 
@@ -23,7 +24,7 @@ public class MemberController {
 
 	@Autowired
 	private memberService memberService;
-
+	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
@@ -43,13 +44,12 @@ public class MemberController {
 			HttpSession session = request.getSession(true);
 			
 			MemberVO login = new MemberVO();
-      
+			
 			login.setMember_idx(member.getMember_idx());
 			login.setMember_email(member.getMember_email());
 			login.setMember_password(member.getMember_password());
 			login.setMember_name(member.getMember_name());
 			login.setMember_level(member.getMember_level());
-
 			
 			session.setAttribute("login", login);
 			

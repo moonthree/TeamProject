@@ -131,6 +131,12 @@ a:active{
     width: 180px;
 } 
 
+.login_profile_img {
+    width: 28px;
+    height: 28px;
+    border-radius: 70%;
+}
+
 .mypage_box{
     margin-left: 10px;
     position: relative;
@@ -177,6 +183,12 @@ a:active{
     .before_login, .after_login{
         visibility: hidden;
     }
+    .navbar{
+    	display: flex;
+    }
+    .space{
+    	display: flex;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -188,6 +200,7 @@ a:active{
     }
 }
 
+/* 검색창 사라짐 */
 @media screen and (max-width: 1200px) {
     .search_container{
         display: none;

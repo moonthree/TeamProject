@@ -60,6 +60,28 @@
 	label{
 		cursor: pointer;
 	}
+	
+	#my_modal {
+        display: none;
+        width: 500px;
+	    height: 445px;
+	    line-height: 2;
+	    padding: 20px 30px;
+	    background-color: #fefefe;
+	    border: 1px solid #888;
+	    border-radius: 3px;
+    }
+
+    #my_modal .modal_close_btn {
+        position: absolute;
+	    bottom: 20px;
+	    right: 40px;
+	    text-decoration-line: none;
+	    cursor: pointer;
+	    font-size: 18px;
+	    font-weight: 600;
+	    color: green;
+    }
 </style>
 <script>
     function handleOnInput(el, maxlength) {
@@ -73,25 +95,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- 	<c:import url="/header.do"></c:import> --%>
-	<%@include file ="../header.jsp" %>
+	<c:import url="/header.do"></c:import>
     <main>
-    	
-    <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
+    <!-- 펀딩 제목  -->
+	<div><h3 style="text-align: center; font-weight: bold;padding: 30px;color: #F2EDD7;background-color: #393232;">${param.funding_title }</h3></div>
+    <div class="container" style="margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
             	<input type="hidden" name="funding_title" value="${param.funding_title}">
-                <div><h3 style="text-align: center; font-weight: bold;">${param.funding_title}</h3></div>
-                <div class="wrap" style="margin: 30px 0px 10px auto;">
-                    <div class="step" style="text-align: center; width: 280px; margin: 0 auto; font-weight: 600;">
+                <div class="wrap" style="margin: 30px 0px 20px auto;">
+                    <div class="step" style="text-align: center; width: 455px; margin: 0 auto; font-weight: 600;">
                         <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">옵션 선택</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
                         <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">결제 예약</div>
+                        <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
+                        <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">예약 완료</div>
                     </div>
                 </div>
             </div>
         </div>
-        <form id="reserveform" action="reserve.do" method="post">
+        <form id="reserveform" name="reserveform" action="reserve.do" method="post">
         <!-- 옵션 정보 -->
         <div class="row" style="margin-top: 30px;">
             <div class="col-xs-12" style="width: 100%;">
@@ -117,52 +140,16 @@
 			                            </div>
 			                        </th>
 			                        <td style="border-top: 1px dashed gray;">
-			                            <div>
-			                            <c:if test="${check eq 1 }">
-			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num1}">
-											수량: ${param.p_num1}개
-			                            </c:if>
-			                            <c:if test="${check eq 2 }">
-			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num2}">
-											수량: ${param.p_num2}개
-			                            </c:if>
-			                            <c:if test="${check eq 3 }">
-			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
-											수량: ${param.p_num3}개
-			                            </c:if>
-			                            <c:if test="${check eq 4 }">
-			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
-											수량: ${param.p_num4}개
-			                            </c:if>
-			                            <c:if test="${check eq 5 }">
-			                            	<input type="hidden" id="count" name="funding_order_option_select_count" value="${param.p_num3}">
-											수량: ${param.p_num5}개
-			                            </c:if>
-			                            </div>
+			                       		<c:set var="p_num" value="p_num${check}" />
+			                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
+			                       		수량: <c:out value="${param[p_num]}"/>개
 			                        </td>
 			                        <td style="border-top: 1px dashed gray;">
 			                        	<!-- 펀딩 옵션별 금액 -->
 				                        <div class="sum" id="sum">
-				                        	<c:if test="${check eq 1 }">
-				                        		<input type="hidden" id="sum1" value="${list.funding_option_price*param.p_num1}">
-				                        		<fmt:formatNumber value="${list.funding_option_price*param.p_num1}" type="number" />원
-			                            	</c:if>
-			                            	<c:if test="${check eq 2 }">
-				                            	<input type="hidden" id="sum2" value="${list.funding_option_price*param.p_num2}">
-			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num2}" type="number" />원
-			                            	</c:if>
-			                            	<c:if test="${check eq 3 }">
-			                            		<input type="hidden" id="sum3" value="${list.funding_option_price*param.p_num3}">
-			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num3}" type="number" />원
-			                            	</c:if>
-			                            	<c:if test="${check eq 4 }">
-			                            		<input type="hidden" id="sum4" value="${list.funding_option_price*param.p_num4}">
-			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num4}" type="number" />원
-			                            	</c:if>
-			                            	<c:if test="${check eq 5 }">
-			                            		<input type="hidden" id="sum5" value="${list.funding_option_price*param.p_num5}">
-			                            		<fmt:formatNumber value="${list.funding_option_price*param.p_num5}" type="number" />원
-			                            	</c:if>
+				                        	<c:set var="p_price" value="p_price${check}" />
+				                        	<input type="hidden" id="sum1" value="${param[p_price]*param[p_num]}">
+				                        	<fmt:formatNumber value="${param[p_price]*param[p_num]}" type="number" />원
 				                        </div>
 			                        </td>
 			                    </tr>
@@ -176,14 +163,20 @@
                             <div>추가 후원금</div>
                         </th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
-	                        <input type="hidden" id="addDonation_id" value="${param.addDonation}">
-	                        	<div id="addDonation"></div>
+	                        <c:if test="${param.addDonation == ''}">0원
+	                        	<input type="hidden" name="funding_order_donation" value="0">
+	                        </c:if>
+	                        <c:if test="${param.addDonation != ''}">
+	                        	<input type="hidden" name="funding_order_donation" value="${param.addDonation}">
+		                        <fmt:formatNumber value="${param.addDonation}" type="number" />원
+	                        </c:if>
                         </td>
                     </tr>
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">배송비</th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
                         	<input type="hidden" id="expressFee" name="expressFee" value="0">
+                        	<fmt:formatNumber value="0" type="number" />원
                         	<div></div>
                         </td>
                     </tr>
@@ -192,6 +185,7 @@
                         <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
                         	<!-- 배송비 추가 해야 함 -->
                         	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
+                        	<fmt:formatNumber value="${param.sum_p_price}" type="number" />원
                         	<div id="sumTotal"></div>
                         </th>
                     </tr>
@@ -228,7 +222,7 @@
                             <div class="form-check" style="text-align: left;">
                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" style="zoom: 1.5;">
                                 <label class="form-check-label" for="defaultCheck1" style="cursor:pointer; ">
-                                  <span style="font-weight: bold;">(필수)</span> 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.
+                                  	<span style="font-weight: bold">(선택)</span> 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.
                                 </label>
                               </div>
                           </td>
@@ -344,59 +338,58 @@
         <div class="row">
             <!-- 결제 정보 -->
             <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보</div>
-            <div class="col-lg-8">
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3" checked>
-                        <label class="form-check-label" for="inlineRadio3">직접 입력</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4">
-                        <label class="form-check-label" for="inlineRadio4">네이버 페이</label>
-                    </div>
-                </div>
-                <hr>
+            <div class="col-lg-7">
+<!--                 <div class="form-group"> -->
+<!--                     <div class="form-check form-check-inline"> -->
+<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3" checked> -->
+<!--                         <label class="form-check-label" for="inlineRadio3">직접 입력</label> -->
+<!--                     </div> -->
+<!--                     <div class="form-check form-check-inline"> -->
+<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4"> -->
+<!--                         <label class="form-check-label" for="inlineRadio4">네이버 페이</label> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <hr> -->
                 <div>
                      <div class="form-group">
                          <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
                          <div class="row">
                              <div class="col">
-                                 <input type="number" name="card_num" oninput='handleOnInput(this, 4)' class="form-control">
+                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required">
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" class="form-control" maxlength="4">
+                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" class="form-control" maxlength="4">
+                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="number" name="card_num" oninput='handleOnInput(this, 4)' class="form-control">
+                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required>
                              </div>
                          </div>
                      </div>
                      <div class="form-row">
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">유효기간</label>
-                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5">
+                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required>
                          </div>
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">카드 비밀번호</label>
-                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2">
+                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required>
                          </div>
                      </div>
                      <div class="form-group">
-                         <label for="" style="font-weight: bold; margin-bottom: 0px;">생년월일 (주민번호 앞 6자리)</label>
-                         <small id="" class="form-text text-muted" style="margin-top: 0px; margin-bottom: 10px;">무기명 법인카드는 사업자등록번호 10자리를 입력하세요.</small>
-                         <input type="text" name="funding_order_pay_register_num" class="form-control" id="" maxlength="10">
+                         <label for="" style="font-weight: bold;">생년월일 (주민번호 앞 6자리)</label>
+                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required>
                      </div>   
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div style="font-weight: 600;">[ 결제 예약시 유의사항 ]</div>
                 <div style="padding: 10px; line-height: 2;">
                     <ul style="padding-left: 10px;">
                         <li>
-							결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있으니, 결제수단이 유효한지 한번 확인하세요
+							결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있으니, 결제수단이 유효한지 한번 확인하세요.
                         </li>
                         <li>
                             1차 결제 실패 시 실패일로부터 3 영업일 동안 재 결제를 실행합니다.
@@ -421,8 +414,8 @@
                       <tr>
                         <th scope="col" colspan="2">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">전체 동의하기</label>
+                                <input type="checkbox" class="custom-control-input" id="checkAll" name="checkAll">
+                                <label class="custom-control-label" for="checkAll">전체 동의하기</label>
                             </div>
                         </th>
                       </tr>
@@ -431,81 +424,81 @@
                       <tr>
                         <td scope="row" style="text-align: left;">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2">개인정보 제3자 제공 동의</label>
+                                <input type="checkbox" class="custom-control-input" id="chk1" name="checkbox" required="required">
+                                <label class="custom-control-label" for="chk1"><span style="font-weight: bold">(필수)</span> 개인정보 제3자 제공 동의</label>
                             </div>
                         </td>
                         <td>
-                            <a href="#" style="text-decoration: underline; color: gray;">보기</a>
+                            <!-- 모달창 -->
+                            <div id="my_modal" style="text-align: left">
+							 	<div style="font-weight: bold; font-size: 22px;">개인정보 제3자 제공 동의</div>
+							    <hr>
+								'펀딩하기'를 통한 결제 및 리워드 전달 서비스를 제공하기 위해, 이용자의 사전 동의 아래 제3자(프로젝트 판매자)에게 제공합니다.<br>
+								판매자에게 전달되는 개인 정보는 기재된 목적 달성 후 파기에 대한 책임이 판매자에게 있으며, 파기하지 않아 생기는 문제에 대한 법적 책임은 판매자에게 있습니다.<br>
+								아래 내용에 대하여 동의를 거부하실 수 있으며, 거부 시 서비스 이용이 제한됩니다.
+								<hr>
+							    <a class="modal_close_btn">확인</a>
+							</div>
+							<button id="popup_open_btn" style="border: none; text-decoration: underline; color: gray; background-color: transparent;">내용 보기</button>
                         </td>
                       </tr>
                       <tr>
                         <td scope="row" style="text-align: left;">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label" for="customCheck3">책임 규정에 대한 동의</label>
+                                <input type="checkbox" class="custom-control-input" id="chk2" name="checkbox" required="required">
+                                <label class="custom-control-label" for="chk2"><span style="font-weight: bold">(필수)</span> 후원 유의사항 확인</label>
                             </div>
                         </td>
                         <td>
-                            <a href="#" style="text-decoration: underline; color: gray;">보기</a>
+                        	<div class="accordion" id="accordionExample">
+							  <div>
+							    <div>
+							      <h5 class="mb-0">
+							        <button class="btn btn-link" id="accordionbtn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							          	확인
+							        </button>
+							      </h5>
+							    </div>
+							  </div>
+							</div>
                         </td>
+                      </tr>
+                      <tr>
+                      	<td colspan="2" style="padding-top: 0px;">
+                      		<div class="accordion" id="accordionExample">
+							  <div>
+							    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+							      <div style="text-align: left;">
+									<ul>
+										<li style="font-size: 13px;line-height: 2;">
+											후원은 구매가 아닌 창의적인 계획에 자금을 지원하는 일입니다.<br>
+											텀블벅에서의 후원은 아직 실현되지 않은 프로젝트가 실현될 수 있도록 제작비를 후원하는 과정으로, 기존의 상품 또는 용역을 거래의 대상으로 하는 매매와는 차이가 있습니다. 
+											따라서 전자상거래법상 청약철회 등의 규정이 적용되지 않습니다.
+										</li>
+										<li style="font-size: 13px;line-height: 2;">
+											프로젝트는 계획과 달리 진행될 수 있습니다.<br>
+											예상을 뛰어넘는 멋진 결과가 나올 수 있지만 진행 과정에서 계획이 지연, 변경되거나 무산될 수도 있습니다. 
+											본 프로젝트를 완수할 책임과 권리는 창작자에게 있습니다.	
+										</li>
+									</ul>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+                      	</td>
                       </tr>
                     </tbody>
                   </table>
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px;">
-            <button type="button" class="btn btn-success" onclick="document.getElementById('reserveform').submit();" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
+            <button type="button" class="btn btn-success" id="next" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
         </div>
     </div>
     </main>
-<%--     <c:import url="/footer.do"></c:import> --%>
-   	<%@include file ="../footer.jsp" %>
+    <c:import url="/footer.do"></c:import>
    	
 <script type="text/javascript">
-	$(function(){
-		// 옵션
-		var item = document.querySelector('#price');
-		var price = parseInt(item.getAttribute('value'));
-		var count = item.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.value;
-		var total = parseInt(price * count);
-		
-		// 후원금
-		var donation = document.querySelector('#addDonation_id').getAttribute('value');
-		if (donation == '') {
-		    document.querySelector('#addDonation').textContent = "0원";
-        }else{
-	    	document.querySelector('#addDonation').textContent = parseInt(donation).formatNumber()+"원";
-        }
-		
-        // 배송비
-        var item3 = document.querySelector('#expressFee');
-		var expressFee = parseInt(item3.getAttribute('value'));
-        if (expressFee == '') {
-        	expressFee = 0;
-        }
-        expressFee = parseInt(expressFee);
-        item3.nextElementSibling.textContent = expressFee.formatNumber()+"원";
-        
-        // 합계
-        var element = parseInt(document.querySelector('#sumTotal_id').getAttribute('value'));
-	    document.querySelector('#sumTotal').textContent = element.formatNumber()+"원";
-
-        
-	});
-	
-	Number.prototype.formatNumber = function(){
-	    if(this==0) return 0;
-	    let regex = /(^[+-]?\d+)(\d{3})/;
-	    let nstr = (this + '');
-	    while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
-	    return nstr;
-	};
-	
-	
-	function showPay(className){
-		
-	}
 	
 	/* 다음 주소 연동 */
 	function execution_daum_address(){
@@ -564,7 +557,6 @@
 	//  연락처
 		function mobile_keyup(obj){
 		    let mobile_len=obj.value.length;
-		    console.log(mobile_len)
 		    if(event.keyCode==8){
 		        obj.value=obj.value.slice(0,mobile_len); 
 		        return 0; 
@@ -584,6 +576,7 @@
 		    }
 		}
 	
+	// 주소 선택
 		function setDisplay(){
 		    if($('input:radio[id=inlineRadio1]').is(':checked')){
 		        $('.addressInfo_input_div_1').show();
@@ -593,8 +586,189 @@
 		        $('.addressInfo_input_div_2').show();
 		    }
 		}
-
-
+	
+	// 체크박스 - 전체 선택
+		$(document).ready(function(){
+            //전체 체크박스 클릭
+            $("#checkAll").click(function() {
+                if ($("#checkAll").prop("checked")) {
+                    $(".custom-control-input").prop("checked", true);
+                } else {
+                    $(".custom-control-input").prop("checked", false);
+                }
+            });
+            //전체 체크박스 선택중 체크박스 하나를 풀었을때 "전체" 체크해제
+            $(".custom-control-input").click(function() {
+                if ($("input[name='checkbox']:checked").length == 2) {
+                    $("#checkAll").prop("checked", true);
+                } else {
+                    $("#checkAll").prop("checked", false);
+                }
+            });
+        });    
+	
+	// 유효성 검사
+        $("#next").click(function(){
+        	setTimeout( function(){
+        	var funding_express_name1 = $('input[name=funding_express_name1]').val();
+        	var funding_express_phone1 = $('input[name=funding_express_phone1]').val();
+        	var funding_express_postnum1 = $('input[name=funding_express_postnum1]').val();
+        	var funding_express_addr2_1 = $('input[name=funding_express_addr2_1]').val();
+        	var card_num1 = $('input[id=card_num1]').val();
+        	var card_num2 = $('input[id=card_num2]').val();
+        	var card_num3 = $('input[id=card_num3]').val();
+        	var card_num4 = $('input[id=card_num4]').val();
+        	var funding_order_pay_card_valid = $('input[name=funding_order_pay_card_valid]').val();
+        	var funding_order_pay_card_password = $('input[name=funding_order_pay_card_password]').val();
+        	var funding_order_pay_register_num = $('input[name=funding_order_pay_register_num]').val();
+        	var reserveform = document.reserveform;
+        	
+        	// 필수 동의 안했을 때
+            if($("#chk1").is(":checked")){
+            } else {
+                alert("개인정보 제3자 제공 동의를 하셔야 결제예약이 가능합니다.")
+                return false;
+            }
+            
+            if($("#chk2").is(":checked")){
+            } else { 
+                alert("후원 유의사항을 확인하셔야 합니다.");
+                return false;
+            }
+            
+            // 동의 후 입력 확인
+            if($("#chk1").is(":checked") && $("#chk2").is(":checked")){
+            	// 배송지 - 새로 입력 확인
+                if($('input:radio[id=inlineRadio1]').is(':checked')){
+                	if (funding_express_name1 == '') {
+                        alert('신규 배송지에 받을사람을 입력하세요.'); 
+                        setTimeout(function(){
+                          $('input[name=funding_express_name1]').focus();
+                        }, 0);
+                        return false;
+                      } else if (funding_express_phone1 == '') {
+                        alert('신규 배송지에 휴대폰 번호를 입력하세요.');
+                        setTimeout(function(){
+                        	$('input[name=funding_express_phone1]').focus();
+                        }, 0);
+                        return false;
+                      } else if (funding_express_postnum1 == '') {
+                        alert('우편번호를 검색해서 주소를 입력하세요.');
+                        setTimeout(function(){
+                        	$('input[name=funding_express_postnum1]').focus();
+                        }, 0);
+                        return false;
+                      } else if (funding_express_addr2_1 == '') {
+                        alert('상세 주소를 입력하세요.');
+                        setTimeout(function(){
+                        	$('input[name=funding_express_addr2_1]').focus();
+                        }, 0);
+                        return false;
+                      }
+                }
+            	
+            	// 결제 정보 확인
+            	if (card_num1.length < 4 || (card_num2.length < 4) || (card_num3.length < 4) || card_num4.length < 2) {
+					alert('신용(체크)카드 번호를 정확히 입력해주세요.');
+					setTimeout(function(){
+                        $('input[id=card_num1]').focus();
+                    }, 0);
+                    return false;
+                } else if (funding_order_pay_card_valid.length < 5) {
+                    alert('유효기간을 정확히 입력해주세요.');
+                    setTimeout(function(){
+                        $('input[name=funding_order_pay_card_valid]').focus();
+                    }, 0);
+                    return false;
+                } else if (funding_order_pay_card_password.length < 2) {
+                    alert('비밀번호 앞 두자리를 정확히 입력해주세요.');
+                    setTimeout(function(){
+                      $('input[name=funding_order_pay_card_password]').focus();
+                    }, 0);
+                    return false;
+                } else if (funding_order_pay_register_num.length != 6) {
+                    alert('생년월일을 정확히 입력해주세요.');
+                    setTimeout(function(){
+                      $('input[name=buyerAuthNum]').focus();
+                    }, 0);
+                    return false;
+                  }
+            	else{
+        			reserveform.submit();
+            	}
+        	}
+        	}, 0);
+        });
+	
+	// 체크되면 아코디언 닫기
+		$("#checkAll").click(function(){
+			if($("#chk2").is(":checked")){
+				var class_name = $('#collapseOne').attr('class');
+				if(class_name == 'collapse show'){
+		           	$('#accordionbtn').on('click', function(){});
+		           	$('#accordionbtn').trigger('click');
+				}
+	        }
+		});
+		$("#chk2").click(function(){
+			if($("#chk2").is(":checked")){
+				var class_name = $('#collapseOne').attr('class');
+				if(class_name == 'collapse show'){
+		           	$('#accordionbtn').on('click', function(){});
+		           	$('#accordionbtn').trigger('click');
+				}
+	        }
+		});
+	
+	// 모달창
+		function modal(id) {
+	    var zIndex = 9999;
+	    var modal = $('#' + id);
+	
+	    // 모달 div 뒤에 희끄무레한 레이어
+	    var bg = $('<div>')
+	        .css({
+	            position: 'fixed',
+	            zIndex: zIndex,
+	            left: '0px',
+	            top: '0px',
+	            width: '100%',
+	            height: '100%',
+	            overflow: 'auto',
+	            // 레이어 색갈은 여기서 바꾸면 됨
+	            backgroundColor: 'rgba(0,0,0,0.4)'
+	        })
+	        .appendTo('body');
+	
+	    modal
+	        .css({
+	            position: 'fixed',
+	            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+	            // 시꺼먼 레이어 보다 한칸 위에 보이기
+	            zIndex: zIndex + 1,
+	
+	            // div center 정렬
+	            top: '50%',
+	            left: '50%',
+	            transform: 'translate(-50%, -50%)',
+	            msTransform: 'translate(-50%, -50%)',
+	            webkitTransform: 'translate(-50%, -50%)'
+	        })
+	        .show()
+	        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	        .find('.modal_close_btn')
+	        .on('click', function() {
+	            bg.remove();
+	            modal.hide();
+	        });
+		}
+		
+		$('#popup_open_btn').on('click', function() {
+		    // 모달창 띄우기
+		    modal('my_modal');
+		});
+		
 </script>    
 </body>
 </html>

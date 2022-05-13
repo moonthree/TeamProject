@@ -236,6 +236,14 @@ public class fundingMainServiceImpl implements fundingMainService{
 		return dao.fun_option_reg(vo);
 	}
 
+
+	// 결제 금액 합산
+	@Override
+	public void addPrice(Funding_orderVO ordervo) {
+		dao.addPrice(ordervo);
+	}
+
+	
 	//펀딩 옵션 수량 감소 메소드
 	@Override
 	public int update_option(Funding_order_optionVO orderOptionvo) {
