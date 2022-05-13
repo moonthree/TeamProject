@@ -630,13 +630,16 @@ $('.noshowQna').click(function(){
 	$(".tr"+funding_qna_idx).after('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content+'</td><td></td><td></td></tr>')
 });
 	
-//qna 답변 완료일 때 제목을 누르면
+//qna 답변 완료일 때 제목을 누르면ssss
 $('.showQna').click(function(){	
 	var funding_qna_idx = $(this).data('id');
 	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
 	var funding_qna_content = $(this).data('id2');
+	var funding_idx = $(this).data('id3');
+	$('input[name=funding_idx]').attr('value', funding_idx);
 	var objParams = {
-			funding_qna_idx : $(".funding_qna_idx").val()
+			funding_qna_idx : $(".funding_qna_idx").val(),
+			funding_idx : $(".funding_idx").val()
 		};
 		
 		$.ajax({

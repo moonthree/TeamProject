@@ -63,7 +63,7 @@
 		FROM funding
 		WHERE 1=1 
 		AND funding_title LIKE CONCAT('%${keyword}%') 
-		AND funding_current_state = 1
+		AND funding_permit_state = 1
 	</select>
 	
 	<select id="searchList" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
