@@ -42,9 +42,9 @@ $(document).on("click", ".menu div", function() {
 			<thead>		
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do">회원 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="approval.do">상품 승인 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="management_product.do">상품 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="management_member.do">회원 관리 페이지(관리자)</a></td>
 				</tr>
 			</thead>
 		</table>
@@ -157,6 +157,16 @@ $(document).on("click", ".menu div", function() {
                           <div class="col-md-4" style="text-align: right;"><br><button type="button" class="btn btn-light mb-3" onclick="location.href='info_funding.do'">내역 ></button></div>
                         </div>
               <div class="row g-3">
+              <c:if test="${select3Funding.size() eq 0}">
+              <div class="col-lg-4 col-md-12 col-sm-12" style="visibility:hidden;" >
+                    <div class="card" style="cursor:pointer;">
+                      <img src="../resources/image/funding_main/doghome.png" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <div class="card-body">
+                        <p class="card-text">제목</p>
+                      </div>
+                    </div>
+                </div>
+              </c:if>
               <c:if test="${select3Funding.size()>0}">
 				<c:forEach var="item" items="${select3Funding}">	  
 			              
@@ -214,11 +224,22 @@ $(document).on("click", ".menu div", function() {
                       <div class="col-md-4" style="text-align: right;"><br><button type="button" class="btn btn-light mb-3" onclick="location.href='info_zzim.do'">내역 ></button></div>
               </div>
               <div class="row g-3">
-              
+              <div></div>
+              <c:if test="${select3Zzim.size() eq 0}">
+              <div class="col-lg-4 col-md-12 col-sm-12" style="visibility:hidden;" >
+                    <div class="card" style="cursor:pointer;">
+                      <img src="../resources/image/funding_main/doghome.png" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <div class="card-body">
+                        <p class="card-text">제목</p>
+                      </div>
+                    </div>
+                </div>
+              </c:if>
               <c:if test="${select3Zzim.size()>0}">
 				<c:forEach var="item" items="${select3Zzim}">
                 <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="card" onclick="location.href='view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+                
+                    <div class="card" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
                       <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
                         <p class="card-text">${ item.funding_title }</p>

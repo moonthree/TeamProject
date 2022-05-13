@@ -190,54 +190,32 @@
                 
                 <div class="col-md-12">
                     <div class="row g-3">
-                        <div class="col-lg-3 col-md-4 col-sm-12">
+                    <c:if test="${select4Funding.size()>0}">
+						<c:forEach var="item" items="${select4Funding}">
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-12" <c:if test="${select4Funding.size() eq 1}"> class="outer" </c:if>>
                             <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
+                                <div class="img-container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+                                    <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top card_img" alt="funding_img">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
+                                    <div style="font-weight:100">
+                                    	<c:choose>
+                                    		<c:when test="${ item.funding_category eq 0 }">강아지 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 1 }">고양이 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 2 }">다른동물 용품</c:when>
+                                    	</c:choose>
+                                    </div>
+                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
+                                   
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12" id="outer">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        </c:forEach>
+                        </c:if>
+                        
+                        
                     </div>
                 </div>
             </div>
