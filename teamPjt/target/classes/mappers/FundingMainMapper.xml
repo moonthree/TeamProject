@@ -494,5 +494,4 @@
 		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
 		where funding_option_idx = #{funding_order_option_select_idx}
 	</update>
-	
 </mapper>

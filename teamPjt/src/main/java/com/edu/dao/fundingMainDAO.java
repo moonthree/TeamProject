@@ -153,10 +153,10 @@ public class fundingMainDAO {
 	// 결제 금액 합산
 	public void addPrice(Funding_orderVO ordervo) {
 		sqlSession.update("FundingMainMapper.addPrice", ordervo);
-	
+	}
 	//옵션 수량 감소 메소드
 	public int update_option(Funding_order_optionVO opderOptionvo) {
 		
-		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo
+		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo);
 	}
 }
