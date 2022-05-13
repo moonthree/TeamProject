@@ -97,4 +97,7 @@ public interface fundingMainService {
 	// 결제 금액 합산
 	void addPrice(Funding_orderVO ordervo);
 	
+	//펀딩 옵션 수량 감소 메소드
+	int update_option(Funding_order_optionVO orderOptionvo);
+	
 }

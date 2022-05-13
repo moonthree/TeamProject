@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.AdminService;
+import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
 
@@ -31,8 +32,34 @@ public class AdminController {
 		return "mypage/management_product";
 	}
 
-	@RequestMapping(value = "/management_member.do", method = RequestMethod.GET)
-	public String management_member(Model model,Pagination page) {
+	@RequestMapping(value = "/management_member.do")
+	public String management_member(Model model ,Pagination page1) {
+		
+			System.out.println("메소드 들어옴");
+			model.addAttribute("seller", adminService.memberList_sell(page1));
+			PageMaker pageMaker_sell = new PageMaker();
+			pageMaker_sell.setPage(page1);
+			pageMaker_sell.setTotalCount(adminService.count_seller());
+			model.addAttribute("pageMaker_sell", pageMaker_sell);
+			
+			System.out.println(adminService.memberList_sell(page1).toString());
+		
+			
+			model.addAttribute("company", adminService.memberList_company(page1));
+			System.out.println(adminService.memberList_sell(page1));
+			PageMaker pageMaker_company = new PageMaker();
+			pageMaker_company.setPage(page1);
+			pageMaker_company.setTotalCount(adminService.count_company());
+			model.addAttribute("pageMaker_company", pageMaker_company);
+			 
+		
+		return "mypage/management_member";
+	}
+	
+	/*
+	@RequestMapping(value = "/productPage_sell.do")
+	public String productPage_sell(Model model,Pagination page) {
+		
 		
 		//소비자 계정  model에 담기
 		model.addAttribute("seller", adminService.memberList_sell(page));
@@ -41,15 +68,12 @@ public class AdminController {
 		pageMaker_sell.setTotalCount(adminService.count_seller());
 		model.addAttribute("pageMaker_sell", pageMaker_sell);
 		
-		//판매자 계정  model에 담기
-		model.addAttribute("company", adminService.memberList_company(page));
-		PageMaker pageMaker_company = new PageMaker();
-		pageMaker_company.setPage(page);
-		pageMaker_company.setTotalCount(adminService.count_company());
-		model.addAttribute("pageMaker_company", pageMaker_company);
 		
-		return "mypage/management_member";
+		return "mypage/page_product/productPage_sell";
 	}
+	*/
+	
+	
 	
 	//펀딩 제품 상태 변경하기 위한 ajax 컨트롤러
 	@RequestMapping(value = "/update_FundingState.do")

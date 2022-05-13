@@ -22,13 +22,14 @@
 		   ,member_photo
 		FROM member
 		WHERE member_level = 0
-		order by member_idx asc limit #{rowStart}, 9;
+		order by member_idx asc limit #{rowStart},10
 	</select>
 	<!-- 소비자 계정 page -->
 	<select id="seller_Count" resultType="int">
 		SELECT COUNT(member_idx)
 		FROM member
 		where member_level = 0
+		AND member_idx > 0
 	</select>
 	
 	
@@ -51,13 +52,14 @@
 		   ,member_photo
 		FROM member
 		WHERE member_level = 1
-		order by member_idx asc limit #{rowStart}, 9;
+		order by member_idx asc limit #{rowStart},10
 	</select>
 	<!-- 판매자 계정 page -->
 	<select id="company_Count" resultType="int">
 		SELECT COUNT(member_idx)
 		FROM member
 		where member_level = 1
+		AND member_idx > 0
 	</select>
 	
 	

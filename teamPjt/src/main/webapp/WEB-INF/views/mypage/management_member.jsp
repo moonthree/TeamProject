@@ -7,54 +7,53 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        
+ <!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
-    
-    <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".dropdown-toggle").dropdown();
-        });
-    </script>
+        crossorigin="anonymous"></script>    
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/management_member.css">
+
+
+   <style type="text/css">
+   	.taaa{
+   	
+   		background: #99cc00;
+   	}
+   </style>
+
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
 <main id="wrapper">
 	<div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <h2 class="apptitle">회원 관리 페이지</h2>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <form class="form-inline my-2 my-lg-0 PMsearch">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-        <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
-            <li class="nav-item nav-pills viewtab" role="presentation">
-                <a class="nav-link active" data-toggle="tab" href="#fundingApproval" role="tab"
-                    aria-controls="fundingApproval" aria-selected="true"><span class="atab">소비자</span></a>
+	
+	<br>
+<ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
+            <li  id="li1" class="nav-item nav-pills viewtab" role="presentation" >
+         		 <button class="nav-link taaa" onclick="Funreset()"
+                  ><span  class="toptab">소비자</span></button>
+         			
             </li>
-            <li class="nav-item nav-pills viewtab" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#storeApproval" role="tab" aria-controls="storeApproval"
-                    aria-selected="false"><span class="toptab">판매자</span></a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <!--소비자-->
+            
+            <li id="li2" class="nav-item nav-pills viewtab" role="presentation">
            
-       
-            <div class="tab-pane fade active show " id="fundingApproval" role="tabpanel"
-                aria-labelledby="fundingApproval-tab">
-                <table class="table">
+                <button class="nav-link taaa"  onclick="Funreset2()"
+                  ><span  class="toptab">판매자</span></button>
+            
+            </li>
+            
+        </ul>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content"  id="myTabContent">
+  <div class="" id="tab1" > 소비자 선택됨
+  	 <table class="table">
                   <c:if test="${seller.size() == 0}">
                     	<h3>등록된 소비자 계정이 없습니다.</h3>
                     </c:if>
@@ -103,24 +102,26 @@
 		        	<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
 						    <c:if test="${pageMaker_sell.prev}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(pageMaker_sell.startPage - 1)}">이전</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.startPage - 1)}#tab1">이전</a></li>
 						    </c:if> 
 						
 						    <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(idx)}">${idx}</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
 						    </c:forEach>
 						
 						    <c:if test="${pageMaker_sell.next && pageMaker_sell.endPage > 0}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery(pageMaker_sell.endPage + 1)}">다음</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.endPage + 1)}#tab1">다음</a></li>
 						    </c:if> 
 						  </ul>
 					 </nav>
-				</div>
-			</div>
-          
-            <!--판매자-->
-            <div class="tab-pane fade" id="storeApproval" role="tabpanel" aria-labelledby="storeApproval-tab">
-                <table class="table">
+  				</div>
+  
+  
+  
+  </div>
+  <div class="" id="tab2" >
+  	판매자 선택됨
+  		 <table class="table">
                  <c:if test="${company.size() == 0}">
                     	<h3>등록된 판매자 계정이 없습니다.</h3>
                     </c:if>
@@ -169,25 +170,53 @@
 		        	<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
 						    <c:if test="${pageMaker_company.prev}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(pageMaker_company.startPage - 1)}">이전</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.startPage - 1)}#tab2">이전</a></li>
 						    </c:if> 
 						
 						    <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(idx2)}">${idx2}</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(idx2)}#tab2">${idx2}</a></li>
 						    </c:forEach>
 						
 						    <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery(pageMaker_company.endPage + 1)}">다음</a></li>
+						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.endPage + 1)}#tab2">다음</a></li>
 						    </c:if> 
 						  </ul>
 					 </nav>
 				</div>
-				
-				
-            </div>
-        </div>
-    </div>
+         </div>
+</div>
+
 </main>
 <c:import url="/footer.do"></c:import>
+ <script type="text/javascript">
+ 
+ window.onhashchange = function() { 
+     console.log("hash바뀜:" +document.location.href)
+}
+ 
+ 	 function Funreset(obj) {
+		location.href="#tab1";
+	
+		var hr = document.location.href.split('#');
+		
+		
+			$("#tab1").show();
+			$("#tab2").hide();
+			$("#li1").css('backgroundColor', '#99cc00');
+// 			$("#span1").css('backgroundColor', '#99cc00');
+			
+		
+	}
+ 	function Funreset2() {
+ 		location.href="#tab2";
+ 		
+		var hr = document.location.href.split('#');
+		console.log(hr[1]);
+		
+			$("#tab2").show();
+			$("#tab1").hide();
+	} 
+ 
+ </script>
 </body>
 </html>

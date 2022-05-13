@@ -488,4 +488,10 @@
 		SET    funding_current_price = (funding_current_price + #{funding_order_total_price})
 		WHERE  funding_idx = #{funding_idx}
 	</update>
+	<!-- 결제 완료 시 펀딩 옵션 수량 바뀜 -->
+	<update id="update_option" parameterType="Funding_order_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
+		where funding_option_idx = #{funding_order_option_select_idx}
+	</update>
 </mapper>

@@ -464,6 +464,7 @@ public class FundingController {
 		// 펀딩 주문 번호
 		int result = fms.insertOrder(ordervo);
 		
+		
 		// 펀딩 주문 옵션 저장
 		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
 		String[] select_count = request.getParameterValues("funding_order_option_select_count");
@@ -473,6 +474,12 @@ public class FundingController {
 			orderOptionvo.setFunding_order_option_select_idx(si);
 			orderOptionvo.setFunding_order_option_select_count(sc);
 			fms.insertOrderOption(orderOptionvo);
+			
+			//옵션 수량에 따른 펀딩 상품 옵션 수량 감소하게 함 -> update 수량
+			System.out.println("선택한 옵션 idx :" +orderOptionvo.getFunding_order_option_select_idx());
+			System.out.println("선택한 옵션 수량 : " +orderOptionvo.getFunding_order_option_select_count());
+			fms.update_option(orderOptionvo);
+			
 		}
 		
 		// 펀딩 주문 배송지 저장
@@ -501,6 +508,7 @@ public class FundingController {
 		expressvo.setFunding_express_addr1(addr1);
 		expressvo.setFunding_express_addr2(addr2);
 		fms.insertExpress(expressvo);
+		
 		
 		// 결제 정보 저장
 		String[] card_number = request.getParameterValues("card_num");
