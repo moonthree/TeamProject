@@ -37,8 +37,9 @@
 .div2{
     display: inline-block;
     border-radius: 50px;
-    width: 150px;
+    width: 32%;
     margin-bottom: 10px;
+    justify-content: space-evenly;
 }
 .clicked {
     color: white;
@@ -46,6 +47,51 @@
 }
 .clicked > span{
     background-color: red;
+}
+
+/*0513 추가*/
+.qnaWriteWarning{
+	background-color: #ffefef;
+    color: #ff7272;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.commuWriteWarning{
+    background-color: #ffefef;
+    color: #ff7272;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.commuWriteNotice{
+    font-size: 10px;
+}
+.modal-body {
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+.writeModalH4{
+    font-weight: bold;
+    padding-top: 5px;
+}
+.modal-header{
+    border-bottom: none;
+    padding-bottom: 0px;
+}
+.write_modal_close{
+    padding-bottom: 0px;
+}
+textarea{
+    width: 100%; 
+    max-width: 100%;
+    margin-top: 15px;
+}
+.bold{
+	font-weight: bold;
 }
 
 /*qna모달*/
@@ -76,12 +122,12 @@ input[class="cb"] {
     position: relative;
     bottom: 14px;
 }
-.qnaBtn{
+/* .qnaBtn{
     position: relative;
     bottom: 14px;
     left: 274px;
-}
-.qnaBtn2{
+} */
+/* .qnaBtn2{
     position: relative;
     bottom: 14px;
     left: 205px;
@@ -90,4 +136,4 @@ input[class="cb"] {
     position: relative;
     bottom: 14px;
     left: 210px;
-}
+} */
