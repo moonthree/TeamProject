@@ -402,7 +402,7 @@ public class MypageController {
 				changeExpressParam.put("funding_express_name", param.get("funding_express_name"));
 				changeExpressParam.put("funding_express_phone", param.get("funding_express_phone"));
 				changeExpressParam.put("funding_express_postnum", param.get("funding_express_postnum"));
-				changeExpressParam.put("funding_express_addr", param.get("funding_express_addr"));
+				changeExpressParam.put("funding_express_addr1", param.get("funding_express_addr1"));
 				changeExpressParam.put("funding_express_addr2", param.get("funding_express_addr2"));
 				changeExpressParam.put("funding_order_idx", param.get("funding_order_idx"));
 				
