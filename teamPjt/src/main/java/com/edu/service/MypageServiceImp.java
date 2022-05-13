@@ -20,6 +20,8 @@ import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_expressVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.ZzimVO;
 
@@ -62,7 +64,7 @@ public class MypageServiceImp implements MypageService{
 		return mdao.findPw(vo);
 	}
 	
-	//비밀번호 변경
+	//비밀번호 변경-멤버 페이지
 	@Override
 	public int changePw(ChangePwVO vo) {
 		return mdao.changePw(vo);
@@ -408,12 +410,19 @@ public class MypageServiceImp implements MypageService{
         }
     }
 
-    //펀딩 3개 & 찜 3개
+    //펀딩 3개
 	@Override
-	public List<FundingMainVO> select3Funding(int member_idx) {
+	public List<FundingInfoDetailVO> select3Funding(int member_idx) {
 		return mdao.select3Funding(member_idx);
 	}
-
+	
+	//펀딩 4개
+	@Override
+	public List<FundingMainVO> select4Funding(int member_idx) {
+		return mdao.select4Funding(member_idx);
+	}
+	
+	//찜 3개
 	@Override
 	public List<ZzimVO> select3Zzim(int member_idx) {
 		return mdao.select3Zzim(member_idx);
@@ -436,6 +445,13 @@ public class MypageServiceImp implements MypageService{
 	public List<FundingMainVO> myFundingList(int member_idx) {
 		return mdao.myFundingList(member_idx);
 	}
+	
+	//펀딩 내역2 - info_funding
+	@Override
+	public List<FundingInfoDetailVO> myFundingList2(int member_idx) {
+		return mdao.myFundingList2(member_idx);
+	}
+    
 
 	@Override
 	public List<FundingMainVO> myZzimList(int member_idx) {
@@ -448,18 +464,56 @@ public class MypageServiceImp implements MypageService{
 		return mdao.sellerFundingList(member_idx);
 	}
 
-	//funding_info_detail
+	/*funding_info_detail*/
+	//funding & funding_order
 	@Override
 	public FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo) {
 		return mdao.fundingDetail(vo);
 	}
-
+	//funding_order_pay
+	@Override
+	public Funding_order_payVO fundingPayDetail(int funding_order_idx) {
+		return mdao.fundingPayDetail(funding_order_idx);
+	}
+	//funding_order_express
+	@Override
+	public Funding_expressVO fundingExpressDetail(Map<String, Object> param) {
+		return mdao.fundingExpressDetail(param);
+	}
+	//funding_option
+	@Override
+	public List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx) {
+		return mdao.fundingOptionDetail(funding_order_idx);
+	}
+	
 	//찜 취소
 	@Override
 	public int deleteZzim(Map<String, Integer> paramMap) {
 		return mdao.deleteZzim(paramMap);
 	}
-    
+
+	//비밀번호 변경-마이페이지
+	@Override
+	public int changePw(Map<String, Object> paramMap) {
+		return mdao.changePassword(paramMap);
+	}
+	
+	//주소 변경 - funding_info_detail
+	@Override
+	public int changeExpress(Map<String, Object> paramMap) {
+		return mdao.changeExpress(paramMap);
+	}
+
+	
+	//펀딩 취소
+	public int fundingWithdraw(int funding_order_idx) {
+		return mdao.fundingWithdraw(funding_order_idx);
+	}
+	
+
+	
+
+	
    
 	
 	
