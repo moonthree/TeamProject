@@ -188,6 +188,7 @@ a:active{
     }
     .space{
     	display: flex;
+    	width: calc(100% - 435px);
     }
 }
 
@@ -206,7 +207,3 @@ a:active{
         display: none;
     }
 }
-
-
-
-

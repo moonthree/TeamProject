@@ -33,7 +33,7 @@
                 </a>
                 <div class="space"></div>
                 <!-- 로그인 전 -->
-             <c:if test="${login eq null}">
+             	<c:if test="${login eq null}">
                 <div class="before_login2">
                     <div>
                         <div class="mypage_box">
@@ -59,10 +59,10 @@
 <!--                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/> -->
 <!--                            </svg> -->
 							<!-- 프로필 사진 -->
-							<c:if test="${member.member_photo eq null }">
+							<c:if test="${member.member_photo eq '' }">
 								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
 							</c:if>
-							<c:if test="${member.member_photo ne null }">
+							<c:if test="${member.member_photo ne '' }">
 								<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
 							</c:if>
                             &nbsp;&nbsp;
@@ -136,7 +136,7 @@
                     </div>
                 </div>
                 <!-- 로그인 전 -->
-            <c:if test="${login eq null}">
+            	<c:if test="${login eq null}">
                 <!-- 로그인 회원가입 버튼 -->
                 <div class="before_login">
                     <div>
@@ -164,10 +164,10 @@
 <!--                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/> -->
 <!--                            </svg> -->
 							<!-- 프로필 사진 -->
-							<c:if test="${member.member_photo eq null }">
+							<c:if test="${member.member_photo eq '' }">
 								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
 							</c:if>
-							<c:if test="${member.member_photo ne null }">
+							<c:if test="${member.member_photo ne '' }">
 								<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
 							</c:if>
 							

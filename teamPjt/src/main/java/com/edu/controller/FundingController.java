@@ -26,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
+import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_expressVO;
@@ -543,12 +544,14 @@ public class FundingController {
 	
 	@RequestMapping(value = "/reserve_complete.do")
 	public String reserveComplete(FundingMainVO mainvo, Model model, HttpServletRequest request) throws Exception {
-		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));		
+		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));
+		
 		//세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = fms.selectOne(login);
 		model.addAttribute("member", member);
+		
 		return "funding/reserve_complete";
 	}
 	
