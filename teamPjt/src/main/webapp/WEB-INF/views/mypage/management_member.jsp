@@ -19,31 +19,25 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/management_member.css">
 
 
-   <style type="text/css">
-   	.taaa{
-   	
-   		background: #99cc00;
-   	}
-   </style>
-
 </head>
 <body>
-	<c:import url="/header.do"></c:import>
+   <c:import url="/header.do"></c:import>
 <main id="wrapper">
-	<div class="container">
-	
-	<br>
+   <div class="container">
+   
+   <br>
 <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
-            <li  id="li1" class="nav-item nav-pills viewtab" role="presentation" >
-         		 <button class="nav-link taaa" onclick="Funreset()"
-                  ><span  class="toptab">소비자</span></button>
-         			
+            <li class="nav-item nav-pills viewtab" role="presentation" >
+                  
+                  <a class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
+                    aria-controls="tab1"  aria-selected="true">소비자</a>
+                  
             </li>
             
-            <li id="li2" class="nav-item nav-pills viewtab" role="presentation">
+            <li class="nav-item nav-pills viewtab" role="presentation">
            
-                <button class="nav-link taaa"  onclick="Funreset2()"
-                  ><span  class="toptab">판매자</span></button>
+                <a class="nav-link" data-toggle="tab"   role="tab" aria-controls="tab2" href="#tab2"
+                    aria-selected="false"><span class="toptab">판매자</span></a>
             
             </li>
             
@@ -52,15 +46,16 @@
 
 <!-- Tab panes -->
 <div class="tab-content"  id="myTabContent">
-  <div class="" id="tab1" > 소비자 선택됨
-  	 <table class="table">
+  <div class="tab-pane fade active show" id="tab1" role="tabpanel"
+                aria-labelledby="tab1-tab"> 소비자 선택됨
+      <table class="table">
                   <c:if test="${seller.size() == 0}">
-                    	<h3>등록된 소비자 계정이 없습니다.</h3>
+                       <h3>등록된 소비자 계정이 없습니다.</h3>
                     </c:if>
                    <c:if test="${seller.size() > 0}">
                     <thead class="thead">
                         <tr>
-                        	 <th scope="col" class="PMtable"></th>
+                            <th scope="col" class="PMtable"></th>
                             <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
@@ -83,7 +78,7 @@
                      <tbody>
                      <c:forEach var="seller" items="${seller}" varStatus="status_sell">
                         <tr>
-                        	<th>no.${status_sell.index+1}</th>
+                           <th>no.${status_sell.index+1}</th>
                             <th><span style="color:#106fc3;">${seller.member_idx}</span></th>
                             <td class="tdtitle">${seller.member_name}</td>
                             <td class="tdtitle">${seller.member_email}</td>
@@ -97,38 +92,39 @@
                     </tbody>
                 </table>
                 
-         		<!-- 소비자 페이징 기법 -->
-		     	<div>
-		        	<nav aria-label="Page navigation example">
-						  <ul class="pagination justify-content-center">
-						    <c:if test="${pageMaker_sell.prev}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.startPage - 1)}#tab1">이전</a></li>
-						    </c:if> 
-						
-						    <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
-						    </c:forEach>
-						
-						    <c:if test="${pageMaker_sell.next && pageMaker_sell.endPage > 0}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.endPage + 1)}#tab1">다음</a></li>
-						    </c:if> 
-						  </ul>
-					 </nav>
-  				</div>
+               <!-- 소비자 페이징 기법 -->
+              <div>
+                 <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <c:if test="${pageMaker_sell.prev}">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.startPage - 1)}#tab1">이전</a></li>
+                      </c:if> 
+                  
+                      <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
+                      </c:forEach>
+                  
+                      <c:if test="${pageMaker_sell.next && pageMaker_sell.endPage > 0}">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.endPage + 1)}#tab1">다음</a></li>
+                      </c:if> 
+                    </ul>
+                </nav>
+              </div>
   
   
   
   </div>
-  <div class="" id="tab2" >
-  	판매자 선택됨
-  		 <table class="table">
+  <div class="tab-pane fade" id="tab2" role="tabpanel"
+                aria-labelledby="tab2-tab">
+     판매자 선택됨
+         <table class="table">
                  <c:if test="${company.size() == 0}">
-                    	<h3>등록된 판매자 계정이 없습니다.</h3>
+                       <h3>등록된 판매자 계정이 없습니다.</h3>
                     </c:if>
-					 <c:if test="${company.size() >0}">
+                <c:if test="${company.size() >0}">
                      <thead class="thead">
-              				<tr>
-                         	<th scope="col" class="PMtable"></th>
+                          <tr>
+                            <th scope="col" class="PMtable"></th>
                             <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
@@ -151,7 +147,7 @@
                     <tbody> 
                     <c:forEach var="company" items="${company}" varStatus="status_com">
                         <tr>
-                        	<th>no.${status_com.index+1}</th>
+                           <th>no.${status_com.index+1}</th>
                             <th><span style="color:#106fc3;">${company.member_idx}</span></th>
                             <td class="tdtitle">${company.member_name}</td>
                             <td class="tdtitle">${company.member_email}</td>
@@ -166,57 +162,38 @@
                 </table>
                 
                 <!-- 판매자 페이징 기법 -->
-		     	<div>
-		        	<nav aria-label="Page navigation example">
-						  <ul class="pagination justify-content-center">
-						    <c:if test="${pageMaker_company.prev}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.startPage - 1)}#tab2">이전</a></li>
-						    </c:if> 
-						
-						    <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(idx2)}#tab2">${idx2}</a></li>
-						    </c:forEach>
-						
-						    <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">
-						    	<li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.endPage + 1)}#tab2">다음</a></li>
-						    </c:if> 
-						  </ul>
-					 </nav>
-				</div>
+              <div>
+                 <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <c:if test="${pageMaker_company.prev}">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.startPage - 1)}#tab2">이전</a></li>
+                      </c:if> 
+                  
+                      <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(idx2)}#tab2">${idx2}</a></li>
+                      </c:forEach>
+                  
+                      <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.endPage + 1)}#tab2">다음</a></li>
+                      </c:if> 
+                    </ul>
+                </nav>
+            </div>
          </div>
 </div>
 
 </main>
 <c:import url="/footer.do"></c:import>
  <script type="text/javascript">
- 
- window.onhashchange = function() { 
-     console.log("hash바뀜:" +document.location.href)
-}
- 
- 	 function Funreset(obj) {
-		location.href="#tab1";
-	
-		var hr = document.location.href.split('#');
-		
-		
-			$("#tab1").show();
-			$("#tab2").hide();
-			$("#li1").css('backgroundColor', '#99cc00');
-// 			$("#span1").css('backgroundColor', '#99cc00');
-			
-		
-	}
- 	function Funreset2() {
- 		location.href="#tab2";
- 		
-		var hr = document.location.href.split('#');
-		console.log(hr[1]);
-		
-			$("#tab2").show();
-			$("#tab1").hide();
-	} 
- 
- </script>
+       $(document).ready(function() {
+         var link = document.location.href;
+         var tab = link.split('/').pop();
+         var hash = window.location.hash;
+          console.log(hash);
+           $('#myTab a[href="' +hash + '"]').tab('show');
+           window.scrollTo(100, 100);
+      });
+    
+    </script>
 </body>
 </html>

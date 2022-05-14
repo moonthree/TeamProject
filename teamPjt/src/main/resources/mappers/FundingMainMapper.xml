@@ -272,7 +272,7 @@
 			mem.member_business_name
 		FROM funding_qna AS qna
 		JOIN member AS mem 
-		ON qna.funding_idx = 111 and qna.member_idx = mem.member_idx and qna.parent_id = #{funding_qna_idx}
+		ON qna.funding_idx = ${funding_idx} and qna.member_idx = mem.member_idx and qna.parent_id = #{funding_qna_idx}
 	</select>
 	
 	<!-- 펀딩 qna 답변 등록 완료 -->

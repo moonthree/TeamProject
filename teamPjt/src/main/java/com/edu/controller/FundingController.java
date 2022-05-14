@@ -287,9 +287,12 @@ public class FundingController {
 		//클릭한 qna의 qna 번호 가져오기
 		String Strfunding_qna_idx = request.getParameter("funding_qna_idx");
 		int funding_qna_idx = Integer.parseInt(Strfunding_qna_idx);
+		String Strfunding_idx = request.getParameter("funding_idx");
+		int funding_idx = Integer.parseInt(Strfunding_idx);
 		
 		//vo에 클릭한 qna 번호 저장
 		vo.setFunding_qna_idx(funding_qna_idx);
+		vo.setFunding_idx(funding_idx);
 		
 		ArrayList<FundingQnaVO> qnaAnswer = null;
 		qnaAnswer = (ArrayList<FundingQnaVO>) fms.getQnaAnswer(paramMap);

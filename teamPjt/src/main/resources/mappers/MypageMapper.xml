@@ -36,7 +36,7 @@
 		SET    	funding_express_name = #{funding_express_name},
 			   	funding_express_phone = #{funding_express_phone},
 			   	funding_express_postnum = #{funding_express_postnum},
-			   	funding_express_addr = #{funding_express_addr},
+			   	funding_express_addr1 = #{funding_express_addr1},
 			   	funding_express_addr2 = #{funding_express_addr2}
 		WHERE 	funding_order_idx = #{funding_order_idx}		
 	</update>
@@ -267,7 +267,7 @@
 				funding_order_idx,
 				member_idx,
 				funding_express_postnum,
-				funding_express_addr,
+				funding_express_addr1,
 				funding_express_addr2,
 				funding_express_phone,
 				funding_express_name,
