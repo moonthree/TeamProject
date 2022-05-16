@@ -16,7 +16,7 @@
 
 <title>마이페이지</title>
 <script>
-// Acc
+// Accㄴㄴ
 $(document).on("click", ".menu div", function() {
   var numberIndex = $(this).index();
 

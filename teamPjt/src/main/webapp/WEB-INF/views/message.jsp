@@ -48,7 +48,7 @@ $(document).ready (function () {
 	
 <!-- Sidebar Right modal -->
 <div class="modal fade right" id="sidebar-right" tabindex="-1" role="dialog">
-<div class="modal-dialog modal-sm" role="document">
+<div class="modal-dialog" role="document">
 	
 	<div class="modal-content">
 		<div class="modal-header">
