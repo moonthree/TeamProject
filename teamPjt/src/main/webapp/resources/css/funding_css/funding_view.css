@@ -9,9 +9,16 @@ main {
 .topcard{
     margin-bottom: 30px;
 }
+thead{
+	border-top :2px solid black !important;
+}
+
+.table td{
+	border: none;
+}
 
 /*
-.viewtab = 펀딩/스토어/커뮤니티/Q&Assss
+.viewtab = 펀딩/스토어/커뮤니티/Q&Assssssss
 */
 .viewtab{
     width: 25%;
@@ -88,16 +95,6 @@ main {
     font-size: 20px;
 }
 
-
-.fundingGoal{
-    height: 23%;
-    background-color: #e5f9f9;
-    color: #0db6b6;
-    border-radius: 5%;
-    padding: 10px;
-    
-}
-
 .fundingGoalText{
     font-size: 12px;
     color: black;
@@ -144,37 +141,6 @@ main {
 }
 
 
-@media (min-width: 992px) and (max-width: 1200px){
-    .fundingGoal {
-        height: 150px;
-        background-color: #e5f9f9;
-        color: #0db6b6;
-        border-radius: 5%;
-        padding: 10px 10px 0px 10px;   
-    }
-    .card-img-top{
-	width: 100%;
-	height: 530px !important;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 992px){
-    .fundingGoal {
-        height: 33%;
-        background-color: #e5f9f9;
-        color: #0db6b6;
-        border-radius: 5%;
-        padding: 10px 10px 0px 10px;   
-    }
-    .card-img-top{
-	width: 100%;
-	height: 562px !important;
-    }
-}
-
-
-
-
 .nav-pills > .active{
     background-color: #17a2b8 !important;
 }
@@ -191,9 +157,25 @@ main {
 	height : 100%;
 }
 
+.qnaDivContent{
+	display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+	max-width: 300px; 
+	max-height:24px;
+    line-height:20px;
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap;
+	
+}
+
 /*
-qna 상세sssss
+qna 상세sssssssssss
 */
+.qnaDivContent > a{
+	cursor: pointer !important;
+}
 
 .qnaAnswerTr{
 	background-color : gray;
@@ -319,3 +301,96 @@ qna 상세sssss
 /*
     05-13 추가 커뮤 상단 끝
 */
+
+/* 05/14 부트스트랩 색상 변경 시작*/
+
+/* 
+1. 프로그레스바
+2. 펀딩하기 버튼
+3. 펀딩하기 버튼 호버
+4. 프로젝트/공지/커뮤니티/QnA 탭
+5. 프로젝트/공지/커뮤니티/QnA 탭  
+*/
+.progress-bar-self{
+	background-color: #fa6462 !important;
+}
+.FVbtn{
+	background-color: #fa6462 !important;
+	border: none;
+}
+.FVbtn:hover{
+	background-color: #FF5E78 !important;
+}
+.nav-link:visited{
+	background-color: #fa6462 !important;
+}
+.nav-link.active{
+	background-color: #fa6462 !important;
+}
+
+/*목표금액 부분 !!!!! fundingGoal의 color 관련만 수정하고 다른 부분은 그대로 둬야 함 !!!!!*/
+.fundingGoal{ 
+    height: 23%;
+    /* background-color: #e5f9f9; */    
+    /* color: #0db6b6; */
+    background-color : #fdf4f3;
+	color: #fa6462;
+    border-radius: 10px;
+    padding: 10px; 
+}
+@media (min-width: 992px) and (max-width: 1200px){
+    .fundingGoal {
+        height: 150px;
+	    /* background-color: #e5f9f9; */    
+	    /* color: #0db6b6; */
+	    background-color : #fdf4f3;
+	    color: #fa6462;
+	    border-radius: 10px;
+        padding: 10px 10px 0px 10px;   
+    }
+    .card-img-top{
+	width: 100%;
+	height: 530px !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px){
+    .fundingGoal {
+        height: 33%;
+        /* background-color: #e5f9f9; */    
+	    /* color: #0db6b6; */
+	    background-color : #fdf4f3;
+	    color: #fa6462;
+	    border-radius: 10px;
+        padding: 10px 10px 0px 10px;   
+    }
+    .card-img-top{
+	width: 100%;
+	height: 562px !important;
+    }
+}
+
+/* 05/14 부트스트랩 색상 변경 끝*/
+
+
+
+/*
+    05/14 추가 사이드바 - 취소
+*/
+/* #aside {
+    position: fixed;
+    right: 50%;
+    top: 310px;
+    margin-right: -720px;
+    width: 250px;
+}
+.reword{
+	height: 700px;
+	width: 200px;
+	overflow: auto;
+}
+.optionList{
+	border: 1px solid black;
+	margin-bottom: 20px;
+	padding: 20px;
+} */
+
