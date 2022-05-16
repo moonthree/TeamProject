@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
+       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+       crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+       crossorigin="anonymous"></script>
+
 <title>마이페이지</title>
 <script>
 // Acc
@@ -25,18 +26,30 @@ $(document).on("click", ".menu div", function() {
 
     $(this).addClass("active");
     $("ul").find("li:eq(" + numberIndex + ")").addClass("active");
-
-    
   }
 });
 </script>
+<style>
+#messageModal {
+  background: yellow;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  cursor : pointer;
+}
+
+</style>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 
 </head>
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
-<main>
+<c:import url="/message.do"></c:import>
+
+
+<main id="wrapper">
+<div class="container">
 	<div style="text-align:center;">
 		<table style="border:1px solid black; text-align : center; font-size : 20px;">
 			<thead>		
@@ -157,6 +170,7 @@ $(document).on("click", ".menu div", function() {
                           <div class="col-md-4" style="text-align: right;"><br><button type="button" class="btn btn-light mb-3" onclick="location.href='info_funding.do'">내역 ></button></div>
                         </div>
               <div class="row g-3">
+              <!-- 펀딩한게 없을때 형태 유지를 위해 가상의 이미지를 넣어준것  -->
               <c:if test="${select3Funding.size() eq 0}">
               <div class="col-lg-4 col-md-12 col-sm-12" style="visibility:hidden;" >
                     <div class="card" style="cursor:pointer;">
@@ -171,10 +185,10 @@ $(document).on("click", ".menu div", function() {
 				<c:forEach var="item" items="${select3Funding}">	  
 			              
                   <div class="col-lg-4 col-md-12 col-sm-12">
-                      <div class="card" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-                        <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <div class="card" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                        <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
                         <div class="card-body">
-                          <p class="card-text">${ item.funding_title }</p>
+                          <p class="card-text">${ item.funding_title }( funding_order_idx : ${ item.funding_order_idx })</p>
                         </div>
                       </div>
                   </div>
@@ -240,7 +254,7 @@ $(document).on("click", ".menu div", function() {
                 <div class="col-lg-4 col-md-12 col-sm-12">
                 
                     <div class="card" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-                      <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
+                      <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
                       <div class="card-body">
                         <p class="card-text">${ item.funding_title }</p>
                       </div>
@@ -258,7 +272,17 @@ $(document).on("click", ".menu div", function() {
               </div>
         </div>
     </div>
+    
+    
     </div>
+    
+    
+</div>
+
+<!--메세지 모탈 팝업 버튼 -->
+    <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left">Right Sidebar</button>     
+
+
 </main>
 <c:import url="/footer.do"></c:import>
 

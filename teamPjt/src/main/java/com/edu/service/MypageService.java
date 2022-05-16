@@ -45,7 +45,7 @@ public interface MypageService {
 	List<FundingInfoDetailVO> select3Funding(int member_idx);
 	
 	//4개의 최신 펀딩목록
-	List<FundingMainVO> select4Funding(int member_idx);
+	List<FundingInfoDetailVO> select4Funding(int member_idx);
 	
 	//3개의 최신 찜목록
 	List<ZzimVO> select3Zzim(int member_idx);
@@ -70,7 +70,7 @@ public interface MypageService {
 	
 	/*funding_info_detail*/
 	//funding & funding_order
-	FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo);
+	FundingInfoDetailVO fundingDetail(int funding_order_idx);
 	//funding_order_pay
 	Funding_order_payVO fundingPayDetail(int funding_order_idx);
 	//funding_express

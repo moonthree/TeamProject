@@ -418,7 +418,7 @@ public class MypageServiceImp implements MypageService{
 	
 	//펀딩 4개
 	@Override
-	public List<FundingMainVO> select4Funding(int member_idx) {
+	public List<FundingInfoDetailVO> select4Funding(int member_idx) {
 		return mdao.select4Funding(member_idx);
 	}
 	
@@ -467,8 +467,8 @@ public class MypageServiceImp implements MypageService{
 	/*funding_info_detail*/
 	//funding & funding_order
 	@Override
-	public FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo) {
-		return mdao.fundingDetail(vo);
+	public FundingInfoDetailVO fundingDetail(int funding_order_idx) {
+		return mdao.fundingDetail(funding_order_idx);
 	}
 	//funding_order_pay
 	@Override
