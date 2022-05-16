@@ -12,7 +12,12 @@
        $(document).ready(function() {
            $(".dropdown-toggle").dropdown();
        });
-
+		
+       $(document).ready(function(){
+           $(".hamburger").click(function(){
+               $(this).toggleClass("is-active");
+           });
+       });
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
     
@@ -82,8 +87,14 @@
                 </c:if>
                 
             <!-- 토글바 -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: none">
+                	<div class="three col">
+					    <div class="hamburger" id="hamburger-1">
+					        <span class="line" id="line"></span>
+					        <span class="line" id="line"></span>
+					        <span class="line" id="line"></span>
+					    </div>
+				    </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- 펀딩 스토어 기획전 더보기 -->

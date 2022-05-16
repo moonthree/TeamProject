@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.edu.service.MypageService;
 import com.edu.service.memberService;
+import com.edu.vo.LoginVO;
 import com.edu.vo.MemberVO;
 
 @Controller
@@ -32,33 +32,31 @@ public class MemberController {
 	//git 넘기기용
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public void login(MemberVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public String login(MemberVO vo, LoginVO loginvo, Model model, HttpSession session, HttpServletResponse response) throws IOException {
 		
-		MemberVO member = memberService.selectOne(vo);
+			MemberVO user = memberService.login(loginvo);
+			
+			if(user != null) {
+				model.addAttribute("user", user);
+				
+				// 이전 destination 불러오기
+				Object dest = session.getAttribute("dest");
+//				if(dest.equals("/funding/option.do")){
+//					return "redirect:/.do";
+//				}else {
+//					return "redirect:" + ( dest != null ? (String)dest : "/.do");
+//				}
+				return "redirect:" + ( dest != null ? (String)dest : "/.do");
+			}else {
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter pw = response.getWriter(); 
+				pw.println("<script>alert('아이디나 비밀번호가 일치하지 않습니다.');location.href='login.do'</script>");
+				pw.flush();
+
+//				return "redirect:/member/login.do";
+			}
+			return null;
 		
-		response.setContentType("text/html; charset=euc-kr;");
-		PrintWriter pw = response.getWriter();
-		
-		if(member != null) {
-			
-			HttpSession session = request.getSession(true);
-			
-			MemberVO login = new MemberVO();
-			
-			login.setMember_idx(member.getMember_idx());
-			login.setMember_email(member.getMember_email());
-			login.setMember_password(member.getMember_password());
-			login.setMember_name(member.getMember_name());
-			login.setMember_level(member.getMember_level());
-			
-			session.setAttribute("login", login);
-			
-			pw.println("<script>location.href='" + request.getContextPath() + "'" + "</script>");
-			
-		}else {
-			pw.println("<script>alert('아이디나 비밀번호가 일치하지 않습니다.');location.href='login.do'</script>");
-		}
-		pw.flush();
 	}
 	
 	@RequestMapping(value = "/logout.do")

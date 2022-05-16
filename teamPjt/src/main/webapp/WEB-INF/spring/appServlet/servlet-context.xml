@@ -34,18 +34,24 @@
 	
 	
 	<!-- interceptor -->
-	<beans:bean id="loginInterceptor" class="com.edu.interceptor.LoginInterceptor" />
-	<beans:bean id="authInterceptor" class="com.edu.interceptor.AuthInterceptor" />
+	<beans:bean id="login" class="com.edu.interceptor.LoginInterceptor" />
+	<beans:bean id="auth" class="com.edu.interceptor.AuthInterceptor" />
     
     <interceptors>
         <interceptor>
             <mapping path="/member/login.do"/>
-            <beans:ref bean="loginInterceptor"/>
+            <beans:ref bean="login"/>
         </interceptor>
+		<!-- 로그인 필요한 페이지 -->
         <interceptor>
-            <mapping path="/funding/option"/>
-            <mapping path="/mypage/mypage"/>
-            <beans:ref bean="authInterceptor"/>
+            <mapping path="/funding/option.do"/>
+            <mapping path="/mypage/mypage.do"/>
+            <mapping path="/mypage/mypage2.do"/>
+            <mapping path="/mypage/funding_register.do"/>
+            <mapping path="/admin/approval.do"/>
+            <mapping path="/admin/management_product.do"/>
+            <mapping path="/admin/management_member.do"/>
+            <beans:ref bean="auth"/>
         </interceptor>
     </interceptors>
   
