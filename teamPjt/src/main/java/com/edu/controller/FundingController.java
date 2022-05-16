@@ -154,7 +154,7 @@ public class FundingController {
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
+	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,Funding_optionVO optionvo, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
@@ -164,6 +164,10 @@ public class FundingController {
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member",member);
+		
+		//사이드바에 띄울 펀딩 옵션 리스트 가져오기
+		List<Funding_optionVO> optionlist = fms.list(optionvo);
+		model.addAttribute("optionlist", optionlist);
 		
 		//펀딩 커뮤니티 댓글 리스트
 		//List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());

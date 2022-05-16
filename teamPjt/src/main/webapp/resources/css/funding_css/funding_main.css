@@ -72,10 +72,10 @@ a:visited {
 }
 
 select { 
-	width: 150px; /* 원하는 너비설정ssssssssssss */ 
+	width: 150px; /* 원하는 너비설정ssssssssssssss */ 
 	padding: .7em .6em; /* 여백으로 높이 설정 */ 
 	font-family: inherit; /* 폰트 상속 */ 
-	background: url(../../image/arrow.png) no-repeat 96% 60%; /* 네이티브 화살표 대체  https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg*/ 
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 99% 50%; /* 네이티브 화살표 대체  https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg*/ 
 	border: 1px solid #999; 
 	border-radius: 10px; /* 둥근모서리 */ 
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
