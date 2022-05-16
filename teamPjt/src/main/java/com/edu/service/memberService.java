@@ -1,7 +1,7 @@
 package com.edu.service;
 
-import java.util.Map;
 
+import com.edu.vo.LoginVO;
 import com.edu.vo.MemberVO;
 
 public interface memberService {
@@ -15,7 +15,7 @@ public interface memberService {
 	
 	MemberVO selectOne(MemberVO vo);
 	
-	
+	MemberVO login(LoginVO vo);
 	
 
 }

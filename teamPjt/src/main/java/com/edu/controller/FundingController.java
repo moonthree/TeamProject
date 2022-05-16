@@ -26,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
+import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_expressVO;
@@ -451,7 +452,7 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/option.do", method = RequestMethod.POST)
-	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request, @RequestParam("check") String check) throws Exception {
+	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request) throws Exception {
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);
@@ -465,12 +466,10 @@ public class FundingController {
 		return "funding/reserve";
 	}
 	
-	// 결제 예약 페이지
 	@RequestMapping(value = "/reserve.do", method = RequestMethod.POST)
-	public void orderForm(Model model, Funding_orderVO ordervo, Funding_order_optionVO orderOptionvo, Funding_expressVO expressvo, Funding_order_payVO payvo, HttpServletRequest request, HttpServletResponse response, @RequestParam("inlineRadioOptions1") String radio) throws IOException {
+	public void reserve(Model model, Funding_orderVO ordervo, Funding_order_optionVO orderOptionvo, Funding_expressVO expressvo, Funding_order_payVO payvo, HttpServletRequest request, HttpServletResponse response, @RequestParam("inlineRadioOptions1") String radio) throws IOException {
 		// 펀딩 주문 번호
 		int result = fms.insertOrder(ordervo);
-		
 		
 		// 펀딩 주문 옵션 저장
 		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
@@ -547,12 +546,14 @@ public class FundingController {
 	
 	@RequestMapping(value = "/reserve_complete.do")
 	public String reserveComplete(FundingMainVO mainvo, Model model, HttpServletRequest request) throws Exception {
-		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));		
+		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));
+		
 		//세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = fms.selectOne(login);
 		model.addAttribute("member", member);
+		
 		return "funding/reserve_complete";
 	}
 	

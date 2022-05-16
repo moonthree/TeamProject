@@ -148,7 +148,7 @@
 			                        	<!-- 펀딩 옵션별 금액 -->
 				                        <div class="sum" id="sum">
 				                        	<c:set var="p_price" value="p_price${check}" />
-				                        	<input type="hidden" id="sum1" value="${param[p_price]*param[p_num]}">
+				                        	<input type="hidden" name="sum" id="sum" value="${param[p_price]*param[p_num]}">
 				                        	<fmt:formatNumber value="${param[p_price]*param[p_num]}" type="number" />원
 				                        </div>
 			                        </td>
@@ -702,7 +702,7 @@
 	
 	// 체크되면 아코디언 닫기
 		$("#checkAll").click(function(){
-			if($("#chk2").is(":checked")){
+			if($("#checkAll").is(":checked")){
 				var class_name = $('#collapseOne').attr('class');
 				if(class_name == 'collapse show'){
 		           	$('#accordionbtn').on('click', function(){});
