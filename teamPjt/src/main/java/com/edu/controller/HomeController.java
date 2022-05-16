@@ -139,13 +139,15 @@ public class HomeController {
 		
 		// 글의 개수
 		totalRow = service.searchCount(vo);
-		
+		System.out.println(totalRow);
 		// 전체 페이지의 갯수
 		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
 		int endRowNum = totalRow - (rowCount * (totalPageCount-1));
 		vo.setEndRowNum(endRowNum);
 		vo.setTotalRow(totalRow);
 		System.out.println(endRowNum);
+		System.out.println(totalPageCount);
+		System.out.println(startRowNum);
 
 		request.setAttribute("searchList", searchList);
 		request.setAttribute("totalPageCount", totalPageCount);

@@ -1,5 +1,5 @@
 /**
- * 
+ * 05/14 점심 부터 업데이트 종료 이후엔 view_start, view_qna, view_commu로 나눠서 작성
  */
  
  // 하단 탭들 새로고침해도 유지하는 기능
@@ -275,9 +275,9 @@ var qnaModalInput = qnaModal.find("textarea[name='funding_qna_content']");
 var qnaModalSubmit = $("#qnaSubmitBtn");
 
 	//댓글 등록 버튼을 누르면
-	qnaModalSubmit.on("click", function(e){
-    	var qnaModalValue = qnaModalInput.val().replace("\n", "<br>"); //개행처리
-        console.log(qnaModalValue);
+	qnaModalSubmit.on("click", function(){
+    	var qnaModalValue = qnaModalInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	var qnaModalValue2 = qnaModalValue.replace(/ /gi,"&nbsp;");
         
         //비밀글 적용 여부
         var checkbox = document.getElementById('cb1');
@@ -290,7 +290,7 @@ var qnaModalSubmit = $("#qnaSubmitBtn");
 		}
 		
 		//본문 작성 여부
-		if(qnaModalValue == ""){
+		if(qnaModalValue2 == ""){
         	alert("글을 작성해주세요")
         	$("#funding_qna_content").focus();
         	return false;
@@ -306,7 +306,7 @@ var qnaModalSubmit = $("#qnaSubmitBtn");
 			funding_qna_secret : $("#funding_qna_secret").val(),
 			parent_id : '0',
 			depth : '0',
-			funding_qna_content : qnaModalValue
+			funding_qna_content : qnaModalValue2
 		};
 		console.log(objParams)
 		
@@ -364,9 +364,10 @@ $('.doAnswer').click(function(){
 //답변 등록 버튼을 누르면
 	qnaAnswerSubmit.on("click", function(){
 		
-    	var qnaAnswerValue = qnaAnswerInput.val().replace("\n", "<br>"); //개행처리
-        console.log(qnaAnswerValue);
-        
+    	var qnaAnswerValue = qnaAnswerInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	console.log(qnaAnswerValue);
+    	var qnaAnswerValue2 = qnaAnswerValue.replace(/ /gi,"&nbsp;");
+        console.log(qnaAnswerValue2);
         //비밀글 적용 여부e=funding_qna_secret]').attr('value', 1);
 		$('input[name=funding_qna_secret]').attr('value', 0);
 		
@@ -385,7 +386,7 @@ $('.doAnswer').click(function(){
 			parent_id : $(".funding_qna_idx").val(),
 			funding_qna_writer_idx : $(".funding_qna_writer_idx").val(),
 			depth : '1',
-			funding_qna_content : qnaAnswerValue
+			funding_qna_content : qnaAnswerValue2
 		};
 		/*console.log(objParams)
 		alert(objParams)
@@ -448,12 +449,14 @@ var qnaAnswerModifyModal = $("#qnaAnswerModifyModal");
     var qnaAnswerModifyModalBtn = $("#qnaAnswerModifyBtn");
 
     qnaAnswerModifyModalBtn.on("click", function(){
-    	var qnaAnswerModifyModalValue = qnaAnswerModifyInput.val();
-        console.log(qnaAnswerModifyModalValue);
+		var qnaAnswerModifyModalValue = qnaAnswerModifyInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	console.log(qnaAnswerModifyModalValue);
+    	var qnaAnswerModifyModalValue2 = qnaAnswerModifyModalValue.replace(/ /gi,"&nbsp;");
+        console.log(qnaAnswerModifyModalValue2);
         
 		$('input[name=funding_qna_secret]').attr('value', 0);
 		
-        if(qnaAnswerModifyModalValue == ""){
+        if(qnaAnswerModifyModalValue2 == ""){
         	alert("글을 작성해주세요")
         }else{
         	$.ajax({	
@@ -626,17 +629,28 @@ $('.noshowQna').click(function(){
 	var funding_qna_idx = $(this).data('id');
 	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
 	var funding_qna_content = $(this).data('id2');
+	
+	var funding_qna_content2 = funding_qna_content.replace(/\n/gi, "<br>"); //개행처리
+	var funding_qna_content3 = funding_qna_content2.replace(/ /gi,"&nbsp;");
+	
+	
 	$(".answer").remove();
-	$(".tr"+funding_qna_idx).after('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content+'</td><td></td><td></td></tr>')
+	$(".tr"+funding_qna_idx).after('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content3+'</td><td></td><td></td></tr>')
 });
 	
-//qna 답변 완료일 때 제목을 누르면
+//qna 답변 완료일 때 제목을 누르면ssss
 $('.showQna').click(function(){	
 	var funding_qna_idx = $(this).data('id');
 	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
 	var funding_qna_content = $(this).data('id2');
+	var funding_qna_content2 = funding_qna_content.replace(/\n/gi, "<br>"); //개행처리
+	var funding_qna_content3 = funding_qna_content2.replace(/ /gi,"&nbsp;");
+	
+	var funding_idx = $(this).data('id3');
+	$('input[name=funding_idx]').attr('value', funding_idx);
 	var objParams = {
-			funding_qna_idx : $(".funding_qna_idx").val()
+			funding_qna_idx : $(".funding_qna_idx").val(),
+			funding_idx : $(".funding_idx").val()
 		};
 		
 		$.ajax({
@@ -648,14 +662,16 @@ $('.showQna').click(function(){
 				//window.alert('qnaListForm 성공')
 				//console.log(data)
 				var answer = data[0].funding_qna_content
+				var answer2 = answer.replace(/\n/gi, "<br>"); //개행처리
+				var answer3 = answer2.replace(/ /gi,"&nbsp;");
 				var name = data[0].memberVO.member_business_name
 				var date = data[0].funding_qna_regdate
 				var date2 = date.substring(0, 11);
 				$(".answer").remove();
 				$(".tr"+funding_qna_idx).after
-				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-top:none;"></td><td><span style="color : #c2c2c2;">ㄴ</span><span style="font-size: 12px; background-color : #a3a9b3; color: #f3f4f6; padding: 3px; border-radius:5px;">답변</span>&nbsp;'+answer+'</td><td>판매자</td><td>'+date2+'</td></tr>')
+				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-top:none;"></td><td><span style="color : #c2c2c2;">ㄴ</span><span style="font-size: 12px; background-color : #a3a9b3; color: #f3f4f6; padding: 3px; border-radius:5px;">답변</span>&nbsp;'+answer3+'</td><td>판매자</td><td>'+date2+'</td></tr>')
 				$(".tr"+funding_qna_idx).after
-				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content+'</td><td></td><td></td></tr>')
+				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content3+'</td><td></td><td></td></tr>')
 			},
 			error: function(){
 				alert("qnaListForm 에러")
@@ -752,13 +768,16 @@ $("#csBtn").click(function(){
   		 }
   	 }
 	  
-	 // 커뮤 수정하기에 자기가 작성한 댓글 출력
+	 // 커뮤 수정하기에 자기가 작성한 댓글 출력ssss
 	 for (var i = 0; i < writeMember.length; i++) {
   		 if(writeMember[i].value == login){
-
-  			var modifyContent = content[i].innerText
+			
+  			var modifyContent = content[i].innerHTML
   			var trim = modifyContent.trim()
-  			$('#modifyText').text(trim)
+  			var trim2 = trim.replace(/&nbsp;/gi," ");
+  			var trim3 = trim2.replace(/<br>/gi,"\n");
+  			console.log(trim3)
+  			$('#modifyText').text(trim3)
   		 }
   	 }
   	 
