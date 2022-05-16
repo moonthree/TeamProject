@@ -103,10 +103,10 @@
                         <a class="navtext" href="<%=request.getContextPath()%>/funding/main.do">펀딩</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">스토어</a>
+                        <a class="navtext" href="<%=request.getContextPath()%>/store/store_main.do">스토어</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="#">기획전</a>
+                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">기획전</a>
                     </li>
                    
                     <li class="nav-item dropdown">

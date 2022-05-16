@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫딩 펀딩 뷰 페이지</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -24,6 +24,14 @@
 <body>
 	<c:import url="/header.do"></c:import>
 	<main>
+	<%
+		pageContext.setAttribute("CR", "\r");
+		pageContext.setAttribute("LF", "\n");
+		pageContext.setAttribute("CRLF", "\r\n");
+		pageContext.setAttribute("SP", "&nbsp;");
+		pageContext.setAttribute("BR", "<br/>");
+	%>
+	
 	<c:set var="loginPerson" value="${login.member_idx }"/> <!-- 로그인 한 사람 -->
     <c:set var="seller" value="${read.member_idx }"/> <!-- 판매자 -->
     <input type="number" id="member_idx" name="member_idx" value="${login.member_idx}" style="display:none;"/>
@@ -83,7 +91,7 @@
                 	<h3>${endDate - nowDate}일 남음</h3>
             	</c:if>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${read.funding_current_price/read.funding_target_price*100}%" aria-valuenow="50"
+                    <div class="progress-bar-self progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${read.funding_current_price/read.funding_target_price*100}%" aria-valuenow="50"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <h3>${Math.round(read.funding_current_price/read.funding_target_price*100)}<span class="smalltext"> %달성</span></h3>
@@ -178,8 +186,6 @@
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
                 공지 사항 사진 파일 올라올 예정
                  <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
-                 
-                 
             </div>
             <!--커뮤니티-->
             <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
@@ -357,7 +363,12 @@
 	                                <br>
 	                                <br>
 	                                <span class="commuContent">
-	                                    ${commentList.funding_detail_community_content }
+	                                	<c:set var="cmt" value="${fn:replace(commentList.funding_detail_community_content,CRLF, BR)}" />
+										<c:set var="cmt" value="${fn:replace(cmt,CR, BR)}" />
+										<c:set var="cmt" value="${fn:replace(cmt,CR, BR)}" />
+										<c:set var="cmt" value="${fn:replace(cmt,' ',SP)}" />
+	                                    
+	                                    <c:out value="${cmt}" escapeXml="false"/>
 	                                </span>
 	                                 
 	                            <th>
@@ -436,7 +447,7 @@
                     	
                     	<c:forEach items="${listQna}" var="qnaList" varStatus="status">
                     		
-                   		<!-- 펀딩 상태 -->
+                   		<!-- 답변 상태 -->
                     		<tr class="tr${qnaList.funding_qna_idx}">
                     			<c:set var="qnaState" value="${qnaList.funding_qna_state }"></c:set>
                     			<c:set var="qnaSecret" value="${qnaList.funding_qna_secret }"></c:set>
@@ -454,19 +465,29 @@
                     				<td style="width: 15%;">답변 완료</td>
                     				<div class="answer" style="display:none;"></div>
                     			</c:if>
-                    			
-                   			<!-- 펀딩 제목 -->		
+                    			<c:set var="qna" value="${fn:replace(qnaList.funding_qna_content,CRLF, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,CR, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,CR, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,' ',SP)}" />
+                                   
+                              	
+                   			<!-- 답변 제목 -->		
                     			<!-- 비밀글 아니면 -->
                     			<c:if test="${qnaSecret eq 0}">
                     				<td style="width: 45%;">
-                    					<div style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    					<div class="qnaDivContent">
                     						<!-- 답변 완료면 -->
                     						<c:if test="${qnaState eq 1}">
 	                    						<a class="showQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}" data-id3="${read.funding_idx }">
 		                    						<span class="qnaContent">
-		                    							${qnaList.funding_qna_content }
+		                    							<c:out value="${qna}" escapeXml="false"/>
 		                    							<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
 		                    							<input type="text" name="funding_idx" class="funding_idx" value="" style="display:none;"/>
+		                    						</span>
+	                    						</a>
+	                    						<a class="hideQna">
+	                    							<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
 		                    						</span>
 	                    						</a>
                     						</c:if>
@@ -474,8 +495,13 @@
                     						<c:if test="${qnaState eq 0}">
 	                    						<a class="noshowQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}">
 		                    						<span class="qnaContent">
-		                    							${qnaList.funding_qna_content }
+		                    							<c:out value="${qna}" escapeXml="false"/>
 		                    							<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
+		                    						</span>
+	                    						</a>
+	                    						<a class="hideQna2">
+	                    							<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
 		                    						</span>
 	                    						</a>
                     						</c:if>
@@ -485,8 +511,8 @@
                     			<!-- 비밀글이면 -->
 	                            <c:if test="${qnaSecret eq 1}">
 	                            	<td style="width: 45%;">
-	                            		<div style="max-width: 300px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-	                            			<!-- 본인, 판매자, 관리자면 클릭 가능 아니면 불가능-->
+	                            		<div class="qnaDivContent">
+	                            			<!-- 본인, 판매자, 관리자면 클릭 가능 아니면 불가능ssssss-->
 	                            			<!-- 답변완료면 -->
 	                            			<c:if test="${qnaState eq 1}">
 	                            				<c:choose>
@@ -497,10 +523,20 @@
 								                                    <path
 								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 								                                </svg>
-		                    									<span class="qnaContent">${qnaList.funding_qna_content }</span>
+		                    									<span class="qnaContent"><c:out value="${qna}" escapeXml="false"/></span>
 		                    									<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
 		                    									<input type="text" name="funding_idx" class="funding_idx" value="" style="display:none;"/>
 		                    								</a>
+		                    								<a class="hideQna">
+		                    									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+								                                    viewBox="0 0 16 16">
+								                                    <path
+								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+								                                </svg>
+				                    							<span class="qnaContent">
+					                    							<c:out value="${qna}" escapeXml="false"/>
+					                    						</span>
+				                    						</a>
 		                    						</c:when>
 		                    						<c:otherwise>
 		                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
@@ -509,7 +545,7 @@
 						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						                                </svg>
 				                    					비밀글입니다.
-				                    					<span class="qnaContent" style="display:none;">${qnaList.funding_qna_content }</span> 
+				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/>/span> 
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                            			</c:if>
@@ -525,8 +561,13 @@
 				                    					<c:if test="${qnaState eq 0}">
 				                    						<a class="noshowQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}">
 					                    						<span class="qnaContent">
-					                    							${qnaList.funding_qna_content }
+					                    							<c:out value="${qna}" escapeXml="false"/>
 					                    							<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
+					                    						</span>
+				                    						</a>
+				                    						<a class="hideQna2">
+				                    							<span class="qnaContent">
+					                    							<c:out value="${qna}" escapeXml="false"/>
 					                    						</span>
 				                    						</a>
 			                    						</c:if>
@@ -538,7 +579,7 @@
 						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						                                </svg>
 				                    					비밀글입니다.
-				                    					<span class="qnaContent" style="display:none;">${qnaList.funding_qna_content }</span> 
+				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> 
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                            			</c:if>
@@ -557,7 +598,7 @@
                							<td style="width: 20%;"> <!-- 질문 수정 -->
                								${qnaRegDate2} 
                								&nbsp;
-               								<button class="doModify btn btn-outline-info" data-toggle="modal" data-target="#qnaModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3="${qnaList.member_idx}">수정</button>
+               								<button class="doModify btn btn-outline-info" data-toggle="modal" data-target="#qnaModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3="${qnaList.member_idx}" data-id4="${qnaList.funding_qna_content}">수정</button>
                							</td>
                						</c:when>
                						<c:when test="${qnaState eq 0 && seller eq loginPerson && qnaList.depth eq 0}">
@@ -571,7 +612,7 @@
                							<td style="width: 20%;"> <!-- 답변 수정 -->
                								${qnaRegDate2}
                								&nbsp;
-               								<button class="doQnaAnswerModify btn btn-outline-success" data-toggle="modal" data-target="#qnaAnswerModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3="${qnaList.member_idx}">답변 수정</button>
+               								<button class="doQnaAnswerModify btn btn-outline-success" data-toggle="modal" data-target="#qnaAnswerModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.funding_qna_idx }" data-id3="${qnaList.member_idx}" data-id4="${read.funding_idx}">답변 수정</button>
                							</td>
                						</c:when>
                						<c:when test="${login.member_level eq 2 && qnaList.depth eq 0}">
@@ -591,18 +632,22 @@
                     </tbody>
                 </table>
                 <div>
-		        	<nav aria-label="Page navigation example">
+		        	<nav aria-label="...">
 						  <ul class="pagination justify-content-center">
 						    <c:if test="${prevQna }">
-						    	<li class="page-item"><a class="page-link prev" href="view.do?pageNumQna=${startPageQna-1}&funding_idx=${read.funding_idx}#FVQnA">이전</a></li>
+						    	<li class="page-item">
+						    		<a class="page-link prev" href="view.do?pageNumQna=${startPageQna-1}&funding_idx=${read.funding_idx}#FVQnA">이전</a>
+						    	</li>
 						    </c:if> 
-						
 						    <c:forEach begin="${startPageQna}" end="${endPageQna}" var="idx">
-						    	<li class="page-item"><a class="page-link" href="view.do?pageNumQna=${idx}&funding_idx=${read.funding_idx}#FVQnA">${idx}</a></li>
+						    	<li class="page-item">
+						    		<a class="page-link" href="view.do?pageNumQna=${idx}&funding_idx=${read.funding_idx}#FVQnA">${idx}</a>
+						    	</li>
 						    </c:forEach>
-						
 						    <c:if test="${nextQna}">
-						    	<li class="page-item"><a class="page-link next" href="view.do?pageNumQna=${endPageQna+1}&funding_idx=${read.funding_idx}#FVQnA">다음</a></li>
+						    	<li class="page-item">
+							    	<a class="page-link next" href="view.do?pageNumQna=${endPageQna+1}&funding_idx=${read.funding_idx}#FVQnA">다음</a>
+						    	</li>
 						    </c:if> 
 						  </ul>
 					 </nav>
@@ -816,8 +861,7 @@
                     	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
                         <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
                         <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
-                        <textarea name="funding_qna_content" id="funding_qna_modify" cols="60" rows="10"
-                            placeholder="작성하신 글을 수정할 수 있습니다. 답변이 달린 후에는 수정할 수 없으니 주의해주세요."></textarea>
+                        <textarea name="funding_qna_content" id="funding_qna_modify" cols="60" rows="10"></textarea>
                         
                         <input type="checkbox" id="cb3" class="cb">
                         <label for="cb3"></label>
@@ -894,8 +938,8 @@
                         <input type=number class="funding_qna_idx" name="funding_qna_idx" value="" style="display:none;" />
                     	<input type=number class="funding_qna_secret" name="funding_qna_secret" value="" style="display:none;" />
                     	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
-                        <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
-                        <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
+                        <input type=number class="qna_funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
+                        <input type=number class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
                         <textarea name="funding_qna_answer_content" id="funding_qna_answer_content" cols="60" rows="7"
                             placeholder="답변을 작성해주세요."></textarea>
                         
@@ -932,7 +976,7 @@
                     	<input type=number class="funding_qna_writer_idx" name="funding_qna_writer_idx" value="" style="display:none;" />
                         <input type=text class="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
                         <input type=text class="answer_member_idx" name="answer_member_idx" value="${member.member_idx}" style="display:none;" />
-                        <textarea name="funding_qna_content" cols="60" rows="7"
+                        <textarea id="funding_qna_answer_modify" name="funding_qna_content" cols="60" rows="7"
                             placeholder="작성한 답변을 수정할 수 있습니다."></textarea>
                         
                         <!-- <input type="checkbox" id="cb3" class="cb">
@@ -1000,9 +1044,42 @@
         </form>
     </div>
     
+    <%-- <div id="aside">
+    	<h4>리워드 목록</h4>
+    	<div class="reword">
+			<c:forEach var="option" items="${optionlist}">
+	     		<div class="optionList row">
+	     			<div class="optionPrice">
+	     				${option.funding_option_price}원 펀딩
+	     			</div>
+	     			<div class="optionName">
+	     				${option.funding_option_name}
+	     			</div>
+	     			<div class="optionDetail">
+	     				${option.funding_option_detail}
+	     			</div>
+	     			<div class="expressStart">
+	     				리워드 발송 시작일
+	     				<br>${read.funding_end_date}
+	     			</div>
+	     			<div class="optionStock">
+	     				<c:if test="${option.funding_option_stock eq 0}">
+	     					리워드가 모두 펀딩되었습니다.
+	     				</c:if>
+	     				<c:if test="${option.funding_option_stock ne 0}">
+	     					${option.funding_option_stock}개 남음
+	     				</c:if>
+	     			</div>
+	     		</div>
+	     	</c:forEach>
+    	</div>
+    </div> --%>
+    
 
     <c:import url="/footer.do"></c:import>
     
-<script src="../resources/js/view.js"></script>
+<script src="../resources/js/funding/view_start.js"></script>
+<script src="../resources/js/funding/view_commu.js"></script>
+<script src="../resources/js/funding/view_qna.js"></script>
 </body>
 </html>
