@@ -51,7 +51,7 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.select3Funding", member_idx);
 	}
 	
-	public List<FundingMainVO> select4Funding(int member_idx){
+	public List<FundingInfoDetailVO> select4Funding(int member_idx){
 		return sqlSession.selectList("MypageMapper.select4Funding", member_idx);
 	}
 	
@@ -86,8 +86,8 @@ public class MypageDao {
 	
 	/*funding_info_detail*/
 	//funding & funding_order
-	public FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo){
-		return sqlSession.selectOne("MypageMapper.fundingInfoDetail", vo);
+	public FundingInfoDetailVO fundingDetail(int funding_order_idx){
+		return sqlSession.selectOne("MypageMapper.fundingInfoDetail", funding_order_idx);
 	}
 	//funding_order_pay
 	public Funding_order_payVO fundingPayDetail(int funding_order_idx) {

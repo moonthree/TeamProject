@@ -195,8 +195,8 @@
                         
                         <div class="col-lg-3 col-md-4 col-sm-12" <c:if test="${select4Funding.size() eq 1}"> class="outer" </c:if>>
                             <div class="card">
-                                <div class="img-container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-                                    <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top card_img" alt="funding_img">
+                                <div class="img-container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
                                     <div style="font-weight:100">
