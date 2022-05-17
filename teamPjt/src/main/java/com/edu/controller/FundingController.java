@@ -167,10 +167,6 @@ public class FundingController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member",member);
 		
-		//사이드바에 띄울 펀딩 옵션 리스트 가져오기
-		List<Funding_optionVO> optionlist = fms.list(optionvo);
-		model.addAttribute("optionlist", optionlist);
-		
 		//펀딩 커뮤니티 댓글 리스트
 		//List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
 		//model.addAttribute("fundingCommunityCommentList", fundingCommunityCommentList);
