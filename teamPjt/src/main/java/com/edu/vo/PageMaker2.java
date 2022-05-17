@@ -7,7 +7,7 @@ import org.apache.xerces.util.URI;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class PageMaker {
+public class PageMaker2 {
 	
 	/*소비자 페이징*/
 	private int totalCount;
@@ -16,11 +16,11 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 	private int displayPageNum = 5;
-	private Pagination page;
+	private Pagination2 page2;
 	
 
-	public void setPage(Pagination page) {
-		this.page = page;
+	public void setPage(Pagination2 page2) {
+		this.page2 = page2;
 	}
 	
 	public void setTotalCount(int totalCount) {
@@ -52,29 +52,29 @@ public class PageMaker {
 		return displayPageNum;
 	}
 	
-	public Pagination getPage() {
-		return page;
+	public Pagination2 getPage() {
+		return page2;
 		
 	}
 	 
 	private void calcData() {
-		endPage = (int) (Math.ceil(page.getPage() / (double)displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(page2.getPage() / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 	  
-		int tempEndPage = (int) (Math.ceil(totalCount / (double)page.getPerPageNum()));
+		int tempEndPage = (int) (Math.ceil(totalCount / (double)page2.getPerPageNum()));
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		prev = startPage == 1 ? false : true;
-		next = endPage * page.getPerPageNum() >= totalCount ? false : true;
+		next = endPage * page2.getPerPageNum() >= totalCount ? false : true;
 	}
 	
-	public String makeQuery1( int Page1) {
+	public String makeQuery1( int Page2) {
 		
 		UriComponents uriComponents1 =
 		UriComponentsBuilder.newInstance()
-										.queryParam("&page", Page1)
-										.queryParam("perPageNum", page.getPerPageNum())
+										.queryParam("page2", Page2)
+										.queryParam("perPageNum2", page2.getPerPageNum())
 										.build();
 							   
 				return uriComponents1.toUriString();
@@ -85,6 +85,7 @@ public class PageMaker {
 	
 	
 	//검색 시작
+	/*
 	public String makeSearch(int Page)
 	{
 	  
@@ -97,6 +98,7 @@ public class PageMaker {
 	            .build(); 
 	    return uriComponents.toUriString();  
 	}
+	*/
 
 	private String encoding(String keyword) {
 		if(keyword == null || keyword.trim().length() == 0) { 

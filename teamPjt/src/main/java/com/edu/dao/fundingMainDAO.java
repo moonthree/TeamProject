@@ -156,4 +156,16 @@ public class fundingMainDAO {
 		
 		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo);
 	}
+	
+	//펀딩 내용 가져오기 (modify.do 사용)
+	public FundingMainVO select_fundingOne(int funding_idx) {
+		return sqlSession.selectOne("FundingMainMapper.funding_one", funding_idx);
+	}
+	
+	//펀딩 옵션 가져오기 (modify.do 사용)
+	public List<Funding_optionVO> select_fundingOption(int funding_idx) {
+		
+		return sqlSession.selectList("FundingMainMapper.fundingOption_list",funding_idx);
+	}
+	
 }

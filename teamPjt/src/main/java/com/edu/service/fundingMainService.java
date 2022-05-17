@@ -98,4 +98,10 @@ public interface fundingMainService {
 	//펀딩 옵션 수량 감소 메소드
 	int update_option(Funding_order_optionVO orderOptionvo);
 	
+	//펀딩 내용 가져오기 (modify.do 사용)
+	FundingMainVO select_fundingOne(int funding_idx);
+	
+	//펀딩 옵션 가져오기 (modify.do 사용)
+	List<Funding_optionVO> select_fundingOption(int funding_idx);
+	
 }

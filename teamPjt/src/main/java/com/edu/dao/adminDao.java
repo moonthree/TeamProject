@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
+import com.edu.vo.Pagination2;
 
 @Repository
 public class adminDao {
@@ -27,11 +28,12 @@ public class adminDao {
 	}
 	
 	//모든 멤버 중 판매자만 찾기
-	public List<MemberVO> listMember_company(Pagination page){
+	public List<MemberVO> listMember_company(Pagination2 page){
 		
 	return sqlSession.selectList("adminMapper.listMember_company",page);
 	}
 	
+	//페이지 판매자 카운트
 	public int count_company() {
 		return sqlSession.selectOne("adminMapper.company_Count");
 	}
@@ -49,5 +51,13 @@ public class adminDao {
 		
 		return sqlSession.update("adminMapper.updateFun_State", f_idx);
 	}
+	
+	//update 펀딩 상태 -> 거절로
+		public int update_funding2(int f_idx) {
+			
+			return sqlSession.update("adminMapper.updateFun_State2", f_idx);
+		}
+
+	
 	
 }

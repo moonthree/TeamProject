@@ -487,4 +487,30 @@
 		where funding_option_idx = #{funding_order_option_select_idx}
 	</update>
 	
+	<select id="funding_one" resultType="FundingMainVO" parameterType="int">
+		SELECT 
+		funding_category
+	   ,funding_title
+	   ,funding_target_price
+	   ,funding_start_date
+	   ,funding_end_date
+	   ,funding_thumbnail
+	   ,funding_content
+	   ,funding_notice
+	   FROM funding
+	   WHERE funding_idx = #{funding_idx}
+	</select>
+	
+	<!-- 펀딩 옵션 불러오기 -->
+	<select id="fundingOption_list" resultType="Funding_optionVO" parameterType="int">
+		SELECT funding_idx,
+			   funding_option_idx,
+			   funding_option_name,
+			   funding_option_price,
+			   funding_option_detail,
+			   funding_option_stock
+		  FROM funding_option
+		 WHERE funding_idx = #{funding_idx};
+	</select>
+	
 </mapper>

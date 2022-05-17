@@ -57,7 +57,7 @@
 				                      <div class="card">
 				                          
 				                            <div class="embed-responsive embed-responsive-4by3">
-				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
 				                            </div>
 				                            
 				                      </div>
@@ -115,7 +115,7 @@
 				                      <div class="card">
 				                          
 				                            <div class="embed-responsive embed-responsive-4by3">
-				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
 				                            </div>
 				                            
 				                      </div>
@@ -172,7 +172,7 @@
 				                      <div class="card">
 				                          
 				                            <div class="embed-responsive embed-responsive-4by3">
-				                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+				                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
 				                            </div>
 				                            
 				                      </div>
@@ -228,7 +228,7 @@
 		                      <div class="card">
 		                          
 		                            <div class="embed-responsive embed-responsive-4by3">
-		                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+		                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
 		                            </div>
 		                            
 		                      </div>

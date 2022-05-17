@@ -44,7 +44,7 @@ $(document).on("click", ".menu div", function() {
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
 					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
 					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do">회원 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do?check=3">회원 관리 페이지(관리자)</a></td>
 				</tr>
 			</thead>
 		</table>
@@ -162,7 +162,7 @@ $(document).on("click", ".menu div", function() {
 			              
                   <div class="col-lg-4 col-md-12 col-sm-12">
                       <div class="card" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-                        <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
+                        <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="funding_img">
                         <div class="card-body">
                           <p class="card-text">${ item.funding_title }</p>
                         </div>
