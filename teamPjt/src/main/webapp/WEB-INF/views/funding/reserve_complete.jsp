@@ -119,7 +119,11 @@
 					    <td colspan="2" style="border-bottom: none; color: gray;">
 					    	* 결제 성공 시 배송 예정일에 전달 예정입니다.<br>
 	                    	<input type="hidden" id="end_date" value="${read.funding_end_date}">
-					    	* 펀딩 내역 > <a href="#" style="text-decoration: underline;color: #007bff;">펀딩 상세</a>에서 <div id="end_date_text" style="display: inline;">종료 날짜</div>까지 펀딩을 취소 및 변경하실 수 있습니다.
+	                    	<c:forEach var="item" items="${myFundingList}" varStatus="i">
+		                    	<c:if test="${i.first}">
+		                        * 펀딩 내역 > <a href="<%= request.getContextPath()%>/mypage/info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }" style="text-decoration: underline;color: #007bff;">펀딩 상세 내역</a>에서 <div id="end_date_text" style="display: inline;">종료 날짜</div>까지 펀딩을 취소 및 변경하실 수 있습니다.
+		                    	</c:if>
+		                    </c:forEach>
 					    </td>
 					  </tr>
 					</table>
@@ -129,7 +133,13 @@
 <%-- 						* 펀딩 내역 > <a href="#">펀딩 상세</a>에서 ${read.funding_end_date}까지 펀딩을 취소 및 변경하실 수 있습니다. --%>
 <!--                     </div> -->
                     <div style="display: inline-block; text-align: center; width: 100%; margin: 15px 0;">
-                        <button type="button" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 내역 보기</button>
+                    <c:forEach var="item" items="${myFundingList}" varStatus="i">
+                    	<c:if test="${i.first}">
+                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/mypage/info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">
+                        	펀딩 상세 내역 보기
+                        </button>
+                    	</c:if>
+                    </c:forEach>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/main.do'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 홈 가기</button>
                     </div>
                     </div>
