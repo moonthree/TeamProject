@@ -401,7 +401,7 @@
 			                        </tr>
                                  
 			                        <tr>
-			                            <td style="border:none;" colspan="2">
+			                            <td style="border:none; text-align: right;" colspan="2">
 			                            ${ item.funding_order_total_price }원 결제 예약
 			                            <h4>
 			                            	<c:choose>
@@ -412,11 +412,7 @@
 			                            </h4>
 			                            </td>
 			                        </tr>
-			                        <tr>
-						                <th style="border-top:none; text-align: right" colspan="2">
-			                              <h6>${Math.round(item.funding_current_price/item.funding_target_price*100)} 명의 보호자분들이 함께 하셨습니다 </h6>
-			                            </th>
-			                        </tr>              
+			                                  
 			                      </tbody>
 			                    </table>
 			                  </div>         
