@@ -27,27 +27,26 @@
    
    <br>
 <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
-            <li class="nav-item nav-pills viewtab" role="presentation" >
-                  
-                  <a class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
-                    aria-controls="tab1"  aria-selected="true">소비자</a>
-                  
+            <li class="nav-item nav-pills viewtab" role="presentation" > 
+                  <a id="alink1" class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
+                    aria-controls="tab1"  aria-selected="true">소비자</a>  
             </li>
             
             <li class="nav-item nav-pills viewtab" role="presentation">
            
-                <a class="nav-link" data-toggle="tab"   role="tab" aria-controls="tab2" href="#tab2"
+                <a id="alink2" class="nav-link" data-toggle="tab"   role="tab" aria-controls="tab2" href="#tab2"
                     aria-selected="false"><span class="toptab">판매자</span></a>
-            
             </li>
-            
         </ul>
 </div>
 
 <!-- Tab panes -->
 <div class="tab-content"  id="myTabContent">
+
+<!-- 소비자  -->
   <div class="tab-pane fade active show" id="tab1" role="tabpanel"
-                aria-labelledby="tab1-tab"> 소비자 선택됨
+                aria-labelledby="tab1-tab"> 
+                 소비자 선택됨
       <table class="table">
                   <c:if test="${seller.size() == 0}">
                        <h3>등록된 소비자 계정이 없습니다.</h3>
@@ -91,7 +90,7 @@
                       </c:if>
                     </tbody>
                 </table>
-                
+              
                <!-- 소비자 페이징 기법 -->
               <div>
                  <nav aria-label="Page navigation example">
@@ -101,19 +100,19 @@
                       </c:if> 
                   
                       <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
-                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do?check=0${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
                       </c:forEach>
                   
-                      <c:if test="${pageMaker_sell.next && pageMaker_sell.endPage > 0}">
+                      <c:if test="${pageMaker_sell.next && param.pageMaker_sell.endPage > 0}">
                          <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(pageMaker_sell.endPage + 1)}#tab1">다음</a></li>
                       </c:if> 
                     </ul>
                 </nav>
               </div>
-  
-  
-  
+            
+     
   </div>
+  <!-- 판매자  -->
   <div class="tab-pane fade" id="tab2" role="tabpanel"
                 aria-labelledby="tab2-tab">
      판매자 선택됨
@@ -160,40 +159,64 @@
                         </c:if>
                     </tbody>
                 </table>
-                
+              
                 <!-- 판매자 페이징 기법 -->
               <div>
                  <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                       <c:if test="${pageMaker_company.prev}">
-                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.startPage - 1)}#tab2">이전</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery1(pageMaker_company.startPage - 1)}#tab2">이전</a></li>
                       </c:if> 
                   
                       <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
-                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(idx2)}#tab2">${idx2}</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do?check=1${pageMaker_company.makeQuery1(idx2)}#tab2">${idx2}</a></li>
                       </c:forEach>
                   
                       <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">
-                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery2(pageMaker_company.endPage + 1)}#tab2">다음</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery1(pageMaker_company.endPage + 1)}#tab2">다음</a></li>
                       </c:if> 
                     </ul>
                 </nav>
             </div>
+            
          </div>
 </div>
 
 </main>
 <c:import url="/footer.do"></c:import>
- <script type="text/javascript">
-       $(document).ready(function() {
-         var link = document.location.href;
-         var tab = link.split('/').pop();
-         var hash = window.location.hash;
-          console.log(hash);
-           $('#myTab a[href="' +hash + '"]').tab('show');
-           window.scrollTo(100, 100);
-      });
-    
-    </script>
+<script type="text/javascript">
+
+
+$('#myTab #alink1').click(function(e) {
+	e.preventDefault();
+	history.replaceState({}, null, location.pathname);
+	loaction.href=location.pathname;
+//	window.location.reload();
+    $(this).tab('show');
+    window.scrollTo(100, 100);
+  });
+  
+$('#myTab #alink2').click(function(e) {
+    e.preventDefault();
+    history.replaceState({}, null, location.pathname);
+    loaction.href=location.pathname;
+    $(this).tab('show');
+    window.scrollTo(100, 100);
+  });
+  
+  
+  
+  // store the currently selected tab in the hash value
+  $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+    var id = $(e.target).attr("href").substr(1);
+    window.location.hash = id;
+    window.scrollTo(100, 100);
+  });
+  
+  // on load of the page: switch to the currently selected tab
+  var hash = window.location.hash;
+  $('#myTab a[href="' + hash + '"]').tab('show'); 
+
+</script>
 </body>
 </html>

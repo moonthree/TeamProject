@@ -18,6 +18,7 @@
     
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/funding_register.css">
+ 
 </head>
 <body>
 
@@ -30,63 +31,67 @@
         
         <input type="hidden" name="member_idx" id="member_idx" value="${login.member_idx}">
          <input type="hidden" name="funding_notice" id="funding_notice" value="" >
-         <input type="hidden" name="funding_thumbnail" id="funding_thumbnail" value="" >
+          <input type="hidden" name="funding_thumbnail" id="funding_thumbnail" value="${funding.funding_thumbnail}" > 
          <input type="hidden" name="funding_content" id="funding_content" value="" >
         <!-- 펀딩 카테고리  필드 -->
             <div class="form-group">
                 <label for="exampleFormControlInput1">카테고리</label><br>
-                <select name="funding_category" id="fCategory">
-                    <option  value="0">강아지</option>
-                    <option value="1">고양이</option>
-                    <option value="2">기타</option>
-                </select>
+               <c:choose>
+               
+               		<c:when test="${funding.funding_category eq 0}"><strong>강아지</strong></c:when>
+               		<c:when test="${funding.funding_category eq 1}"><strong>고양이</strong></c:when>
+               		<c:when test="${funding.funding_category eq 2}"><strong>다른 동물</strong></c:when>
+         
+               </c:choose>
             </div>
             <!-- 펀딩 타이틀 필드 -->
             <div class="form-group">
                 <label>상품명</label>
-                <input name="funding_title" type="text" class="form-control" id="fTitle" placeholder="이름 입력">
+                <input name="funding_title" type="text" class="form-control" id="fTitle" placeholder="이름 입력"
+                value="${funding.funding_title}" disabled="disabled">
             </div>
                <!-- 펀딩 목표금액 필드 -->
             <div class="form-group">
                 <label>펀딩 목표 금액</label>
-                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="가격 입력" min="0">
+                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="가격 입력" min="0"
+                value="${funding.funding_target_price}" disabled="disabled">
             </div>
 			 <!-- 펀딩 옵션 필드 -->
              <div class="form-group">
-                <label>제품 옵션</label>&nbsp;<span class="ftime">*최대 5개</span>
-                <button type="button" class="btn btn-outline-secondary" id="ADD">옵션 추가</button>
+                <label>제품 옵션</label>&nbsp;<span class="ftime">*현재 ${optionList.size()}개</span>
+               
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
                         <colgroup>
-                            <col width="25%" />
-                            <col width="25%" />
-                            <col width="25%" />
-                            <col width="25%" />
+                            <col width="40%" />
+                            <col width="10%" />
+                            <col width="30%" />
+                            <col width="10%" />
+                            <col width="10%" />
                         </colgroup>
                         <tr style="text-align: center;">
                             <th scope="col">옵션명</th>
                             <th scope="col">금액</th>
                             <th scope="col">상세</th>
-                            <th scope="col">수량</th>
+                            <th scope="col">현재 남은 수량</th>
+                            <th scope="col">추가 수량</th>
                         </tr>
                         
-                        <tr>
+                        <c:if test="${optionList.size() > 0}">
+                        	<c:forEach var="item" items="${optionList}">
+                        		<tr>
                         <!-- 펀딩 옵션  name 맞춤-->
-                            <td><input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" /></td>
-                            <td><input name="funding_option_price" type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/></td>
-                            <td><input name="funding_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" /></td>
-                            <td><input name="funding_option_stock" type="text" class="text" name="name4" style="width:100%;" placeholder="수량" /></td>
-                        </tr>
-                     
+                            <td><input name="funding_option_name" type="text" class="text"  style="width:100%;" placeholder="옵션명"  value="${item.funding_option_name}"/></td>
+                            <td><input name="funding_option_price" type="number" min="0" class="text"  style="width:100%;"  placeholder="금액" value="${item.funding_option_price}"/></td>
+                            <td><input name="funding_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" value="${item.funding_option_detail}"/></td>
+                            <td><input name="funding_option_stock" type="text" class="text"  style="width:100%;" placeholder="현재 수량" value="${item.funding_option_stock}"/></td>
+                            <td><input name="funding_optionPlus" type="number" class="text"  style="width:100%;" placeholder="추가할 수량" /></td>
+                        	</tr>
+                        	</c:forEach>
+                        
+                        </c:if>
                     </table>
-                    <textarea id="template" style="display:none;">
-                            <tr id="addRow">
-                                <td><input type="text" class="text"   name="funding_option_name"   style="width:100%;"  placeholder="옵션명"/></td>            
-                                <td><input type="number" min="0" class="text"   name="funding_option_price"   style="width:100%;"  placeholder="금액"/></td>
-                                <td><input type="text" class="text"    name="funding_option_detail"  style="width:100%;"   placeholder="상세"/></td>
-                                <td><input type="text" class="text" name="funding_option_stock" style="width:100%;" placeholder="수량" /></td>
-                            </tr>
-                    </textarea>
+
                 </div>
             </div>
           
@@ -96,38 +101,49 @@
                 <br>
                 <!-- 펀딩 시작 기간 필드 -->
                 펀딩 오픈 :
-                <input name="funding_start_date" type="date" id="start">
+                <input name="funding_start_date" type="date"
+                value="${funding.funding_start_date}" disabled="disabled">
                 &nbsp;
                 ~
                 &nbsp;
                 <!-- 펀딩 종료 기간 필드 -->
                 펀딩 종료 :
-                <input name="funding_end_date" type="date" id="end">
+                <input name="funding_end_date" type="date"   value="${funding.funding_end_date}" disabled="disabled">
                 
             </div>
             
             
             <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
-            
+            <!-- 썸네일 수정 불가 -->
+<%--             
             <div class="form-group">
                 <label>썸네일</label>
                 <div class="form-inline">
-                    <input name="funding_thumbnail_temp" type="file" class="form-control" id="funding_thumbnail_temp"  placeholder="썸네일 등록" style="width: 68%;"> &nbsp;
-                    <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
+                	<input type="text" value="현재 파일: ${funding.funding_thumbnail}"  style="width: 68%;" disabled="disabled"/>
+                   <input name="funding_thumbnail_temp" type="file" class="form-control fileOp" id="funding_thumbnail_temp"  placeholder="썸네일 등록" style="width: 68%;"
+                    > &nbsp;
+                    <!-- <input type"button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
-            </div>
+            </div> --%>
              <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
             <div class="form-group">
                 <label>프로젝트 계획</label>
                 <div class="form-inline">
-                    <input  id="funding_Detail_temp"  type="file" class="form-control" name="funding_Detail_temp"  placeholder="프로젝트 계획 등록" style="width: 68%;"> &nbsp;
-                   <!--  <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
+                
+             <%--<input type="text" value="현재 파일 : ${funding.funding_content}"  style="width: 68%;" disabled="disabled"/> --%>
+               
+              
+                 <input  id="funding_Detail_temp"  type="file" class="form-control fileOp" name="funding_Detail_temp"  placeholder="프로젝트 계획 등록" style="width: 68%;"
+                   > &nbsp;
+                   <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
             </div>
             <div class="form-group">
                 <label>공지 등록</label>
                 <div class="form-inline">
-                    <input type="file" class="form-control" id="funding_Notice_temp" name="funding_Notice_temp" placeholder="공지 등록" style="width: 68%;"> &nbsp;
+                <%--   <input type="text" value="현재 파일 : ${funding.funding_notice}"  style="width: 68%;" disabled="disabled" /> --%>
+                   <input type="file" class="form-control fileOp" id="funding_Notice_temp" name="funding_Notice_temp" placeholder="공지 등록" style="width: 68%;"
+                  > &nbsp;
                    <!--  <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                 </div>
             </div>
@@ -144,8 +160,7 @@
 
 <c:import url="/footer.do"></c:import>
 </body>
-
-<script>
+<!-- <script>
     let date = new Date()
     document.getElementById('start').value = date.toISOString().substring(0, 10);
     document.getElementById('start').min = date.toISOString().substring(0, 10);
@@ -153,7 +168,7 @@
     date.setDate(date.getDate() + 15);
     document.getElementById('end').value = date.toISOString().substring(0, 10);
     document.getElementById('end').min = date.toISOString().substring(0, 10);
-    date.setMonth(date.getMonth() + 1)
+    date.setMonth(date.getMonth() + 6)
     document.getElementById('end').max = date.toISOString().substring(0, 10);
     console.log(date)
 
@@ -178,7 +193,7 @@
      });
          
 </script>
-     
+      -->
      <script type="text/javascript">
         $(document).ready(function () {
             $(".dropdown-toggle").dropdown();
@@ -213,21 +228,21 @@ var flagg = false;
 			
 			var theForm =  document.querySelector('form[name=funding_upload]');
 			var notice_path = document.getElementById("funding_Notice_temp");
-			var thumnail_path = document.getElementById("funding_thumbnail_temp");
+			//var thumnail_path = document.getElementById("funding_thumbnail_temp");
 			var detail_path = document.getElementById("funding_Detail_temp");
 			
 		
-			var thum_path = file_pathReader(thumnail_path);
+			//var thum_path = file_pathReader(thumnail_path);
 			var not_path = file_pathReader(notice_path);
 			var det_path = file_pathReader(detail_path);
 			
 
-			$("#funding_thumbnail").val(thum_path);
+			//$("#funding_thumbnail").val(thum_path);
 			$("#funding_notice").val(not_path);
 			$("#funding_content").val(det_path);
 			
 			
-			var url = "funding_view.do";
+			var url = "funding_modifyPriview.do";
 			window.open("","popOpen","_blank");
 			flagg = true;
 		 	theForm.target = "popOpen";
@@ -270,25 +285,13 @@ var flagg = false;
 		//전체경로를 \ 나눔.
 		var filePathSplit = filePath.split('\\'); 
 		
-		// 지워도됨 
-		//전체경로를 \로 나눈 길이.
-		//var filePathLength = filePathSplit.length;
-		
-		
-/* 		//마지막 경로를 .으로 나눔.
-		var fileNameSplit = filePathSplit[filePathLength-1].split('.');
-		//파일명 : .으로 나눈 앞부분
-		var fileName = fileNameSplit[0];
-		//파일 확장자 : .으로 나눈 뒷부분
-		var fileExt = fileNameSplit[1];
-	
-		var file1_path = fileName + "." +fileExt; */
-		
 		return filePathSplit[2];
 		
 	}
 
 </script>
+
+
 
 
 </html>

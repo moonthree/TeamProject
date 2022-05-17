@@ -36,6 +36,7 @@
 	<!-- interceptor -->
 	<beans:bean id="login" class="com.edu.interceptor.LoginInterceptor" />
 	<beans:bean id="auth" class="com.edu.interceptor.AuthInterceptor" />
+	<beans:bean id="auth2" class="com.edu.interceptor.AuthInterceptor2" />
     
     <interceptors>
         <interceptor>
@@ -47,11 +48,16 @@
             <mapping path="/funding/option.do"/>
             <mapping path="/mypage/mypage.do"/>
             <mapping path="/mypage/mypage2.do"/>
+            <mapping path="/mypage/info_funding_detail.do"/>
             <mapping path="/mypage/funding_register.do"/>
             <mapping path="/admin/approval.do"/>
             <mapping path="/admin/management_product.do"/>
             <mapping path="/admin/management_member.do"/>
             <beans:ref bean="auth"/>
+        </interceptor>
+        <interceptor>
+            <mapping path="/funding/view.do"/>
+            <beans:ref bean="auth2"/>
         </interceptor>
     </interceptors>
   

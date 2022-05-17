@@ -78,7 +78,7 @@
 	                            </td>
 	                            <td>
 	                                <button type="button" onclick="updateStateFn(this)" class="btn btn-outline-success">승인 허가</button>
-	                                <button type="button" class="btn btn-outline-danger">승인 거절</button>
+	                                <button type="button" onclick="updateStateFn2(this)" class="btn btn-outline-danger" >승인 거절</button>
 	                            </td>
 	                        </tr>
                         </c:forEach>
@@ -159,6 +159,34 @@ function updateStateFn(obj) {
 	
 	});
 } 
+
+function updateStateFn2(obj) {
+	
+	//funding 번호 찾기
+	var f_idx = $(obj).parent().parent().children().first().text();
+	console.log(f_idx);
+	
+ 	$.ajax({
+		url:"update_FundingState2.do",
+		type:"post",
+		data:"f_idx="+f_idx,
+		success:function(result){
+			
+			if(result == 0){
+				alert("승인거절 실패하였습니다.");
+			}else{
+				alert("승인 거절 성공");
+				//현재 페이지 새로고침
+				location.reload();
+			}
+			
+		},
+		error:function(result){
+			alert("오류 발생");
+		}
+	
+	}); 
+}
 
 
 </script>

@@ -250,5 +250,19 @@ public class fundingMainServiceImpl implements fundingMainService{
 		
 		return dao.update_option(orderOptionvo);
 	}
+
+	//펀딩 내용 가져오기 (modify.do 사용)
+	@Override
+	public FundingMainVO select_fundingOne(int funding_idx) {
+		return dao.select_fundingOne(funding_idx);
+	}
+
+
+	//펀딩 옵션 가져오기(modify.do 사용)
+	@Override
+	public List<Funding_optionVO> select_fundingOption(int funding_idx) {
+	
+		return dao.select_fundingOption(funding_idx);
+	}
 	
 }

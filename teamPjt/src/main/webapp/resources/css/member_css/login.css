@@ -23,10 +23,10 @@
 	  text-align: left;
 	  position: relative;
 	  z-index: 1;
-	  border-left: 5px solid #714415;
+	  border-left: 5px solid #fa6462;
 	  margin: 0 0 35px;
 	  padding: 10px 0 10px 50px;
-	  color: #714415;
+	  color: #fa6462;
 	  font-size: 28px;
 	  font-weight: 600;
 	  text-transform: uppercase;
@@ -83,7 +83,7 @@
 	.input-container .bar:before, .card .input-container .bar:after {
 	  content: '';
 	  position: absolute;
-	  background: #714415;
+	  background: #fa6462;
 	  width: 0;
 	  height: 2px;
 	  transition: .2s ease;
@@ -134,7 +134,7 @@
 	  top: 50%;
 	  left: 50%;
 	  display: block;
-	  background: #714415;
+	  background: #fa6462;
 	  width: 30px;
 	  height: 30px;
 	  border-radius: 100%;
@@ -142,8 +142,8 @@
 	  opacity: 0;
 	  transition: .3s ease;
 	}
-	.button-container button:hover, .button-container button:active, .button-container button:focus { border-color: #714415;}
-	.button-container button:hover span, .button-container button:active span, .button-container button:focus span { color: #714415;}
+	.button-container button:hover, .button-container button:active, .button-container button:focus { border-color: #fa6462;}
+	.button-container button:hover span, .button-container button:active span, .button-container button:focus span { color: #fa6462;}
 	.button-container button:active span, .button-container button:focus span { color: #ffffff;}
 	.button-container button:active:before, .button-container button:focus:before {
 	  opacity: 1;

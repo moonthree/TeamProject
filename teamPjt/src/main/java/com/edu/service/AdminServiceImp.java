@@ -9,6 +9,7 @@ import com.edu.dao.adminDao;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
+import com.edu.vo.Pagination2;
 
 @Service
 public class AdminServiceImp implements AdminService{
@@ -30,7 +31,7 @@ public class AdminServiceImp implements AdminService{
 	
 	//판매자 계정 찾기
 	@Override
-	public List<MemberVO> memberList_company(Pagination page) {
+	public List<MemberVO> memberList_company(Pagination2 page) {
 		return admindao.listMember_company(page);
 	}
 	//판매자 페이징
@@ -53,6 +54,12 @@ public class AdminServiceImp implements AdminService{
 	public int update_funding(int f_idx) {
 		
 		return admindao.update_funding(f_idx);
+	}
+	//관리자가 펀딩 신청 거절 시 펀딩 상태 변경
+	@Override
+	public int update_funding2(int f_idx) {
+		
+		return admindao.update_funding2(f_idx);
 	}
 
 	

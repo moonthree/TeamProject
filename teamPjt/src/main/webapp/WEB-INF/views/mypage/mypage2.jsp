@@ -23,12 +23,23 @@
 
 
  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
-
+	<script type="text/javascript">
+	function Fnalert(idx) {
+		if(confirm("펀딩 수정 시 파일들을 모두 다시 업로드 해야합니다 그래도 하시겠습니까?")) {
+		
+			var funding_idx = idx;
+			console.log(funding_idx);
+		    window.location.href = "funding_modify.do?funding_idx="+funding_idx;
+		}
+	}
+	
+	</script>
 
 <title>마이페이지</title>
 </head>
 <body>
 <c:import url="/header.do"></c:import>
+
 <main id="wrapper">
  <div class="container">
         <div class="row" style="margin-top: 10%;">
@@ -105,6 +116,7 @@
                   <div class="mydiv" id="mydiv">
 					<c:if test="${sellerFundingList.size()>0}">
 					<c:forEach var="item" items="${sellerFundingList}">
+					
 	                    <div class="card mb-3">
 	                      <div class="row item" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
 	                        <div class="col-lg-5 col-md-6">
@@ -130,9 +142,12 @@
 	                                <div class="col" style=" font-weight: 600; color:red;">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>              	
 	                              </div>
 	                            </p>
-	                          </div>
+	                       	 </div>
 	                        </div> 
 	                      </div>
+	                       <button type="button" onclick="Fnalert(${item.funding_idx})">
+	                        		수정하기
+	                        	</button>
 	                    </div>
                     </c:forEach>
                     </c:if>

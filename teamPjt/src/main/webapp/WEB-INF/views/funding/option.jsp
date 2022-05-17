@@ -10,34 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-<style>
-	main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-    }
-    .step_circle{
-        display: table-cell;
-        vertical-align: middle;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-    
-    input[type="number"]::-webkit-outer-spin-button,
-	input[type="number"]::-webkit-inner-spin-button {
-	    -webkit-appearance: none;
-	    margin: 0;
-	}
-	
-	.stockbtn{
-	    font-size: 20px;
-	    color: #65696B;
-	    background: none;
-	    border: none;
-	    padding: 0px;	
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_option.css">
 <script>
 	// 숫자 자리 제한
 	function handleOnInput(el, maxlength) {
@@ -55,19 +28,19 @@
 <c:import url="/header.do"></c:import>
 	<main>
     <!-- 펀딩 제목  -->
-	<div><h3 style="text-align: center; font-weight: bold;padding: 30px;color: #F2EDD7;background-color: #393232;">${read.funding_title }</h3></div>
+	<div><h3>${read.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
         <form name="order" id="orderform" action="option.do" method="post" class="orderform">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
             	<input type="hidden" name="funding_title" value="${read.funding_title}">
                 <div class="wrap" style="margin: 30px 0px 20px auto;">
-                    <div class="step" style="text-align: center; width: 455px; margin: 0 auto; font-weight: 600;">
-                        <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">옵션 선택</div>
+                    <div class="step">
+                        <div class="step_circle select_circle">옵션 선택</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">결제 예약</div>
+                        <div class="step_circle none_select_circle">결제 예약</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">예약 완료</div>
+                        <div class="step_circle none_select_circle">예약 완료</div>
                     </div>
                 </div>
             </div>
@@ -83,8 +56,8 @@
                 	<c:forEach var="item" items="${optionlist}">
                 		<div class="option_select" id="option_select">
                 				<!-- 품절 아닐 때 -->
-                				<c:if test="${item.funding_option_stock ne 0}">
-                					<div class="custom-control custom-checkbox" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; padding-left: 60px; margin-bottom: 20px;">
+                				<c:if test="${item.funding_option_stock > 0}">
+                					<div class="custom-control custom-checkbox">
 				                        <input type="checkbox" name="check" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_idx}">
 				                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}" style="cursor: pointer; width: 100%;">
 				                        	<!-- 옵션 가격 -->
@@ -136,8 +109,8 @@
 				                    </div> <!-- custom-checkbox end -->
                 				</c:if>
                 				<!-- 품절일 경우 -->
-                				<c:if test="${item.funding_option_stock eq 0}">
-                					<div class="custom-control custom-checkbox" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; padding-left: 60px; margin-bottom: 20px;">
+                				<c:if test="${item.funding_option_stock < 1}">
+                					<div class="custom-control custom-checkbox">
 				                        <input type="checkbox" name="check" onclick="javascript:option.checkItem();" class="custom-control-input" id="customCheck${item.funding_option_idx}" value="${item.funding_option_idx}" disabled="disabled">
 				                        <label class="custom-control-label" for="customCheck${item.funding_option_idx}" style="cursor: pointer; width: 100%; color: #9B9B9B">
 				                        	<!-- 옵션 가격 -->
@@ -192,12 +165,12 @@
             <div style="margin: 50px auto; text-align: center;">
                 <div style="font-weight: bold; font-size: 20px;">
                 	<input type="hidden" name="sum_p_price" value="">
-					${read.funding_title}에 <div id="sum_p_price" style="color:#83BD75; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
+					${read.funding_title}에 <div id="sum_p_price" style="color:#fa6462; text-decoration: underline; display: inline">0</div>원을 펀딩합니다.
                 </div>
                 <br>
                 <div>
 <!--                     <button type="button" onclick="document.getElementById('orderform').submit();" class="btn btn-secondary" style="background-color: #83BD75; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button> -->
-                    <button type="button" onclick="javascript:checkone();" class="btn btn-secondary" style="background-color: #83BD75; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button>
+                    <button type="button" onclick="javascript:checkone();" class="btn btn-secondary" style="background-color: #fa6462; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button>
                 </div>
             </div>
         </div>
@@ -315,9 +288,9 @@
 	    var $option = $(this).parent().parent();            
 	 
 	    if(checked)
-	        $option.css('background-color', '#cee5d3');
+	        $option.css('background-color', '#ffedf1');
 	    else
-	        $option.css('background-color', 'white');
+	        $option.css('background-color', '#f6f6f6');
 	});
 	
 	// 체크박스 - 수량 금액

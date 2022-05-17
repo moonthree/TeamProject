@@ -3,15 +3,18 @@ package com.edu.vo;
 public class Pagination {
 	
 	private int page;
-	private int perPageNum;
+	private int perPageNum;	
 	private int rowStart;
 	private int rowEnd;
-	
+
 	public Pagination() {
+		
 		this.page = 1;
 		this.perPageNum = 9;
+		
 	}
 	
+
 	public void setPage(int page) {
 		if(page<=0) {
 			this.page = 1;
@@ -49,6 +52,8 @@ public class Pagination {
 		rowEnd = rowStart + perPageNum;
 		return rowEnd;
 	}
+	
+
 	
 	@Override
 	public String toString() {

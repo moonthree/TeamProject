@@ -55,9 +55,9 @@ $(document).on("click", ".menu div", function() {
 			<thead>		
 				<tr>
 					<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath() %>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath() %>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
-					<td style="width:20%"><a href="<%=request.getContextPath() %>/admin/management_member.do">회원 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
+					<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do?check=3">회원 관리 페이지(관리자)</a></td>
 				</tr>
 			</thead>
 		</table>
@@ -107,7 +107,7 @@ $(document).on("click", ".menu div", function() {
                 <div class="container" style="width: 90%;">
                   
                   <div class="row row-cols-3 row-cols-md-3" id="outer">
-                    <div class="col">
+                    <div class="col-4" >
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">${ countFunding }</h5>
@@ -115,7 +115,7 @@ $(document).on("click", ".menu div", function() {
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">0</h5>
@@ -123,7 +123,7 @@ $(document).on("click", ".menu div", function() {
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">${ countZzim }</h5>

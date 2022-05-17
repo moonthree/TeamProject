@@ -46,9 +46,10 @@ thead{
     opacity: 0.2;
 }
 
+/* 카테고리 제목 */
 .card-category{
     text-align: center;
-    color: #c19a6b;
+    color: #feffe5;
     font-weight: bold;
 }
 
@@ -312,14 +313,14 @@ qna 상세sssssssssss
 5. 프로젝트/공지/커뮤니티/QnA 탭  
 */
 .progress-bar-self{
-	background-color: #fa6462 !important;
+	background-color: #f24f49 !important;
 }
 .FVbtn{
 	background-color: #fa6462 !important;
 	border: none;
 }
 .FVbtn:hover{
-	background-color: #FF5E78 !important;
+	background-color: #f24f49 !important;
 }
 .nav-link:visited{
 	background-color: #fa6462 !important;
@@ -333,20 +334,22 @@ qna 상세sssssssssss
     height: 23%;
     /* background-color: #e5f9f9; */    
     /* color: #0db6b6; */
-    background-color : #fdf4f3;
+    background-color : #feffe5;
 	color: #fa6462;
     border-radius: 10px;
     padding: 10px; 
+    font-weight: 500;
 }
 @media (min-width: 992px) and (max-width: 1200px){
     .fundingGoal {
         height: 150px;
 	    /* background-color: #e5f9f9; */    
 	    /* color: #0db6b6; */
-	    background-color : #fdf4f3;
+	    background-color : #feffe5;
 	    color: #fa6462;
 	    border-radius: 10px;
         padding: 10px 10px 0px 10px;   
+        font-weight: 500;
     }
     .card-img-top{
 	width: 100%;
@@ -358,10 +361,11 @@ qna 상세sssssssssss
         height: 33%;
         /* background-color: #e5f9f9; */    
 	    /* color: #0db6b6; */
-	    background-color : #fdf4f3;
+	    background-color : #feffe5;
 	    color: #fa6462;
 	    border-radius: 10px;
-        padding: 10px 10px 0px 10px;   
+        padding: 10px 10px 0px 10px;
+        font-weight: 500;   
     }
     .card-img-top{
 	width: 100%;
