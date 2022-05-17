@@ -8,15 +8,13 @@ main {
     text-align: center;
     font-weight: bold;
     color: #693907;
+    margin-top: 40px;
 }
 
 .inputtext{
     width: 100%;
 }
 
-.table{
-    width: 50%;
-}
 
 #fCategory{
     width: 100%;
@@ -27,10 +25,158 @@ main {
     font-size: 14px;
 }
 
-label{
+
+
+
+
+/*css*/
+
+
+table.tablelist {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+  
+  }
+
+table.tablelist th {
+    text-align: center;
+    width: 150px;
+    padding: 5px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+  }
+  table.tablelist td {
+    width: 350px;
+    padding: 5px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .tablelist td input {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 4px 10px;
+  }
+
+
+  /* 기본 정보 */
+
+  h3{
+    margin: 80px 0 16px;
+    line-height: 1.22;
+    letter-spacing: -.7px;
+    color: #000;
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  label{
     font-weight: bold;
     color: #cea36b;
-    margin-top: 20px;
-    font-size: 30px;
+    margin-top: 18px;
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+
+  .info input[type="text"], input[type="number"]{
+    height: 40px;
+    line-height: 1.2em;
+    font-size: 17px;
+    font-weight: 300;
+    outline: none;
+    border: 1px solid rgba(0,0,0,.15);
+    background: #fff;
+    padding: 0 15px;
+    width: 100%;
+    vertical-align: middle;
+    color: #999999;
+    border-radius: 0px;  
+    }
+
+  .input_description{
+    margin: 4px 0px;
+    line-height: 18px;
+    color: #90949c;
+    font-size: 13px;
+  }
+
+  /* 파일 */
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 0px;
+}
+.filebox input[type="file"]{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }
 
+/* 카테고리 */
+
+.chip {
+    padding: 0 25px;
+    background-color: #e0e0e0;
+    border-radius: 100px;
+    display: inline-flex;
+    margin: 4px;
+    color: rgba(0, 0, 0, .87);
+    align-items: center;
+    height: 40px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.chip .icon {
+    font-size: 16px;
+    color: rgba(0, 0, 0, .54);
+    width: 20px;
+    text-align: center;
+}
+
+.chip .icon--leadind {
+    margin: 2px 4px 0 -4px;
+}
+
+.chip .icon--trailing {
+    margin: 2px -4px 0 4px;
+}
+
+.chips__choice label{
+    display: inline;
+}
+
+.chips__choice .chip.chip--active {
+    color: white;
+    background-color: #343a40;
+}
+
+.chips__filter .chip .chip--check {
+    display: none;
+}
+
+.chips__filter .chip.chip--active .chip--check {
+    display: block;
+}
+
+.btn_category{
+    opacity: 0;
+}
+
+.chips__choice label{
+    margin-top: 0px;
+}
