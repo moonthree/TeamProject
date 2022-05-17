@@ -107,7 +107,7 @@ $(document).on("click", ".menu div", function() {
                 <div class="container" style="width: 90%;">
                   
                   <div class="row row-cols-3 row-cols-md-3" id="outer">
-                    <div class="col">
+                    <div class="col-4" >
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">${ countFunding }</h5>
@@ -115,7 +115,7 @@ $(document).on("click", ".menu div", function() {
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">0</h5>
@@ -123,7 +123,7 @@ $(document).on("click", ".menu div", function() {
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <div class="card">
                         <div class="card-body" style="border-radius:20px;  height: 200px; text-align: center; background-color: #e3efe7;">
                           <h5 class="card-title display-2">${ countZzim }</h5>
