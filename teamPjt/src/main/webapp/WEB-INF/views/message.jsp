@@ -38,8 +38,8 @@
         overflow: hidden;
     }
     .card_img{
-        width: 200px;
-        height:200px;
+        width: 100px;
+        height:100px;
         object-fit: cover;
         transition: all 0.1s linear;
     }
@@ -54,7 +54,10 @@
     .card{
         border: none; 
     }
-
+/* 테이블 css */
+table, tr, td{
+ border:none;
+}
 </style>
 <script>
 
@@ -83,13 +86,16 @@ $(document).ready (function () {
 	        
 	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 -->
 	         
-	        <table class="table">
+	        <table style="border: none">
 			 <c:if test="${permitFunding.size()>0}">
 				<c:forEach var="item" items="${permitFunding}">
+				<!-- 보낸사람 & 시각  -->
 				    <tr>
-				      <th scope="col" colspan="3" style="border-bottom:2px solid black">${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+				    	<th style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
 				    </tr>
-			 
+				    <tr>
+				      	<th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+				    </tr>
 			  		<tr>
 				      <td>
 				      	<div class="img-container" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
