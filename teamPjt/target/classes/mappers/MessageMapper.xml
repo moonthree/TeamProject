@@ -5,6 +5,43 @@
 
 <mapper namespace="MessageMapper">
 
+	<select id="checkFundingPermit" parameterType="int" resultType="FundingMainVO">
+		SELECT  f.member_idx,
+				f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_content,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views,
+				f.funding_express_date,
+				f.funding_express_fee
+		FROM 	funding f, message m
+		WHERE	f.funding_idx = m.funding_idx
+		AND 	m.member_idx = #{ member_idx }
+		ORDER BY m.message_date DESC
 
+	</select>
+	
+	
+	<select id="getMemberIdx" parameterType="int" resultType="int">
+		SELECT  member_idx
+		FROM	funding
+		WHERE	funding_idx = #{ f_idx }
+	</select>
+	
+	<insert id="insertLog" parameterType="java.util.HashMap">
+		INSERT 
+		INTO	message 
+		values	(null, 
+				#{ member_idx }, 
+				#{f_idx}, 
+				default)
+	</insert>
 
 </mapper>

@@ -32,6 +32,29 @@
 	right:0px;
 }
 
+/* 이미지 */
+/*이미지 콘테이너 1:1 비율*/
+    .img-container{
+        overflow: hidden;
+    }
+    .card_img{
+        width: 200px;
+        height:200px;
+        object-fit: cover;
+        transition: all 0.1s linear;
+    }
+    .card_img:hover{
+        transform: scale(1.05);
+    }
+    .setting_img:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+
+    }
+    .card{
+        border: none; 
+    }
+
 </style>
 <script>
 
@@ -48,42 +71,40 @@ $(document).ready (function () {
 	
 <!-- Sidebar Right modal -->
 <div class="modal fade right" id="sidebar-right" tabindex="-1" role="dialog">
-<div class="modal-dialog modal-sm" role="document">
+<div class="modal-dialog" role="document">
 	
 	<div class="modal-content">
 		<div class="modal-header">
+		<div style="font-size: x-large; font : italic 1.5em TmonMonsori;">Messages</div>
 		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 		</div>
 	    <div class="modal-body">
 	        
 	        
 	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 -->
+	         
 	        <table class="table">
-			  <thead>
-			    <tr>
-			      <th scope="col" colspan="4" style="border-bottom:2px solid black">제목</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">1</th>
-			      <td>Mark</td>
-			      <td>Otto</td>
-			      <td>@mdo</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">2</th>
-			      <td>Jacob</td>
-			      <td>Thornton</td>
-			      <td>@fat</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">3</th>
-			      <td colspan="2">Larry the Bird</td>
-			      <td>@twitter</td>
-			    </tr>
-			  </tbody>
+			 <c:if test="${permitFunding.size()>0}">
+				<c:forEach var="item" items="${permitFunding}">
+				    <tr>
+				      <th scope="col" colspan="3" style="border-bottom:2px solid black">${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+				    </tr>
+			 
+			  		<tr>
+				      <td>
+				      	<div class="img-container" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
+                        </div>
+				      </td>
+				      <td>${ item.funding_category }</td>
+				      <td>${ item.funding_end_date }</td>
+				    </tr>
+				    
+			  	</c:forEach>
+			</c:if>
+			  
 			</table>
+				
 
 			<hr>
 	    
