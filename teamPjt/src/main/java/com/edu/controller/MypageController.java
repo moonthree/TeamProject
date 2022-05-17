@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
@@ -31,6 +32,7 @@ import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
+import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
@@ -57,7 +59,8 @@ public class MypageController {
 		model.addAttribute("member", member);
 		
 		//펀딩리스트 3개씩 & 펀딩 개수
-		List<FundingMainVO> s3f = mypageService.select3Funding(login.getMember_idx());
+		//s3f에  member_idx에 따른 funding_order_idx도 가져올 수 있어야함
+		List<FundingInfoDetailVO> s3f = mypageService.select3Funding(login.getMember_idx());
 		model.addAttribute("select3Funding",s3f);
 		model.addAttribute("countFunding",mypageService.countFunding(login.getMember_idx()));
 		
@@ -219,10 +222,15 @@ public class MypageController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-		//펀딩리스트 3개씩 & 펀딩 개수
-		List<FundingMainVO> mfl = mypageService.myFundingList(login.getMember_idx());
+		
+		//펀딩리스트
+//		List<FundingMainVO> mfl = mypageService.myFundingList(login.getMember_idx());
+//		model.addAttribute("myFundingList",mfl);
+	
+		//펀딩리스트
+		List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(login.getMember_idx());
 		model.addAttribute("myFundingList",mfl);
-
+		
 		return "mypage/info_funding";
 	}
 
@@ -235,11 +243,26 @@ public class MypageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
-		//funding_idx에 따른 주문정보가져오기
+		//funding-idx와 member_idx를 통한 funding_MainVO와 funding_orderVO가져오기
 		FundingInfoDetailParameterVO fipv = new FundingInfoDetailParameterVO();
 		fipv.setFunding_idx(vo.getFunding_idx());
 		fipv.setMember_idx(login.getMember_idx());
 		model.addAttribute("detail", mypageService.fundingDetail(fipv));
+		
+		int funding_order_idx = mypageService.fundingDetail(fipv).getFunding_order_idx();
+		System.out.println("funding_order_idx : "+funding_order_idx);
+		
+		//funding_order_idx를 가지고 funding_order_payVO가지고 오기
+		model.addAttribute("pay",mypageService.fundingPayDetail(funding_order_idx));
+		
+		//funding_order_idx를 가지고 funding_expressVO가지고 오기
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("member_idx",login.getMember_idx());
+		param.put("funding_order_idx",funding_order_idx);
+		model.addAttribute("express",mypageService.fundingExpressDetail(param));
+		
+		//funding_order_option은 따로 리스트형식으로 가져오기 - vo두개로 나눌것 첫번쨰껀 Funding_optionVO 두번째껀 Funding_order_optionVO
+		model.addAttribute("option",mypageService.fundingOptionDetail(funding_order_idx));
 		
 		return "mypage/info_funding_detail";
 	}
@@ -267,7 +290,11 @@ public class MypageController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-
+		
+		// 펀딩리스트4개씩
+		List<FundingMainVO> s4f = mypageService.select4Funding(login.getMember_idx());
+		model.addAttribute("select4Funding",s4f);
+		
 		return "mypage/my_info";
 		
 	}
@@ -335,6 +362,80 @@ public class MypageController {
 		}
 
 	}
+	
+	//비밀번호 변경
+	@ResponseBody
+	@RequestMapping(value = "/changePw.do", method = RequestMethod.POST)
+	public String changePw(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+
+		System.out.println("member_idx : "+login.getMember_idx());
+		System.out.println("member_password_old : "+param.get("member_password_old"));
+		System.out.println("member_password_new : "+param.get("member_password_new"));
+		
+		Map<String, Object> changePwParam = new HashMap<String, Object>();
+		changePwParam.put("member_password_old", param.get("member_password_old"));
+		changePwParam.put("member_password_new", param.get("member_password_new"));
+		changePwParam.put("member_idx",login.getMember_idx());
+		
+		// DB에 수정처리
+		int result = mypageService.changePw(changePwParam);
+
+		if (result > 0) {
+			return "s";
+		} else {
+			System.out.println("수정 실패");
+			return "f";
+		}
+
+	}
+	
+	
+	//주소 변경
+	@ResponseBody
+	@RequestMapping(value = "/changeExpress.do", method = RequestMethod.POST)
+	public String changeExpress(@RequestParam Map<String, Object> param) {
+
+		Map<String, Object> changeExpressParam = new HashMap<String, Object>();
+				changeExpressParam.put("funding_express_name", param.get("funding_express_name"));
+				changeExpressParam.put("funding_express_phone", param.get("funding_express_phone"));
+				changeExpressParam.put("funding_express_postnum", param.get("funding_express_postnum"));
+				changeExpressParam.put("funding_express_addr1", param.get("funding_express_addr1"));
+				changeExpressParam.put("funding_express_addr2", param.get("funding_express_addr2"));
+				changeExpressParam.put("funding_order_idx", param.get("funding_order_idx"));
+				
+				// DB에 수정처리
+				int result = mypageService.changeExpress(changeExpressParam);
+		
+				if (result > 0) {
+					return "s";
+				} else {
+					System.out.println("수정 실패");
+					return "f";
+				}
+		
+	}
+	
+	//펀딩 취소
+	@RequestMapping(value = "/fundingWithdraw.do", method = RequestMethod.POST)
+	public String fundingWithdraw(@RequestParam("funding_order_idx") int funding_order_idx, HttpServletRequest request) {
+
+		int result = mypageService.fundingWithdraw(funding_order_idx);
+		if(result > 0 ) {
+			System.out.println("펀딩 취소 성공");
+			return "mypage/info_funding";
+		}else {
+			System.out.println("펀딩 취소 실패");
+			
+			//이젠 페이지로 돌아간다
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		}
+	}
+	
+		
 	
 	// 공지사항 이동
 	@RequestMapping(value = "/notice_list.do")
@@ -474,5 +575,6 @@ public class MypageController {
 	}
 	
 
+	
 	
 }

@@ -18,12 +18,29 @@
 				member_addr2 = #{member_addr2},
 				member_postnum = #{member_postnum},
 			 	member_phone = #{member_phone},
-			 	member_pet = #{member_pet},
-	<if test="member_password != null and member_password neq ''">
-				member_password = #{member_password}
-	</if>
+			 	member_pet = #{member_pet}
 		WHERE  	member_idx = #{member_idx}
 	</update>
+	
+	<!-- 비밀번호 변경 - 마이페이지 -->
+	<update id="changePassword" parameterType="java.util.HashMap">
+		UPDATE member
+		SET    member_password = #{member_password_new}
+		WHERE  member_idx = #{member_idx}
+		AND    member_password = #{member_password_old}
+	</update>
+	
+	<!-- 주소지 변경 - funding_info_detail -->
+	<update id="changeExpress" parameterType="java.util.HashMap">
+		UPDATE 	funding_express
+		SET    	funding_express_name = #{funding_express_name},
+			   	funding_express_phone = #{funding_express_phone},
+			   	funding_express_postnum = #{funding_express_postnum},
+			   	funding_express_addr1 = #{funding_express_addr1},
+			   	funding_express_addr2 = #{funding_express_addr2}
+		WHERE 	funding_order_idx = #{funding_order_idx}		
+	</update>
+	
 	
 	<!-- 아이디 찾기 MypageController2 -->
 	<select id="findId" resultType="String">
@@ -42,7 +59,7 @@
 	   	AND	   member_email = #{member_email}
 	</select>
 	
-	<!-- 비밃번호 변경 MypageController2 -->
+	<!-- 비밀번호 변경 MypageController2 -->
 	<update id="changePw" parameterType="changePwVO">
 		UPDATE member 
 		SET    member_password = ifnull(#{changedPw},0)
@@ -52,7 +69,28 @@
 	</update>
 	
 	<!-- mypage1 펀딩 리스트 출력 3개 -->
-	<select id="select3Funding" parameterType="int" resultType="FundingMainVO">
+	<select id="select3Funding" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
+		SELECT  f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views,
+				fo.funding_order_idx
+		FROM  	funding_order fo, funding f 
+		WHERE 	fo.funding_idx = f.funding_idx 
+		AND 	fo.member_idx = #{member_idx}
+		ORDER BY fo.funding_order_date DESC limit 3;
+	</select>
+	
+	
+	<!-- my_info 펀딩 리스트 출력 4개 -->
+	<select id="select4Funding" parameterType="int" resultType="FundingMainVO">
 		SELECT  f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
@@ -67,7 +105,7 @@
 		FROM  	funding_order fo, funding f 
 		WHERE 	fo.funding_idx = f.funding_idx 
 		AND 	fo.member_idx = #{member_idx}
-		ORDER BY fo.funding_order_date DESC limit 3;
+		ORDER BY fo.funding_order_date DESC limit 4;
 	</select>
 	
 	<!-- mypage1 펀딩 개수 -->
@@ -90,14 +128,35 @@
 				f.funding_permit_state,
 				f.funding_current_state,
 				f.funding_category,
-				f.funding_views,
-				fo.funding_order_date
+				f.funding_views
 		FROM  	funding_order fo, funding f 
 		WHERE 	fo.funding_idx = f.funding_idx 
-		AND 	fo.member_idx=#{member_idx}
+		AND 	fo.member_idx = #{member_idx}
 		ORDER BY fo.funding_order_date DESC
 	</select>
 	
+	<!-- 펀딩 내역 2-->
+	<select id="myFundingList2" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
+		SELECT 	fo.funding_order_idx,
+			  	fo.funding_order_total_price,
+			  	fo.funding_order_pay_state,
+			  	fo.funding_order_date,
+			  	f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views
+		FROM  	funding_order fo, funding f 
+		WHERE 	fo.funding_idx = f.funding_idx 
+		AND 	fo.member_idx = #{member_idx}
+		ORDER BY fo.funding_order_date DESC
+	</select>
 	
 	<!-- mypage1 찜 리스트 출력 3개  -->
 	<select id="select3Zzim" parameterType="int" resultType="FundingMainVO">
@@ -164,6 +223,7 @@
 	</select>
 	
 	<!-- funding_info_detail -->
+	<!-- funding & funding_order -->
 	<select id="fundingInfoDetail" parameterType="com.edu.vo.FundingInfoDetailParameterVO" resultType="com.edu.vo.FundingInfoDetailVO">
 		SELECT 	fo.funding_order_idx, 
 				fo.funding_order_date,
@@ -189,10 +249,70 @@
 		AND		fo.member_idx = #{member_idx}
 	</select>
 	
+	<!-- funding_order_pay -->
+	<select id="fundingPayDetail" parameterType="int" resultType="funding_order_payVO">
+		 SELECT funding_order_pay_idx, 
+				funding_order_idx, 
+				funding_order_pay_card_num,
+				funding_order_pay_card_valid,
+				funding_order_pay_card_password,
+				funding_order_pay_register_num
+		 FROM   funding_order_pay
+		 WHERE	funding_order_idx = #{funding_order_idx}
+	</select>
+	
+	<!-- funding_express -->
+	<select id="fundingExpressDetail" parameterType="java.util.HashMap" resultType="funding_expressVO">
+		SELECT  funding_express_idx,
+				funding_order_idx,
+				member_idx,
+				funding_express_postnum,
+				funding_express_addr1,
+				funding_express_addr2,
+				funding_express_phone,
+				funding_express_name,
+				funding_express_state
+		FROM funding_express
+		WHERE funding_order_idx = #{funding_order_idx}
+	</select>
+	
+	<!-- funding_option -->
+	<select id="fundingOptionDetail" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
+		SELECT  foo.funding_order_idx,
+				foo.funding_order_option_idx,
+				foo.funding_order_option_select_idx,
+				foo.funding_order_option_select_count,
+				fp.funding_option_name,
+				fp.funding_option_price,
+				fp.funding_option_detail
+		FROM	funding_order fo, funding_order_option foo, funding_option fp
+		WHERE 	fo.funding_order_idx = foo.funding_order_idx
+		AND	 	fp.funding_option_idx = foo.funding_order_option_select_idx
+		AND 	fo.funding_order_idx = #{funding_order_idx};
+	</select>
+	
 	<!-- 찜 취소 -->
 	<delete id="deleteZzim" parameterType="java.util.HashMap">
 		DELETE FROM zzim
 		WHERE funding_idx = #{funding_idx} AND member_idx = #{member_idx};
 	</delete>
+	
+	<!-- 펀딩 취소 -->
+	<update id="fundingWithdraw1" parameterType="int">
+		DELETE FROM funding_order_option
+		WHERE  		funding_order_idx = #{funding_order_idx};
+	</update>
+	<update id="fundingWithdraw2" parameterType="int">
+		DELETE FROM funding_express
+		WHERE  		funding_order_idx = #{funding_order_idx};
+	</update>
+	<update id="fundingWithdraw3" parameterType="int">
+		DELETE FROM funding_order_pay
+		WHERE  		funding_order_idx = #{funding_order_idx};
+	</update>
+	<update id="fundingWithdraw4" parameterType="int">
+		DELETE FROM funding_order 
+		WHERE  		funding_order_idx = #{funding_order_idx};
+	</update>
 	
 </mapper>

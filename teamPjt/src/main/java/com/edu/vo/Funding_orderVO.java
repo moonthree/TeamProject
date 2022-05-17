@@ -9,8 +9,15 @@ public class Funding_orderVO {
 	private int funding_order_pay_state;		
 	private Date funding_order_date;		
 	private int member_idx;		
-	private int funding_idx;		
+	private int funding_idx;
+	private int funding_order_donation;
 			
+	public int getFunding_order_donation() {
+		return funding_order_donation;
+	}
+	public void setFunding_order_donation(int funding_order_donation) {
+		this.funding_order_donation = funding_order_donation;
+	}
 	public Date getFunding_order_date() {		
 		return funding_order_date;	
 	}		

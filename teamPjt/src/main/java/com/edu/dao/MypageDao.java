@@ -12,6 +12,10 @@ import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_expressVO;
+import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_order_optionVO;
+import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.ZzimVO;
 
@@ -43,8 +47,12 @@ public class MypageDao {
 		return sqlSession.update("MypageMapper.changePw", vo);
 	}
 	
-	public List<FundingMainVO> select3Funding(int member_idx){
+	public List<FundingInfoDetailVO> select3Funding(int member_idx){
 		return sqlSession.selectList("MypageMapper.select3Funding", member_idx);
+	}
+	
+	public List<FundingMainVO> select4Funding(int member_idx){
+		return sqlSession.selectList("MypageMapper.select4Funding", member_idx);
 	}
 	
 	public List<ZzimVO> select3Zzim(int member_idx){
@@ -63,6 +71,10 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.myFundingList", member_idx);
 	}
 	
+	public List<FundingInfoDetailVO> myFundingList2(int member_idx){
+		return sqlSession.selectList("MypageMapper.myFundingList2", member_idx);
+	}
+	
 	public List<FundingMainVO> myZzimList(int member_idx){
 		return sqlSession.selectList("MypageMapper.myZzimList", member_idx);
 	}
@@ -72,13 +84,47 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.sellerFundingList", member_idx);
 	}
 	
-	//funding_info_detail
+	/*funding_info_detail*/
+	//funding & funding_order
 	public FundingInfoDetailVO fundingDetail(FundingInfoDetailParameterVO vo){
 		return sqlSession.selectOne("MypageMapper.fundingInfoDetail", vo);
 	}
+	//funding_order_pay
+	public Funding_order_payVO fundingPayDetail(int funding_order_idx) {
+		return sqlSession.selectOne("MypageMapper.fundingPayDetail", funding_order_idx);
+	}
+	//funding_express
+	public Funding_expressVO fundingExpressDetail(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("MypageMapper.fundingExpressDetail", paramMap);
+	}
+	//funding_option
+	public List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx) {
+		return sqlSession.selectList("MypageMapper.fundingOptionDetail", funding_order_idx);
+	}
+	
 	
 	//찜 취소
 	public int deleteZzim(Map<String, Integer> paramMap) {
 		return sqlSession.update("MypageMapper.deleteZzim", paramMap);
 	}
+	
+	//비밀번호 변경-마이페이지
+	public int changePassword(Map<String, Object> paramMap) {
+		return sqlSession.update("MypageMapper.changePassword", paramMap);
+	}
+	
+	//주소지 변경 - funding_info_detail
+	public int changeExpress(Map<String, Object> paramMap) {
+		return sqlSession.update("MypageMapper.changeExpress", paramMap);
+	}
+	
+	//찜 취소
+	public int fundingWithdraw(int funding_order_idx) {
+		sqlSession.delete("MypageMapper.fundingWithdraw1", funding_order_idx); //funding_order_option
+		sqlSession.delete("MypageMapper.fundingWithdraw2", funding_order_idx); //funding_express
+		sqlSession.delete("MypageMapper.fundingWithdraw3", funding_order_idx); //funding_order_pay
+		return sqlSession.delete("MypageMapper.fundingWithdraw4", funding_order_idx); //funding_order
+	}
+
+	
 }

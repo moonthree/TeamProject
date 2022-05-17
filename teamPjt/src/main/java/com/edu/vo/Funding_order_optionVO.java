@@ -7,7 +7,7 @@ package com.edu.vo;
 		private int funding_order_option_select_idx;				
 		private int funding_order_option_select_count;				
 						
-		public int getFunding_order_option_idx() {				
+	public int getFunding_order_option_idx() {				
 		return funding_order_option_idx;				
 	}					
 	public void setFunding_order_option_idx(int funding_order_option_idx) {					

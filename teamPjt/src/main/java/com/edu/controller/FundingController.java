@@ -287,9 +287,12 @@ public class FundingController {
 		//클릭한 qna의 qna 번호 가져오기
 		String Strfunding_qna_idx = request.getParameter("funding_qna_idx");
 		int funding_qna_idx = Integer.parseInt(Strfunding_qna_idx);
+		String Strfunding_idx = request.getParameter("funding_idx");
+		int funding_idx = Integer.parseInt(Strfunding_idx);
 		
 		//vo에 클릭한 qna 번호 저장
 		vo.setFunding_qna_idx(funding_qna_idx);
+		vo.setFunding_idx(funding_idx);
 		
 		ArrayList<FundingQnaVO> qnaAnswer = null;
 		qnaAnswer = (ArrayList<FundingQnaVO>) fms.getQnaAnswer(paramMap);
@@ -469,10 +472,8 @@ public class FundingController {
 		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
 		String[] select_count = request.getParameterValues("funding_order_option_select_count");
 		for(int i=0; i<select_idx.length; i++) {
-			String s_i = select_idx[i];
-			String s_c = select_count[i];
-			int si = Integer.parseInt(s_i);
-			int sc = Integer.parseInt(s_c);
+			int si = Integer.parseInt(select_idx[i]);
+			int sc = Integer.parseInt(select_count[i]);
 			orderOptionvo.setFunding_order_option_select_idx(si);
 			orderOptionvo.setFunding_order_option_select_count(sc);
 			fms.insertOrderOption(orderOptionvo);
@@ -523,6 +524,9 @@ public class FundingController {
 		payvo.setFunding_order_pay_card_num(card);
 		fms.insertPay(payvo);
 		
+		// 결제 금액 합산하기
+		fms.addPrice(ordervo);
+		
 		int funding_idx = Integer.parseInt(request.getParameter("funding_idx"));
 		response.setContentType("text/html; charset=euc-kr");
 		PrintWriter pw = response.getWriter();
@@ -538,9 +542,13 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/reserve_complete.do")
-	public String reserveComplete(FundingMainVO mainvo, Model model) throws Exception {
+	public String reserveComplete(FundingMainVO mainvo, Model model, HttpServletRequest request) throws Exception {
 		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));		
-
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = fms.selectOne(login);
+		model.addAttribute("member", member);
 		return "funding/reserve_complete";
 	}
 	

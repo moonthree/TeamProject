@@ -25,7 +25,7 @@
 	</style>
 </head>
 <body>
-	<%@include file ="../header.jsp" %>
+	<c:import url="/header.do"></c:import>
 	<main>
 	<div class="container infinite">
 		<form action="main.do" method="get" id="abcde">

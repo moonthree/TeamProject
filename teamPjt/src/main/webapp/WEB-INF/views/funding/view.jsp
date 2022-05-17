@@ -461,10 +461,11 @@
                     					<div style="max-width: 200px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                     						<!-- 답변 완료면 -->
                     						<c:if test="${qnaState eq 1}">
-	                    						<a class="showQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}">
+	                    						<a class="showQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}" data-id3="${read.funding_idx }">
 		                    						<span class="qnaContent">
 		                    							${qnaList.funding_qna_content }
 		                    							<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
+		                    							<input type="text" name="funding_idx" class="funding_idx" value="" style="display:none;"/>
 		                    						</span>
 	                    						</a>
                     						</c:if>
@@ -489,7 +490,7 @@
 	                            			<c:if test="${qnaState eq 1}">
 	                            				<c:choose>
 		                    						<c:when test="${qnaList.member_idx eq loginPerson || seller eq loginPerson || qnaList.funding_qna_writer_idx eq loginPerson || login.member_level eq 2}">
-		                    								<a class="showQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}">
+		                    								<a class="showQna" data-id="${qnaList.funding_qna_idx }" data-id2="${qnaList.funding_qna_content}" data-id3="${read.funding_idx }">
 		                    									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
 								                                    viewBox="0 0 16 16">
 								                                    <path
@@ -497,6 +498,7 @@
 								                                </svg>
 		                    									<span class="qnaContent">${qnaList.funding_qna_content }</span>
 		                    									<input type="text" name="funding_qna_idx" class="funding_qna_idx" value="" style="display:none;"/>
+		                    									<input type="text" name="funding_idx" class="funding_idx" value="" style="display:none;"/>
 		                    								</a>
 		                    						</c:when>
 		                    						<c:otherwise>
