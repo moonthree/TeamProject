@@ -5,42 +5,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-       crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-       crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 
-<title>마이페이지</title>
-<script>
-// Accㄴㄴ
-$(document).on("click", ".menu div", function() {
-  var numberIndex = $(this).index();
-
-  if (!$(this).is("active")) {
-    $(".menu div").removeClass("active");
-    $("ul li").removeClass("active");
-
-    $(this).addClass("active");
-    $("ul").find("li:eq(" + numberIndex + ")").addClass("active");
-  }
-});
-</script>
+	<script type="text/javascript">
+	// Accㄴㄴ
+	$(document).on("click", ".menu div", function() {
+	  var numberIndex = $(this).index();
+	
+	  if (!$(this).is("active")) {
+	    $(".menu div").removeClass("active");
+	    $(".nacc li").removeClass("active");
+	
+	    $(this).addClass("active");
+	    $(".nacc").find("li:eq(" + numberIndex + ")").addClass("active");
+	  }
+	});
+	$(document).ready(function() {
+	    $(".dropdown-toggle").dropdown();
+	});
+	</script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 <style>
 #messageModal {
-  background: yellow;
   position: fixed;
   right: 15px;
   bottom: 15px;
   cursor : pointer;
 }
 
-</style>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 
+</style>
+<title>마이페이지</title>
 </head>
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
@@ -157,13 +159,13 @@ $(document).on("click", ".menu div", function() {
               </div>
               
             <div class="col-md-1 col-sm-12"></div>
-            <!--펀딩&스토어&찜-->
+            <!--펀딩 -->
             <div class="col-md-6 col-sm-12" style="margin-left: 30px;">
               <!--아코디언 탭-->
               <div class="naccs">
                 <div class="grid">
                   <ul class="nacc">
-                    <li class="active">
+                    <li class="active nacc_li">
                       <!--펀딩 내역-->
                         <div class="row" style="border-top: 2px solid #4E944F;"> 
                           <div class="col-md-8"><br><h5>펀딩 내역</h5></div>
@@ -197,7 +199,7 @@ $(document).on("click", ".menu div", function() {
               </div>
               <br>
                     </li>
-                    <li>
+                    <li class="nacc_li">
                       <!--주문내역-->
                 <div class="row" style="border-top: 2px solid #4E944F;"> 
                   <div class="col-md-8"><br><h5>주문 내역</h5></div>
@@ -231,7 +233,7 @@ $(document).on("click", ".menu div", function() {
               </div>
               <br>
                     </li>
-                    <li>
+                    <li class="nacc_li">
                     <!--찜내역-->
                     <div class="row" style="border-top: 2px solid #4E944F;"> 
                       <div class="col-md-8"><br><h5>찜 목록</h5></div>
@@ -280,9 +282,7 @@ $(document).on("click", ".menu div", function() {
 </div>
 
 <!--메세지 모탈 팝업 버튼 -->
-    <button type="button" data-toggle="modal" data-target="#sidebar-right" class="btn btn-primary navbar-btn pull-left">Right Sidebar</button>     
-
-
+    <div id="messageModal" data-toggle="modal" data-target="#sidebar-right"><img src="../resources/image/message/message.png" width="70px"/></div>     
 </main>
 <c:import url="/footer.do"></c:import>
 

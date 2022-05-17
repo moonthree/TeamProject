@@ -20,95 +20,77 @@
 <body>
 	<c:import url="/header.do"></c:import>
 	
-	<<!-- div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../resources/image/home/dogbob.png" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h3 class="main_image_h3"></h3>
-                    <p class="main_image_p"></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../resources/image/home/cattower.png" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h3 class="main_image"></h3>
-                    <p></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../resources/image/home/dogbob2.png" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h3 class="main_image"></h3>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-        </button>
-    </div> -->
-	
 	<div class="container">
-        <div class="row" id="category">
-            <div class="col-sm-3 col-6">
-                <a href="#">
-                    <img src="../resources/image/img/paws.png" alt="photo" class="rounded-circle"/>
-                    <br>
-                    펀딩 성공 상품
-                </a>
-            </div>
-            <div class="col-sm-3 col-6">
-                <a href="#">
-                    <img src="../resources/image/img/dog7.png" alt="photo" class="rounded-circle"/>
-                    <br>
-                    강아지
-                </a>
-            </div>
-            <div class="col-sm-3 col-6">
-                <a href="#">
-                    <img src="../resources/image/img/cat.png" alt="photo" class="rounded-circle"/>
-                    <br>
-                    고양이
-                </a>
-            </div>
-            <div class="col-sm-3 col-6">
-                <a href="#">
-                    <img src="../resources/image/img/other.png" alt="photo" class="rounded-circle"/>
-                    <br>
-                    반려 동물
-                </a>
-            </div>
-        </div>
-
-        <div class="row selectRow">
-            <div class="col-sm" id="chosenCategory">
-                펀딩 성공 상품
-            </div>
-            <div class="col-sm" style="text-align: right">
-                <div class="dropdown">
-                    <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-expanded="false">
-                        최신순
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown">
-                        <a class="dropdown-item" href="#">최신순</a>
-                        <a class="dropdown-item" href="#">인기순</a>
-                        <a class="dropdown-item" href="#">별점순</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<form action="store_main.do" method="get" id="abcde">
+	        <div class="row" id="category">
+	            <div class="col-sm-3 col-6" id="fundCategory" style="cursor:pointer;">
+	                <a href="#">
+	                    <img src="../resources/image/img/paws.png" alt="photo" class="rounded-circle"/>
+	                    <br>
+	                    펀딩 성공 상품
+	                </a>
+	            </div>
+	            <div class="col-sm-3 col-6" id="dogCategory" style="cursor:pointer;">
+	                <a href="#">
+	                    <img src="../resources/image/img/dog7.png" alt="photo" class="rounded-circle"/>
+	                    <br>
+	                    강아지
+	                </a>
+	            </div>
+	            <div class="col-sm-3 col-6" id="catCategory" style="cursor:pointer;">
+	                <a href="#">
+	                    <img src="../resources/image/img/cat.png" alt="photo" class="rounded-circle"/>
+	                    <br>
+	                    고양이
+	                </a>
+	            </div>
+	            <div class="col-sm-3 col-6" id="otherCategory" style="cursor:pointer;">
+	                <a href="#">
+	                    <img src="../resources/image/img/other.png" alt="photo" class="rounded-circle"/>
+	                    <br>
+	                    반려 동물
+	                </a>
+	            </div>
+	        </div>
+			
+			<div class="row selectRow">
+	            <div class="col-6" id="chosenCategory">
+	            	펀딩 성공 상품2
+	            </div>
+	            <input type="number" id="totalPageCount" style="display : none;" value="${totalPageCount}"/>
+		          <select id="categorySelect" name="categorySelect" class="category form-select" style="display : none;">
+		          	   <option value="fund" ${categorySelect eq 'fund' ? 'selected' : ''}>펀딩 성공 상품</option>
+		               <option value="dog" ${categorySelect eq 'dog' ? 'selected' : ''}>강아지</option>
+		               <option value="cat" ${categorySelect eq 'cat' ? 'selected' : ''}>고양이</option>
+		               <option value="other" ${categorySelect eq 'other' ? 'selected' : ''}>반려동물</option>
+		          </select>
+		          <div class="col-6" style="text-align: right">
+		          	  <select id="condition" name="condition" class="condition form-select">
+		                  <option value="sortNew" ${condition eq 'sortNew' ? 'selected' : ''}>최신순</option>
+		                  <option value="sortView" ${condition eq 'sortView' ? 'selected' : ''}>인기순</option>
+		                  <option value="sortStar" ${condition eq 'sortStar' ? 'selected' : ''}>평점순</option>
+		              </select>
+		          </div>
+	        </div>
+	        <!-- <div class="row selectRow">
+	            <div class="col-sm" id="chosenCategory">
+	                펀딩 성공 상품
+	            </div>
+	            <div class="col-sm" style="text-align: right">
+	                <div class="dropdown">
+	                    <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+	                        aria-expanded="false">
+	                        최신순
+	                    </button>
+	                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown">
+	                        <a class="dropdown-item" href="#">최신순</a>
+	                        <a class="dropdown-item" href="#">인기순</a>
+	                        <a class="dropdown-item" href="#">별점순</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div> -->
+	    </form>
         
         <div class="row storeRow">
             <div class="col-md-3 col-sm-12">
