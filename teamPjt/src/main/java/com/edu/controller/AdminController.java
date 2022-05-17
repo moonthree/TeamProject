@@ -1,5 +1,8 @@
 package com.edu.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.AdminService;
+import com.edu.service.MessageService;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.Pagination;
@@ -18,7 +22,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
+	@Autowired
+	private MessageService messageService;
 	
 	@RequestMapping(value = "/approval.do")
 	public String approval(Model model) {
@@ -82,6 +88,17 @@ public class AdminController {
 		
 		// update 쿼리문
 		int result = adminService.update_funding(f_idx);
+		
+		// funding 신청한 사람의  member_idx를 가져오기
+		int member_idx = messageService.getMemberIdx(f_idx);
+		System.out.println("f_idx : "+f_idx+"에 따른 member_idx : "+member_idx);
+		
+		// message 테이블에 로그 남기기 insert
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("f_idx", f_idx);
+		param.put("member_idx", member_idx);
+		messageService.insertLog(param);
+		
 		return result;
 	}
 
