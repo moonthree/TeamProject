@@ -3,6 +3,7 @@ package com.edu.vo;
 import java.util.Date;
 
 public class MemberVO {
+	
 	//git 넘기기용
 	private int member_idx;
 	private String member_email;
@@ -19,6 +20,7 @@ public class MemberVO {
 	private Date member_join_date;
 	private char member_state;
 	private String member_photo;
+	
 	
 	public int getMember_idx() {
 		return member_idx;

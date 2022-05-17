@@ -488,8 +488,97 @@ public class MypageController {
 		}
 	}
 	
+	/*펀딩 수정*/
+	@RequestMapping(value= "/funding_modify.do", method = RequestMethod.GET)
+	public String funding_modify(int funding_idx, Model model) {
+		System.out.println(funding_idx);
+		// 펀딩 내용 불러오기
+		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+		model.addAttribute("funding", vo);
+		
+		//펀딩 옵션 불러오기
+		List<Funding_optionVO> FundingOptionVo = fms.select_fundingOption(funding_idx);
+		if(FundingOptionVo.size() >0) {
+			
+			model.addAttribute("optionList", FundingOptionVo);
+		}
+		
+		return "mypage/funding_modify";
+	}
 	
+	/*펀딩 수정 미리보기 화면*/
+	@RequestMapping(value = "/funding_modifyPriview.do",method = RequestMethod.POST)
+	public String funding_modifiview( FundingMainVO vo, Model model, 
+			MultipartFile funding_Detail_temp,
+			MultipartFile funding_Notice_temp,
+			HttpServletRequest request
+			,String funding_option_name, int []funding_option_price, String funding_option_detail, 
+			int []funding_option_stock,
+			int []funding_optionPlus
+			) throws ParseException, IllegalStateException, IOException {
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
 	
+		File dir = new File(path);
+		
+		String org_DetailName = funding_Detail_temp.getOriginalFilename();
+		String org_NoticeName = funding_Notice_temp.getOriginalFilename();
+		
+		
+		if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+			dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
+		}
+
+		
+		if(!org_DetailName.isEmpty()) {
+			funding_Detail_temp.transferTo(new File(path, org_DetailName));
+		}
+		
+		if(!org_NoticeName.isEmpty()) {
+			funding_Notice_temp.transferTo(new File(path, org_NoticeName));
+		}
+		
+		 String from = vo.getFunding_end_date()+" 00:00:00";;
+		 SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date to = fm.parse(from);
+		 long d1 = to.getTime();
+		
+		  Calendar c1 = Calendar.getInstance(); 
+		  long today = c1.getTimeInMillis();
+		  
+		  long diffSec = (d1 - today) / 1000; //초 차이 
+		  long diffDays = diffSec /(24*60*60); //일자수 차이
+		  
+		  model.addAttribute("funding", vo); 
+		  model.addAttribute("difftime", diffDays);
+		  
+		  model.addAttribute("org_ThumName",vo.getFunding_thumbnail());
+		  model.addAttribute("org_DetailName",org_DetailName);
+		  model.addAttribute("org_NoticeName",org_NoticeName);
+		  
+		
+		String []strName = funding_option_name.split(",");
+		String []strDetail = funding_option_detail.split(",");
+		
+		List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
+		
+		for(int i=0; i<funding_option_price.length; i++) {
+			Funding_optionVO voo = new Funding_optionVO();
+			voo.setFunding_option_name( strName[i]);
+			voo.setFunding_option_price(funding_option_price[i]);
+			voo.setFunding_option_detail(strDetail[i]);
+			voo.setFunding_option_stock(funding_option_stock[i]);
+			optionVo.add(voo);
+			
+		}
+		
+		/*옵션 리스트 모델에 담기*/
+		model.addAttribute("optionList", optionVo);
+		
+		return "mypage/funding_view"; 
+	}
+	
+
 	
 	
 }
