@@ -16,14 +16,8 @@
     </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-       crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-       crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
-    
+   
+ 
 <style>
 .modal.right .modal-dialog {
 	position:absolute;
@@ -86,25 +80,25 @@ $(document).ready (function () {
 	        
 	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 -->
 	         
-	        <table style="border: none">
+	        <table class="table" style="border: none">
 			 <c:if test="${permitFunding.size()>0}">
 				<c:forEach var="item" items="${permitFunding}">
 				<!-- 보낸사람 & 시각  -->
 				    <tr>
-				    	<th style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+				    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+				    	<th></th>
 				    </tr>
 				    <tr>
-				      	<th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+				    
+				      	<th>
+					      	<div class="img-container" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+	                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
+	                        </div>
+	                        
+                        </th>
+                        <th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
 				    </tr>
-			  		<tr>
-				      <td>
-				      	<div class="img-container" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
-                        </div>
-				      </td>
-				      <td>${ item.funding_category }</td>
-				      <td>${ item.funding_end_date }</td>
-				    </tr>
+			  		
 				    
 			  	</c:forEach>
 			</c:if>
