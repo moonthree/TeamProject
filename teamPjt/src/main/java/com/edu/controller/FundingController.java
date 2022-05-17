@@ -27,6 +27,7 @@ import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
+import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_expressVO;
@@ -553,6 +554,10 @@ public class FundingController {
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = fms.selectOne(login);
 		model.addAttribute("member", member);
+		
+		//펀딩리스트
+		List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(login.getMember_idx());
+		model.addAttribute("myFundingList",mfl);
 		
 		return "funding/reserve_complete";
 	}
