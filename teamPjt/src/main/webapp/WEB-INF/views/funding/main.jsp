@@ -27,7 +27,7 @@
 <body>
 	<c:import url="/header.do"></c:import>
 	<main>
-	<div class="container infinite">
+	<div class="container">
 		<form action="main.do" method="get" id="abcde">
 	        <div class="row" id="category">
 	            <div class="col-md-4 col-sm-12" id="dogCategory" style="cursor:pointer;">

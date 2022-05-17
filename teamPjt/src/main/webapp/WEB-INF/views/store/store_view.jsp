@@ -243,7 +243,7 @@
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
-	            <div class="tab-pane fade active show" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
+	            <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
 	                <div class="reviewTop">
 	                    상품리뷰
 	                    <button class="btn btn-outline-info btn-lg writeReview">리뷰 작성</button>
