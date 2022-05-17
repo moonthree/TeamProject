@@ -440,7 +440,6 @@ public class FundingController {
 		
 		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));
 		
-		System.out.println();
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);

@@ -1,7 +1,8 @@
 /**
  * 
  */
-
+ 
+ 
 $(document).ready(function() {
 	$(".dropdown-toggle").dropdown();
 	$('#condition').on('change', function(){
@@ -9,6 +10,23 @@ $(document).ready(function() {
 	})
 	let category_val = '';
 	let condition_val = '';
+	$("#fundCategory").click(function(){
+		category_val = 'fund';
+		$('select.category option[value='+ category_val +']').attr('selected','selected');
+		condition_val = $("#condition").value;
+		if(condition_val = 'undifined'){
+			$('select.condition option[value= sortNew ]').attr('selected','selected');
+		}
+		$.ajax({
+            url: "store_main.do",
+            method: "GET",
+            data: "categorySelect=fund&condition=sortNew",
+            success:function(){
+                console.log("성공");
+                location.href="store_main.do?categorySelect=fund&condition=sortNew";
+            }
+        });
+	});
 	$("#dogCategory").click(function(){
 		category_val = 'dog';
 		$('select.category option[value='+ category_val +']').attr('selected','selected');
@@ -17,7 +35,7 @@ $(document).ready(function() {
 			$('select.condition option[value= sortNew ]').attr('selected','selected');
 		}
 		$.ajax({
-            url: "main.do",
+            url: "store_main.do",
             method: "GET",
             data: "categorySelect=dog&condition=sortNew",
             success:function(){
@@ -34,12 +52,12 @@ $(document).ready(function() {
 			$('select.condition option[value= sortNew ]').attr('selected','selected');
 		}
 		$.ajax({
-            url: "main.do",
+            url: "store_main.do",
             method: "GET",
             data: "categorySelect=cat&condition=sortNew",
             success:function(){
                 console.log("성공");
-                location.href="main.do?categorySelect=cat&condition=sortNew";
+                location.href="store_main.do?categorySelect=cat&condition=sortNew";
             }
         });
 	});
@@ -51,13 +69,13 @@ $(document).ready(function() {
 			$('select.condition option[value= sortNew ]').attr('selected','selected');
 		}
 		$.ajax({
-            url: "main.do",
+            url: "store_main.do",
             method: "GET",
             data: "categorySelect=other&condition=sortNew",
             success:function(){
                 console.log("성공");
                 
-                location.href="main.do?categorySelect=other&condition=sortNew" 
+                location.href="store_main.do?categorySelect=other&condition=sortNew" 
                 
             }
         });
@@ -65,4 +83,3 @@ $(document).ready(function() {
 	let chosenCategory = $("#categorySelect option:selected").text();
 	document.getElementById("chosenCategory").innerText = chosenCategory;
 });
-

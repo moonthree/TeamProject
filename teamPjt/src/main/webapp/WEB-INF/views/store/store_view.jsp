@@ -103,6 +103,9 @@
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
+	                <c:forEach var="option" items="${optionlist}">
+	                	<span style="color: black">${option.store_option_name}</span>
+	                </c:forEach>
 	                <div class="viewOptionSelect">
 	                    <select id="storeOptionSelect">
 	                    	<option value="default" hidden>상품명</option>
@@ -243,7 +246,7 @@
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
-	            <div class="tab-pane fade active show" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
+	            <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
 	                <div class="reviewTop">
 	                    상품리뷰
 	                    <button class="btn btn-outline-info btn-lg writeReview">리뷰 작성</button>
