@@ -57,7 +57,7 @@
     <!-- 펀딩 제목  -->
 	<div><h3 style="text-align: center; font-weight: bold;padding: 30px;color: #F2EDD7;background-color: #393232;">${read.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
-        <form name="order" id="orderform" action="option.do" method="post" class="orderform" style="width: 100%">
+        <form name="order" id="orderform" action="option.do" method="post" class="orderform">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
             	<input type="hidden" name="funding_title" value="${read.funding_title}">
@@ -173,8 +173,8 @@
                 	</c:forEach>
                 </c:if>
             <!-- 후원금 -->
-            <div style="width: 90%; margin: 20px auto;">
-                <h5 style="font-weight: 600; float: left; text-align: left; width: 200px; height: 100px;">후원금 (선택)</h5>
+            <div style="width: 90%; margin-top: 80px;">
+                <h5 style="font-weight: 600; float: left; text-align: left; width: 200px; height: 130px;">후원금 (선택)</h5>
                 <div>
                 	<p>후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?</p>
                 	<p>
@@ -186,7 +186,7 @@
             </div>
             </div>
         </div>
-        
+        <hr style="width: 90%">
         <!-- 선택 금액, 버튼 -->
         <div class="row">
             <div style="margin: 50px auto; text-align: center;">

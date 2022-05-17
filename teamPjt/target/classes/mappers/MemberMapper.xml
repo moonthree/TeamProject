@@ -77,4 +77,10 @@
 	</if>
 	</select>
 	
+	<select id="login" resultType="MemberVO">
+		SELECT * FROM member
+		WHERE member_email = #{member_email}
+		AND member_password = #{member_password}
+	</select>
+	
 </mapper>

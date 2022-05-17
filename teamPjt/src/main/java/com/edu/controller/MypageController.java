@@ -50,6 +50,13 @@ public class MypageController {
 	@Autowired 
 	private fundingMainService fundingMainServiece;
 	
+	//mesage
+	@RequestMapping(value = "/message.do")
+	public String message(Model model) {
+		//model은 나중에 메시지오면 알림 보여주는데 쓸거임
+		return "message";
+	}
+	
 	@RequestMapping(value = "/mypage.do")
 	public String mypage(Model model, HttpServletRequest request) {
 		// 세션에 있는 사용자의 정보 가져옴
@@ -235,7 +242,7 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/info_funding_detail.do", method = RequestMethod.GET)
-	public String info_funding_detail(Model model, FundingMainVO vo, HttpServletRequest request) {
+	public String info_funding_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("funding_order_idx") int funding_order_idx) {
 		
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
@@ -243,15 +250,12 @@ public class MypageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
-		//funding-idx와 member_idx를 통한 funding_MainVO와 funding_orderVO가져오기
-		FundingInfoDetailParameterVO fipv = new FundingInfoDetailParameterVO();
-		fipv.setFunding_idx(vo.getFunding_idx());
-		fipv.setMember_idx(login.getMember_idx());
-		model.addAttribute("detail", mypageService.fundingDetail(fipv));
+		System.out.println("콘트롤러로 가져온 FUNDING_ORDER_IDX : "+funding_order_idx);
 		
-		int funding_order_idx = mypageService.fundingDetail(fipv).getFunding_order_idx();
-		System.out.println("funding_order_idx : "+funding_order_idx);
-		
+		//funding_idx와 member_idx를 통한 funding_MainVO와 funding_orderVO가져오기
+		//위의 방식을 고쳐 funding_order_idx만으로 funding_orderVO를 가져올것이다
+		model.addAttribute("detail", mypageService.fundingDetail(funding_order_idx));
+			
 		//funding_order_idx를 가지고 funding_order_payVO가지고 오기
 		model.addAttribute("pay",mypageService.fundingPayDetail(funding_order_idx));
 		
@@ -292,7 +296,7 @@ public class MypageController {
 		model.addAttribute("member", member);
 		
 		// 펀딩리스트4개씩
-		List<FundingMainVO> s4f = mypageService.select4Funding(login.getMember_idx());
+		List<FundingInfoDetailVO> s4f = mypageService.select4Funding(login.getMember_idx());
 		model.addAttribute("select4Funding",s4f);
 		
 		return "mypage/my_info";

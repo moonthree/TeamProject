@@ -153,7 +153,7 @@
     date.setDate(date.getDate() + 15);
     document.getElementById('end').value = date.toISOString().substring(0, 10);
     document.getElementById('end').min = date.toISOString().substring(0, 10);
-    date.setMonth(date.getMonth() + 6)
+    date.setMonth(date.getMonth() + 1)
     document.getElementById('end').max = date.toISOString().substring(0, 10);
     console.log(date)
 

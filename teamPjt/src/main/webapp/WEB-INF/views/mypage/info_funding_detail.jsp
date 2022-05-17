@@ -123,7 +123,7 @@ $(function(){
 <c:import url="/header.do"></c:import>
    <!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
-        <img src="../resources/image/funding_main/${ detail.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
+        <img src="../resources/upload/funding/${detail.funding_thumbnail}" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
             <h5 class="card-category">
@@ -154,25 +154,9 @@ $(function(){
                     </thead>
                     <tbody>
                         <tr>
-                            <td>펀딩 번호</td>
+                            <td width="200px">펀딩 번호</td>
                             <td>${ detail.funding_idx }</td>
-                        </tr>
-                        <tr>
-                            <td>펀딩 예약 날짜</td>
-                            <td>
-                               
-                                <fmt:formatDate type="time" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
-                               
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>펀딩 종료일</td>
-                            <td>
-                                ${ detail.funding_end_date }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>펀딩 상태</td>
+                            <td width="200px">펀딩 상태</td>
                             <td>
                                 <c:choose>
                                 	<c:when test="${ detail.funding_current_state eq 0 }">진행중</c:when>
@@ -182,8 +166,24 @@ $(function(){
                             </td>
                         </tr>
                         <tr>
-                            <td>펀딩 옵션</td>
+                            <td>펀딩 예약 날짜</td>
                             <td>
+                               
+                                <fmt:formatDate type="time" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
+                               
+                            </td>
+                            <td>발송 시작일</td>
+                            <td>
+                                ${ detail.funding_express_date }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>펀딩 종료일</td>
+                            <td width="300px">
+                                ${ detail.funding_end_date }
+                            </td>
+                            <td>펀딩 옵션</td>
+                            <td width="300px">
                             
                             <c:forEach var="item" items="${ option }">
                             	<strong>구성</strong> ${ item.funding_option_name }(x${ item.funding_order_option_select_count })<br>
@@ -193,12 +193,7 @@ $(function(){
                            	
                             </td>
                         </tr>
-                        <tr>
-                            <td>발송 시작일</td>
-                            <td>
-                                ${ detail.funding_express_date }
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -217,8 +212,8 @@ $(function(){
                     </thead>
                     <tbody>
                         <tr>
-                            <td>결제 금액</td>
-                            <td>${ detail.funding_order_total_price - detail.funding_express_fee }</td>
+                            <td width="200px">결제 금액</td>
+                            <td>${ detail.funding_order_total_price - detail.funding_express_fee - detail.funding_order_donation }</td>
                         </tr>
                         <tr>
                             <td>추가 후원금</td>
@@ -254,7 +249,7 @@ $(function(){
                     </thead>
                     <tbody>
                         <tr>
-                            <td>결제 방법</td>
+                            <td width="200px">결제 방법</td>
                             <td>신용카드</td>
                         </tr>
                         <tr>

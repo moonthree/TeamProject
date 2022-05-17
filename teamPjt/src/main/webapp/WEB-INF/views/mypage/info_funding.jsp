@@ -99,10 +99,10 @@
 	                		<c:if test="${ item.funding_current_state eq 0 }">
 	                		<div class="row fundingRow">
 			                  <!--이미지-->
-				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 				                      <div class="card">
 			                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-			                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+			                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="tree">
 			                            </div>
 				                      </div>
 				                  </div>
@@ -182,10 +182,10 @@
 	                	<c:if test="${ item.funding_current_state eq 1 }">
 	                		<div class="row fundingRow">
 			                  <!--이미지-->
-				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 				                      <div class="card">
 			                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-			                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+			                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="tree">
 			                            </div>
 				                      </div>
 				                  </div>
@@ -265,10 +265,10 @@
 	                		<c:if test="${ item.funding_current_state eq 2 }">
 	                		<div class="row fundingRow">
 			                  <!--이미지-->
-				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 				                      <div class="card">
 			                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-			                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+			                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="tree">
 			                            </div>
 				                      </div>
 				                  </div>
@@ -347,10 +347,10 @@
 	                	
 	                	<div class="row fundingRow">
 			                  <!--이미지-->
-				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+				                  <div class="col-md-4 col-sm-12" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 				                      <div class="card">
 			                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-			                              <img src="../resources/image/funding_main/${ item.funding_thumbnail }" class="card-img-top embed-responsive-item" alt="tree">
+			                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="tree">
 			                            </div>
 				                      </div>
 				                  </div>

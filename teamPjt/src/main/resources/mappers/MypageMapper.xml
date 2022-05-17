@@ -90,7 +90,7 @@
 	
 	
 	<!-- my_info 펀딩 리스트 출력 4개 -->
-	<select id="select4Funding" parameterType="int" resultType="FundingMainVO">
+	<select id="select4Funding" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
 		SELECT  f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
@@ -101,7 +101,8 @@
 				f.funding_permit_state,
 				f.funding_current_state,
 				f.funding_category,
-				f.funding_views
+				f.funding_views,
+				fo.funding_order_idx
 		FROM  	funding_order fo, funding f 
 		WHERE 	fo.funding_idx = f.funding_idx 
 		AND 	fo.member_idx = #{member_idx}
@@ -229,6 +230,7 @@
 				fo.funding_order_date,
 				fo.funding_order_total_price,
 				fo.funding_order_pay_state,
+				fo.funding_order_donation,
 				f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
@@ -244,9 +246,8 @@
 				f.funding_express_date,
 				f.funding_express_fee
 		FROM 	funding_order fo, funding f 
-		WHERE	fo.funding_idx = f.funding_idx 
-		AND 	f.funding_idx = #{funding_idx}
-		AND		fo.member_idx = #{member_idx}
+		WHERE 	fo.funding_order_idx = #{ funding_order_idx }
+		AND 	fo.funding_idx = f.funding_idx;
 	</select>
 	
 	<!-- funding_order_pay -->

@@ -9,14 +9,28 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script>
-	// 결제 예정일 계산
 	window.onload = function(){
 		var end_date = document.getElementById('end_date').value;
 		var date = end_date.split("-");
+		var end_date_text = new Date(date.toLocaleString());
+		end_date_text = end_date_text.getFullYear() + "년 " + ((end_date_text.getMonth() + 1) > 9 ? (end_date_text.getMonth() + 1).toString() : "0" + (end_date_text.getMonth() + 1)) + "월 " + (end_date_text.getDate() > 9 ? end_date_text.getDate().toString() : "0" + end_date_text.getDate().toString()) + "일";
+		document.querySelector('#end_date_text').textContent = end_date_text;
+		
+		// 결제 예정일
 		var pay_date = new Date(date.toLocaleString());
 		pay_date.setDate(pay_date.getDate() + 1);
+		var pay_date_text = pay_date.getFullYear() + "년 " + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + "월 " + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString()) + "일";
 		pay_date = pay_date.getFullYear() + "-" + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + "-" + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString());
-		document.querySelector('#pay_date').textContent = pay_date;
+		document.querySelector('#pay_date').textContent = pay_date_text;
+
+		// 배송 예정일 (+40~45일)
+		var express_date1 = new Date(pay_date.toLocaleString());
+		express_date1.setDate(express_date1.getDate() + 40);
+		express_date1 = express_date1.getFullYear() + "-" + ((express_date1.getMonth() + 1) > 9 ? (express_date1.getMonth() + 1).toString() : "0" + (express_date1.getMonth() + 1)) + "-" + (express_date1.getDate() > 9 ? express_date1.getDate().toString() : "0" + express_date1.getDate().toString());
+		var express_date2 = new Date(pay_date.toLocaleString());
+		express_date2.setDate(express_date2.getDate() + 45);
+		express_date2 = express_date2.getFullYear() + "-" + ((express_date2.getMonth() + 1) > 9 ? (express_date2.getMonth() + 1).toString() : "0" + (express_date2.getMonth() + 1)) + "-" + (express_date2.getDate() > 9 ? express_date2.getDate().toString() : "0" + express_date2.getDate().toString());
+		document.querySelector('#express_date').textContent = express_date1 + " ~ " + express_date2;
 	}
 	
 </script>
@@ -44,6 +58,28 @@
     .btn-light{
     	width: 230px; margin: 10px 30px; border: 1px solid gainsboro;
     }
+    table.type04 {
+	 	border-collapse: separate;
+	    border-spacing: 1px;
+	    text-align: left;
+	    line-height: 2;
+	    margin: 20px 10px;
+	    width: 97%;
+	    border-top: 2px solid black;
+	}
+	table.type04 th {
+	  width: 20%;
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
+	table.type04 td {
+	  width: 80%;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
 </style>
 <title>Insert title here</title>
 </head>
@@ -66,12 +102,32 @@
                 </div>
                 <div class="reserve_card">
                     <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12"><div style="color: green">${member.member_name}님,</div> 펀딩 예약이 완료되었습니다.</div>
-                    <div style="font-size: 18px; line-height: 3;}">
-                    	<input type="hidden" id="end_date" value="${read.funding_end_date}">
-						프로젝트 성공 종료 시 <div id="pay_date" style="display: inline;">0</div>에 결제됩니다.<br>
-						결제 성공 시 !배송날짜!${read.funding_express_date} 중순 발송 예정입니다.<br>
-						펀딩 내역에서 ${read.funding_end_date}까지 펀딩을 취소 및 변경하실 수 있습니다.
-                    </div>
+                    <table class="type04">
+					  <tr>
+					    <th scope="row">프로젝트명</th>
+					    <td>${read.funding_title}</td>
+					  </tr>
+					  <tr>
+					    <th scope="row">결제 예정일</th>
+					    <td>목표금액을 달성할 경우, <div id="pay_date" style="display: inline;">결제 날짜</div>에 자동 결제 예정</td>
+					  </tr>
+					  <tr>
+					    <th scope="row">배송 예정일</th>
+					    <td><div id="express_date" style="display: inline;">배송 날짜</div></td>
+					  </tr>
+					  <tr>
+					    <td colspan="2" style="border-bottom: none; color: gray;">
+					    	* 결제 성공 시 배송 예정일에 전달 예정입니다.<br>
+	                    	<input type="hidden" id="end_date" value="${read.funding_end_date}">
+					    	* 펀딩 내역 > <a href="#" style="text-decoration: underline;color: #007bff;">펀딩 상세</a>에서 <div id="end_date_text" style="display: inline;">종료 날짜</div>까지 펀딩을 취소 및 변경하실 수 있습니다.
+					    </td>
+					  </tr>
+					</table>
+<!--                     <div style="font-size: 18px; line-height: 3;}"> -->
+<!-- 						프로젝트 성공 종료 시 <div id="pay_date" style="display: inline;">결제 날짜</div>에 결제됩니다.<br> -->
+<!-- 						결제 성공 시 <div id="express_date" style="display: inline;">배송 날짜</div>에 발송 예정입니다.<br> -->
+<%-- 						* 펀딩 내역 > <a href="#">펀딩 상세</a>에서 ${read.funding_end_date}까지 펀딩을 취소 및 변경하실 수 있습니다. --%>
+<!--                     </div> -->
                     <div style="display: inline-block; text-align: center; width: 100%; margin: 15px 0;">
                         <button type="button" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 내역 보기</button>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/main.do'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 홈 가기</button>
@@ -79,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12" style="width: 100%; margin: 100px 0px;">
+            <div class="col-xs-12" style="width: 100%; margin-top: 100px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">공유하기</div>
                 <div style="padding: 5px;">
@@ -104,7 +160,7 @@
                 </div>
             </div>
                 
-            <div class="col-xs-12" style="width: 100%; margin-top: 100px;">
+            <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">취향 맞춤 펀딩 프로젝트</div>
                 <article>
