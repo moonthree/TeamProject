@@ -44,15 +44,13 @@ public class AdminController {
 	@RequestMapping(value = "/management_member.do")
 	public String management_member(Model model ,Pagination page1, Pagination2 page2) {
 		
-			System.out.println("메소드 들어옴");
+			
+			
 			model.addAttribute("seller", adminService.memberList_sell(page1));
 			PageMaker pageMaker_sell = new PageMaker();
 			pageMaker_sell.setPage(page1);
 			pageMaker_sell.setTotalCount(adminService.count_seller());
 			model.addAttribute("pageMaker_sell", pageMaker_sell);
-			
-			System.out.println(adminService.memberList_sell(page1).toString());
-		
 			
 			model.addAttribute("company", adminService.memberList_company(page2));
 			PageMaker2 pageMaker_company = new PageMaker2();

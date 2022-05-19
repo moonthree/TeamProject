@@ -1,5 +1,4 @@
 package com.edu.vo;
-import com.edu.vo.MemberVO;
 
 public class StoreVO {
 	

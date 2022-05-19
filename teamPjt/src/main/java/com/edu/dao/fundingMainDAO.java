@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -169,6 +170,18 @@ public class fundingMainDAO {
 	public List<Funding_optionVO> select_fundingOption(int funding_idx) {
 		
 		return sqlSession.selectList("FundingMainMapper.fundingOption_list",funding_idx);
+	}
+	
+	//펀딩 옵션 수량 증가 메소드
+	public int  addStock(Funding_optionVO vo) {
+		return sqlSession.update("FundingMainMapper.fundingOption_plus", vo);
+	}
+	
+	//펀딩 제품 pdf 업데이트
+	public int update_content(HashMap<String, Object> map) {
+		return sqlSession.update("FundingMainMapper.funding_file_update",map);
+		
+				
 	}
 	
 }

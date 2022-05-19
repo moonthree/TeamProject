@@ -2,6 +2,7 @@ package com.edu.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -263,6 +264,20 @@ public class fundingMainServiceImpl implements fundingMainService{
 	public List<Funding_optionVO> select_fundingOption(int funding_idx) {
 	
 		return dao.select_fundingOption(funding_idx);
+	}
+
+	//펀딩 옵션 수량 추가
+	@Override
+	public int addStock(Funding_optionVO vo) {
+		
+		return dao.addStock(vo);
+	}
+
+	//펀딩 제품 pdf 변경 메소드
+	@Override
+	public int update_content(HashMap<String, Object> map) {
+		
+		return dao.update_content(map);
 	}
 	
 }

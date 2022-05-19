@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -64,7 +65,16 @@
                         		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
                         	</c:when>
                         	<c:otherwise>
-								<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                        		<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img">
+									</c:otherwise>
+								</c:choose>
                         	</c:otherwise>
                         </c:choose>
                         <img src="../resources/image/mypage/setting.png" alt="설정" class="setting_img"  onclick="location.href='my_info_modify.do'" style="cursor:pointer;">

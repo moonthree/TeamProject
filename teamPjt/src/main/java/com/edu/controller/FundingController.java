@@ -159,8 +159,12 @@ public class FundingController {
 	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,Funding_optionVO optionvo, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
+		
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
 		
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_thumbnail());
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_notice());
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_content());
 		//세션사용자정보 가져옴
 		session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
