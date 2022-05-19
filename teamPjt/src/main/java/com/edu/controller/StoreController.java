@@ -295,6 +295,7 @@ public class StoreController {
 		model.addAttribute("login",login);
 		return "store/store_reg";
 	}
+	
 	/*스토어 상품 등록 미리보기*/
 	@RequestMapping(value="store_preview.do",method = RequestMethod.POST)
 	public String store_preview(StoreVO vo, Model model, 
