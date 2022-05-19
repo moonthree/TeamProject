@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.edu.dao.memberDao;
 import com.edu.dao.storeDAO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreReviewVO;
@@ -20,6 +22,9 @@ public class StoreServiceImpl implements StoreService{
 
 	@Autowired
 	private storeDAO dao;
+	
+	@Autowired
+	private memberDao memdao;
 	
 	// 스토어 메인
 	// 스토어 메인 리스트
@@ -94,10 +99,11 @@ public class StoreServiceImpl implements StoreService{
 	public List<StoreOptionVO> storeOptionList(StoreOptionVO vo) {
 		return dao.storeOptionList(vo);
 	}
-	
-	
-	
-	
+
+	@Override
+	public MemberVO selectOne(MemberVO vo) {
+		return memdao.selectOne(vo);
+	}
 }
 
 	

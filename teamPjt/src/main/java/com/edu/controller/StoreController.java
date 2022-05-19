@@ -349,6 +349,17 @@ public class StoreController {
 		return strResult;
 	}
 	
+	// 스토어 결제페이지
+	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
+	public String pay(Model model, HttpServletRequest request) {
+		
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = sts.selectOne(login);
+		model.addAttribute("member", member);
+		
+		return "store/store_pay";
 	// 찜 insert
 	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)
 	@ResponseBody
