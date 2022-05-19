@@ -31,11 +31,12 @@ import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingCommunityVO;
-import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
 @Controller
@@ -57,6 +58,7 @@ public class MypageController {
 		return "message";
 	}
 	
+	// 소비자 마이페이지
 	@RequestMapping(value = "/mypage.do")
 	public String mypage(Model model, HttpServletRequest request) {
 		// 세션에 있는 사용자의 정보 가져옴
@@ -68,8 +70,14 @@ public class MypageController {
 		//펀딩리스트 3개씩 & 펀딩 개수
 		//s3f에  member_idx에 따른 funding_order_idx도 가져올 수 있어야함
 		List<FundingInfoDetailVO> s3f = mypageService.select3Funding(login.getMember_idx());
+		
 		model.addAttribute("select3Funding",s3f);
 		model.addAttribute("countFunding",mypageService.countFunding(login.getMember_idx()));
+		
+		//스토어리스트 3개씩 & 스토어 개수
+		List<StoreInfoDetailVO> s3s = mypageService.select3Store(login.getMember_idx());
+		model.addAttribute("select3Store",s3s);
+		model.addAttribute("countStore",mypageService.countStore(login.getMember_idx()));
 		
 		//찜리스트 3개씩 & 찜 개수
 		List<ZzimVO> s3z = mypageService.select3Zzim(login.getMember_idx());
@@ -79,6 +87,7 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 
+	// 판매자 마이페이지
 	@RequestMapping(value = "/mypage2.do")
 	public String mypage2(Model model, HttpServletRequest request) {
 		// 세션에 있는 사용자의 정보 가져옴
@@ -90,6 +99,10 @@ public class MypageController {
 		//판매자 펀딩 내역 가져오기
 		List<FundingMainVO> sfl = mypageService.sellerFundingList(login.getMember_idx());
 		model.addAttribute("sellerFundingList",sfl);
+		
+		//판매자 스토어 내역 가져오기
+		List<StoreVO> ssl = mypageService.sellerStoreList(login.getMember_idx());
+		model.addAttribute("sellerStoreList", ssl);
 		
 		return "mypage/mypage2";
 	}
@@ -239,6 +252,21 @@ public class MypageController {
 		model.addAttribute("myFundingList",mfl);
 		
 		return "mypage/info_funding";
+	}
+	
+	@RequestMapping(value = "/info_store.do")
+	public String info_store(Model model, HttpServletRequest request) {
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		
+		//스토어리스트
+		List<StoreInfoDetailVO> msl = mypageService.myStoreList(login.getMember_idx());
+		model.addAttribute("myStoreList",msl);
+		
+		return "mypage/info_store";
 	}
 
 	@RequestMapping(value = "/info_funding_detail.do", method = RequestMethod.GET)
