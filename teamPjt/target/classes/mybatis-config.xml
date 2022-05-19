@@ -20,7 +20,11 @@
 		
 		<!-- 스토어 -->
 		<typeAlias type="com.edu.vo.StoreOptionVO" alias="StoreOptionVO"/>
+		<typeAlias type="com.edu.vo.StoreVO" alias="storeVO"/>
+		<typeAlias type="com.edu.vo.StoreReviewVO" alias="storeReviewVO"/>
 		
+		
+		<!-- 그 외 -->
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>
 		<typeAlias type="com.edu.vo.FileUploadVO" alias ="fileuploadVO"/>
 		<typeAlias type="com.edu.vo.ChangePwVO" alias ="changePwVO"/>
