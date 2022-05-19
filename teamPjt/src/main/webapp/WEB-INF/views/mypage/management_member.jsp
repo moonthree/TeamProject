@@ -100,7 +100,7 @@
                       </c:if> 
                   
                       <c:forEach begin="${pageMaker_sell.startPage}" end="${pageMaker_sell.endPage}" var="idx">
-                         <li class="page-item"><a class="page-link" href="management_member.do?check=0${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_sell.makeQuery1(idx)}#tab1">${idx}</a></li>
                       </c:forEach>
                   
                       <c:if test="${pageMaker_sell.next && param.pageMaker_sell.endPage > 0}">
@@ -169,7 +169,7 @@
                       </c:if> 
                   
                       <c:forEach begin="${pageMaker_company.startPage}" end="${pageMaker_company.endPage}" var="idx2">
-                         <li class="page-item"><a class="page-link" href="management_member.do?check=1${pageMaker_company.makeQuery1(idx2)}#tab2">${idx2}</a></li>
+                         <li class="page-item"><a class="page-link" href="management_member.do${pageMaker_company.makeQuery1(idx2)}#tab2">${idx2}</a></li>
                       </c:forEach>
                   
                       <c:if test="${pageMaker_company.next && pageMaker_company.endPage > 0}">

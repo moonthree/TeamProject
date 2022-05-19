@@ -24,12 +24,26 @@
 
  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage2.css">
 	<script type="text/javascript">
-	function Fnalert(idx) {
-		if(confirm("펀딩 수정 시 파일들을 모두 다시 업로드 해야합니다 그래도 하시겠습니까?")) {
+	function Fnalert1(idx) {
+			var funding_idx = idx;
+		    window.location.href = "funding_modify.do?funding_idx="+funding_idx;
+	}
+	
+	function Fnalert2(idx) {
+		if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니다. 그래도 하시겠습니까?")) {
 		
 			var funding_idx = idx;
-			console.log(funding_idx);
-		    window.location.href = "funding_modify.do?funding_idx="+funding_idx;
+			
+		    window.location.href = "funding_modify_content.do?funding_idx="+funding_idx+"&check="+0;
+		}
+	}
+	
+	function Fnalert3(idx) {
+		if(confirm("수정 시 공지 사항 사진 파일을 다시 업로드 해야합니다 그래도 하시겠습니까?")) {
+		
+			var funding_idx = idx;
+			
+		    window.location.href = "funding_modify_notice.do?funding_idx="+funding_idx+"&check="+1;
 		}
 	}
 	
@@ -94,6 +108,9 @@
               <div class="col">
                 <button type="button" class="button-59" onclick="location.href='funding_register.do'"><span style="display : block;">새 펀딩 오픈</span></button>
               </div>
+              <div class="col">
+                <button type="button" class="button-59" onclick="location.href='<%=request.getContextPath()%>/store/store_register.do'"><span style="display : block;">새 스토어 오픈</span></button>
+              </div>
             </div>
           </div>
             <div class="col-md-8 col-sm-12 scroll_item">
@@ -145,9 +162,17 @@
 	                       	 </div>
 	                        </div> 
 	                      </div>
-	                       <button type="button" onclick="Fnalert(${item.funding_idx})">
-	                        		수정하기
-	                        	</button>
+						  <div class="row">
+							    <div class="col">
+							    	 <button class="btn btn-outline-info" onclick="Fnalert1(${item.funding_idx})">수량 추가</button>
+							    </div>
+							    <div class="col">
+							     	<button class="btn btn-outline-info" onclick="Fnalert2(${item.funding_idx})">제품 설명 변경</button>
+							    </div>
+							    <div class="col">
+							     	<button class="btn btn-outline-info" onclick="Fnalert3(${item.funding_idx})">공지사항 변경</button> 
+							    </div>
+						 </div>
 	                    </div>
                     </c:forEach>
                     </c:if>

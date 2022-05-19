@@ -35,6 +35,7 @@ import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.ZzimVO;
 
@@ -488,10 +489,10 @@ public class MypageController {
 		}
 	}
 	
-	/*펀딩 수정*/
+	/*펀딩 수정_수량 페이지*/
 	@RequestMapping(value= "/funding_modify.do", method = RequestMethod.GET)
 	public String funding_modify(int funding_idx, Model model) {
-		System.out.println(funding_idx);
+		
 		// 펀딩 내용 불러오기
 		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
 		model.addAttribute("funding", vo);
@@ -506,79 +507,153 @@ public class MypageController {
 		return "mypage/funding_modify";
 	}
 	
-	/*펀딩 수정 미리보기 화면*/
-	@RequestMapping(value = "/funding_modifyPriview.do",method = RequestMethod.POST)
-	public String funding_modifiview( FundingMainVO vo, Model model, 
-			MultipartFile funding_Detail_temp,
-			MultipartFile funding_Notice_temp,
-			HttpServletRequest request
-			,String funding_option_name, int []funding_option_price, String funding_option_detail, 
-			int []funding_option_stock,
-			int []funding_optionPlus
-			) throws ParseException, IllegalStateException, IOException {
+	/*펀딩 수량 값 변경*/
+	@RequestMapping(value= "/funding_modify.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int funding_modify2(Model model , HttpServletRequest req ) {
+		System.out.println("메소드 들어옴");
+			
+		String[] option_idx = req.getParameterValues("option_idx");
+		String[] funding_option_plus = req.getParameterValues("funding_option_plus");
+		Funding_optionVO vo = new Funding_optionVO();
+		int result = 1;
+		for(int i = 0; i<option_idx.length;i++) {
+			if(!funding_option_plus[i].equals("0")) {
+				vo.setFunding_option_idx(Integer.parseInt(option_idx[i]));
+				System.out.println("idx : "+option_idx[i]);
+				vo.setFunding_option_stock(Integer.parseInt(funding_option_plus[i]));
+				System.out.println("수량"+funding_option_plus[i]);
+				result = fms.addStock(vo);
+				if(result == 0) {
+					return 0;
+				}else {
+					result = 1;
+				}
+			}
+		}
+		return result;
+	}
+	
+	/*펀딩 제품 설명 pdf 변경*/
+	@RequestMapping(value="funding_modify_content.do", method=RequestMethod.GET)
+	public String modify_content(int funding_idx, Model model,int check) {
+		System.out.println("get메소드" +funding_idx);
+		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+		model.addAttribute("funding", vo);
+		model.addAttribute("check",check);
+		model.addAttribute("funding_idx", funding_idx);
+		return "mypage/funding_modify_file";
+	}
+	
+	/*펀딩 공지사항 변경*/
+	@RequestMapping(value="funding_modify_notice.do", method=RequestMethod.GET)
+	public String modify_notice(int funding_idx, Model model,int check) {
+		System.out.println("get메소드" +funding_idx);
+		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+		model.addAttribute("funding", vo);
+		model.addAttribute("check",check);
+		model.addAttribute("funding_idx", funding_idx);
+		return "mypage/funding_modify_file";
+	}
+	
+	/*펀딩 컨텐츠 변경*/
+	@RequestMapping(value = "funding_update_conetent.do",method=RequestMethod.POST)
+	public String update_content(MultipartFile funding_Detail_temp , HttpServletRequest request , Model model, int funding_idx, int flag) throws IllegalStateException, IOException {
+		
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
-	
+		
 		File dir = new File(path);
 		
 		String org_DetailName = funding_Detail_temp.getOriginalFilename();
-		String org_NoticeName = funding_Notice_temp.getOriginalFilename();
-		
 		
 		if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
 			dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
 		}
-
 		
 		if(!org_DetailName.isEmpty()) {
 			funding_Detail_temp.transferTo(new File(path, org_DetailName));
 		}
+		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+		model.addAttribute("funding", vo);
+		model.addAttribute("file_name" ,org_DetailName);
+		model.addAttribute("flag", flag);
 		
-		if(!org_NoticeName.isEmpty()) {
-			funding_Notice_temp.transferTo(new File(path, org_NoticeName));
+	
+			return "mypage/funding_view2";
+	}
+	/*펀딩 공지사항 변경*/
+	@RequestMapping(value = "funding_update_notice.do",method=RequestMethod.POST)
+	public String update_notice(MultipartFile funding_Notice_temp , HttpServletRequest request , Model model, int funding_idx, int flag) throws IllegalStateException, IOException {
+		
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
+		
+		File dir = new File(path);
+		
+		String org_DetailName = funding_Notice_temp.getOriginalFilename();
+		
+		if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+			dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
 		}
 		
-		 String from = vo.getFunding_end_date()+" 00:00:00";;
-		 SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 Date to = fm.parse(from);
-		 long d1 = to.getTime();
-		
-		  Calendar c1 = Calendar.getInstance(); 
-		  long today = c1.getTimeInMillis();
-		  
-		  long diffSec = (d1 - today) / 1000; //초 차이 
-		  long diffDays = diffSec /(24*60*60); //일자수 차이
-		  
-		  model.addAttribute("funding", vo); 
-		  model.addAttribute("difftime", diffDays);
-		  
-		  model.addAttribute("org_ThumName",vo.getFunding_thumbnail());
-		  model.addAttribute("org_DetailName",org_DetailName);
-		  model.addAttribute("org_NoticeName",org_NoticeName);
-		  
-		
-		String []strName = funding_option_name.split(",");
-		String []strDetail = funding_option_detail.split(",");
-		
-		List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
-		
-		for(int i=0; i<funding_option_price.length; i++) {
-			Funding_optionVO voo = new Funding_optionVO();
-			voo.setFunding_option_name( strName[i]);
-			voo.setFunding_option_price(funding_option_price[i]);
-			voo.setFunding_option_detail(strDetail[i]);
-			voo.setFunding_option_stock(funding_option_stock[i]);
-			optionVo.add(voo);
-			
+		if(!org_DetailName.isEmpty()) {
+			funding_Notice_temp.transferTo(new File(path, org_DetailName));
 		}
+		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+		model.addAttribute("funding", vo);
+		model.addAttribute("file_name" ,org_DetailName);
+		model.addAttribute("flag", flag);
 		
-		/*옵션 리스트 모델에 담기*/
-		model.addAttribute("optionList", optionVo);
-		
-		return "mypage/funding_view"; 
+	
+			return "mypage/funding_view2";
 	}
 	
-
 	
+	
+	
+	@RequestMapping(value="update_file.do",method = RequestMethod.POST)
+	public void update_file(int funding_idx, int check, String funding_content, String funding_notice, HttpServletResponse response) throws IOException {
+		//프로젝트 pdf 업데이트
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		HashMap<String,Object> map2 = new HashMap<String,Object>();
+		response.setContentType("text/html; charset=euc-kr;" );
+		PrintWriter pw = response.getWriter();
+		
+		int result = 0;
+		if(check == 0 ) {
+			System.out.println(funding_idx +" : " +check + " : " +funding_content +" : " +funding_notice );
+			System.out.println("프로젝트 pdf 업데이트");
+			map.put("funding_idx", funding_idx);
+			map.put("checkValue", check);
+			map.put("funding_content", funding_content);
+			result = fms.update_content(map);
+			if (result == 1) {
+				pw.println("<script>alert('제품 설명 파일 수정완료');location.href='mypage2.do'</script>");
+			}
+			else {
+				pw.println("<script>alert('제품 설명 파일 수정실패');window.history.back();</script>");
+			}
+		}else {
+			System.out.println(funding_idx +" : " +check + " : " +funding_notice +" : " +funding_content);
+			System.out.println("공지사항 업데이트");
+			map2.put("funding_idx", funding_idx);
+			map2.put("checkValue", check);
+			map2.put("funding_notice", funding_notice);
+			result = fms.update_content(map2);
+			
+			if (result == 1) {
+				pw.println("<script>alert('공지사항 파일 수정완료');location.href='mypage2.do'</script>");
+			}
+			else {
+				pw.println("<script>alert('공지사항 파일 수정실패');window.history.back();</script>");
+			}
+			
+		}
+		pw.flush();
+		
+	}
+		
 	
 }

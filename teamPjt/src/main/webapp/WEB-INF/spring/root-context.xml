@@ -38,7 +38,8 @@
 		 -->
 		 
 		 <!-- MySQL dataSource -->
-    <bean id="dataSource"
+		
+     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
@@ -46,7 +47,7 @@
         </property>
         <property name="username" value="spring"></property>
         <property name="password" value="1234"></property>
-    </bean>        
+    </bean>       
         
 	<!-- sqlSessionFactory --> 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -58,8 +59,32 @@
 	<!-- SqlSessionTemplate -->
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> 
+	
+	<!--  
+	<bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url"
+            value="jdbc:mysql://jjezen.cafe24.com:3307/allAround?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true&amp;allowPublicKeyRetrieval=true">
+        </property>
+        <property name="username" value="allAround"></property>
+        <property name="password" value="allAround1234!"></property>
+    </bean>        
+        
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
 	</bean>
 	
+	
+	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> -->
+	
+
 	<!-- transactionManager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="dataSource"></property>

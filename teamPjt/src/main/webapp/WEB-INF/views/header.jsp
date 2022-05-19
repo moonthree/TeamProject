@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -68,7 +69,16 @@
 								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
 							</c:if>
 							<c:if test="${member.member_photo ne '' }">
-								<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+							<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="login_profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+									</c:otherwise>
+								</c:choose>
+								<%-- <img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img"> --%>
 							</c:if>
                             &nbsp;&nbsp;
                             <!-- 회원 이름 -->
@@ -178,8 +188,17 @@
 							<c:if test="${member.member_photo eq '' }">
 								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
 							</c:if>
-							<c:if test="${member.member_photo ne '' }">
-								<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+						<c:if test="${member.member_photo ne '' }">
+							<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="login_profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+									</c:otherwise>
+								</c:choose>
+								<%-- <img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img"> --%>
 							</c:if>
 							
 						&nbsp;&nbsp;

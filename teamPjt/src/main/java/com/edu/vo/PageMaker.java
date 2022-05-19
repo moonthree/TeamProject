@@ -58,23 +58,23 @@ public class PageMaker {
 	}
 	 
 	private void calcData() {
-		endPage = (int) (Math.ceil(page.getPage() / (double)displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(page.getPage1() / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 	  
-		int tempEndPage = (int) (Math.ceil(totalCount / (double)page.getPerPageNum()));
+		int tempEndPage = (int) (Math.ceil(totalCount / (double)page.getPerPageNum1()));
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		prev = startPage == 1 ? false : true;
-		next = endPage * page.getPerPageNum() >= totalCount ? false : true;
+		next = endPage * page.getPerPageNum1() >= totalCount ? false : true;
 	}
 	
 	public String makeQuery1( int Page1) {
 		
 		UriComponents uriComponents1 =
 		UriComponentsBuilder.newInstance()
-										.queryParam("&page", Page1)
-										.queryParam("perPageNum", page.getPerPageNum())
+										.queryParam("page1", Page1)
+										.queryParam("perPageNum1", page.getPerPageNum1())
 										.build();
 							   
 				return uriComponents1.toUriString();
@@ -91,7 +91,7 @@ public class PageMaker {
 	 UriComponents uriComponents =
 	            UriComponentsBuilder.newInstance()
 	            .queryParam("Page", Page)
-	            .queryParam("perPageNum", page.getPerPageNum())
+	            .queryParam("perPageNum", page.getPerPageNum1())
 	            .queryParam("searchType", ((SearchCriteria)page).getSearchType())
 	            .queryParam("keyword", encoding(((SearchCriteria)page).getKeyword()))
 	            .build(); 

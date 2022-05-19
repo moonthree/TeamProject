@@ -488,7 +488,7 @@
 		SET    funding_current_price = (funding_current_price + #{funding_order_total_price})
 		WHERE  funding_idx = #{funding_idx}
 	</update>
-	<!-- 결제 완료 시 펀딩 옵션 수량 바뀜 -->
+	<!-- 결제 완료 시 펀딩 옵션 수량 빼기 -->
 	<update id="update_option" parameterType="Funding_order_optionVO">
 		UPDATE funding_option 
 		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
@@ -520,5 +520,28 @@
 		  FROM funding_option
 		 WHERE funding_idx = #{funding_idx};
 	</select>
+	
+	<!-- 펀딩 옵션 수량 추가 -->
+	<update id="fundingOption_plus" parameterType="Funding_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock + #{funding_option_stock}
+		where funding_option_idx = #{funding_option_idx}
+	</update>
+	
+	<!--  펀딩 제품 설명서 pdf변경 -->
+	
+	<update id="funding_file_update" parameterType="hashMap">
+	
+			UPDATE funding 
+			<choose>
+				<when test="checkValue == 0">
+				SET funding_content = #{funding_content}
+				</when>
+				<otherwise>
+				SET funding_notice = #{funding_notice}
+				</otherwise>
+			</choose>
+			where funding_idx = #{funding_idx}
+	</update> 
 	
 </mapper>

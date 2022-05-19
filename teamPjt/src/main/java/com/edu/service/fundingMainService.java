@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,4 +107,9 @@ public interface fundingMainService {
 	//펀딩 옵션 가져오기 (modify.do 사용)
 	List<Funding_optionVO> select_fundingOption(int funding_idx);
 	
+	//펀딩 옵션 수량 추가()
+	int addStock(Funding_optionVO vo);
+	
+	//펀딩 제품 pdf 변경 메소드
+	int update_content(HashMap<String, Object> map);
 }
