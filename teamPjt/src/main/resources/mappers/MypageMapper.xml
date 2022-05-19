@@ -70,7 +70,12 @@
 	
 	<!-- mypage1 펀딩 리스트 출력 3개 -->
 	<select id="select3Funding" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
-		SELECT  f.funding_idx,
+		SELECT  mem.member_name,
+				fo.funding_order_idx,
+			  	fo.funding_order_total_price,
+			  	fo.funding_order_pay_state,
+			  	fo.funding_order_date,
+				f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
 				f.funding_target_price,
@@ -82,9 +87,10 @@
 				f.funding_category,
 				f.funding_views,
 				fo.funding_order_idx
-		FROM  	funding_order fo, funding f 
+		FROM  	funding_order fo, funding f, member mem
 		WHERE 	fo.funding_idx = f.funding_idx 
-		AND 	fo.member_idx = #{member_idx}
+		AND		mem.member_idx = f.member_idx 
+		AND 	fo.member_idx = #{ member_idx }
 		ORDER BY fo.funding_order_date DESC limit 3;
 	</select>
 	
@@ -138,7 +144,8 @@
 	
 	<!-- 펀딩 내역 2-->
 	<select id="myFundingList2" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
-		SELECT 	fo.funding_order_idx,
+		SELECT 	m.member_name,
+				fo.funding_order_idx,
 			  	fo.funding_order_total_price,
 			  	fo.funding_order_pay_state,
 			  	fo.funding_order_date,
@@ -153,10 +160,76 @@
 				f.funding_current_state,
 				f.funding_category,
 				f.funding_views
-		FROM  	funding_order fo, funding f 
-		WHERE 	fo.funding_idx = f.funding_idx 
+		FROM  	funding_order fo, funding f, member m
+		WHERE 	fo.funding_idx = f.funding_idx
+		AND		f.member_idx = m.member_idx
 		AND 	fo.member_idx = #{member_idx}
 		ORDER BY fo.funding_order_date DESC
+	</select>
+	
+	<!-- 스토어 내역 -->
+	<select id="myStoreList" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
+		SELECT  m.member_name,
+			  	so.store_order_idx,
+				so.store_order_total_price,
+				so.store_order_pay_state,
+				so.store_order_date,
+				s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_category,
+				s.store_funding,
+				s.store_express_fee,
+				s.store_views
+		FROM	store s, store_order so, member m
+		WHERE	s.store_idx = so.store_idx
+		AND		s.member_idx = m.member_idx
+		AND		so.member_idx = #{ member_idx }
+		ORDER BY so.store_order_date
+	</select>
+	
+	<!-- mypage1 스토어 3개  -->
+	<select id="select3Store" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
+		SELECT  m.member_name,
+			  	so.store_order_idx,
+				so.store_order_total_price,
+				so.store_order_pay_state,
+				so.store_order_date,
+				s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_category,
+				s.store_funding,
+				s.store_express_fee,
+				s.store_views
+		FROM	store s, store_order so, member m
+		WHERE	s.store_idx = so.store_idx
+		AND		s.member_idx = m.member_idx
+		AND		so.member_idx = #{ member_idx }
+		ORDER BY so.store_order_date DESC LIMIT 3;
+	</select>
+	
+	<select id="countStore" parameterType="int" resultType="int">
+		SELECT	count(s.store_idx)
+		FROM  	store_order so, store s 
+		WHERE 	so.store_idx = s.store_idx 
+		AND 	so.member_idx = #{member_idx}
 	</select>
 	
 	<!-- mypage1 찜 리스트 출력 3개  -->
@@ -221,6 +294,29 @@
 				f.funding_views 
 		FROM    funding f 
 		WHERE   f.member_idx = #{member_idx}
+		AND		f.funding_permit_state = 1
+		ORDER BY f.funding_write_date DESC
+	</select>
+	<select id="sellerStoreList" parameterType="int" resultType="StoreVO">
+		SELECT  s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_category,
+				s.store_funding,
+				s.store_express_fee,
+				s.store_views
+		FROM	store s
+		WHERE	s.member_idx = #{member_idx}
+		AND		s.store_permit_state = 1
+		ORDER BY s.store_write_date DESC
 	</select>
 	
 	<!-- funding_info_detail -->
@@ -299,21 +395,11 @@
 	</delete>
 	
 	<!-- 펀딩 취소 -->
-	<update id="fundingWithdraw1" parameterType="int">
-		DELETE FROM funding_order_option
-		WHERE  		funding_order_idx = #{funding_order_idx};
+	<update id="fundingWithdraw" parameterType="int">
+		UPDATE 	funding_order 
+		SET		funding_order_pay_state=2 
+		WHERE 	funding_order_idx = #{ funding_order_idx }
 	</update>
-	<update id="fundingWithdraw2" parameterType="int">
-		DELETE FROM funding_express
-		WHERE  		funding_order_idx = #{funding_order_idx};
-	</update>
-	<update id="fundingWithdraw3" parameterType="int">
-		DELETE FROM funding_order_pay
-		WHERE  		funding_order_idx = #{funding_order_idx};
-	</update>
-	<update id="fundingWithdraw4" parameterType="int">
-		DELETE FROM funding_order 
-		WHERE  		funding_order_idx = #{funding_order_idx};
-	</update>
+	
 	
 </mapper>

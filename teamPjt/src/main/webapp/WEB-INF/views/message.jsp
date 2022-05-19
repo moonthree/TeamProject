@@ -14,9 +14,13 @@
        });
 
     </script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-   
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
+    
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
  
 <style>
 .modal.right .modal-dialog {
@@ -32,18 +36,13 @@
         overflow: hidden;
     }
     .card_img{
-        width: 100px;
-        height:100px;
+        width: 150px;
+        height:150px;
         object-fit: cover;
         transition: all 0.1s linear;
     }
     .card_img:hover{
         transform: scale(1.05);
-    }
-    .setting_img:hover{
-        transform: scale(1.1);
-        cursor: pointer;
-
     }
     .card{
         border: none; 
@@ -78,32 +77,46 @@ $(document).ready (function () {
 	    <div class="modal-body">
 	        
 	        
-	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 -->
+	        <!--알림 & 쪽지 전환버튼-->
+              <ul class="nav nav-tabs nav-justified" style="padding:10px 0px;">
+                <li class="nav-item" >
+                  <a class="nav-link active" data-toggle="tab" href="#notice" style="font-weight: 600; padding:10px">알림</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#note" style="font-weight: 600; padding:10px">쪽지</a>
+                </li>
+              </ul>
+              
+              <div class="tab-content" >
+                <div class="tab-pane fade show active" id="notice">
+                	<table class="table" style="border: none">
+						 <c:if test="${permitFunding.size()>0}">
+							<c:forEach var="item" items="${permitFunding}">
+							<!-- 보낸사람 & 시각  -->
+							    <tr>
+							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+							    	<th style="text-align:right;">보낸시각</th>
+							    </tr>
+							<!-- 메세지 내용 -->
+							    <tr onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+							      	<th>
+								      	<div class="img-container">
+				                        	<img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
+				                        </div>
+			                        </th>
+			                        <th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+							    </tr>
+						  	</c:forEach>
+						</c:if>
+					</table>
+                </div>
+                <div class="tab-pane fade" id="note">
+                	note!
+                </div>
+              </div>
+	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 , 쪽지  -->
 	         
-	        <table class="table" style="border: none">
-			 <c:if test="${permitFunding.size()>0}">
-				<c:forEach var="item" items="${permitFunding}">
-				<!-- 보낸사람 & 시각  -->
-				    <tr>
-				    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
-				    	<th></th>
-				    </tr>
-				    <tr>
-				    
-				      	<th>
-					      	<div class="img-container" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-	                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
-	                        </div>
-	                        
-                        </th>
-                        <th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
-				    </tr>
-			  		
-				    
-			  	</c:forEach>
-			</c:if>
-			  
-			</table>
+	        
 				
 
 			<hr>

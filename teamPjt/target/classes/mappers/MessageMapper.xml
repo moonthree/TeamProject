@@ -23,7 +23,7 @@
 				f.funding_express_fee
 		FROM 	funding f, message m
 		WHERE	f.funding_idx = m.funding_idx
-		AND 	m.member_idx = #{ member_idx }
+		AND 	m.to_member_idx = #{ member_idx }
 		ORDER BY m.message_date DESC
 
 	</select>
@@ -38,9 +38,10 @@
 	<insert id="insertLog" parameterType="java.util.HashMap">
 		INSERT 
 		INTO	message 
-		values	(null, 
-				#{ member_idx }, 
-				#{f_idx}, 
+		values	(null,
+				#{ from_member_idx },
+				#{ to_member_idx }, 
+				#{ f_idx }, 
 				default)
 	</insert>
 

@@ -35,9 +35,7 @@ public class StoreVO {
 	private int totalRow;
 	private boolean prev;
 	private boolean next;
-	private int idx;
 	
-	private double starAvg;
 	
 	
 	
@@ -238,18 +236,6 @@ public class StoreVO {
 	}
 	public void setFunding_current_price(int funding_current_price) {
 		this.funding_current_price = funding_current_price;
-	}
-	public int getIdx() {
-		return idx;
-	}
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
-	public double getStarAvg() {
-		return starAvg;
-	}
-	public void setStarAvg(double starAvg) {
-		this.starAvg = starAvg;
 	}
 	
 	
