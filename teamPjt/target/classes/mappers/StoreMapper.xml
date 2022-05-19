@@ -205,7 +205,7 @@
 			   store_option_detail,
 			   store_option_stock
 		  FROM store_option
-		 WHERE store_idx = 1;
+		 WHERE store_idx = #{store_idx}
 	</select>
 	
 </mapper>

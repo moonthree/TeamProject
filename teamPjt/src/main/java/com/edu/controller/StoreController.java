@@ -360,6 +360,7 @@ public class StoreController {
 			model.addAttribute("optionList", optionVo);
 			
 		return "store/store_preview";
+	}
 	// 스토어 리뷰 작성
 	@ResponseBody
 	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)
@@ -435,6 +436,7 @@ public class StoreController {
 		model.addAttribute("member", member);
 		
 		return "store/store_pay";
+	}
 	// 찜 insert
 	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)
 	@ResponseBody

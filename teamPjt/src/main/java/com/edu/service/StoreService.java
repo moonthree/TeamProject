@@ -2,7 +2,7 @@ package com.edu.service;
 
 import java.util.List;
 
-import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
@@ -34,5 +34,7 @@ public interface StoreService {
 	
 	// 스토어 옵션 리스트
 	List<StoreOptionVO> storeOptionList(StoreOptionVO vo);
+	//멤버조회
+	MemberVO selectOne(MemberVO vo);
 
 }

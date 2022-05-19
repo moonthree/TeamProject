@@ -36,11 +36,17 @@ public class StoreVO {
 	private boolean next;
 	
 	
+	private Double starAvg;
 	
 	
 	
 	
-	
+	public Double getStarAvg() {
+		return starAvg;
+	}
+	public void setStarAvg(Double starAvg) {
+		this.starAvg = starAvg;
+	}
 	public int getStore_funding() {
 		return store_funding;
 	}
