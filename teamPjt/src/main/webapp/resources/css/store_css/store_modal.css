@@ -1,0 +1,180 @@
+@charset "UTF-8";
+/*
+0518 VSCODE START
+0519 로그인이 필요합니다 모달 추가, vscode엔 반영 x
+*/
+.bold{
+    font-weight: bold;
+}
+/*로그인이 필요합니다 모달*/
+.login_close{
+	text-align:left !important;
+	margin: 0px 0px 0px 0px !important;
+}
+.login_modal_header{
+	border-bottom: none !important;
+	padding: 1rem 1rem 0px 27px !important; 
+}
+.login_modal_body > h4{
+	font-weight: 600;
+	padding-left: 27px;
+}
+
+.login_modal_content{
+	padding: 20px;
+}
+
+.login_modal_footer{
+	justify-content: space-evenly !important;
+	border-top: none !important;
+}
+
+.login_modalBtn{
+	width: 40%;
+	height: 60px;
+}
+.loginModalBtn{
+	background-color: #fa6462 !important;
+	border: 1px solid #fa6462 !important;
+}
+.joinModalBtn{
+	border: 1px solid #fa6462 !important;
+	color: #fa6462 !important;
+	background-color: white !important;
+}
+.joinModalBtn:hover{
+	background-color: #fa6462 !important;
+	color: white !important;
+	border: 1px solid #fa6462 !important;
+}
+
+
+/*리뷰 작성 모달*/
+.modal-title{
+    font-weight: bold;
+}
+.modal-title > div{
+    font-weight: 400;
+    font-size: 13px;
+}
+table{
+    border: none;
+}
+.tr1{
+    border-bottom: 1px solid #dddddd;
+    padding-top: 20px;
+}
+.td1{
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+}
+.td2{
+    width: 90%;
+    padding: 10px 0px 10px 0px;
+}
+.div2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dddddd;
+}
+textarea {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.td1Img{
+    width: 100px;
+    height: 100px;
+}
+.option{
+    font-size: 13px;
+    font-weight: 400;
+}
+.submitImg{
+    width: 130px;
+    height: 130px;
+}
+
+.storeWriteWarning {
+    background-color: #ffefef;
+    color: #ff7272;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.storeWriteNotice {
+    font-size: 10px;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+.reviewWriteBtn{
+    border: 1px solid #fa6462;
+    color: #fa6462;
+}
+.reviewWriteBtn:hover {
+    border: 1px solid #fa6462;
+    background-color: #fa6462;
+    color: white;
+}
+.reviewWriteBtn:active {
+    border: 1px solid #fa6462 !important;
+    background-color: #fa6462 !important;
+    color: white;
+}
+.photoBtn{
+    margin-bottom: 10px;
+}
+
+#commuComent {
+    margin-top: 15px;
+}
+
+/*리뷰 작성 모달의 별점*/
+#myform fieldset {
+    display: inline-block;
+    /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    border: 0;
+    /* 필드셋 테두리 제거 */
+}
+#myform input[type=radio] {
+    display: none;
+    /* 라디오박스 감춤 */
+}
+#myform label {
+    font-size: 25px;
+    /* 이모지 크기 */
+    color: transparent;
+    /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0;
+    /* 새 이모지 색상 부여 */
+}
+#myform label:hover {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 호버 */
+}
+#myform label:hover~label {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 호버 뒤에오는 이모지들 */
+}
+#myform fieldset {
+    display: inline-block;
+    /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl;
+    /* 이모지 순서 반전 */
+    border: 0;
+    /* 필드셋 테두리 제거 */
+}
+#myform fieldset legend {
+    text-align: left;
+}
+#myform input[type=radio]:checked~label {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 클릭 체크 */
+}
+/*리뷰 작성 모달의 별점 끝*/

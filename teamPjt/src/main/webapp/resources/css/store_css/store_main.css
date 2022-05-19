@@ -94,11 +94,11 @@ select {
     border-radius: 15px;
     /* background-color: #96a0a1; */
     opacity: 0.8;
-    color: white;
-    background-color: #fd4d4e;
+    
 }
 .card-price{
-    color: #00b2b2;
+	color: black;
+
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px;
@@ -207,7 +207,7 @@ select {
     float:right;
     position: relative;
     bottom: 21px;
-    right: 94px;
+    right: 110px;
 }
 .starAverage{
     font-weight: bold;

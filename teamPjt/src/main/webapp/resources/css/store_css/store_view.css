@@ -14,6 +14,10 @@
 .bold{
     font-weight: bold;
 }
+.thin{
+	font-weight: 200;
+	font-size: 12px;
+}
 /*상단 어두운 썸네일*/
 .topcard{
     margin-bottom: 30px;
@@ -345,11 +349,17 @@ select::-ms-expand {
 }
 .reviewTop > .writeReview{
     float: right;
-    border: 1px solid #B689C0;
-    color: #B689C0;
+    border: 1px solid #fa6462;
+    color: #fa6462;
 }
 .reviewTop>.writeReview:hover{
-    background-color: #B689C0;
+    background-color: #fa6462;
+    border: 1px solid #fa6462;
+    color: white;
+}
+.reviewTop>.writeReview:active{
+    background-color: #fa6462 !important;
+    border: 1px solid #fa6462 !important;
     color: white;
 }
 
@@ -391,6 +401,10 @@ select::-ms-expand {
 .tdImg > img{
     width: 100%;
     height: 100%;
+    border-radius: 30px;
+}
+tbody{
+	border-bottom: 1px solid black;
 }
 
 td{
@@ -524,7 +538,7 @@ td{
 .progress > span{
     position: absolute;
     font-weight: bold;
-    color: #B689C0;
+    color: black;
     bottom: 60px;
     font-size: 18px;
 }
