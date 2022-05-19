@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
+/* 제목  */
+	h3{
+		text-align: center; font-weight: bold;padding: 30px;
+		color: #FEF9EF;background-color: #21243D;
+	}
+	   
+/* 단계 */
+	.step{
+		text-align: center; width: 455px; margin: 0 auto; font-weight: 600;
+	}
+	
+    .step_circle{
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    
+    .select_circle{
+    	color: #fff; border: none; background: #f24f49;
+    }
+    
+    .none_select_circle{
+    	background: #fff; border: 1px dashed #979797;
+    }
+        
+/* 내역 */
+	.table_option_name{
+		color: #fa6462;
+	    font-size: 16px;
+	    font-weight: bold;
+	}    
+
+/* 구매자 정보  */
+	.buyer_card{
+		margin: 0px auto; width: 100%; line-height: 2; vertical-align: middle; background-color:#feffe5; border-radius: 3px; border:none; padding: 20px;
+	}
+
+/* 모달 */
+	#my_modal {
+        display: none;
+        width: 500px;
+	    height: 445px;
+	    line-height: 2;
+	    padding: 20px 30px;
+	    background-color: #fefefe;
+	    border: 1px solid #888;
+	    border-radius: 3px;
+    }
+
+    #my_modal .modal_close_btn {
+        position: absolute;
+	    bottom: 20px;
+	    right: 40px;
+	    text-decoration-line: none;
+	    cursor: pointer;
+	    font-size: 18px;
+	    font-weight: 600;
+	    color: #f24f49;
+    }
+	    
+	.btn-link{
+		color: #f24f49;
+    	font-weight: bold;
+	}
+	
+	.btn-link:hover{
+		color: #df4642
+	}
+
+/* 결제 예약하기 버튼 */
+	.btn_success{
+		height: 60px; width: 200px; font-size: 15pt; font-weight: bold;
+		background: #fa6462; color: white;
+	}
+	.btn_success:hover{
+		background: #f24f49;
+		color: white;	
+	}
+
+    .card {
+        border-radius: 2px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    .order td, .order th {
+        padding: 20px;
+        vertical-align: middle;
+        border-top: 1px solid black;
+    }
+    
+    table td{
+        text-align: right;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    .addressInfo_button_div::after{
+		content:'';
+		display:block;
+		clear:both;
+	}
+	.addressInfo_input_div{
+		display: none;
+	}
+	
+	input[type="radio"] {
+		zoom: 1.5;
+	}
+	label{
+		cursor: pointer;
+	}
+	

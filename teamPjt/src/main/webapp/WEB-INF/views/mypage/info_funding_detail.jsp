@@ -430,8 +430,19 @@ $(function(){
 
         
         <div class="row" style="margin-top:100px">
-        	<div class="col-sm-12" style="text-align:right;">
-             <button type="button" class="btn btn-outline-dark" style="width: 30%; height:50px;" onclick="fundingWithdrawal()">펀딩 취소</button>
+        	<div class="col-sm-12" style="text-align:right; font-size: large; color:#737373">
+        	<c:choose>
+        		<c:when test="${ detail.funding_order_pay_state eq 0 }">
+        			<button type="button" class="btn btn-outline-dark" style="width: 30%; height:50px;" onclick="fundingWithdrawal()">펀딩 취소</button>
+        		</c:when>
+        		<c:when test="${ detail.funding_order_pay_state eq 1 }">
+					결제 완료되었습니다.
+        		</c:when>
+        		<c:when test="${ detail.funding_order_pay_state eq 2 }">
+					결제 예약이 취소되었습니다.
+        		</c:when>
+        	</c:choose>
+        	
         	</div>
         </div>
         <div class="row" style="margin-top:10px"> 

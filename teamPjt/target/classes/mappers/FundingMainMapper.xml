@@ -23,6 +23,8 @@
 		<result column="funding_category" property="funding_category"/>
 		<result column="funding_views" property="funding_views"/>
 		<result column="funding_thumbnail" property="funding_thumbnail"/>
+		<result column="funding_content" property="funding_content"/>
+		<result column="funding_notice" property="funding_notice"/>		
 		<collection property="memberVO" resultMap="MemberVO"></collection>
 	</resultMap>
 	<resultMap type="FundingCommunityVO" id="FundingCommunityVO">
@@ -141,7 +143,7 @@
 		JOIN member as mem
 		WHERE funding_idx = #{funding_idx} AND fu.member_idx = mem.member_idx
 	</select>
-	<!-- 펀딩 옵션 카운트 -->
+	<!-- 펀딩 오더 카운트 -->
 	<select id="orderCount" resultType = "int">
 		SELECT COUNT(funding_order_idx)
 		FROM funding_order
@@ -488,7 +490,7 @@
 		SET    funding_current_price = (funding_current_price + #{funding_order_total_price})
 		WHERE  funding_idx = #{funding_idx}
 	</update>
-	<!-- 결제 완료 시 펀딩 옵션 수량 바뀜 -->
+	<!-- 결제 완료 시 펀딩 옵션 수량 빼기 -->
 	<update id="update_option" parameterType="Funding_order_optionVO">
 		UPDATE funding_option 
 		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
@@ -520,5 +522,28 @@
 		  FROM funding_option
 		 WHERE funding_idx = #{funding_idx};
 	</select>
+	
+	<!-- 펀딩 옵션 수량 추가 -->
+	<update id="fundingOption_plus" parameterType="Funding_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock + #{funding_option_stock}
+		where funding_option_idx = #{funding_option_idx}
+	</update>
+	
+	<!--  펀딩 제품 설명서 pdf변경 -->
+	
+	<update id="funding_file_update" parameterType="hashMap">
+	
+			UPDATE funding 
+			<choose>
+				<when test="checkValue == 0">
+				SET funding_content = #{funding_content}
+				</when>
+				<otherwise>
+				SET funding_notice = #{funding_notice}
+				</otherwise>
+			</choose>
+			where funding_idx = #{funding_idx}
+	</update> 
 	
 </mapper>

@@ -19,9 +19,10 @@ public class AuthInterceptor2 extends HandlerInterceptorAdapter {
         String query = request.getQueryString();
         String path = uri;
 		
+        System.out.println(query.length());
         // funding_idx가 100이하 일때 가능
         // 뷰에 접속
-		if(query.length() > 15) {
+		if(query.length() > 30) {
 			// 로그인하지 않은 사용자일 경우 로그인 페이지로 이동
 			System.out.println(query.length());
 			if( session.getAttribute(LOGIN) == null) {

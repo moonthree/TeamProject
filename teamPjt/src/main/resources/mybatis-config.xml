@@ -7,6 +7,8 @@
 		
 		<typeAlias type="com.edu.vo.MemberVO" alias ="memberVO"/>
 		<typeAlias type="com.edu.vo.LoginVO" alias ="loginVO"/>
+		
+		<!-- 펀딩 -->
 		<typeAlias type="com.edu.vo.FundingMainVO" alias ="fundingMainVO"/>
 		<typeAlias type="com.edu.vo.FundingCommunityVO" alias ="fundingCommunityVO"/>
 		<typeAlias type="com.edu.vo.FundingQnaVO" alias ="fundingQnaVO"/>
@@ -15,6 +17,15 @@
 		<typeAlias type="com.edu.vo.Funding_order_optionVO" alias="funding_order_optionVO"/>
 		<typeAlias type="com.edu.vo.Funding_expressVO" alias="funding_expressVO"/>
 		<typeAlias type="com.edu.vo.Funding_order_payVO" alias="funding_order_payVO"/>
+		
+		<!-- 스토어 -->
+		<typeAlias type="com.edu.vo.StoreVO" alias="StoreVO"/>
+		<typeAlias type="com.edu.vo.StoreOptionVO" alias="StoreOptionVO"/>
+		<typeAlias type="com.edu.vo.StoreVO" alias="storeVO"/>
+		<typeAlias type="com.edu.vo.StoreReviewVO" alias="storeReviewVO"/>
+		
+		
+		<!-- 그 외 -->
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>
 		<typeAlias type="com.edu.vo.FileUploadVO" alias ="fileuploadVO"/>
 		<typeAlias type="com.edu.vo.ChangePwVO" alias ="changePwVO"/>

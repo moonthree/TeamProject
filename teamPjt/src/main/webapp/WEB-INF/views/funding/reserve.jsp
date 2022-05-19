@@ -129,7 +129,7 @@
                     <thead>
                       <tr>
                         <th scope="col" colspan="2">
-                            <div style="font-size: 20pt;">구매자 정보</div>
+                            <div style="font-size: 25px;">구매자 정보</div>
                         </th>
                       </tr>
                     </thead>
@@ -163,7 +163,7 @@
             
             <!-- 배송지 정보 -->
             <div class="col-md-6" style="padding: 30px;">
-                <div class="addressInfo_div" style="font-size: 20pt; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+                <div class="addressInfo_div" style="font-size: 25px; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
 
                 <!-- 선택 버튼  (새로입력/기존주소) -->
                 <div class="addressInfo_button_div">
@@ -268,7 +268,7 @@
         <div class="row">
             <!-- 결제 정보 -->
             <!-- 임시로 value 1로 전부 입력해둠 -->
-            <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보   ///  임시로 전부 입력해놓음</div>
+            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보   ///  임시로 전부 입력해놓음</div>
             <div class="col-lg-7">
 <!--                 <div class="form-group"> -->
 <!--                     <div class="form-check form-check-inline"> -->
@@ -337,7 +337,7 @@
         <!-- 동의 -->
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-                <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px; margin: 20px 0 auto;" class="col-md-12">약관 동의</div>
+                <div style="font-size: 25px; font-weight: bold; padding: 20px 0px; margin: 20px 0 auto;" class="col-md-12">약관 동의</div>
             </div>
             <div class="col-xs-12" style="width: 100%;">
                 <table style="border: 1px solid lightgray;" cellpadding="20px" width="100%">

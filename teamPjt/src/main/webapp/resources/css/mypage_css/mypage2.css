@@ -62,10 +62,6 @@ body {
   transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.menu div:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .menu div span.light {
   height: 10px;
   width: 10px;
@@ -123,10 +119,30 @@ main {
     min-height: 100%;
     padding-bottom: 800px;
 }
-.card{
-    border: none !important; 
-}
+/*이미지 콘테이너 1:1 비율*/
+    .img-container{
+        overflow: hidden;
+    }
+    .card_img{
+        width: 100px;
+        height:100px;
+        object-fit: cover;
+        transition: all 0.1s linear;
+    }
+    .card_img:hover{
+        transform: scale(1.05);
+    }
+    .setting_img:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+
+    }
+    .card{
+        border: none; 
+    }
 @media screen and (max-width: 767px) { #outer { display: none; } }
+
+
 /* 소비자 마이페이지 css end */
 
 /* 판매자 마이페이지 css */

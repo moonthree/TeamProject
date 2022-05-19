@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.vo.ChangePwVO;
 import com.edu.vo.FileUploadVO;
-import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
-import com.edu.vo.Funding_optionVO;
-import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
 //git 넘기기용
@@ -27,6 +26,7 @@ public class MypageDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	/*member*/
 	public void update_photo(FileUploadVO vo) {
 		sqlSession.update("MypageMapper.update_photo", vo);
 	}
@@ -47,6 +47,7 @@ public class MypageDao {
 		return sqlSession.update("MypageMapper.changePw", vo);
 	}
 	
+	/*mypage*/
 	public List<FundingInfoDetailVO> select3Funding(int member_idx){
 		return sqlSession.selectList("MypageMapper.select3Funding", member_idx);
 	}
@@ -55,12 +56,20 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.select4Funding", member_idx);
 	}
 	
+	public List<StoreInfoDetailVO> select3Store(int member_idx){
+		return sqlSession.selectList("MypageMapper.select3Store", member_idx);
+	}
+	
 	public List<ZzimVO> select3Zzim(int member_idx){
 		return sqlSession.selectList("MypageMapper.select3Zzim", member_idx);
 	}
 	
 	public int countFunding(int member_idx) {
 		return sqlSession.selectOne("MypageMapper.countFunding", member_idx);
+	}
+	
+	public int countStore(int member_idx) {
+		return sqlSession.selectOne("MypageMapper.countStore", member_idx);
 	}
 	
 	public int countZzim(int member_idx) {
@@ -75,13 +84,21 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.myFundingList2", member_idx);
 	}
 	
+	public List<StoreInfoDetailVO> myStoreList(int member_idx){
+		return sqlSession.selectList("MypageMapper.myStoreList", member_idx);
+	}
+	
 	public List<FundingMainVO> myZzimList(int member_idx){
 		return sqlSession.selectList("MypageMapper.myZzimList", member_idx);
 	}
 	
-	//판매자 펀딩 내역
+	//판매자 펀딩 내역 MYPAGE2
 	public List<FundingMainVO> sellerFundingList(int member_idx){
 		return sqlSession.selectList("MypageMapper.sellerFundingList", member_idx);
+	}
+	//판매자 스토어 내역 MYPAGE2
+	public List<StoreVO> sellerStoreList(int member_idx){
+		return sqlSession.selectList("MypageMapper.sellerStoreList", member_idx);
 	}
 	
 	/*funding_info_detail*/
@@ -118,12 +135,10 @@ public class MypageDao {
 		return sqlSession.update("MypageMapper.changeExpress", paramMap);
 	}
 	
-	//찜 취소
+	//펀딩 취소
 	public int fundingWithdraw(int funding_order_idx) {
-		sqlSession.delete("MypageMapper.fundingWithdraw1", funding_order_idx); //funding_order_option
-		sqlSession.delete("MypageMapper.fundingWithdraw2", funding_order_idx); //funding_express
-		sqlSession.delete("MypageMapper.fundingWithdraw3", funding_order_idx); //funding_order_pay
-		return sqlSession.delete("MypageMapper.fundingWithdraw4", funding_order_idx); //funding_order
+		
+		return sqlSession.delete("MypageMapper.fundingWithdraw", funding_order_idx); //funding_order
 	}
 
 	

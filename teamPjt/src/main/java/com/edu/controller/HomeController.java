@@ -48,7 +48,7 @@ public class HomeController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-		
+
 		//git commit용
 		return "header";
 	}

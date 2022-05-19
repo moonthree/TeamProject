@@ -54,6 +54,7 @@
     <!-- -->
     
     <div class="container">
+    <h2>펀딩 제품 수정 페이지 입니다.</h2>
         <div class="row">
             <div class="col-md-8 col-sm-12">
                <!--  <img src="../resources/image/funding_main/doghome.png" class="mainIMG" alt="..."> -->
@@ -109,10 +110,7 @@
                 <a class="nav-link" data-toggle="tab" href="#FVQnA" role="tab" aria-controls="FVQnA"
                     aria-selected="false">QnA</a>
             </li>
-             <li class="nav-item nav-pills viewtab" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#FVoption" role="tab" aria-controls="FVoption"
-                    aria-selected="false">옵션 보기</a>
-            </li>
+            
         </ul>
         <!--프로젝트/스토어/커뮤니티/Q&A상세-->
         <div class="tab-content" id="myTabContent">
@@ -211,14 +209,7 @@
                     </tbody>
                 </table>
              </div>
-            <div class="tab-pane fade" id="FVoption" role="tabpanel" aria-labelledby="#FVoption-tab">
-       
-			<!-- 펀딩 옵션 미리보기  jsp 페이지에 옵션과 title 넘김-->
-				<jsp:include page="funding_option_temp.jsp">
-					<jsp:param value="${optionList}" name="optionList"/>
-					<jsp:param value="${funding.funding_title}" name="title"/>
-				</jsp:include>
-            </div>  
+           
         </div>
      
      <br>

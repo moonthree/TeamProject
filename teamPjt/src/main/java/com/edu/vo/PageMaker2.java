@@ -58,15 +58,15 @@ public class PageMaker2 {
 	}
 	 
 	private void calcData() {
-		endPage = (int) (Math.ceil(page2.getPage() / (double)displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(page2.getPage2() / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 	  
-		int tempEndPage = (int) (Math.ceil(totalCount / (double)page2.getPerPageNum()));
+		int tempEndPage = (int) (Math.ceil(totalCount / (double)page2.getPerPageNum2()));
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		prev = startPage == 1 ? false : true;
-		next = endPage * page2.getPerPageNum() >= totalCount ? false : true;
+		next = endPage * page2.getPerPageNum2() >= totalCount ? false : true;
 	}
 	
 	public String makeQuery1( int Page2) {
@@ -74,7 +74,7 @@ public class PageMaker2 {
 		UriComponents uriComponents1 =
 		UriComponentsBuilder.newInstance()
 										.queryParam("page2", Page2)
-										.queryParam("perPageNum2", page2.getPerPageNum())
+										.queryParam("perPageNum2", page2.getPerPageNum2())
 										.build();
 							   
 				return uriComponents1.toUriString();

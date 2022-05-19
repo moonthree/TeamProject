@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StoreMapper">
+	
+	<!-- 스토어 메인 리스트 -->
+	<select id="listMain" parameterType="StoreVO" resultType="StoreVO">
+		SELECT 
+			s.store_idx,
+			s.member_idx,
+			s.funding_idx,
+			s.store_price,
+			s.store_title,
+			s.store_thumbnail,
+			s.store_content,
+			s.store_notice,
+			s.store_write_date,
+			s.store_permit_state,
+			s.store_current_state,
+			s.store_category,
+			s.store_funding,
+			s.store_express_fee,
+			s.store_views,
+			m.member_idx,
+			m.member_business_name
+		FROM store s, member m
+		<choose>
+			<when test="fund != null">
+				where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+			</when>
+			<when test="dog != null">
+				where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1
+			</when>
+			<when test="cat != null">
+				where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+			</when>
+			<when test="other != null">
+				where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1
+			</when>
+			<otherwise>
+				where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="sortNew != null">
+				order by store_idx desc limit #{startRowNum}, 12;
+			</when>
+			<when test="sortView != null">
+				order by store_views desc limit #{startRowNum}, 12;
+			</when>
+			<when test="sortStar != null">
+				order by #{starAvg} desc limit #{startRowNum}, 12;
+			</when>
+			<otherwise>
+				order by store_idx desc limit #{startRowNum}, 12;
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 스토어 메인 카운트 -->
+	<select id="listMainCount" resultType="int">
+		SELECT COUNT(store_idx)
+		FROM store
+		<choose>
+			<when test="fund != null">
+				where store_funding = 1 AND store_permit_state=1
+			</when>
+			<when test="dog != null">
+				where store_category = 0 AND store_permit_state=1
+			</when>
+			<when test="cat != null">
+				where store_category = 1 AND store_permit_state=1
+			</when>
+			<when test="other != null">
+				where store_category = 2 AND store_permit_state=1
+			</when>
+			<otherwise>
+				where store_funding = 1 AND store_permit_state=1
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="storeViews" parameterType="int">
+		UPDATE store SET
+		store_views = store_views+1
+		WHERE store_idx = #{store_idx}
+	</update>
+	<!-- 스토어 제품 상세ssssssssssssss -->
+	<select id="read" parameterType="map" resultType="StoreVO">
+		SELECT 
+			s.store_idx,
+			s.member_idx,
+			s.funding_idx,
+			s.store_price,
+			s.store_title,
+			s.store_thumbnail,
+			s.store_content,
+			s.store_notice,
+			s.store_write_date,
+			s.store_permit_state,
+			s.store_current_state,
+			s.store_category,
+			s.store_funding,
+			s.store_express_fee,
+			s.store_views,
+			<choose>
+				<when test="store_funding > 0">
+					m.member_business_name,
+					f.funding_current_price
+					FROM store s, member m, funding f
+					WHERE store_idx = #{store_idx} AND s.member_idx = m.member_idx AND s.funding_idx = f.funding_idx
+				</when>
+				<otherwise>
+					m.member_business_name
+					FROM store s, member m
+					WHERE store_idx = #{store_idx} AND s.member_idx = m.member_idx
+				</otherwise>
+			</choose>
+	</select>
+	
+	<!-- 스토어 리뷰 리스트 -->
+	<select id="storeReviewList" parameterType="StoreReviewVO" resultType="StoreReviewVO">
+		SELECT
+			sr.store_review_idx,
+			sr.store_idx,
+			sr.member_idx,
+			sr.store_review_star,
+			sr.store_review_like,
+			sr.store_review_content,
+			sr.store_review_regdate,
+			sr.store_review_photo1,
+			sr.store_review_photo2,
+			sr.store_review_photo3,
+			sr.store_review_photo4,
+			sr.store_review_photo5,
+			m.member_name,
+			m.member_photo
+		FROM store_review sr, member m
+		WHERE sr.store_idx = #{store_idx} and sr.member_idx = m.member_idx
+		order by store_review_idx desc limit #{startRowNum}, 5;
+	</select>
+	<!-- 스토어 리뷰 카운트 -->
+	<select id="countStoreReviewList" parameterType="StoreReviewVO" resultType="int">
+		SELECT COUNT(store_review_idx)
+		FROM store_review
+		where store_idx=#{store_idx};
+	</select>
+	<!-- 스토어 별점 평균 -->
+	<select id="starAvg" resultType="double">
+		select avg(store_review_star) 
+		from store_review
+		where store_idx = #{store_idx};
+	</select>
+	<!-- 스토어 별점 별 카운트 -->
+	<select id="star5" resultType="int">
+		select count(store_review_star) from store_review where store_idx = #{store_idx} and store_review_star=5;
+	</select>
+	<select id="star4" resultType="int">
+		select count(store_review_star) from store_review where store_idx = #{store_idx} and store_review_star=4;
+	</select>
+	<select id="star3" resultType="int">
+		select count(store_review_star) from store_review where store_idx = #{store_idx} and store_review_star=3;
+	</select>
+	<select id="star2" resultType="int">
+		select count(store_review_star) from store_review where store_idx = #{store_idx} and store_review_star=2;
+	</select>
+	<select id="star1" resultType="int">
+		select count(store_review_star) from store_review where store_idx = #{store_idx} and store_review_star=1;
+	</select>
+	<!-- 스토어 별점 별 카운트 끝 -->
+	<!-- 스토어 리뷰 작성 -->
+	<insert id="storeReviewWrite" parameterType ="StoreReviewVO">
+		INSERT INTO store_review
+			(
+				store_idx,
+				member_idx,
+				store_review_star,
+				store_review_content,
+				store_review_photo1,
+				store_review_photo2,
+				store_review_photo3,
+				store_review_photo4,
+				store_review_photo5
+			)
+		VALUES
+			(
+				#{store_idx},
+				#{member_idx},
+				#{store_review_star},
+				#{store_review_content},
+				#{store_review_photo1},
+				#{store_review_photo2},
+				#{store_review_photo3},
+				#{store_review_photo4},
+				#{store_review_photo5}
+			)
+	</insert>
+	
+	<!-- 스토어 옵션 리스트 -->
+	<select id="storeOptionList" resultType="StoreOptionVO">
+		SELECT store_idx,
+			   store_option_idx,
+			   store_option_name,
+			   store_option_price,
+			   store_option_detail,
+			   store_option_stock
+		  FROM store_option
+		 WHERE store_idx = #{store_idx}
+	</select>
+	
+</mapper>

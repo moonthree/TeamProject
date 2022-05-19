@@ -27,7 +27,9 @@ a:visited {
 #chosenCategory {
     font-size: 30px;
     font-weight: 700;
-    padding-top: 10px;
+    padding-top: 20px;
+    height: 100%;
+	line-height: 100%;
 }
 
 .rounded-circle {
@@ -40,6 +42,19 @@ a:visited {
         width: 100px;
         height: 100px;
     }
+}
+
+select { 
+	width: 150px; /* 원하는 너비설정ssssssssssssss */ 
+	padding: .7em .6em; /* 여백으로 높이 설정 */ 
+	font-family: inherit; /* 폰트 상속 */ 
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 99% 50%; /* 네이티브 화살표 대체  https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg*/ 
+	border: 1px solid #999; 
+	border-radius: 10px; /* 둥근모서리 */ 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none; 
+	
 }
 
 /* 카테고리 끝 */
@@ -79,11 +94,11 @@ a:visited {
     border-radius: 15px;
     /* background-color: #96a0a1; */
     opacity: 0.8;
-    color: white;
-    background-color: #fd4d4e;
+    
 }
 .card-price{
-    color: #00b2b2;
+	color: black;
+
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px;
@@ -192,7 +207,7 @@ a:visited {
     float:right;
     position: relative;
     bottom: 21px;
-    right: 94px;
+    right: 110px;
 }
 .starAverage{
     font-weight: bold;

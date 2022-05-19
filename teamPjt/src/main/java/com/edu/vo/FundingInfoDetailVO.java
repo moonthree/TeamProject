@@ -5,6 +5,7 @@ import java.util.Date;
 public class FundingInfoDetailVO {
 	private int funding_idx;
 	private int member_idx;
+	private String member_name; //판매자 이름
 	
 	private String funding_title;
 	private String funding_thumbnail;
@@ -213,6 +214,12 @@ public class FundingInfoDetailVO {
 	}
 	public void setFunding_order_option_select_count(int funding_order_option_select_count) {
 		this.funding_order_option_select_count = funding_order_option_select_count;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	
 	

@@ -82,7 +82,7 @@
 					                        	<div class="count" style="float: left; width: 180px;">
 						                        	<div style="font-size: 13px; margin-bottom: 5px; color: gray;">수량 </div>
 						                        	<p class="updown" style="cursor: pointer; width: 170px;">
-						                        		<button type="button" onclick="javascript:option.changePNum(${item.funding_option_idx});" class="stockbtn">
+						                        		<button type="button" onclick="javascript:option.changePNum(${item.funding_option_idx});" class="down stockbtn">
 						                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="down" viewBox="0 0 16 16">
 															  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 															  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
@@ -91,7 +91,7 @@
 						                        		<!-- 수량  -->
 						                        		<input type="hidden" name="stock" id="stock" value="${item.funding_option_stock}">
 						                                <input type="number" name="p_num${item.funding_option_idx}" id="p_num${item.funding_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${item.funding_option_idx});" style="border: 1px solid gray; border-radius: 5px; padding-left: 10px; width: 80px;" autocomplete="off">
-						                                <button type="button"  onclick="javascript:option.changePNum(${item.funding_option_idx});" class="stockbtn">
+						                                <button type="button"  onclick="javascript:option.changePNum(${item.funding_option_idx});" class="up stockbtn">
 						                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="up" viewBox="0 0 16 16">
 															  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 															  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -305,7 +305,7 @@
 	        $checked_area.css('display', 'none');
 	});
 	
-	// 체크박스 체크 validate (체크박스 유효성 검증)
+	// 체크박스 체크 validate (체크박스 유효성 검사)
     function checkone (){ 
         var arr_form = document.getElementsByName('check'); 
         var num = 0; 
