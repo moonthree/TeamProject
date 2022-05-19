@@ -137,9 +137,12 @@
 	                    <div class="card mb-3">
 	                      <div class="row item" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
 	                        <div class="col-lg-5 col-md-6">
-	                          <div class="img-container">
-	                              <img src="../resources/upload/funding/${ item.funding_thumbnail }" class="card-img-top " alt="funding_img">
-	                          </div>
+		                          <!--이미지-->
+		                      <div class="card img-container">
+	                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+	                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+	                            </div>
+		                      </div>
 	                        </div>
 	                        <div class="col-lg-7 col-md-6">
 	                          <div class="card-body" style="margin-left: -20px;">
@@ -184,21 +187,31 @@
                 <div class="tab-pane fade" id="my_store">
                   <!--스토어 스크롤-->
                   <div class="mydiv" id="mydiv">
-
+					<c:if test="${sellerStoreList.size()>0}">
+					<c:forEach var="item" items="${sellerStoreList}">
                     <div class="card mb-3">
                       <div class="row g-0">
                         <div class="col-lg-5 col-md-6">
-                          <div class="img-container">
-                              <img src="../resources/image/cat5.png" class="card-img-top " alt="funding_img">
-                          </div>
+                          <!--이미지-->
+	                      <div class="card img-container">
+                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+                              <img src="../resources/image/funding_main/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+                            </div>
+	                      </div>
                         </div>
                         <div class="col-lg-7 col-md-6">
                           <div class="card-body" style="margin-left: -20px;">
-                            <div style="font-weight:100">고양이 용품</div>
-                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
+                            <div style="font-weight:100">
+                            	<c:choose>
+                            		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
+                            		<c:when test="${ item.store_category eq 1 }">고양이 용품</c:when>
+                            		<c:when test="${ item.store_category eq 2 }">다른 동물 용품</c:when>
+                            	</c:choose>
+                            </div>
+                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
                             <p class="card-text" >
                               <div class="row">
-                                <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
+                                <div class="col">${ item.store_content }</div>
                               </div>                             
                               <div class="row" style="position: absolute; bottom: 5px; right:50px">
                                 <div class="col">
@@ -210,58 +223,10 @@
                         </div> 
                       </div>
                     </div>
+                    </c:forEach>
+                    </c:if>
                     
-                    <div class="card mb-3">
-                      <div class="row g-0">
-                        <div class="col-lg-5 col-md-6">
-                          <div class="img-container">
-                              <img src="../resources/image/cat5.png" class="card-img-top " alt="funding_img">
-                          </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6">
-                          <div class="card-body" style="margin-left: -20px;">
-                            <div style="font-weight:100">고양이 용품</div>
-                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                            <p class="card-text" >
-                              <div class="row">
-                                <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
-                              </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
-                                <div class="col">
-                                  <button type="button" class="button-6">수정</button>
-                                </div>
-                              </div>
-                            </p>
-                          </div>
-                        </div> 
-                      </div>
-                    </div>
-
-                    <div class="card mb-3">
-                      <div class="row g-0">
-                        <div class="col-lg-5 col-md-6">
-                          <div class="img-container">
-                              <img src="../resources/image/cat5.png" class="card-img-top" alt="funding_img">
-                          </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6">
-                          <div class="card-body" style="margin-left: -20px;">
-                            <div style="font-weight:100">고양이 용품</div>
-                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                            <p class="card-text" >
-                              <div class="row">
-                                <div class="col" >악취와 세균을 흡착 하는 미래자원 일라이트 함유 25번 먼지 공정 먼지제거 99.9%</div>
-                              </div>                             
-                              <div class="row" style="position: absolute; bottom: 5px; right:50px">
-                                <div class="col">
-                                  <button type="button" class="button-6">수정</button>
-                                </div>
-                              </div>
-                            </p>
-                          </div>
-                        </div> 
-                      </div>
-                    </div>
+                    
             </div>
             </div>
             </div>

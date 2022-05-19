@@ -6,14 +6,13 @@ import java.util.Map;
 import com.edu.vo.ChangePwVO;
 import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
-import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
-import com.edu.vo.Funding_optionVO;
-import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
 
@@ -47,11 +46,17 @@ public interface MypageService {
 	//4개의 최신 펀딩목록
 	List<FundingInfoDetailVO> select4Funding(int member_idx);
 	
+	//3개의 최신 구매목록 
+	List<StoreInfoDetailVO> select3Store(int member_idx);
+	
 	//3개의 최신 찜목록
 	List<ZzimVO> select3Zzim(int member_idx);
 	
 	//펀딩개수
 	int countFunding(int member_idx);
+	
+	//구매개수
+	int countStore(int member_idx);
 	
 	//찜개수
 	int countZzim(int member_idx);
@@ -62,11 +67,17 @@ public interface MypageService {
 	//펀딩내역2 - 위에꺼 안쓰고 고침 info_funding
 	List<FundingInfoDetailVO> myFundingList2(int member_idx);
 	
+	//스토어내역
+	List<StoreInfoDetailVO> myStoreList(int member_idx);
+	
 	//찜내역
 	List<FundingMainVO> myZzimList(int member_idx);
 	
 	//판매자 펀딩목록 mypage2
 	List<FundingMainVO> sellerFundingList(int member_idx);
+	
+	//판매자 스토어목록 mypage2
+	List<StoreVO> sellerStoreList(int member_idx);
 	
 	/*funding_info_detail*/
 	//funding & funding_order

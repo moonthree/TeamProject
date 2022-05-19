@@ -144,6 +144,9 @@ select::-ms-expand {
 /*뷰 셀렉트 부분 끝*/
 
 /*뷰 구매, 찜 버튼 시작*/
+.viewBtn{
+	margin-top: 20px;
+}
 .viewZzimBtn{
     margin-top: 10px;
     width: 100%;
