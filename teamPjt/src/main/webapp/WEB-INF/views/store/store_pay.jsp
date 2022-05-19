@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
- <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_reserve.css">
+ <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_pay.css">
  <!-- 다음주소 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -30,100 +30,11 @@
     <!-- 펀딩 제목  -->
 	<div><h3>${param.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
-        <div class="row">
-            <div class="col-xs-12" style="width: 100%;">
-            	<input type="hidden" name="funding_title" value="${param.funding_title}">
-                <div class="wrap" style="margin: 30px 0px 20px auto;">
-                    <div class="step">
-                        <div class="step_circle none_select_circle">옵션 선택</div>
-                        <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle select_circle">결제 예약</div>
-                        <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle none_select_circle">예약 완료</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="addressInfo_div" style="font-size: 30px; font-weight: bold; padding: 20px 0px;">주문 및 결제</div>
+        <div>구매 즉시 결제가 진행됩니다.</div>
         <form id="reserveform" name="reserveform" action="reserve.do" method="post">
-        <!-- 옵션 정보 -->
+        <!-- 구매자 정보 -->
         <div class="row" style="margin-top: 30px;">
-            <div class="col-xs-12" style="width: 100%;">
-            <input type="hidden" name="funding_idx" value="${param.funding_idx }">
-            <input type="hidden" name="member_idx" value="${member.member_idx}">
-                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
-                	<c:forEach var="check" items="${paramValues.check}">
-                		<input type="hidden" name="funding_order_option_select_idx" value="${check}">
-                		<c:forEach var="list" items="${optionlist}">
-                			<c:if test="${list.funding_option_idx eq check}">
-			                	<tr>
-			                        <th width="70%" style="border-top: 1px dashed gray;">
-			                            <div style="min-height: 50px;">
-			                            	<!-- 옵션 이름  -->
-			                                <div class="table_option_name">
-			                                    ${list.funding_option_name}
-			                                </div>
-			                                <!-- 옵션 설명 -->
-			                                <div style="color: gray; font-weight: lighter; font-size: 14px;">
-			                                   ${list.funding_option_detail}
-			                                </div>
-			                                <input type="hidden" name="price" id="price" value="${list.funding_option_price}">
-			                            </div>
-			                        </th>
-			                        <td style="border-top: 1px dashed gray;">
-			                       		<c:set var="p_num" value="p_num${check}" />
-			                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
-			                       		수량: <c:out value="${param[p_num]}"/>개
-			                        </td>
-			                        <td style="border-top: 1px dashed gray;">
-			                        	<!-- 펀딩 옵션별 금액 -->
-				                        <div class="sum" id="sum">
-				                        	<c:set var="p_price" value="p_price${check}" />
-				                        	<input type="hidden" name="sum" id="sum" value="${param[p_price]*param[p_num]}">
-				                        	<fmt:formatNumber value="${param[p_price]*param[p_num]}" type="number" />원
-				                        </div>
-			                        </td>
-			                    </tr>
-                			</c:if>
-                		</c:forEach>
-                	</c:forEach>
-				
-                    <!-- 후원금 -->
-                    <tr height="50px">
-                        <th style="border-top: 1px dashed gray;">
-                            <div>추가 후원금</div>
-                        </th>
-                        <td style="border-top: 1px dashed gray;" colspan="2">
-	                        <c:if test="${param.addDonation == ''}">0원
-	                        	<input type="hidden" name="funding_order_donation" value="0">
-	                        </c:if>
-	                        <c:if test="${param.addDonation != ''}">
-	                        	<input type="hidden" name="funding_order_donation" value="${param.addDonation}">
-		                        <fmt:formatNumber value="${param.addDonation}" type="number" />원
-	                        </c:if>
-                        </td>
-                    </tr>
-                    <tr height="50px">
-                        <th style="border-top: 1px dashed gray;">배송비</th>
-                        <td style="border-top: 1px dashed gray;" colspan="2">
-                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
-                        	<fmt:formatNumber value="0" type="number" />원
-                        	<div></div>
-                        </td>
-                    </tr>
-                    <tr class="thead-light">
-                        <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
-                        <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
-                        	<!-- 배송비 추가 해야 함 -->
-                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
-                        	<fmt:formatNumber value="${param.sum_p_price}" type="number" />원
-                        	<div id="sumTotal"></div>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 30px;">
-            <!-- 구매자 정보 -->
             <div class="col-md-6" style="padding: 30px;">
                 <table class="table table-borderless card buyer_card">
                     <thead>
@@ -264,11 +175,80 @@
 <!--                 </div> -->
             </div>
         </div>
-
+        
+		<!-- 상품 정보 -->
+		<div class="row" style="margin-top: 30px;">
+        	<div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">상품 정보</div>
+        </div>
+        
+		<!-- 결제 금액 -->
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-xs-12" style="width: 100%;">
+            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 금액</div>
+            <input type="hidden" name="funding_idx" value="${param.funding_idx }">
+            <input type="hidden" name="member_idx" value="${member.member_idx}">
+                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
+                	<c:forEach var="check" items="${paramValues.check}">
+                		<input type="hidden" name="funding_order_option_select_idx" value="${check}">
+                		<c:forEach var="list" items="${optionlist}">
+                			<c:if test="${list.funding_option_idx eq check}">
+			                	<tr>
+			                        <th width="70%" style="border-top: 1px dashed gray;">
+			                            <div style="min-height: 50px;">
+			                            	<!-- 옵션 이름  -->
+			                                <div class="table_option_name">
+			                                    ${list.funding_option_name}
+			                                </div>
+			                                <!-- 옵션 설명 -->
+			                                <div style="color: gray; font-weight: lighter; font-size: 14px;">
+			                                   ${list.funding_option_detail}
+			                                </div>
+			                                <input type="hidden" name="price" id="price" value="${list.funding_option_price}">
+			                            </div>
+			                        </th>
+			                        <td style="border-top: 1px dashed gray;">
+			                       		<c:set var="p_num" value="p_num${check}" />
+			                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
+			                       		수량: <c:out value="${param[p_num]}"/>개
+			                        </td>
+			                        <td style="border-top: 1px dashed gray;">
+			                        	<!-- 펀딩 옵션별 금액 -->
+				                        <div class="sum" id="sum">
+				                        	<c:set var="p_price" value="p_price${check}" />
+				                        	<input type="hidden" name="sum" id="sum" value="${param[p_price]*param[p_num]}">
+				                        	<fmt:formatNumber value="${param[p_price]*param[p_num]}" type="number" />원
+				                        </div>
+			                        </td>
+			                    </tr>
+                			</c:if>
+                		</c:forEach>
+                	</c:forEach>
+				
+                    <tr height="50px">
+                        <th style="border-top: 1px dashed gray;">배송비</th>
+                        <td style="border-top: 1px dashed gray;" colspan="2">
+                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
+                        	<fmt:formatNumber value="0" type="number" />원
+                        	<div></div>
+                        </td>
+                    </tr>
+                    <tr class="thead-light">
+                        <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
+                        <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
+                        	<!-- 배송비 추가 해야 함 -->
+                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
+                        	<fmt:formatNumber value="${param.sum_p_price}" type="number" />원
+                        	<div id="sumTotal"></div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+		
+        <!-- 결제 정보 -->
         <div class="row">
-            <!-- 결제 정보 -->
             <!-- 임시로 value 1로 전부 입력해둠 -->
-            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보   ///  임시로 전부 입력해놓음</div>
+            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 수단   ///  임시로 전부 입력해놓음</div>
             <div class="col-lg-7">
 <!--                 <div class="form-group"> -->
 <!--                     <div class="form-check form-check-inline"> -->

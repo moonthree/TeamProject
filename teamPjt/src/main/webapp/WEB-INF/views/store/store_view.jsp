@@ -15,6 +15,7 @@
     integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
     crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_view.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_view_select.css">
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
@@ -93,7 +94,7 @@
 	
 	                <div class="viewPrice">56,000원</div>
 	                <div class="viewExpress">
-	                    택배배송
+	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
 	                    <span class="viewExpressPrice">3,000</span>원
 	                    <br>
@@ -103,62 +104,82 @@
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
-	                <c:forEach var="option" items="${optionlist}">
-	                	<span style="color: black">${option.store_option_name}</span>
-	                </c:forEach>
-	                <div class="viewOptionSelect">
-	                    <select id="storeOptionSelect">
-	                    	<option value="default" hidden>상품명</option>
-	                        <option>베이글백 아이보리</option>
-	                        <option>베이글백 블랙</option>
-	                        <option>베이글백 화이트</option>
-	                    </select>
-	                    <div class="viewOptionBox">
-	                        <div class="storeOptionBox box0">
-	                            <div class="storeOptionBox1">
-	                                <span class="storeOptionText">베이글백 아이보리</span>
-	                                <button class="storeOptionBoxHide">x</button>
-	                            </div>
-	                            <div class="">
-	                                <input type="number"/>
-	                                <span class="storeOptionBoxPrice"><span class="bold">56,000</span>원</span>
-	                            </div>
-	                        </div>
-	                        <div class="storeOptionBox box1">
-	                            <div class="storeOptionBox1">
-	                                <span class="storeOptionText">베이글백 블랙</span>
-	                                <button class="storeOptionBoxHide">x</button>
-	                            </div>
-	                            <div class="">
-	                                <input type="number" />
-	                                <span class="storeOptionBoxPrice"><span class="bold">56,000</span>원</span>
-	                            </div>
-	                        </div>
-	                        <div class="storeOptionBox box2">
-	                            <div class="storeOptionBox1">
-	                                <span class="storeOptionText">베이글백 화이트</span>
-	                                <button class="storeOptionBoxHide">x</button>
-	                            </div>
-	                            <div class="">
-	                                <input type="number" />
-	                                <span class="storeOptionBoxPrice"><span class="bold">56,000</span>원</span>
-	                            </div>
-	                        </div>
-	                    </div>
-	
-	                    <div class="viewTotalPriceDiv row">
-	                        <div class="col-lg-4 viewTotalPriceText">
-	                            총 상품 금액
-	                        </div>
-	                        <div class="col-lg-8 viewTotalPriceText2">
-	                            <span class="viewTotalNum">
-	                                총 수량 0개
-	                                <span class="middleBar">&nbsp;|&nbsp;</span>
-	                            </span>
-	                            <span class="viewTotalPrice">30,000원</span>
-	                        </div>
-	                    </div>
-	                </div>
+	                <form id="selectform" action="get">
+	                <div class="select_menu_container">
+				        <div class="select_container">
+				            <div class="select_title">
+				                <div class="select_menu_title" id="select_menu_title">상품 선택</div>
+				                <div class="morebtn">↓</div>
+				            </div>
+				            <ul class="select_menu_content">
+				                <div>
+				                	<c:forEach var="optionlist" items="${optionlist}">
+				                    <li class="menu${optionlist.store_option_idx} li_menu" id="menu${optionlist.store_option_idx}" onclick="javascript:option.checkSelect(${optionlist.store_option_idx});">
+				                        <div class="select_menu_item_container">
+				                            <input type="hidden" value="${optionlist.store_option_idx}">
+				                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
+				                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
+				                            <div class="select_menu_item_price">
+				                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+				                            </div>
+				                        </div>
+				                    </li>
+	                				</c:forEach>
+				                </div>
+				            </ul>
+				        </div>
+				    </div>
+				
+				    <div class="selected_info_container" id="option">
+				    	<c:forEach var="optionlist" items="${optionlist}">
+				    	<div class="selected_container info${optionlist.store_option_idx}" id="selected_container">
+				    	<input type="hidden" value="${optionlist.store_option_idx}">
+				            <div class="selected_title_wrap">
+				                <div class="selected_title">
+				                    ${optionlist.store_option_name}
+				                </div>
+				                <div class="cancelbtn" onclick="javascript:option.cancelSelect(${optionlist.store_option_idx});">
+				                	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+									  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+									</svg>
+				                </div>
+				            </div>
+				            <div class="selected_content">${optionlist.store_option_detail}</div>
+				            <div class="selected_bottom">
+				                <div class="quantity">
+				                	<p class="updown">
+		                        		<button type="button" onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="down stockbtn">
+		                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="down bi bi-dash-square" viewBox="0 0 16 16">
+											  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+											  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+											</svg>
+		                        		</button>
+		                        		<!-- 수량  -->
+		                        		<input type="hidden" name="price" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
+		                        		<input type="hidden" name="stock" id="stock" value="${optionlist.store_option_stock}">
+		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
+		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">
+		                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="up bi bi-plus-square" viewBox="0 0 16 16">
+											  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+											  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+											</svg>
+		                                </button>
+		                        	</p>
+				                </div>
+				                <div class="money" style="float: left;">
+			                    	<div id="sum${optionlist.store_option_idx}" class="sum${optionlist.store_option_idx}" style="line-height: 2"><fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원</div>
+	                        	</div>
+				            </div>
+				        </div>
+				    	</c:forEach>
+				    	<div class="selected_price_container">
+					        <p>상품 금액<span id="total_price">0원</span></p>
+					        <p>배송비<span>무료 배송</span></p>
+					        <input type="hidden" name="total_price" value="">
+					        <p style="font-size: 16px; font-weight: 600;">총 결제 금액<span><strong id="sum_total">0</strong>원</span></p>
+					    </div>
+				    </div>
+				    </form>
 	                <!-- 셀렉트 끝 -->
 	                <!-- 셀렉트 끝 -->
 	                <!-- 셀렉트 끝 -->
@@ -170,7 +191,7 @@
 	                            <path
 	                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 	                        </svg>
-	                        찜하기
+	                        	찜하기
 	                    </button>
 	                </div>
 	                <div class="viewPastFunding">
@@ -246,7 +267,7 @@
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
-	            <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
+	            <div class="tab-pane fade active show" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
 	                <div class="reviewTop">
 	                    상품리뷰
 	                    <button class="btn btn-outline-info btn-lg writeReview">리뷰 작성</button>
@@ -472,5 +493,132 @@
 	</main>
 	<c:import url="/footer.do"></c:import>
 <script src="../resources/js/store/store_view_load.js"></script>
+<script src="../resources/js/store/store_view_select.js"></script>
+<script>
+let option = {
+	    totalCount: 0, 
+	    totalPrice: 0,
+	    sumTotal: 0,
+	    
+	    // 클릭 시 class selected 추가하기
+	    checkSelect: function(item){
+	    	var menu = document.querySelector('.menu'+item);
+	    	menu.classList.add('selected');
+	    	this.reCalc();
+	        this.updateUI();
+	    },
+	    
+	 // 클릭 시 class selected 제거하기
+	    cancelSelect: function(item){
+	    	var menu = document.querySelector('.menu'+item);
+	    	menu.classList.remove('selected');
+	    	this.reCalc();
+	        this.updateUI();
+	    },
+
+	    // 옵션 재계산
+	    reCalc: function(){
+	        this.totalCount = 0;
+	        this.totalPrice = 0;
+	        this.sumTotal = 0;
+	        
+	        document.querySelectorAll(".li_menu").forEach(function (item) {
+	        	if(item.classList.contains('selected') == true){
+	        		var value = item.firstElementChild.firstElementChild.value;
+	        		var count = parseInt(document.getElementById('p_num'+value).value);
+	        		this.totalCount += count;
+	                var price = parseInt(document.getElementById('price'+value).value);
+	                this.totalPrice += (count * price);
+	        	}
+	        				
+	            this.sumTotal = this.totalPrice;
+	            
+	        }, this);
+	    },
+
+	    //화면 업데이트
+	    updateUI: function () {
+	    	if(this.sumTotal == ''){
+	    		document.querySelector('#total_price').textContent = 0;
+	    	}else{
+		        document.querySelector('#total_price').textContent = this.sumTotal.formatNumber()+"원";
+	    	}
+	    	
+	    	if(this.sumTotal == ''){
+	    		document.querySelector('#sum_total').textContent = 0;
+	    	}else{
+		        document.querySelector('#sum_total').textContent = this.sumTotal.formatNumber();
+	    	}
+	    	
+	    },
+	    
+	    //개별 수량 변경
+	    changePNum: function (pos) {
+	        var item = document.querySelector('input[name=p_num'+pos+']');
+	        var p_num = parseInt(item.getAttribute('value'));
+	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : event.target.value;
+	        var stock = item.previousElementSibling.value;
+	        if(parseInt(newval) > stock){
+	        	alert('잔여수량 내에서 수량을 선택해주세요.');
+	        	item.setAttribute('value', 1);
+	        	item.value = 1;
+	        	newval = 1;
+	        }if(parseInt(newval) == 0){
+	        	alert('1개 이하로 수량을 선택할 수 없습니다.');
+	        	item.setAttribute('value', 1);
+	        	item.value = 1;
+	        	newval = 1;
+	        }else if(parseInt(newval) < 1 || parseInt(newval) > stock){
+	        	return false;
+	        }else{
+	        	item.setAttribute('value', newval);
+	        	item.value = newval;
+	        }
+	        
+            var price = item.previousElementSibling.previousElementSibling.value;
+	        //sum
+	        var sum = document.getElementById('sum'+pos);
+	        sum.textContent = (newval * price).formatNumber()+"원";
+	        // item.parentElement.parentElement.nextElementSibling.lastElementChild.textContent = (newval * price).formatNumber()+"원";
+
+	        this.reCalc();
+	        this.updateUI();
+	    },
+	    
+	}
+	
+	Number.prototype.formatNumber = function(){
+	    if(this==0) return 0;
+	    let regex = /(^[+-]?\d+)(\d{3})/;
+	    let nstr = (this + '');
+	    while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+	    return nstr;
+	};
+	
+	// select 데이터 전송
+    var viewPurchaseBtn = $(".viewPurchaseBtn");
+
+    viewPurchaseBtn.on("click", function(e){
+    	
+        if(document.querySelector(".li_menu").classList.contains('selected') == false){
+        	alert("상품을 선택해주세요.")
+        }else{
+        	$.ajax({	
+                url: "store_pay.do",
+                type: "get",
+                data: $("#selectform").serialize(),
+           	   success: function(){
+           		location.href='/test/store/store_pay.do';
+                  },
+                  error: function(){
+                      alert("er");
+                  }   
+            });	
+        }      
+        
+        
+    });
+	
+</script>
 </body>
 </html>
