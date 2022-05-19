@@ -19,6 +19,7 @@
 		<typeAlias type="com.edu.vo.Funding_order_payVO" alias="funding_order_payVO"/>
 		
 		<!-- 스토어 -->
+		<typeAlias type="com.edu.vo.StoreVO" alias="StoreVO"/>
 		<typeAlias type="com.edu.vo.StoreOptionVO" alias="StoreOptionVO"/>
 		
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>

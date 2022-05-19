@@ -23,6 +23,8 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
 @Service
@@ -422,6 +424,12 @@ public class MypageServiceImp implements MypageService{
 		return mdao.select4Funding(member_idx);
 	}
 	
+	//스토어 3개
+	@Override
+	public List<StoreInfoDetailVO> select3Store(int member_idx) {
+		return mdao.select3Store(member_idx);
+	}
+
 	//찜 3개
 	@Override
 	public List<ZzimVO> select3Zzim(int member_idx) {
@@ -429,12 +437,15 @@ public class MypageServiceImp implements MypageService{
 	}
 
 	
-	//펀딩 개수  & 찜 개수
+	//펀딩 개수  & 스토어 개수 & 찜 개수
 	@Override
 	public int countFunding(int member_idx) {
 		return mdao.countFunding(member_idx);
 	}
-    
+	@Override
+	public int countStore(int member_idx) {
+		return mdao.countStore(member_idx);
+	}
 	@Override
 	public int countZzim(int member_idx) {
 		return mdao.countZzim(member_idx);
@@ -452,6 +463,11 @@ public class MypageServiceImp implements MypageService{
 		return mdao.myFundingList2(member_idx);
 	}
     
+	//스토어 내역 - info_store
+	@Override
+	public List<StoreInfoDetailVO> myStoreList(int member_idx) {
+		return mdao.myStoreList(member_idx);
+	}
 
 	@Override
 	public List<FundingMainVO> myZzimList(int member_idx) {
@@ -462,6 +478,11 @@ public class MypageServiceImp implements MypageService{
 	@Override
 	public List<FundingMainVO> sellerFundingList(int member_idx) {
 		return mdao.sellerFundingList(member_idx);
+	}
+	//판매자 스토어 내역 mypage2
+	@Override
+	public List<StoreVO> sellerStoreList(int member_idx) {
+		return mdao.sellerStoreList(member_idx);
 	}
 
 	/*funding_info_detail*/
@@ -506,9 +527,13 @@ public class MypageServiceImp implements MypageService{
 
 	
 	//펀딩 취소
+	@Override
 	public int fundingWithdraw(int funding_order_idx) {
 		return mdao.fundingWithdraw(funding_order_idx);
 	}
+
+	
+	
 	
 
 	
