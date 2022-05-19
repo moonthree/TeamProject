@@ -58,7 +58,7 @@
 	           	</c:if>
             </h5>
             <br>
-            <h3 class="card-title">${zzim.size()}${read.funding_title }</h3>
+            <h3 class="card-title">${read.funding_title }</h3>
         </div>
     </div>
     <!-- -->
@@ -134,14 +134,6 @@
 	                    </svg>
 	                    	찜하기
 	                	</button>
-	                	<button type="button" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }"> --%>
-		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart"
-		                        viewBox="0 0 16 16">
-		                        <path
-		                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-		                    </svg>
-		                   	 찜 취소하기
-		             	</button> 
                     	</c:if>
                     	<c:if test="${login ne null}">
 	                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
@@ -195,7 +187,6 @@
         <div class="tab-content" id="myTabContent">
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-                PDF 파일 올라올 예정
           <%--      <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=1" style="width:100%; height:150vh;"></iframe>  --%>
           
                <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
@@ -203,7 +194,6 @@
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-                공지 사항 사진 파일 올라올 예정
                  <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
             </div>
             <!--커뮤니티-->
@@ -691,7 +681,7 @@
 	      </div>
 	      <div class="modal-footer login_modal_footer">
 	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_select.do'" class="login_modalBtn btn btn-outline-info btn-lg">회원가입</button>
-	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/view.do?funding_idx=${read.funding_idx}&login=1'"  class="login_modalBtn btn btn-info btn-lg">로그인</button>
+	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/view.do?funding_idx=${read.funding_idx}&login=1wwwwwwwwwwww321weqwff3443wrewew'"  class="login_modalBtn btn btn-info btn-lg">로그인</button>
 	      </div>
 	    </div>
 	  </div>

@@ -40,7 +40,7 @@ $(document).ready(function() {
             data: "categorySelect=dog&condition=sortNew",
             success:function(){
                 console.log("성공");
-                location.href="main.do?categorySelect=dog&condition=sortNew";
+                location.href="store_main.do?categorySelect=dog&condition=sortNew";
             }
         });
 	});
@@ -82,4 +82,37 @@ $(document).ready(function() {
 	});
 	let chosenCategory = $("#categorySelect option:selected").text();
 	document.getElementById("chosenCategory").innerText = chosenCategory;
+	
+	//메인에 별점이랑 리뷰 숫자 뿌려주는 기능
+	var a = $("#listMainSize").val();
+	
+	for(var i=0; i<a; i++){
+		var test = {
+	        "store_idx" : $('#idx'+i).val()
+		}
+		$.ajax({
+			url: "star_avg",
+			method: "POST",
+			data: test,
+			async:false,
+			success:function(data){
+				document.getElementById("rating-bg"+i).value = data;
+				document.getElementById("starAverage"+i).innerText = data;
+			}
+		});
+		$.ajax({
+			url: "reviewNum",
+			method: "POST",
+			data: test,
+			async:false,
+			success:function(data2){
+				document.getElementById("starTotal"+i).innerText = data2;
+			}
+		});
+	};
+	//메인에 별점이랑 리뷰 숫자 뿌려주는 기능 끝
+	
 });
+
+	    
+	    

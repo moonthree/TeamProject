@@ -23,6 +23,8 @@
 		<result column="funding_category" property="funding_category"/>
 		<result column="funding_views" property="funding_views"/>
 		<result column="funding_thumbnail" property="funding_thumbnail"/>
+		<result column="funding_content" property="funding_content"/>
+		<result column="funding_notice" property="funding_notice"/>		
 		<collection property="memberVO" resultMap="MemberVO"></collection>
 	</resultMap>
 	<resultMap type="FundingCommunityVO" id="FundingCommunityVO">
@@ -141,7 +143,7 @@
 		JOIN member as mem
 		WHERE funding_idx = #{funding_idx} AND fu.member_idx = mem.member_idx
 	</select>
-	<!-- 펀딩 옵션 카운트 -->
+	<!-- 펀딩 오더 카운트 -->
 	<select id="orderCount" resultType = "int">
 		SELECT COUNT(funding_order_idx)
 		FROM funding_order
