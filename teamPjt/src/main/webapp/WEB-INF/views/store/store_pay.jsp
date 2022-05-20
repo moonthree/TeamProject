@@ -10,8 +10,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
- <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_pay.css">
- <!-- 다음주소 -->
+<link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_pay.css">
+
+<!-- 결제 api -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
+<!-- 다음주소 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function handleOnInput(el, maxlength) {
@@ -20,21 +24,44 @@
             = el.value.substr(0, maxlength);
         }
     }
-	
+
+	history.replaceState({}, null, location.pathname);
+
 </script>
-<title>Insert title here</title>
+<title>스토어 주문 및 결제</title>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
     <main>
     <!-- 펀딩 제목  -->
-	<div><h3>${param.funding_title }</h3></div>
+	<div><h3>${param.store_title}</h3></div>
     <div class="container" style="margin-bottom: 6%;">
-        <div class="addressInfo_div" style="font-size: 30px; font-weight: bold; padding: 20px 0px;">주문 및 결제</div>
-        <div>구매 즉시 결제가 진행됩니다.</div>
+    	<div class="row" style="margin-top: 30px;">
+	        <div class="col-md-12 section_title" style="font-size: 35px;">주문 및 결제</div>
+	        <div class="payment_notice_container">
+		        <div class="payment_notice">
+	        		<span>
+	        			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill messagebox_icon" viewBox="0 0 16 16">
+						  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+						</svg>
+	        		</span>
+	        		<div class="message_container">
+	        			<p class="message_p">펀딩에 성공하여 상시 판매하는 스토어 상품입니다.</p>
+	        			<div class="message_d">
+	        				<ul>
+	        					<li>구매 즉시 결제가 진행됩니다.</li>
+	        					<li>본 상품은 구매 후 1일 내 발송됩니다. (주말,공휴일 제외)</li>
+	        				</ul>
+	        			</div>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+        
         <form id="reserveform" name="reserveform" action="reserve.do" method="post">
-        <!-- 구매자 정보 -->
+        
         <div class="row" style="margin-top: 30px;">
+	        <!-- 구매자 정보 -->
             <div class="col-md-6" style="padding: 30px;">
                 <table class="table table-borderless card buyer_card">
                     <thead>
@@ -73,8 +100,8 @@
             </div>
             
             <!-- 배송지 정보 -->
-            <div class="col-md-6" style="padding: 30px;">
-                <div class="addressInfo_div" style="font-size: 25px; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+            <div class="col-md-6" style="padding: 0px 30px;">
+                <div class="addressInfo_div section_title">배송지 정보</div>
 
                 <!-- 선택 버튼  (새로입력/기존주소) -->
                 <div class="addressInfo_button_div">
@@ -176,59 +203,56 @@
             </div>
         </div>
         
-		<!-- 상품 정보 -->
-		<div class="row" style="margin-top: 30px;">
-        	<div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">상품 정보</div>
-        </div>
+        <div class="row" style="margin-top: 40px;">
+        	<!-- 상품 정보 -->
+        	<div class="col-md-6" style="padding: 0px 30px;">
+        		<div class="section_title">상품 정보</div>
+        		<c:forEach var="optionlist" items="${optionlist}">
+	        		<c:forEach var="select" items="${param.select}">
+	        			<c:if test="${optionlist.store_option_idx == select}">
+	        				<!-- 상품 제목  -->
+			        		<div class="store_option_name">${optionlist.store_option_name}</div>
+	        				<!-- 상품 설명 -->
+			        		<div class="store_option_detail">${optionlist.store_option_detail}</div>
+			        		<div class="store_option_price_info">
+		        				<!-- 수량 -->
+			        			<c:set var="p_num" value="p_num${select}" />
+	                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
+	                       		<span class="info_count">수량: <c:out value="${param[p_num]}"/>개</span>
+				        		<!-- 가격 -->
+			        			<c:set var="price" value="price${select}" />
+	                       		<input type="hidden" id="price" name="funding_order_option_select_count" value="${param[p_num]}">
+	                       		<span class="info_price"><fmt:formatNumber value="${param[price]*param[p_num]}" type="number" />원</span>
+			        		</div>
+	        				<div class="line"></div>
+	        			</c:if>
+	       			</c:forEach>
+			    </c:forEach>
+			    <!-- 배송 안내사항 -->
+			    <div style="margin-top: 24px;">
+			    	<div class="delivery">배송 안내사항</div>
+			    	<div class="delivery_notice">코로나로 인한 택배 배송(간선하차) 불가로 일부 지역은 배송이 제한될 수 있습니다. 자세한 내용은 공지사항을 참고 부탁드립니다.</div>
+			    </div>
+        	</div>
         
-		<!-- 결제 금액 -->
-        <div class="row" style="margin-top: 30px;">
-            <div class="col-xs-12" style="width: 100%;">
-            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 금액</div>
-            <input type="hidden" name="funding_idx" value="${param.funding_idx }">
-            <input type="hidden" name="member_idx" value="${member.member_idx}">
-                <table style="margin: 0px auto; width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
-                	<c:forEach var="check" items="${paramValues.check}">
-                		<input type="hidden" name="funding_order_option_select_idx" value="${check}">
-                		<c:forEach var="list" items="${optionlist}">
-                			<c:if test="${list.funding_option_idx eq check}">
-			                	<tr>
-			                        <th width="70%" style="border-top: 1px dashed gray;">
-			                            <div style="min-height: 50px;">
-			                            	<!-- 옵션 이름  -->
-			                                <div class="table_option_name">
-			                                    ${list.funding_option_name}
-			                                </div>
-			                                <!-- 옵션 설명 -->
-			                                <div style="color: gray; font-weight: lighter; font-size: 14px;">
-			                                   ${list.funding_option_detail}
-			                                </div>
-			                                <input type="hidden" name="price" id="price" value="${list.funding_option_price}">
-			                            </div>
-			                        </th>
-			                        <td style="border-top: 1px dashed gray;">
-			                       		<c:set var="p_num" value="p_num${check}" />
-			                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
-			                       		수량: <c:out value="${param[p_num]}"/>개
-			                        </td>
-			                        <td style="border-top: 1px dashed gray;">
-			                        	<!-- 펀딩 옵션별 금액 -->
-				                        <div class="sum" id="sum">
-				                        	<c:set var="p_price" value="p_price${check}" />
-				                        	<input type="hidden" name="sum" id="sum" value="${param[p_price]*param[p_num]}">
-				                        	<fmt:formatNumber value="${param[p_price]*param[p_num]}" type="number" />원
-				                        </div>
-			                        </td>
-			                    </tr>
-                			</c:if>
-                		</c:forEach>
-                	</c:forEach>
-				
+        	<!-- 결제 금액 -->
+            <div class="col-md-6" style="padding: 0px 30px;">
+            	<div class="section_title">결제 금액</div>
+	            <input type="hidden" name="member_idx" value="${member.member_idx}">
+                <table style="margin: 0px auto; width: 90%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
+                    <tr height="50px">
+                        <th style="border-top: 1px dashed gray;">상품 금액</th>
+                        <td style="border-top: 1px dashed gray;" colspan="2">
+                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
+                        	<fmt:formatNumber value="${param.total_price}" type="number" />원
+                        	<div></div>
+                        </td>
+                    </tr>
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">배송비</th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
                         	<input type="hidden" id="expressFee" name="expressFee" value="0">
-                        	<fmt:formatNumber value="0" type="number" />원
+                        	<fmt:formatNumber value="${param.express_fee}" type="number" />원
                         	<div></div>
                         </td>
                     </tr>
@@ -237,7 +261,7 @@
                         <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
                         	<!-- 배송비 추가 해야 함 -->
                         	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
-                        	<fmt:formatNumber value="${param.sum_p_price}" type="number" />원
+                        	<strong><fmt:formatNumber value="${param.total_price+param.express_fee}" type="number" /></strong>원
                         	<div id="sumTotal"></div>
                         </th>
                     </tr>
@@ -245,79 +269,12 @@
             </div>
         </div>
 		
-        <!-- 결제 정보 -->
-        <div class="row">
-            <!-- 임시로 value 1로 전부 입력해둠 -->
-            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 수단   ///  임시로 전부 입력해놓음</div>
-            <div class="col-lg-7">
-<!--                 <div class="form-group"> -->
-<!--                     <div class="form-check form-check-inline"> -->
-<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3" checked> -->
-<!--                         <label class="form-check-label" for="inlineRadio3">직접 입력</label> -->
-<!--                     </div> -->
-<!--                     <div class="form-check form-check-inline"> -->
-<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4"> -->
-<!--                         <label class="form-check-label" for="inlineRadio4">네이버 페이</label> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--                 <hr> -->
-                <div>
-                     <div class="form-group">
-                         <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
-                         <div class="row">
-                             <div class="col">
-                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required" value="1111">
-                             </div>
-                             <div class="col">
-                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required value="1111">
-                             </div>
-                             <div class="col">
-                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required value="1111">
-                             </div>
-                             <div class="col">
-                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required value="1111">
-                             </div>
-                         </div>
-                     </div>
-                     <div class="form-row">
-                         <div class="form-group col-md-6">
-                             <label for="" style="font-weight: bold;">유효기간</label>
-                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required value="11/11">
-                         </div>
-                         <div class="form-group col-md-6">
-                             <label for="" style="font-weight: bold;">카드 비밀번호</label>
-                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required value="11">
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="" style="font-weight: bold;">생년월일 (주민번호 앞 6자리)</label>
-                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required value="111111">
-                     </div>   
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div style="font-weight: 600;">[ 결제 예약시 유의사항 ]</div>
-                <div style="padding: 10px; line-height: 2;">
-                    <ul style="padding-left: 10px;">
-                        <li>
-							결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있으니, 결제수단이 유효한지 한번 확인하세요.
-                        </li>
-                        <li>
-                            1차 결제 실패 시 실패일로부터 3 영업일 동안 재 결제를 실행합니다.
-                        </li>
-                        <li>
-							결제 예약 이후, 결제 정보를 변경하려면 마이페이지 > 나의 펀딩의 결제 정보에서 결제 정보를 변경해주세요.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         </form>
         
         <!-- 동의 -->
-        <div class="row">
+        <div class="row" style="margin-top: 40px; padding: 0px 30px;">
             <div class="col-xs-12" style="width: 100%;">
-                <div style="font-size: 25px; font-weight: bold; padding: 20px 0px; margin: 20px 0 auto;" class="col-md-12">약관 동의</div>
+                <div class="col-md-12 section_title">약관 동의</div>
             </div>
             <div class="col-xs-12" style="width: 100%;">
                 <table style="border: 1px solid lightgray;" cellpadding="20px" width="100%">
@@ -403,7 +360,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px;">
-            <button type="button" class="btn btn_success" id="next">결제 예약하기</button>
+            <button type="button" class="btn btn_success" id="next">결제하기</button>
         </div>
     </div>
     </main>
@@ -576,37 +533,79 @@
                         }, 0);
                         return false;
                       }
+                }else{
+                	// 전부 동의했을 경우 결제 진행
+                	var IMP = window.IMP;
+            		IMP.init('imp86698144'); // iamport 식별코드
+            		IMP.request_pay({
+            			pg: 'html5_inicis',
+            			/*
+            				'kakao':카카오페이,
+            				'html5_inicis':이니시스(웹표준결제)
+            				'nice':나이스페이
+            				'jtnet':제이티넷
+            				'uplus':LG유플러스
+            				'danal':다날
+            				'payco':페이코
+            				'syrup':시럽페이
+            				'paypal':페이팔
+            			*/
+            			pay_method: 'card',
+            			/*
+            				'samsung':삼성페이,
+            				'card':신용카드,
+            				'trans':실시간계좌이체,
+            				'vbank':가상계좌,
+            				'phone':휴대폰소액결제
+            			*/
+            			merchant_uid: 'merchant_' + new Date().getTime(),
+            			name: '${param.store_title}', //결제창에서 보여질 이름
+            			amount: 1000, //가격
+            			buyer_email: '${member.member_email}',
+            			buyer_name: '${member.member_name}',
+            			buyer_tel: '${member_member_phone}',
+            			buyer_addr: '${member.member_addr} ${member.member_addr2}',
+            			buyer_postcode: '${member.member_postnum}',
+            			}, function (rsp) {
+            				console.log(rsp);
+            				if (rsp.success) {
+            					var msg = '결제가 완료되었습니다.';
+//             					msg += '고유ID : ' + rsp.imp_uid;
+//             					msg += '상점 거래ID : ' + rsp.merchant_uid;
+//             					msg += '결제 금액 : ' + rsp.paid_amount;
+//             					msg += '카드 승인번호 : ' + rsp.apply_num;
+            					var result = {
+            						"card_name" : rsp.card_name,
+            						"card_number" : rsp.card_number,
+            						"paid_amount" : rsp.paid_amount,
+           							}
+            						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+            		                // 결제내역을 사용자에게 보여주기 위해 필요함.
+            		               	$.ajax({
+            							url : "/store/store_pay.do",
+            							type : "POST",
+            							data : JSON.stringify(result,
+            									['card_name', 'card_number', 'paid_amount']),
+            							dataType : 'json',
+            							success : function(result){
+            								if(result == "y") {
+            									alert(msg);
+            									location.href = "/store/store_complete.do"; 
+            								}else{
+            									alert("DB입력실패");
+            									return false;
+            								}
+            							},
+            							error : function(a,b,c){}
+            						});
+            				} else {
+            					var msg = '결제에 실패하였습니다.';
+            					msg += '\n에러내용 : ' + rsp.error_msg;
+            				}
+            			alert(msg);
+            		});
                 }
             	
-            	// 결제 정보 확인
-            	if (card_num1.length < 4 || (card_num2.length < 4) || (card_num3.length < 4) || card_num4.length < 2) {
-					alert('신용(체크)카드 번호를 정확히 입력해주세요.');
-					setTimeout(function(){
-                        $('input[id=card_num1]').focus();
-                    }, 0);
-                    return false;
-                } else if (funding_order_pay_card_valid.length < 5) {
-                    alert('유효기간을 정확히 입력해주세요.');
-                    setTimeout(function(){
-                        $('input[name=funding_order_pay_card_valid]').focus();
-                    }, 0);
-                    return false;
-                } else if (funding_order_pay_card_password.length < 2) {
-                    alert('비밀번호 앞 두자리를 정확히 입력해주세요.');
-                    setTimeout(function(){
-                      $('input[name=funding_order_pay_card_password]').focus();
-                    }, 0);
-                    return false;
-                } else if (funding_order_pay_register_num.length != 6) {
-                    alert('생년월일을 정확히 입력해주세요.');
-                    setTimeout(function(){
-                      $('input[name=buyerAuthNum]').focus();
-                    }, 0);
-                    return false;
-                  }
-            	else{
-        			reserveform.submit();
-            	}
         	}
         	}, 0);
         });

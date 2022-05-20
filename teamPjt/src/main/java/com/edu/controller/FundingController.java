@@ -452,7 +452,7 @@ public class FundingController {
 		return "funding/option";
 	}
 	
-	@RequestMapping(value = "/option.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/reserve.do", method = RequestMethod.GET)
 	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request) throws Exception {
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);

@@ -47,6 +47,7 @@
 		<!-- 로그인 필요한 페이지 -->
         <interceptor>
             <mapping path="/funding/option.do"/>
+            <mapping path="/funding/reserve.do"/>
             <mapping path="/mypage/mypage.do"/>
             <mapping path="/mypage/mypage2.do"/>
             <mapping path="/mypage/info_funding_detail.do"/>
@@ -60,10 +61,10 @@
             <mapping path="/funding/view.do"/>
             <beans:ref bean="auth2"/>
         </interceptor>
-        <interceptor>
-            <mapping path="/store/store_view.do"/>
-            <beans:ref bean="auth3"/>
-        </interceptor>
+<!--         <interceptor> -->
+<!--             <mapping path="/store/store_view.do"/> -->
+<!--             <beans:ref bean="auth3"/> -->
+<!--         </interceptor> -->
     </interceptors>
   
 </beans:beans>
