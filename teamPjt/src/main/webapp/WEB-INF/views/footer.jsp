@@ -27,9 +27,10 @@
 </style>
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".dropdown-toggle").dropdown();
-    });
+<!-- 결제때문에 주석 처리 -->   
+//     $(document).ready(function () {
+//         $(".dropdown-toggle").dropdown();
+//     });
 </script>
 </head>
 <body>

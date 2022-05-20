@@ -21,6 +21,7 @@
         }
     }
 	
+    history.replaceState({}, null, location.pathname);
 </script>
 <title>Insert title here</title>
 </head>

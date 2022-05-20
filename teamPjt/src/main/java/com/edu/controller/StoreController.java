@@ -287,6 +287,7 @@ public class StoreController {
 		
 		return "store/store_view";
 	}
+	
 	/*스토어 상품 등록 페이지*/
 	@RequestMapping(value="store_register.do",method = RequestMethod.GET)
 	public String stroe_reg(Model model,HttpServletRequest request ) {
@@ -427,8 +428,12 @@ public class StoreController {
 	
 	// 스토어 결제페이지
 	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
-	public String pay(Model model, HttpServletRequest request) {
+	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request) {
 		
+		// 옵션 출력
+		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
+		model.addAttribute("optionlist", optionlist);
+			
 		//세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
@@ -436,6 +441,18 @@ public class StoreController {
 		model.addAttribute("member", member);
 		
 		return "store/store_pay";
+	}
+	@RequestMapping(value = "/store_pay.do", method = RequestMethod.POST)
+	public void pay() {
+		
+		
+	}
+	// 스토어 결제 완료페이지
+	@RequestMapping(value = "/store_pay_complete.do", method = RequestMethod.GET)
+	public String pay_complete() {
+		
+		
+		return "store/store_pay_complete";
 	}
 	// 찜 insert
 	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)

@@ -128,7 +128,10 @@
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
-	                <form id="selectform" action="get">
+	                <form id="selectform" method="get" action="store_pay.do">
+	                <input type="hidden" name="store_idx" value="${read.store_idx}">
+	                <input type="hidden" name="store_title" value="${read.store_title}">
+	                <input type="hidden" name="select" id="select" value="">
 	                <div class="select_menu_container">
 				        <div class="select_container">
 				            <div class="select_title">
@@ -179,8 +182,8 @@
 											</svg>
 		                        		</button>
 		                        		<!-- 수량  -->
-		                        		<input type="hidden" name="price" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
-		                        		<input type="hidden" name="stock" id="stock" value="${optionlist.store_option_stock}">
+		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
+		                        		<input type="hidden" name="stock${optionlist.store_option_idx}" id="stock" value="${optionlist.store_option_stock}">
 		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
 		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">
 		                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="up bi bi-plus-square" viewBox="0 0 16 16">
@@ -198,7 +201,16 @@
 				    	</c:forEach>
 				    	<div class="selected_price_container">
 					        <p>상품 금액<span id="total_price">0원</span></p>
-					        <p>배송비<span>무료 배송</span></p>
+					        <!-- 배송비 -->
+					        <p>
+					        	<input type="hidden" name="express_fee" value="${read.store_express_fee}">
+					        	<c:if test="${read.store_express_fee eq 0}">
+					        		배송비<span>무료 배송</span>
+					        	</c:if>
+					        	<c:if test="${read.store_express_fee ne 0}">
+					        		배송비<span><fmt:formatNumber value="${read.store_express_fee }" type="number" />원</span>
+					        	</c:if>
+					        </p>
 					        <input type="hidden" name="total_price" value="">
 					        <p style="font-size: 16px; font-weight: 600;">총 결제 금액<span><strong id="sum_total">0</strong>원</span></p>
 					    </div>
@@ -208,10 +220,10 @@
 	                <!-- 셀렉트 끝 -->
 	                <!-- 셀렉트 끝 -->
 	                <div class="viewBtn">
+	                	<button type="button" class="viewPurchaseBtn">구매하기</button>
 	                	<!-- 구매, 찜 로그인 처리 -->
 	                	<!-- 로그인 안 했으면 -->
 	                	<c:if test="${login eq null}">
-	                		<button type="button" class="viewPurchaseBtn" data-toggle="modal" data-target="#loginModal">구매하기</button>
 		                    <button type="button" class="viewZzimBtn" data-toggle="modal" data-target="#loginModal">
 		                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
 		                            viewBox="0 0 16 16">
@@ -223,7 +235,6 @@
 	                	</c:if>
 	                	<!-- 로그인 했으면 -->
 	                	<c:if test="${login ne null}">
-	                		<button type="button" class="viewPurchaseBtn">구매하기</button>
 	                		<c:if test="${read.store_funding eq 1 }">
 			                    <button type="button" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
 			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
@@ -742,7 +753,7 @@ let option = {
 	        this.updateUI();
 	    },
 	    
-	 // 클릭 시 class selected 제거하기
+	 	// 클릭 시 class selected 제거하기
 	    cancelSelect: function(item){
 	    	var menu = document.querySelector('.menu'+item);
 	    	menu.classList.remove('selected');
@@ -764,18 +775,27 @@ let option = {
 	                var price = parseInt(document.getElementById('price'+value).value);
 	                this.totalPrice += (count * price);
 	        	}
-	        				
-	            this.sumTotal = this.totalPrice;
+	        	// 배송비 포함
+	        	var express_fee = $('[name="express_fee"]').val();
+	            if (express_fee == '') {
+	              express_fee = 0;
+	            }
+	            express_fee = parseInt(express_fee);
+	            
+	            this.sumTotal = this.totalPrice + express_fee;
 	            
 	        }, this);
 	    },
 
 	    //화면 업데이트
 	    updateUI: function () {
+	    	document.querySelector('[name="total_price"]').value = this.totalPrice;
+
 	    	if(this.sumTotal == ''){
+	    		
 	    		document.querySelector('#total_price').textContent = 0;
 	    	}else{
-		        document.querySelector('#total_price').textContent = this.sumTotal.formatNumber()+"원";
+		        document.querySelector('#total_price').textContent = this.totalPrice.formatNumber()+"원";
 	    	}
 	    	
 	    	if(this.sumTotal == ''){
@@ -830,27 +850,29 @@ let option = {
 	};
 	
 	// select 데이터 전송
-    var viewPurchaseBtn = $(".viewPurchaseBtn");
-
-    viewPurchaseBtn.on("click", function(e){
+    $(".viewPurchaseBtn").on("click", function(e){
     	
-        if(document.querySelector(".li_menu").classList.contains('selected') == false){
-        	alert("상품을 선택해주세요.")
+    	var check = 0;
+    	var select = [];
+    	document.querySelectorAll(".li_menu").forEach(function (item) {
+    		
+    		if(item.classList.contains('selected') == true){
+    			var value = item.firstElementChild.firstElementChild.value;
+    			select.push(value);
+    			check += 1;
+    		}
+    		
+    	});
+    	
+    	document.getElementById('select').value = select;
+    	
+	    if(check == 0){
+        	alert("상품을 선택해주세요.");
+        	return false; 
         }else{
-        	$.ajax({	
-                url: "store_pay.do",
-                type: "get",
-                data: $("#selectform").serialize(),
-           	   success: function(){
-           		location.href='/test/store/store_pay.do';
-                  },
-                  error: function(){
-                      alert("er");
-                  }   
-            });	
-        }      
-        
-        
+        	document.getElementById('selectform').submit();
+        	
+        }
     });
 	
 </script>
