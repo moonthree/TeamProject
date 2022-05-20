@@ -2,7 +2,7 @@
  * 
  */
  
-/*리뷰 등록 별점 클릭시 이벤트sss*/
+/*리뷰 등록 별점 클릭시 이벤트sssssss*/
 $('input[type=radio][name=store_review_star]').change(function() {
     if (this.value == '5') {
         $("#myformSpan").text("최고");;
@@ -19,4 +19,10 @@ $('input[type=radio][name=store_review_star]').change(function() {
     else if (this.value == '1') {
         $("#myformSpan").text("나쁨");;
     }
+});
+
+$(".img").click(function(){
+	$("#photoBigModal").modal();
+	var imgSrc = $(this).attr("src");
+		$(".modalBox img").attr("src", imgSrc);
 });

@@ -311,6 +311,7 @@ qna 상세sssssssssss
 3. 펀딩하기 버튼 호버
 4. 프로젝트/공지/커뮤니티/QnA 탭
 5. 프로젝트/공지/커뮤니티/QnA 탭  
+6. 글남기기, qna작성 버튼ssssss
 */
 .progress-bar-self{
 	background-color: #f24f49 !important;
@@ -328,7 +329,15 @@ qna 상세sssssssssss
 .nav-link.active{
 	background-color: #fa6462 !important;
 }
-
+.commubtn{
+	border: 1px solid #f24f49 !important;
+	color: #f24f49 !important;
+}
+.commubtn:hover{
+	border: 1px solid #f24f49 !important;
+	background-color: #fa6462 !important;
+	color: white !important;
+}
 /*목표금액 부분 !!!!! fundingGoal의 color 관련만 수정하고 다른 부분은 그대로 둬야 함 !!!!!*/
 .fundingGoal{ 
     height: 23%;

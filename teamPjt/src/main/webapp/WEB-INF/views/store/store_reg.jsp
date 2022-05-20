@@ -301,7 +301,7 @@
 					
 					var theForm =  document.querySelector('form[name=store_upload]');
 					theForm.target="_self";
-					theForm.action = "funding_register.do";
+					theForm.action = "store_register.do";
 					theForm.submit();
 				}
 			

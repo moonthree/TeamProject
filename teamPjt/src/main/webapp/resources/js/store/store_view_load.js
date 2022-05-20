@@ -3,7 +3,21 @@
  */
  
  // 커뮤, 공지 등등 탭들 새로고침해도 유지하는 기능
-$('#myTab a').click(function(e) {
+$('a[data-toggle="tab"]').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+});
+
+$('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    var id = $(e.target).attr("href");
+    localStorage.setItem('selectedTab', id);
+});
+
+var selectedTab = localStorage.getItem('selectedTab');
+if (selectedTab != null) {
+    $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+}
+/*$('#myTab a').click(function(e) {
   e.preventDefault();
   $(this).tab('show');
   
@@ -19,43 +33,99 @@ $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
 
 // on load of the page: switch to the currently selected tab
 var hash = window.location.hash;
-$('#myTab a[href="' + hash + '"]').tab('show');
+$('#myTab a[href="' + hash + '"]').tab('show');*/
 
 $(document).ready(function() {
 	// 부트스트랩 드랍다운 작동하게 해줌
     $(".dropdown-toggle").dropdown();
     
+    // 상품평 카테고리 변경
+    $('#reviewSort').on('change', function(){
+		this.form.submit()
+	})
+    
     // input file 파일 첨부시 fileCheck 함수 실행
 	$("#input_file").on("change", fileCheck);
 	
+	//중단 포토리스트 시작sssss
+	var class_cnt = document.getElementsByClassName('b').length;
+    console.log(class_cnt);
+    if(class_cnt > 7){
+		for(var i=7; i<class_cnt; i++){
+			document.getElementsByClassName("b")[i].style.display = "none";
+		}
+		document.getElementsByClassName("b")[6].style.marginRight = "5px";
+		var img = (document.getElementsByClassName("b")[8].src)
+		var button = '<button style="height: 120px; width:120px; border:none; background-color:white; position:relative" data-toggle="modal" data-target="#photoModal"><div style="position:absolute; top:35%; left:25%; color:black; font-size:25px; font-weight:900;">더보기</div><img style="filter: brightness(40%); opacity:0.5; height: 120px; width:120px;" src="'+img+'"/></button>';
+		$('#reviewMiddlePhoto').append(button);
+	}
+	
+	
+	//로그인 체크 시작
+	var loginCheck = $('#zzim_member_idx').val();
+	if(loginCheck==""){
+		
+	}else{
 	//찜 관련 시작
  	var objParams = {
-		member_idx : $('#member_idx').val(),
-		funding_idx : $('#funding_idx').val()
+		member_idx : $('#zzim_member_idx').val(),
+		store_idx : $('#zzim_store_idx').val()
 		};
 		//console.log(objParams)
         
-    $.ajax({
-		url : "selectZzim",
-		dataType : "json",
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		type : "post",
-		async : false,
-		data : objParams,
-		success : function(result){
-			//console.log(result.length)
-			//$('#zzimLength').val(result.length)
-			if(result.length == 0){
-				document.getElementsByClassName("notZzim")[0].style.display = "none";
-			}else{
-				document.getElementsByClassName("doZzim")[0].style.display = "none";
-			}
-		},
-		error : function(){
-            alert("자바스크립트 SELECT 찜 에러");
-        }   
-	});
-	//찜 관련 끝
+	    $.ajax({
+			url : "selectZzim",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "post",
+			async : false,
+			data : objParams,
+			success : function(result){
+				//console.log(result.length)
+				//$('#zzimLength').val(result.length)
+				if(result.length == 0){
+					document.getElementsByClassName("notZzim")[0].style.display = "none";
+				}else{
+					document.getElementsByClassName("doZzim")[0].style.display = "none";
+				}
+			},
+			error : function(){
+	            alert("자바스크립트 SELECT 찜 에러");
+	        }   
+		});
+		//찜 관련 끝
+	//리뷰 추천 여부 뿌려주기
+	var storeReviewListSize = $('#storeReviewListSize').val();
+	var objParams2 = "";
+	for(var i=0; i<storeReviewListSize; i++){
+		var objParams2 = {
+		member_idx : $('#zzim_member_idx').val(),
+		store_review_idx : $('#storeReview_store_review_idx'+i).val()
+		}
+		console.log(objParams2)
+		$.ajax({
+			url : "selectThumbsUp",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "POST",
+			async : false,
+			data : objParams2,
+			success : function(result){
+				//$('#zzimLength').val(result.length)ssss
+				if(result.length == 0){
+					document.getElementById("reviewLikeCancle"+i).style.display = "none";
+				}else{
+					document.getElementById("reviewLike"+i).style.display = "none";
+				}
+			},
+			error : function(){
+	            alert("자바스크립트 리뷰추천 SELECT 에러");
+	        }  
+		});
+	}
+	//리뷰 추천 여부 뿌려주기 끝
+	}
+	//로그인 체크에 따른 찜, 리뷰 여부 끝
 			
 	   
     
@@ -187,6 +257,61 @@ var zzimDelBtn = $("#zzimDelBtn");
             }   
 		});
 	})
+	
+// 리뷰 추천 하기 시작
+var reviewLike = $(".reviewLike2");
+	reviewLike.on("click", function(){
+		var sridx = $(this).data('id2')
+		var objParams3 = {
+			member_idx : $(this).data('id'),
+			store_review_idx : sridx
+		};
+		console.log(objParams3)
+		$.ajax({
+			url : "doReviewLike",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "post",
+			async : false,
+			data : objParams3,
+			success : function(result){
+				document.getElementsByClassName("doLike"+sridx)[0].style.display = "none";
+				document.getElementsByClassName("cancelLike"+sridx)[0].style.display = "block";
+				$('.cancelLikeSpan'+sridx).html(result);
+			},
+			error : function(){
+                alert("추천 등록 에러");
+            }   
+		});
+	});
+//리뷰 추천 취소 시작
+var cancelLike  = $(".cancelLike ");
+	cancelLike .on("click", function(){
+		var sridx = $(this).data('id2')
+		var objParams = {
+			member_idx : $(this).data('id'),
+			store_review_idx : sridx
+		};
+		
+		console.log(objParams)
+		$.ajax({
+			url : "cancelLike",
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			type : "post",
+			async : false,
+			data : objParams,
+			success : function(result){
+				document.getElementsByClassName("doLike"+sridx)[0].style.display = "block";
+				document.getElementsByClassName("cancelLike"+sridx)[0].style.display = "none";
+				$('.doLikeSpan'+sridx).html(result);
+			},
+			error : function(){
+                alert("찜 취소 에러");
+            }   
+		});
+	})
+
 
 //리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작
 //리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작//리뷰 등록 시작

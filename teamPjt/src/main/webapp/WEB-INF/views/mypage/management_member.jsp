@@ -33,7 +33,7 @@
             </li>
             
             <li class="nav-item nav-pills viewtab" role="presentation">
-           
+      
                 <a id="alink2" class="nav-link" data-toggle="tab"   role="tab" aria-controls="tab2" href="#tab2"
                     aria-selected="false"><span class="toptab">판매자</span></a>
             </li>

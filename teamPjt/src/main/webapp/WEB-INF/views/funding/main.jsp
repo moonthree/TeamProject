@@ -31,17 +31,17 @@
 		<form action="main.do" method="get" id="abcde">
 	        <div class="row" id="category">
 	            <div class="col-md-4 col-sm-12" id="dogCategory" style="cursor:pointer;">
-	                <img src="../resources/image/funding_main/dog123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+	                <img src="../resources/image/img/dog7.png" alt="photo" class="rounded-circle" width="300" height="300" />
 	                <br>
 	                강아지
 	            </div>
 	            <div class="col-md-4 col-sm-12" id="catCategory" style="cursor:pointer;">
-		            <img src="../resources/image/funding_main/cat123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+		            <img src="../resources/image/img/cat.png" alt="photo" class="rounded-circle" width="300" height="300" />
 		            <br>
 		            고양이
 	            </div>
 	            <div class="col-md-4 col-sm-12" id="otherCategory" style="cursor:pointer;">
-		            <img src="../resources/image/funding_main//other123.png" alt="photo" class="rounded-circle" width="300" height="300" />
+		            <img src="../resources/image/img/llama.png" alt="photo" class="rounded-circle" width="300" height="300" />
 		            <br>
 		            반려동물
 	            </div>

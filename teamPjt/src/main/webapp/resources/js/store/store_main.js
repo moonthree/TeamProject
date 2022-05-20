@@ -84,9 +84,9 @@ $(document).ready(function() {
 	document.getElementById("chosenCategory").innerText = chosenCategory;
 	
 	//메인에 별점이랑 리뷰 숫자 뿌려주는 기능
-	var a = $("#listMainSize").val();
+	var listMainSize = $("#listMainSize").val();
 	
-	for(var i=0; i<a; i++){
+	for(var i=0; i<listMainSize; i++){
 		var test = {
 	        "store_idx" : $('#idx'+i).val()
 		}

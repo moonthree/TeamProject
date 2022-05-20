@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -111,7 +114,30 @@ $(document).ready (function () {
 					</table>
                 </div>
                 <div class="tab-pane fade" id="note">
-                	note!
+                	<table class="table" style="border: none">
+						 <c:if test="${dialogue.size()>0}">
+							<c:forEach var="item" items="${dialogue}">
+							<!-- 보낸사람 & 시각  -->
+							    <tr>
+							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
+							    	<th style="text-align:right;">
+							    		
+										<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
+				    	
+							    	</th>
+							    </tr>
+							<!-- 메세지 내용 -->
+							    <tr onclick="window.open('note.do?seller=${item.member_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
+							      	<th>
+								      	
+			                        </th>
+			                        <th>${ item.message_content }</th>
+							    </tr>
+						  	</c:forEach>
+						</c:if>
+					</table>
+                	
                 </div>
               </div>
 	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 , 쪽지  -->

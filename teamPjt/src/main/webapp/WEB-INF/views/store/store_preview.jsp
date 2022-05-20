@@ -211,11 +211,11 @@
 	        <div class="tab-content" id="myTabContent">
 	            <!--프로젝트-->
 	            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-	                <iframe class="iframe" src="../resources/upload/funding/${org_DetailName}#toolbar=0" style="width:100%; height:150vh;"></iframe>
+	                <iframe class="iframe" src="../resources/upload/store/${org_DetailName}#toolbar=0" style="width:100%; height:150vh;"></iframe>
 	            </div>
 	            <!--공지-->
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-	              	 <img src="../resources/upload/funding/${org_NoticeName}" class="mainIMG" alt="...">
+	              	 <img src="../resources/upload/store/${org_NoticeName}" class="mainIMG" alt="...">
 	            </div>
 	            <!--리뷰 시작-->
 	            <!--리뷰 시작-->
@@ -436,10 +436,16 @@
 	                	Q&A테스트 내용이 출력됩니다.
 	            </div>
 	        </div>
-	
+	         <br>
+	         <br>
+		<input type="button" onclick="Fnclose()" class="btn btn-primary btn-lg btn-block" value="확인"/> 
 	    </div>
 	</main>
 	<c:import url="/footer.do"></c:import>
 <!-- <script src="../resources/js/store/store_view_load.js"></script> -->
 </body>
+<script type="text/javascript">
+function Fnclose(){
+	  self.close();}
+ </script>
 </html>
