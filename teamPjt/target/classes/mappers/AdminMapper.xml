@@ -24,6 +24,7 @@
 		WHERE member_level = 0
 		order by member_idx asc limit #{rowStart},10
 	</select>
+	
 	<!-- 소비자 계정 page -->
 	<select id="seller_Count" resultType="int">
 		SELECT COUNT(member_idx)
@@ -64,7 +65,7 @@
 	
 	
 	<!-- 펀딩 신청한 제품 가져오기 -->
-	<select id="list_funding" resultType="fundingMainVO">
+	<select id="list_funding" resultType="fundingMainVO" parameterType="com.edu.vo.Pagination">
 		SELECT 
 		 funding_idx
 		,member_idx
@@ -73,7 +74,16 @@
 		,funding_category
 		FROM funding
 		WHERE funding_permit_state = 0
+		order by funding_idx asc limit #{rowStart},10
 	</select>
+	<!-- 펀딩 제품 page -->
+	<select id="funding_Count" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		where funding_permit_state = 0
+		AND funding_idx > 0
+	</select>
+	
 	
 	<!-- 관리자가 승인하여 펀딩 상태 업데이트함  승인으로-->
 	<update id="updateFun_State" parameterType="int">
@@ -82,11 +92,52 @@
 	WHERE funding_idx = #{f_idx}
 	</update>
 	
-		<!-- 관리자가 승인하여 펀딩 상태 업데이트함 -->
+		<!-- 관리자가 승인하여 펀딩 상태 거절로 업데이트함 -->
 	<update id="updateFun_State2" parameterType="int">
 	UPDATE funding
 	SET funding_permit_state = 2
 	WHERE funding_idx = #{f_idx}
 	</update>
+	
+	<!-- 스토어 관련 관리자 메소드들 -->
+	
+	<!-- 스토어 신청한 제품 가져오기 -->
+	<select id="list_store" resultType="StoreVO" parameterType="com.edu.vo.Pagination2">
+		SELECT 
+		 store_idx
+		,funding_idx
+		,member_idx
+		,store_title
+		,store_permit_state
+		,store_category
+		FROM store
+		WHERE store_permit_state = 0
+		order by store_idx asc limit #{rowStart},10
+	</select>
+	<!-- 스토어 제품 page -->
+	<select id="store_Count" resultType="int">
+		SELECT COUNT(store_idx)
+		FROM store
+		where store_permit_state = 0
+		AND store_idx > 0
+	</select>
+	
+	
+	
+	<!-- 관리자가 승인하여 스토어 상태 업데이트함  승인으로-->
+	<update id="updateStore_State" parameterType="int">
+	UPDATE store
+	SET store_permit_state = 1
+	WHERE store_idx = #{store_idx}
+	</update>
+	
+		<!-- 관리자가 승인하여 스토어 상태 거절로 업데이트함 -->
+	<update id="updateStore_State2" parameterType="int">
+	UPDATE store
+	SET store_permit_state = 2
+	WHERE store_idx = #{store_idx}
+	</update>
+	
+	
 	
 </mapper>

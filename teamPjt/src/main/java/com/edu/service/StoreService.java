@@ -56,5 +56,11 @@ public interface StoreService {
 	List<StoreOptionVO> storeOptionList(StoreOptionVO vo);
 	//멤버조회
 	MemberVO selectOne(MemberVO vo);
+	
+	//스토어 제품 등록 -> 상태 0(단독 등록)
+	int store_reg(StoreVO vo);
+	
+	//스토어 옵션 등록ㄴ
+	int storeOptionReg(List<StoreOptionVO> vo);
 
 }

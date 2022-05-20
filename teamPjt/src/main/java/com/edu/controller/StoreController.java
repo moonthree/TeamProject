@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.mail.Store;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -29,6 +32,8 @@ import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreOptionVO;
@@ -322,8 +327,112 @@ public class StoreController {
 		model.addAttribute("login",login);
 		return "store/store_reg";
 	}
+	
+	
+	/* 스토어 등록 - db에 모든 내용 쓰기*/
+	   @RequestMapping(value = "/store_register.do", method = RequestMethod.POST)
+	   public void store_registerDB(StoreVO vo, Model model,HttpServletRequest request
+	         ,HttpServletResponse response
+	         ,String store_option_name, int []store_option_price, String store_option_detail, 
+	         int []store_option_stock) throws IOException {
+	      System.out.println(vo.toString());
+		   
+		   
+		   
+	         String []strName = store_option_name.split(",");
+	         String []strDetail = store_option_detail.split(",");
+	      
+	         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
+	      
+	         String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+	         
+	         
+	         String thum = vo.getStore_thumbnail();
+	         String content = vo.getStore_content();
+	         String notice = vo.getStore_notice();
+	         
+	         
+	         File dir1 = new File(path+"/"+thum);
+	         File dir2 = new File(path+"/"+content);
+	         File dir3 = new File(path+"/"+notice);
+	         
+	 		 String extension1 = thum.substring(thum.lastIndexOf("."));
+	 		 String extension2 = content.substring(content.lastIndexOf("."));
+	 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+	 		 
+	 		 
+	 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+	 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+	 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+	         
+	 		 File newdir4 = new File(path+"/"+savedThumName);
+	         File newdir5 = new File(path+"/"+savedConName);
+	         File newdir6 = new File(path+"/"+savedNotName);
+	 		 
+	 		 /*파일 이름 난수로 변경*/
+		   
+		 	dir1.renameTo(newdir4);
+		 	dir2.renameTo(newdir5);
+		 	dir3.renameTo(newdir6);
+		        
+	         
+	         vo.setStore_thumbnail(savedThumName);
+	         vo.setStore_content(savedConName);
+	         vo.setStore_notice(savedNotName);
+	         
+	         //store 상품 등록 메소드 -> 옵션배열중 첫번째 가격이 vo세팅후 들어감
+	         vo.setStore_price(store_option_price[0]);
+	         int result = sts.store_reg(vo);
+	         
+	         response.setContentType("text/html; charset=euc-kr;");
+	         PrintWriter pw = response.getWriter();
+	         
+	         System.out.println(vo.toString());
+	         System.out.println(vo.getStore_idx());
+
+	      if (result > 0) { // 
+	         
+	         //마지막 증가된 Store idx 가져옴
+	         int sid = vo.getStore_idx();
+	         
+	         for(int i=0; i<store_option_price.length; i++) {
+	        	 StoreOptionVO voo = new StoreOptionVO();
+	           
+	            voo.setStore_option_name(strName[i]);
+	          
+	            voo.setStore_option_price(store_option_price[i]);
+	          
+	            voo.setStore_option_detail(strDetail[i]);
+	          
+	            voo.setStore_option_stock(store_option_price[i]);
+	            
+	            voo.setStore_idx(sid);
+	            optionVo.add(voo);
+	         }
+	         
+	         //스토어 옵션 저장
+	         int listresult = sts.storeOptionReg(optionVo);
+
+	         if(listresult > 0) {
+	            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+	         }
+	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+	      } else {
+	         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+	      }
+	      pw.flush();
+	      
+
+	   }
+
+	
+	
+	
+	
+	
+	
 	/*스토어 상품 등록 미리보기*/
-	@RequestMapping(value="store_preview.do",method = RequestMethod.POST)
+	@RequestMapping(value="/store_preview.do",method = RequestMethod.POST)
 	public String store_preview(StoreVO vo, Model model, 
 			MultipartFile store_thumbnail_temp ,
 			MultipartFile store_Detail_temp,
@@ -332,17 +441,19 @@ public class StoreController {
 			,String store_option_name, int []store_option_price, String store_option_detail, 
 			int []store_option_stock) throws IllegalStateException, IOException, ParseException {
 		
-			System.out.println(vo.toString());
+		
 			MemberVO mvo = (MemberVO) request.getSession().getAttribute("login");
 		
 			
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
-		
+			
 			File dir = new File(path);
 			String org_ThumName = store_thumbnail_temp.getOriginalFilename();
 			String org_DetailName = store_Detail_temp.getOriginalFilename();
 			String org_NoticeName = store_Notice_temp.getOriginalFilename();
-			
+			System.out.println(org_ThumName);
+			System.out.println(org_DetailName);
+			System.out.println(org_NoticeName);
 			
 			if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
 				dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
@@ -377,8 +488,6 @@ public class StoreController {
 				voo.setStore_option_price(store_option_price[i]);
 				voo.setStore_option_detail(strDetail[i]);
 				voo.setStore_option_stock(store_option_stock[i]);
-	
-				
 				optionVo.add(voo);
 
 			}
@@ -388,6 +497,10 @@ public class StoreController {
 			
 		return "store/store_preview";
 	}
+	
+	
+	
+	
 	// 스토어 리뷰 작성
 	@ResponseBody
 	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)

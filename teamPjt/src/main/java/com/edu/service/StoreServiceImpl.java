@@ -154,7 +154,16 @@ public class StoreServiceImpl implements StoreService{
 		return memdao.selectOne(vo);
 	}
 	
-	
+	//스토어 상품 등록(단독 상품 : 상태 0일때)
+	@Override
+	public int store_reg(StoreVO vo) {
+		
+		return dao.store_reg(vo);
+	}
+	@Override
+	public int storeOptionReg(List<StoreOptionVO> vo) {
+		return dao.storeOptionReg(vo);
+	}
 }
 
 	

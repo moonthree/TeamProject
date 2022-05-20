@@ -106,10 +106,20 @@ public class storeDAO {
 		return sqlSession.update("StoreMapper.updateReviewLike2", paramMap);
 	}
 	
-	
 	// 스토어 옵션 리스트
 	public List<StoreOptionVO> storeOptionList(StoreOptionVO vo) {
 		return sqlSession.selectList("StoreMapper.storeOptionList", vo);
+	}
+	
+	//스토어 제품 등록
+	public int store_reg(StoreVO vo) {
+		
+		return sqlSession.insert("StoreMapper.store_Reg",vo);
+	}
+	//스토어 옵션제품 옵션 등록
+	public int storeOptionReg(List<StoreOptionVO> vo) {
+		
+		return sqlSession.insert("StoreMapper.StoreOption_Reg", vo);
 	}
 
 }

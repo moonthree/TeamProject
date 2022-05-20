@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -127,7 +128,46 @@ public class MypageController {
 	      
 	         List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
 	      
+	         System.out.println(vo.toString());	 
+	         
+	         String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
+	         
+	         
+	         String thum = vo.getFunding_thumbnail();
+	         String content = vo.getFunding_content();
+	         String notice = vo.getFunding_notice();
+	         
+	         
+	         File dir1 = new File(path+"/"+thum);
+	         File dir2 = new File(path+"/"+content);
+	         File dir3 = new File(path+"/"+notice);
+	         
+	 		 String extension1 = thum.substring(thum.lastIndexOf("."));
+	 		 String extension2 = content.substring(content.lastIndexOf("."));
+	 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+	 		 
+	 		 
+	 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+	 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+	 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+	         
+	 		 File newdir4 = new File(path+"/"+savedThumName);
+	         File newdir5 = new File(path+"/"+savedConName);
+	         File newdir6 = new File(path+"/"+savedNotName);
+	 		 
+	 		 /*파일 이름 난수로 변경*/
+		 		dir1.renameTo(newdir4);
+		 		dir2.renameTo(newdir5);
+		 		dir3.renameTo(newdir6);
+		        
+	         
+	         vo.setFunding_thumbnail(savedThumName);
+	         vo.setFunding_content(savedConName);
+	         vo.setFunding_notice(savedNotName);
+	         
 	         int result = fundingMainServiece.fun_reg(vo);
+	         
+	         
 	         response.setContentType("text/html; charset=euc-kr;");
 	         PrintWriter pw = response.getWriter();
 	      
@@ -155,9 +195,10 @@ public class MypageController {
 	         }
 	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
 	      } else {
-	         pw.println("<script>alert('회원가입 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+	         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
 	      }
 	      pw.flush();
+	      
 
 	   }
 
@@ -173,8 +214,12 @@ public class MypageController {
 			int []funding_option_stock) throws ParseException, IllegalStateException, IOException {
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
-	
 		File dir = new File(path);
+		
+		/*
+		 * String extension = org_ThumName.substring(org_ThumName.lastIndexOf("."));
+		 * //파일 확장자 String savedThumName = UUID.randomUUID() + extension; //저장될 파일 명
+		 */		
 		String org_ThumName = funding_thumbnail_temp.getOriginalFilename();
 		String org_DetailName = funding_Detail_temp.getOriginalFilename();
 		String org_NoticeName = funding_Notice_temp.getOriginalFilename();
@@ -610,6 +655,7 @@ public class MypageController {
 	
 			return "mypage/funding_view2";
 	}
+	
 	/*펀딩 공지사항 변경*/
 	@RequestMapping(value = "funding_update_notice.do",method=RequestMethod.POST)
 	public String update_notice(MultipartFile funding_Notice_temp , HttpServletRequest request , Model model, int funding_idx, int flag) throws IllegalStateException, IOException {
@@ -641,7 +687,8 @@ public class MypageController {
 	
 	
 	@RequestMapping(value="update_file.do",method = RequestMethod.POST)
-	public void update_file(int funding_idx, int check, String funding_content, String funding_notice, HttpServletResponse response) throws IOException {
+	public void update_file(int funding_idx, int check, String funding_content, String funding_notice, 
+			HttpServletResponse response, HttpServletRequest request) throws IOException {
 		//프로젝트 pdf 업데이트
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -649,8 +696,20 @@ public class MypageController {
 		response.setContentType("text/html; charset=euc-kr;" );
 		PrintWriter pw = response.getWriter();
 		
+		  String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
+		
 		int result = 0;
+		
 		if(check == 0 ) {
+			/*파일 난수이름으로 바꾸기*/
+			   String content = funding_content;
+			   File dir2 = new File(path+"/"+content);
+			   String extension2 = content.substring(content.lastIndexOf("."));
+			   String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+			   File newdir5 = new File(path+"/"+savedConName);
+			   dir2.renameTo(newdir5);
+			   funding_content = savedConName;
+			
 			System.out.println(funding_idx +" : " +check + " : " +funding_content +" : " +funding_notice );
 			System.out.println("프로젝트 pdf 업데이트");
 			map.put("funding_idx", funding_idx);
@@ -664,7 +723,17 @@ public class MypageController {
 				pw.println("<script>alert('제품 설명 파일 수정실패');window.history.back();</script>");
 			}
 		}else {
-			System.out.println(funding_idx +" : " +check + " : " +funding_notice +" : " +funding_content);
+		     
+	         String notice = funding_notice;
+	         File dir3 = new File(path+"/"+notice);
+	 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+	 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+	   
+	         File newdir6 = new File(path+"/"+savedNotName);
+		 	 dir3.renameTo(newdir6);
+			
+			funding_notice = savedNotName;
+			
 			System.out.println("공지사항 업데이트");
 			map2.put("funding_idx", funding_idx);
 			map2.put("checkValue", check);

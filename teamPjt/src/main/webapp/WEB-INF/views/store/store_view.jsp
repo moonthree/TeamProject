@@ -60,7 +60,7 @@
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-md-7 col-sm-12">
-	                <img src="../resources/image/funding_main/${read.store_thumbnail }" class="mainIMG" alt="...">
+	                <img src="../resources/upload/store/${read.store_thumbnail }" class="mainIMG" alt="...">
 	            </div>
 	            <div class="col-md-5 col-sm-12 topContent">
 	                <div class="viewBusinessName">${read.member_business_name }</div>
