@@ -25,6 +25,8 @@
 		<typeAlias type="com.edu.vo.StoreReviewVO" alias="storeReviewVO"/>
 		<typeAlias type="com.edu.vo.StoreReviewLikeVO" alias="storeReviewLikeVO"/>
 		
+		<!-- 메세지  -->
+		<typeAlias type="com.edu.vo.MessageVO" alias="MessageVO"/>
 		
 		<!-- 그 외 -->
 		<typeAlias type="com.edu.vo.Pagination" alias ="pagination"/>
