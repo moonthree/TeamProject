@@ -131,6 +131,12 @@ a:active{
     width: 180px;
 } 
 
+.login_profile_img {
+    width: 28px;
+    height: 28px;
+    border-radius: 70%;
+}
+
 .mypage_box{
     margin-left: 10px;
     position: relative;
@@ -173,9 +179,73 @@ a:active{
 .mypage_box .dropdown-menu{
 	padding: 10px;
 }
+
+/* hamburger */
+
+/* GRID */
+
+.one { width: 6.866%; }
+
+/* COLUMNS */
+
+.col {
+  display: block;
+  float:left;
+  margin: 1% 0 1% 1.6%;
+}
+
+.col:first-of-type {
+  margin-left: 0;
+}
+
+
+/* ALL */
+
+.hamburger .line{
+ 	width: 40px;
+    height: 4px;
+    background-color: lightgray;
+    display: block;
+    margin: 6px auto;
+	-webkit-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover{
+  cursor: pointer;
+}
+
+/* ONE */
+
+#hamburger-1.is-active .line:nth-child(2){
+  opacity: 0;
+}
+
+#hamburger-1.is-active .line:nth-child(1){
+  -webkit-transform: translateY(10px) rotate(45deg);
+  -ms-transform: translateY(10px) rotate(45deg);
+  -o-transform: translateY(10px) rotate(45deg);
+  transform: translateY(10px) rotate(45deg);
+}
+
+#hamburger-1.is-active .line:nth-child(3){
+  -webkit-transform: translateY(-10px) rotate(-45deg);
+  -ms-transform: translateY(-10px) rotate(-45deg);
+  -o-transform: translateY(-10px) rotate(-45deg);
+  transform: translateY(-10px) rotate(-45deg);
+}
+
 @media (min-width: 0px) and (max-width: 992px) {
     .before_login, .after_login{
         visibility: hidden;
+    }
+    .navbar{
+    	display: flex;
+    }
+    .space{
+    	display: flex;
+    	width: calc(100% - 435px);
     }
 }
 
@@ -188,12 +258,9 @@ a:active{
     }
 }
 
+/* 검색창 사라짐 */
 @media screen and (max-width: 1200px) {
     .search_container{
         display: none;
     }
 }
-
-
-
-

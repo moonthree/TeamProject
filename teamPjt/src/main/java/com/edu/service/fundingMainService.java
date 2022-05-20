@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public interface fundingMainService {
 	public int orderCount(Funding_orderVO vo) throws Exception;
 	
 	//펀딩 커뮤니티 댓글 리스트
-	List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception;
+	List<FundingCommunityVO> readFundingCommunityComent(FundingCommunityVO fcvo) throws Exception;
 	//펀딩 커뮤니티 댓글 작성
 	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception;
 	//펀딩 커뮤니티 댓글 수정
@@ -51,14 +52,20 @@ public interface fundingMainService {
 	
 	//펀딩 qna 댓글 리스트
 	List<FundingQnaVO> getQnaList(Map<String, Object> paramMap);
+	//펀딩 qna 답글 리스트
+	List<FundingQnaVO> getQnaAnswer(Map<String, Object> paramMap);
 	//펀딩 QNA 댓글 작성
 	public int qnaInsert(Map<String, Object> paramMap);
 	//펀딩 qna 답변 작성 완료
 	public int qnaAnswerDone(FundingQnaVO vo) throws Exception;
+	//펀딩 qna 답변 수정
+	public void qnaAnswerModify(FundingQnaVO vo) throws Exception;
 	//펀딩 qna 삭제
 	public void deleteFundingQna(FundingQnaVO vo) throws Exception;
 	//펀딩 qna 수정
 	public void modifyFundingQna(FundingQnaVO vo) throws Exception;
+	//펀딩 qna 개수
+	public int countFundingQna(FundingQnaVO vo) throws Exception;
 	
 
 	//찜 insert
@@ -88,5 +95,21 @@ public interface fundingMainService {
 	int insertExpress(Funding_expressVO expressvo);
 	// 결제 정보
 	int insertPay(Funding_order_payVO payvo);
+	// 결제 금액 합산
+	void addPrice(Funding_orderVO ordervo);
 	
+	//펀딩 옵션 수량 감소 메소드
+	int update_option(Funding_order_optionVO orderOptionvo);
+	
+	//펀딩 내용 가져오기 (modify.do 사용)
+	FundingMainVO select_fundingOne(int funding_idx);
+	
+	//펀딩 옵션 가져오기 (modify.do 사용)
+	List<Funding_optionVO> select_fundingOption(int funding_idx);
+	
+	//펀딩 옵션 수량 추가()
+	int addStock(Funding_optionVO vo);
+	
+	//펀딩 제품 pdf 변경 메소드
+	int update_content(HashMap<String, Object> map);
 }

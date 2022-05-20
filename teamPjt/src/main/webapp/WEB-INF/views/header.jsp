@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -9,10 +10,16 @@
 
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
-       $(document).ready(function() {
-           $(".dropdown-toggle").dropdown();
+	<!-- 결제때문에 주석 처리 -->   
+//        $(document).ready(function() {
+//            $(".dropdown-toggle").dropdown();
+//        });
+		
+       $(document).ready(function(){
+           $(".hamburger").click(function(){
+               $(this).toggleClass("is-active");
+           });
        });
-
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
     
@@ -31,9 +38,9 @@
                 <a class="navbar-brand" href="<%=request.getContextPath()%>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/111.png" style="width: 120px; height: 60px; padding: 5px;">
                 </a>
-                
+                <div class="space"></div>
                 <!-- 로그인 전 -->
-             <c:if test="${login eq null}">
+             	<c:if test="${login eq null}">
                 <div class="before_login2">
                     <div>
                         <div class="mypage_box">
@@ -54,11 +61,29 @@
                 <div class="after_login2">
                     <div class="mypage_box">
                         <div type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                </svg>&nbsp;&nbsp;
-                                <span style="font-weight: bold;">${login.member_name}</span>
+<!--                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16"> -->
+<!--                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/> -->
+<!--                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/> -->
+<!--                            </svg> -->
+							<!-- 프로필 사진 -->
+							<c:if test="${member.member_photo eq '' }">
+								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
+							</c:if>
+							<c:if test="${member.member_photo ne '' }">
+							<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="login_profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+									</c:otherwise>
+								</c:choose>
+								<%-- <img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img"> --%>
+							</c:if>
+                            &nbsp;&nbsp;
+                            <!-- 회원 이름 -->
+                            <span style="font-weight: bold;">${login.member_name}</span>
                         </div>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">프로필</a>
@@ -73,8 +98,14 @@
                 </c:if>
                 
             <!-- 토글바 -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border: none">
+                	<div class="three col">
+					    <div class="hamburger" id="hamburger-1">
+					        <span class="line" id="line"></span>
+					        <span class="line" id="line"></span>
+					        <span class="line" id="line"></span>
+					    </div>
+				    </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- 펀딩 스토어 기획전 더보기 -->
@@ -83,10 +114,10 @@
                         <a class="navtext" href="<%=request.getContextPath()%>/funding/main.do">펀딩</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">스토어</a>
+                        <a class="navtext" href="<%=request.getContextPath()%>/store/store_main.do">스토어</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="#">기획전</a>
+                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">기획전</a>
                     </li>
                    
                     <li class="nav-item dropdown">
@@ -127,7 +158,7 @@
                     </div>
                 </div>
                 <!-- 로그인 전 -->
-            <c:if test="${login eq null}">
+            	<c:if test="${login eq null}">
                 <!-- 로그인 회원가입 버튼 -->
                 <div class="before_login">
                     <div>
@@ -150,19 +181,60 @@
                 <div class="after_login">
                     <div class="mypage_box">
                         <div type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                </svg>&nbsp;&nbsp;
+<!--                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="black" class="bi bi-person-circle" viewBox="0 0 16 16"> -->
+<!--                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/> -->
+<!--                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/> -->
+<!--                            </svg> -->
+							<!-- 프로필 사진 -->
+							<c:if test="${member.member_photo eq '' }">
+								<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">
+							</c:if>
+						<c:if test="${member.member_photo ne '' }">
+							<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="login_profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img">
+									</c:otherwise>
+								</c:choose>
+								<%-- <img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="login_profile_img"> --%>
+							</c:if>
+							
+						&nbsp;&nbsp;
                                 <span style="font-weight: bold;">${login.member_name}</span>
                         </div>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">프로필</a>
-                            <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
-                            <a class="dropdown-item" href="#">스토어 내역</a>
-                            <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	<!-- 소비자 -->
+                        	<c:if test="${login.member_level == 0}">
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">프로필</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
+	                            <a class="dropdown-item" href="#">스토어 내역</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
+                            
+                        	<!-- 판매자 -->
+                        	<c:if test="${login.member_level == 1}">
+                        		<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">소비자 페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage2.do">판매자 페이지</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
+	                            <a class="dropdown-item" href="#">스토어 내역</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
+                            
+                        	<!-- 관리자 -->
+                            <c:if test="${login.member_level == 2}">
+                            	<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/approval.do">상품 승인</a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리</a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/management_member.do">회원 관리</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
                         </div>
                     </div>
                 </div>

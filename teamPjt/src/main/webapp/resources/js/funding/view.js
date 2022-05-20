@@ -1,5 +1,5 @@
 /**
- * 
+ * 05/14 점심 부터 업데이트 종료 이후엔 view_start, view_qna, view_commu로 나눠서 작성
  */
  
  // 하단 탭들 새로고침해도 유지하는 기능
@@ -275,9 +275,9 @@ var qnaModalInput = qnaModal.find("textarea[name='funding_qna_content']");
 var qnaModalSubmit = $("#qnaSubmitBtn");
 
 	//댓글 등록 버튼을 누르면
-	qnaModalSubmit.on("click", function(e){
-    	var qnaModalValue = qnaModalInput.val().replace("\n", "<br>"); //개행처리
-        console.log(qnaModalValue);
+	qnaModalSubmit.on("click", function(){
+    	var qnaModalValue = qnaModalInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	var qnaModalValue2 = qnaModalValue.replace(/ /gi,"&nbsp;");
         
         //비밀글 적용 여부
         var checkbox = document.getElementById('cb1');
@@ -290,7 +290,7 @@ var qnaModalSubmit = $("#qnaSubmitBtn");
 		}
 		
 		//본문 작성 여부
-		if(qnaModalValue == ""){
+		if(qnaModalValue2 == ""){
         	alert("글을 작성해주세요")
         	$("#funding_qna_content").focus();
         	return false;
@@ -306,7 +306,7 @@ var qnaModalSubmit = $("#qnaSubmitBtn");
 			funding_qna_secret : $("#funding_qna_secret").val(),
 			parent_id : '0',
 			depth : '0',
-			funding_qna_content : qnaModalValue
+			funding_qna_content : qnaModalValue2
 		};
 		console.log(objParams)
 		
@@ -352,30 +352,25 @@ var qnaAnswerSubmit = $("#qnaAnswerBtn");
 
 //답변하기 버튼을 누르면
 $('.doAnswer').click(function(){	
-	parent_idx = $(this).data('id');
-	parent_idx2 = $(this).data('id2');
-	console.log(parent_idx)
-	console.log(parent_idx2)
-	$('input[name=funding_qna_idx]').attr('value', parent_idx);
-	$('input[name=funding_qna_writer_idx]').attr('value', parent_idx2);
+	funding_qna_idx = $(this).data('id');
+	funding_qna_writer_idx = $(this).data('id2');
+	console.log(funding_qna_idx)
+	console.log(member_idx)
+	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
+	$('input[name=funding_qna_writer_idx]').attr('value', funding_qna_writer_idx);
 });
 
 
 //답변 등록 버튼을 누르면
 	qnaAnswerSubmit.on("click", function(){
 		
-    	var qnaAnswerValue = qnaAnswerInput.val().replace("\n", "<br>"); //개행처리
-        console.log(qnaAnswerValue);
-        
-        //비밀글 적용 여부
-        var checkbox = document.getElementById('cb2');
-        var is_checked = checkbox.checked;
-        console.log(is_checked)
-        if(is_checked == true){
-			$('input[name=funding_qna_secret]').attr('value', 1);
-		}else{
-			$('input[name=funding_qna_secret]').attr('value', 0);
-		}
+    	var qnaAnswerValue = qnaAnswerInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	console.log(qnaAnswerValue);
+    	var qnaAnswerValue2 = qnaAnswerValue.replace(/ /gi,"&nbsp;");
+        console.log(qnaAnswerValue2);
+        //비밀글 적용 여부e=funding_qna_secret]').attr('value', 1);
+		$('input[name=funding_qna_secret]').attr('value', 0);
+		
 		
 		//본문 작성 여부
 		if(qnaAnswerValue == ""){
@@ -391,11 +386,11 @@ $('.doAnswer').click(function(){
 			parent_id : $(".funding_qna_idx").val(),
 			funding_qna_writer_idx : $(".funding_qna_writer_idx").val(),
 			depth : '1',
-			funding_qna_content : qnaAnswerValue
+			funding_qna_content : qnaAnswerValue2
 		};
-		console.log(objParams)
+		/*console.log(objParams)
 		alert(objParams)
-		console.log($("#qnaAnswerForm").serialize());
+		console.log($("#qnaAnswerForm").serialize());*/
 		
 		$.ajax({
 			url : "qnaInsert",
@@ -434,6 +429,58 @@ $('.doAnswer').click(function(){
    });
 // qna 모달 답변 끝
 
+//제목을 눌러서 답변 수정창으로 들어가면
+$('.doQnaAnswerModify').click(function(){	
+	parent_id = $(this).data('id');
+	funding_qna_num = $(this).data('id2');
+	qna_writer_num = $(this).data('id3')
+	console.log(parent_id)
+	console.log(funding_qna_num)
+	console.log(qna_writer_num)
+	$('input[name=parent_id]').attr('value', parent_id);
+	$('input[name=funding_qna_idx]').attr('value', funding_qna_num);
+	$('input[name=funding_qna_writer_idx]').attr('value', qna_writer_num);
+});
+
+
+// qna 모달 답변 수정 시작ssssssssss
+var qnaAnswerModifyModal = $("#qnaAnswerModifyModal");
+    var qnaAnswerModifyInput = qnaAnswerModifyModal.find("textarea[name=funding_qna_content]");
+    var qnaAnswerModifyModalBtn = $("#qnaAnswerModifyBtn");
+
+    qnaAnswerModifyModalBtn.on("click", function(){
+		var qnaAnswerModifyModalValue = qnaAnswerModifyInput.val().replace(/\n/gi, "<br>"); //개행처리
+    	console.log(qnaAnswerModifyModalValue);
+    	var qnaAnswerModifyModalValue2 = qnaAnswerModifyModalValue.replace(/ /gi,"&nbsp;");
+        console.log(qnaAnswerModifyModalValue2);
+        
+		$('input[name=funding_qna_secret]').attr('value', 0);
+		
+        if(qnaAnswerModifyModalValue2 == ""){
+        	alert("글을 작성해주세요")
+        }else{
+        	$.ajax({	
+                url: "qnaAnswerModify",
+                type: "POST",
+                data: $("#qnaAnswerModifyForm").serialize(),
+           	   success: function(){
+                      //$('#result').text(data);
+                      $('#qnaAnswerModifyModal').modal('hide')
+                      window.alert('수정에 성공했습니다!')
+                      location.reload();
+                  },
+                  error: function(){
+                      alert("답변 수정 에러");
+                  }   
+            });	
+        }      
+    });
+// qna 모달 답변 수정 끝
+
+
+
+
+
 //제목을 눌러서 수정창으로 들어가면
 $('.doModify').click(function(){	
 	parent_id = $(this).data('id');
@@ -448,9 +495,9 @@ $('.doModify').click(function(){
 });
 
 
-// qna 모달 수정 시작
+// qna 모달 수정 시작sssssssswqfdqwd
 var qnaModifyModal = $("#qnaModifyModal");
-    var qnaModifyModalInput = qnaModifyModal.find("textarea[name='funding_qna_content']");
+    var qnaModifyModalInput = qnaModifyModal.find("textarea[name=funding_qna_content]");
     var qnaModifyModalBtn = $("#qnaModifyBtn");
 
     qnaModifyModalBtn.on("click", function(){
@@ -488,7 +535,9 @@ var qnaModifyModal = $("#qnaModifyModal");
     });
 // qna 모달 수정 끝
 
-// qna 모달 삭제 시작
+
+
+// qna 모달 삭제 시작sssss
 var qnaDeleteBtn = $("#qnaDeleteBtn");
 	qnaDeleteBtn.on("click", function(){
 		
@@ -506,15 +555,204 @@ var qnaDeleteBtn = $("#qnaDeleteBtn");
                   location.reload();
               },
               error: function(){
-                  alert("serializeerr");
+                  alert("삭제 에러");
               }   
         });	
 		
 	})
 
-// qna 모달 삭제 끝
- 
- // 페이지 로드시 이벤트 시작
+// qna 모달 삭제 끝sss
+
+
+//관리자 - 커뮤 삭제를 삭제 확인창으로 들어가면
+$('#adminDoDel').click(function(){	
+	member_idx = $(this).data('id');
+	$('input[id=adminDel2]').attr('value', member_idx);
+});
+
+// 관리자 커뮤 삭제 모달
+var commuAdminBtn = $("#commuAdminBtn");
+	commuAdminBtn.on("click", function(){
+		
+		$.ajax({	
+            url: "commuDelete",
+            type: "POST",
+            data: $("#commuAdminForm").serialize(),
+       	   success: function(){
+                  $('#commuAdminModal').modal('hide')
+                  window.alert('삭제에 성공했습니다!')
+                  location.reload();
+              },
+              error: function(){
+                  alert("삭제 에러");
+              }   
+        });	
+		
+	})
+var commuAdminNo = $("#commuAdminNo");
+	commuAdminNo.on("click", function(){
+		 $('#commuAdminModal').modal('hide')
+	});
+
+// 관리자 - qna 삭제를 위해 삭제 버튼을 누르고 삭제 모달로 들어가면ssss
+$('.qnaAdminDoDel').click(function(){
+	funding_qna_idx = $(this).data('id');
+	$('input[name=funding_qna_idx]').attr('value',funding_qna_idx);
+});
+
+// 관리자 qna 삭제 모달
+var qnaAdminBtn = $("#qnaAdminBtn");
+	qnaAdminBtn.on("click", function(){
+		$.ajax({	
+            url: "qnaDelete",
+            type: "POST",
+            data: $("#qnaAdminForm").serialize(),
+       	   success: function(){
+                  $('#qnaAdminModal').modal('hide')
+                  window.alert('삭제에 성공했습니다!')
+                  location.reload();
+              },
+              error: function(){
+                  alert("삭제 에러");
+              }   
+        });	
+		
+	});
+// 관리자 qna 삭제 모달에서 아니오 누르면 
+var qnaAdminNo = $("#qnaAdminBtn");
+	qnaAdminNo.on("click", function(){
+		 $('#qnaAdminModal').modal('hide')
+	});
+	
+//qna 답변 대기일 때 제목을 누르면	
+$('.noshowQna').click(function(){
+	var funding_qna_idx = $(this).data('id');
+	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
+	var funding_qna_content = $(this).data('id2');
+	
+	var funding_qna_content2 = funding_qna_content.replace(/\n/gi, "<br>"); //개행처리
+	var funding_qna_content3 = funding_qna_content2.replace(/ /gi,"&nbsp;");
+	
+	
+	$(".answer").remove();
+	$(".tr"+funding_qna_idx).after('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content3+'</td><td></td><td></td></tr>')
+});
+	
+//qna 답변 완료일 때 제목을 누르면ssss
+$('.showQna').click(function(){	
+	var funding_qna_idx = $(this).data('id');
+	$('input[name=funding_qna_idx]').attr('value', funding_qna_idx);
+	var funding_qna_content = $(this).data('id2');
+	var funding_qna_content2 = funding_qna_content.replace(/\n/gi, "<br>"); //개행처리
+	var funding_qna_content3 = funding_qna_content2.replace(/ /gi,"&nbsp;");
+	
+	var funding_idx = $(this).data('id3');
+	$('input[name=funding_idx]').attr('value', funding_idx);
+	var objParams = {
+			funding_qna_idx : $(".funding_qna_idx").val(),
+			funding_idx : $(".funding_idx").val()
+		};
+		
+		$.ajax({
+			url: "qnaList",
+			type: "POST",
+			async : false,
+			data: objParams,
+			success: function(data){
+				//window.alert('qnaListForm 성공')
+				//console.log(data)
+				var answer = data[0].funding_qna_content
+				var answer2 = answer.replace(/\n/gi, "<br>"); //개행처리
+				var answer3 = answer2.replace(/ /gi,"&nbsp;");
+				var name = data[0].memberVO.member_business_name
+				var date = data[0].funding_qna_regdate
+				var date2 = date.substring(0, 11);
+				$(".answer").remove();
+				$(".tr"+funding_qna_idx).after
+				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-top:none;"></td><td><span style="color : #c2c2c2;">ㄴ</span><span style="font-size: 12px; background-color : #a3a9b3; color: #f3f4f6; padding: 3px; border-radius:5px;">답변</span>&nbsp;'+answer3+'</td><td>판매자</td><td>'+date2+'</td></tr>')
+				$(".tr"+funding_qna_idx).after
+				('<tr class="answer" style="background-color : #f7f8fa;"><td style="border-bottom:none;"></td><td>'+funding_qna_content3+'</td><td></td><td></td></tr>')
+			},
+			error: function(){
+				alert("qnaListForm 에러")
+			}
+		})
+		//1.ajax 통신ㄴㄴㄴㄴsssssssssssssssssssss
+		//1번이 success 됐을때 답변 그리기
+});
+
+//commufaq 더보기 누르면
+$("#commuFaqMore").click(function(){
+	$('#commuFaqMore').hide();
+	$('.commuP2FaqDetail').hide();
+	$('#commuFaqHide').show();
+	$('#commuFaqFold').show();
+});
+
+//commufaq 접기 누르면
+$("#commuFaqFold").click(function(){
+	$('#commuFaqHide').hide();
+	$('.commuP2FaqDetail').hide();
+	$('#commuFaqFold').hide();
+	$('#commuFaqMore').show();
+});
+
+//faq 접었다 폈다
+$(".commuFaq01").click(function(){
+	if($('.commuFaq01D').is(':visible')){
+		$('.commuFaq01D').hide();
+	}else{
+		$('.commuP2FaqDetail').hide();
+		$('.commuFaq01D').show();	
+	}
+})
+$(".commuFaq02").click(function(){
+	if($('.commuFaq02D').is(':visible')){
+		$('.commuFaq02D').hide();
+	}else{
+		$('.commuP2FaqDetail').hide();
+		$('.commuFaq02D').show();	
+	}
+})
+$(".commuFaq03").click(function(){
+	if($('.commuFaq03D').is(':visible')){
+		$('.commuFaq03D').hide();
+	}else{
+		$('.commuP2FaqDetail').hide();
+		$('.commuFaq03D').show();	
+	}
+})
+
+$(".commuFaq04").click(function(){
+	if($('.commuFaq04D').is(':visible')){
+		$('.commuFaq04D').hide();
+	}else{
+		$('.commuP2FaqDetail').hide();
+		$('.commuFaq04D').show();	
+	}
+})
+
+$(".commuFaq05").click(function(){
+	if($('.commuFaq05D').is(':visible')){
+		$('.commuFaq05D').hide();
+	}else{
+		$('.commuP2FaqDetail').hide();
+		$('.commuFaq05D').show();	
+	}
+})
+
+
+//faq 마지막 버튼들
+$("#guideBtn").click(function(){
+	alert('이용가이드 페이지로 이동할 예정')
+})
+$("#csBtn").click(function(){
+	alert('고객센터 페이지로 이동할 예정')
+})
+
+
+
+ // 페이지 로드시 이벤트 시작ssssssssssssssssssssss
  window.addEventListener('load', function () {
 	 var login = document.getElementById('loginMember').value; // 로그인 한사람의 member_idx
 	
@@ -530,17 +768,23 @@ var qnaDeleteBtn = $("#qnaDeleteBtn");
   		 }
   	 }
 	  
-	 // 커뮤 수정하기에 자기가 작성한 댓글 출력
+	 // 커뮤 수정하기에 자기가 작성한 댓글 출력ssss
 	 for (var i = 0; i < writeMember.length; i++) {
   		 if(writeMember[i].value == login){
-
-  			var modifyContent = content[i].innerText
+			
+  			var modifyContent = content[i].innerHTML
   			var trim = modifyContent.trim()
-  			$('#modifyText').text(trim)
+  			var trim2 = trim.replace(/&nbsp;/gi," ");
+  			var trim3 = trim2.replace(/<br>/gi,"\n");
+  			console.log(trim3)
+  			$('#modifyText').text(trim3)
   		 }
   	 }
   	 
-	
-  	
+  	 // 커뮤 faq 더보기 숨기기sssssssss
+  	 $('#commuFaqHide').hide();
+  	 $('#commuFaqFold').hide();
+  	 $('.commuP2FaqDetail').hide();
+  	 	
 });
 

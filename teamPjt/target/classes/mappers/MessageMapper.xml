@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MessageMapper">
+
+	<select id="checkFundingPermit" parameterType="int" resultType="FundingMainVO">
+		SELECT  f.member_idx,
+				f.funding_idx,
+				f.funding_title,
+				f.funding_thumbnail,
+				f.funding_target_price,
+				f.funding_current_price,
+				f.funding_start_date,
+				f.funding_end_date,
+				f.funding_content,
+				f.funding_permit_state,
+				f.funding_current_state,
+				f.funding_category,
+				f.funding_views,
+				f.funding_express_date,
+				f.funding_express_fee
+		FROM 	funding f, message m
+		WHERE	f.funding_idx = m.funding_idx
+		AND 	m.to_member_idx = #{ member_idx }
+		ORDER BY m.message_date DESC
+
+	</select>
+	
+	
+	<select id="getMemberIdx" parameterType="int" resultType="int">
+		SELECT  member_idx
+		FROM	funding
+		WHERE	funding_idx = #{ f_idx }
+	</select>
+	
+	<insert id="insertLog" parameterType="java.util.HashMap">
+		INSERT 
+		INTO	message (from_member_idx, to_member_idx, funding_idx, message_content, message_photo)
+		values	(
+				#{ from_member_idx },
+				#{ to_member_idx }, 
+				#{ f_idx },
+				'펀딩이 승인되었습니다',
+				null 
+				)
+	</insert>
+	
+	<select id="message_dialogue" parameterType="int" resultType="MessageVO">
+		SELECT 	m.member_idx,
+				m.member_name,
+				m.member_photo,
+				ms.message_idx,
+				ms.from_member_idx,
+				ms.to_member_idx,
+				ms.funding_idx,
+				ms.message_content,
+				ms.message_photo,
+				ms.message_state,
+				ms.message_send_person,
+				ms.message_date
+		FROM 	message ms, member m
+		WHERE 	ms.from_member_idx = m.member_idx
+		AND 	ms.to_member_idx= #{to_member_idx}
+		GROUP BY ms.from_member_idx
+		ORDER BY ms.message_date DESC
+	</select>
+	
+	<select id="message_dialogue_detail" parameterType="java.util.HashMap" resultType="MessageVO">
+		select 	m.member_idx,
+				m.member_name,
+				m.member_photo,
+				ms.message_idx,
+				ms.from_member_idx,
+				ms.to_member_idx,
+				ms.funding_idx,
+				ms.message_content,
+				ms.message_photo,
+				ms.message_state,
+				ms.message_send_person,
+				ms.message_date
+		FROM    message ms, member m
+		WHERE	ms.from_member_idx = m.member_idx
+		AND 	to_member_idx= #{ to_member_idx }
+		AND 	from_member_idx= #{ from_member_idx }
+		ORDER BY message_date
+	</select>
+
+</mapper>

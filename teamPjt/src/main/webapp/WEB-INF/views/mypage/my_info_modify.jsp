@@ -8,15 +8,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
-	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
 	<!-- 주소 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -127,6 +122,67 @@
            }
         }).open();
     }
+    
+    //비밀번호 변경
+    function changePw(){
+    	console.log(1);
+    	$("#pswd").after(
+    			"<tr id='checkPw'><td style='border:none;'></td><th style='border:none;'>"+
+    			"현재 비밀번호"+
+    			"<div class='input-group mb-3'>"+
+    			"<input type='password' class='form-control' id='member_password0' name='member_password0' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div><br><br>"+
+
+    			"새 비밀번호"+
+    			"<div class='input-group mb-3'>"+
+    			"<input type='password' class='form-control' id='member_password1' name='member_password1' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div>"+
+    			
+    			"새 비밀번호 확인"+
+    			"<div class='input-group mb-3'>"+
+    			"<input type='password' class='form-control' id='member_password2' name='member_password2' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div>"+
+    			"</th></tr>"
+    			);
+    	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
+    	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw2()'>변경완료</div>");
+//     	<div class="input-group mb-3">
+//         	<input type="text" class="form-control" name="member_password" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_password }">
+//     	</div>
+    }
+    
+    //비밀번호 변경 ajax
+    function changePw2(){
+    	console.log(2);
+    	console.log($("#member_password0").val());
+    	console.log($("#member_password1").val());
+    	console.log($("#member_password2").val());
+    	if( $("#member_password1").val() != $("#member_password2").val() ){
+    		alert("비밀번호가 서로 다릅니다.");
+    		}else{
+    		console.log("비밀번호 같음");
+    		//ajax 통신할 준비
+    		//준비물 : 현재 비밀번호, 새 비밀번호
+    		$.ajax({
+    			url : "changePw.do",
+    			type : "post",
+    			data : {"member_password_old":$("#member_password0").val(),"member_password_new":$("#member_password1").val()},
+    	        success:function(data){
+    	        	if(data=="s"){
+    	        		alert("비밀번호가 변경되었습니다.");
+    	        		$(".alert-danger").remove();
+    	        		$("#checkPw").remove();
+        	        	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
+        	        	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw()'>변경</div>");
+    	        	}else{
+    	        		alert("현재 비밀번호가 틀립니다.")
+    	        	}    	        	
+    	        },
+    	        error: function (XMLHttpRequest, textStatus, errorThrown){
+    	        	alert('비밀번호 변경 에이잭스 오류');
+    	        }
+    		});
+    	}
+    	
+    }
+    
 
 </script>
 <style>
@@ -279,6 +335,13 @@
                             <td>이메일</td>
                             <td>${ member.member_email }</td>
                         </tr>
+                        <tr id="pswd">
+                            <td>비밀번호</td>
+                            <td style="text-align: right">
+                            	<div style="color:blue; cursor:pointer;" onclick="changePw(this)">변경</div>
+                            	
+                            </td>
+                        </tr>
                         <tr>
                             <td>전화번호</td>
                             <td>
@@ -335,14 +398,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>비밀번호</td>
-                            <td>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="member_password" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_password }">
-                                </div>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 <div class="row"> 
@@ -355,6 +411,8 @@
             
         </div>
     </div>
+    
+    
 </main>
 <c:import url="/footer.do"></c:import>
 </body>

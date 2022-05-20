@@ -2,57 +2,62 @@ package com.edu.vo;
 
 public class Pagination {
 	
-	private int page;
-	private int perPageNum;
+	private int page1;
+	private int perPageNum1;	
 	private int rowStart;
 	private int rowEnd;
-	
+
 	public Pagination() {
-		this.page = 1;
-		this.perPageNum = 9;
+		
+		this.page1 = 1;
+		this.perPageNum1 = 9;
+		
 	}
 	
-	public void setPage(int page) {
-		if(page<=0) {
-			this.page = 1;
+
+	public void setPage1(int page1) {
+		if(page1<=0) {
+			this.page1 = 1;
 			return;
 		}
-		this.page = page;
+		this.page1 = page1;
 	}
 	
-	public void setPerPageNum(int perPageNum) {
-		if(perPageNum <= 0 || perPageNum > 100) {
-			this.perPageNum = 9;
+	public void setPerPageNum1(int perPageNum1) {
+		if(perPageNum1 <= 0 || perPageNum1 > 100) {
+			this.perPageNum1 = 9;
 			return;
 		}
-		this.perPageNum = perPageNum;
+		this.perPageNum1 = perPageNum1;
 	}
 	
-	public int getPage() {
-		return page;
+	public int getPage1() {
+		return page1;
 	}
 	
 	public int getPageStart() {
-		return (this.page - 1) * perPageNum;
+		return (this.page1 - 1) * perPageNum1;
 	}
 	
-	public int getPerPageNum() {
-		return this.perPageNum;
+	public int getPerPageNum1() {
+		return this.perPageNum1;
 	}
 	
 	public int getRowStart() {
-		rowStart = ((page - 1) * perPageNum) + 1;
+		rowStart = ((page1 - 1) * perPageNum1);
 		return rowStart;
 	}
 	
 	public int getRowEnd() {
-		rowEnd = rowStart + perPageNum - 1;
+		rowEnd = rowStart + perPageNum1;
 		return rowEnd;
 	}
 	
+
+	
 	@Override
 	public String toString() {
-		return "Pagination [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
+		return "Pagination [page=" + page1 + ", perPageNum=" + perPageNum1 + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
 				+ "]";
 	}
 

@@ -37,8 +37,8 @@
 			,now()
 			,#{member_photo}
 			 <if test="member_level == 1">
-		   	,#{member_business_num}
-		   	,#{member_business_name}
+			   	,#{member_business_num}
+			   	,#{member_business_name}
 		   </if>
 		)
 	</insert>
@@ -75,6 +75,12 @@
 	<if test="member_idx != 0">
 		WHERE member_idx = #{member_idx}
 	</if>
+	</select>
+	
+	<select id="login" resultType="MemberVO">
+		SELECT * FROM member
+		WHERE member_email = #{member_email}
+		AND member_password = #{member_password}
 	</select>
 	
 </mapper>

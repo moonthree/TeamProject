@@ -5,21 +5,18 @@ import java.util.Date;
 public class FundingInfoDetailVO {
 	private int funding_idx;
 	private int member_idx;
+	private String member_name; //판매자 이름
 	
 	private String funding_title;
 	private String funding_thumbnail;
 	private String funding_content;
 	private String funding_notice;
-	
 	private int funding_target_price;
 	private int funding_current_price;
-	
 	private String funding_start_date;
 	private String funding_end_date;
-	
 	private int funding_permit_state;
 	private int funding_current_state;
-	
 	private String funding_write_date;
 	private int funding_category;
 	private String funding_express_date;
@@ -31,7 +28,18 @@ public class FundingInfoDetailVO {
 	private int funding_order_total_price;		
 	private int funding_order_pay_state;		
 	private Date funding_order_date;
+	private int funding_order_donation;
 	
+	//funding_option
+	private String funding_option_name;
+	private int funding_option_price;
+	private String funding_option_detail;
+	private int funding_option_stock;
+	
+	//funding_order_option
+	private int funding_order_option_idx;								
+	private int funding_order_option_select_idx;				
+	private int funding_order_option_select_count;
 	
 	public int getFunding_idx() {
 		return funding_idx;
@@ -158,6 +166,60 @@ public class FundingInfoDetailVO {
 	}
 	public void setFunding_order_date(Date funding_order_date) {
 		this.funding_order_date = funding_order_date;
+	}
+	public int getFunding_order_donation() {
+		return funding_order_donation;
+	}
+	public void setFunding_order_donation(int funding_order_donation) {
+		this.funding_order_donation = funding_order_donation;
+	}
+	public String getFunding_option_name() {
+		return funding_option_name;
+	}
+	public void setFunding_option_name(String funding_option_name) {
+		this.funding_option_name = funding_option_name;
+	}
+	public int getFunding_option_price() {
+		return funding_option_price;
+	}
+	public void setFunding_option_price(int funding_option_price) {
+		this.funding_option_price = funding_option_price;
+	}
+	public String getFunding_option_detail() {
+		return funding_option_detail;
+	}
+	public void setFunding_option_detail(String funding_option_detail) {
+		this.funding_option_detail = funding_option_detail;
+	}
+	public int getFunding_option_stock() {
+		return funding_option_stock;
+	}
+	public void setFunding_option_stock(int funding_option_stock) {
+		this.funding_option_stock = funding_option_stock;
+	}
+	public int getFunding_order_option_idx() {
+		return funding_order_option_idx;
+	}
+	public void setFunding_order_option_idx(int funding_order_option_idx) {
+		this.funding_order_option_idx = funding_order_option_idx;
+	}
+	public int getFunding_order_option_select_idx() {
+		return funding_order_option_select_idx;
+	}
+	public void setFunding_order_option_select_idx(int funding_order_option_select_idx) {
+		this.funding_order_option_select_idx = funding_order_option_select_idx;
+	}
+	public int getFunding_order_option_select_count() {
+		return funding_order_option_select_count;
+	}
+	public void setFunding_order_option_select_count(int funding_order_option_select_count) {
+		this.funding_order_option_select_count = funding_order_option_select_count;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	
 	

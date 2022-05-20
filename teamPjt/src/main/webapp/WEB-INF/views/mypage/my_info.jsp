@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,60 +20,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/profilePhoto.css">
 <style>
-/* Profile Section */
-
-.profile {
-    padding: 5rem 0;
-}
-
-.profile::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.profile-image {
-    float: left;
-    display: flex;
-    margin-right: 3rem;
-}
-
-.profile-image .profile_img{
-    width: 150px; 
-    height: 150px; 
-    border-radius: 70%;
-}
-.setting_img{
-    width: 30px; 
-    height: 30px; 
-}
-.profile-user-settings,
-.profile-stats,
-.profile-bio {
-    float: left;
-    width: calc(66.666% - 2rem);
-}
-
-.profile-user-settings {
-    margin-top: 1.5rem;
-}
-
-.profile-user-name {
-    display: inline-block;
-    font-size: 3rem;
-    font-weight: 500;
-}
-
-.profile-edit-btn {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.8;
-    border: 0.1rem solid #dbdbdb;
-    border-radius: 0.3rem;
-    padding: 0 1rem;
-}
-
     /*이미지 콘테이너 1:1 비율*/
     .img-container{
         overflow: hidden;
@@ -116,7 +65,16 @@
                         		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
                         	</c:when>
                         	<c:otherwise>
-								<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                        		<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img">
+									</c:otherwise>
+								</c:choose>
                         	</c:otherwise>
                         </c:choose>
                         <img src="../resources/image/mypage/setting.png" alt="설정" class="setting_img"  onclick="location.href='my_info_modify.do'" style="cursor:pointer;">
@@ -190,54 +148,32 @@
                 
                 <div class="col-md-12">
                     <div class="row g-3">
-                        <div class="col-lg-3 col-md-4 col-sm-12">
+                    <c:if test="${select4Funding.size()>0}">
+						<c:forEach var="item" items="${select4Funding}">
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-12" <c:if test="${select4Funding.size() eq 1}"> class="outer" </c:if>>
                             <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
+                                <div class="img-container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
+                                    <div style="font-weight:100">
+                                    	<c:choose>
+                                    		<c:when test="${ item.funding_category eq 0 }">강아지 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 1 }">고양이 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 2 }">다른동물 용품</c:when>
+                                    	</c:choose>
+                                    </div>
+                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
+                                   
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12" id="outer">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        </c:forEach>
+                        </c:if>
+                        
+                        
                     </div>
                 </div>
             </div>

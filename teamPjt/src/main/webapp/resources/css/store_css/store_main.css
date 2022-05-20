@@ -1,0 +1,250 @@
+@charset "UTF-8";
+
+
+/*0514 시작*/
+/* 전체 설정 시작*/
+.d-block{
+    height: 400px;
+    width: 100%;
+}
+
+a:link {
+    color: black;
+}
+a:visited {
+    color: black;
+}
+
+/* 전체 설정 끝*/
+/* 카테고리 시작 */
+#category {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#chosenCategory {
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 20px;
+    height: 100%;
+	line-height: 100%;
+}
+
+.rounded-circle {
+    width: 200px;
+    height: 200px;
+}
+
+@media (min-width: 0px) and (max-width: 992px) {
+    .rounded-circle {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+select { 
+	width: 150px; /* 원하는 너비설정ssssssssssssss */ 
+	padding: .7em .6em; /* 여백으로 높이 설정 */ 
+	font-family: inherit; /* 폰트 상속 */ 
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 99% 50%; /* 네이티브 화살표 대체  https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg*/ 
+	border: 1px solid #999; 
+	border-radius: 10px; /* 둥근모서리 */ 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none; 
+	
+}
+
+/* 카테고리 끝 */
+
+
+/*상품 리스트 시작*/
+.selectRow {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.card{
+    border: none;
+    margin-top: 20px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.card-title {
+    font-weight: bold;
+}
+.card-body{
+    padding: 10px 0px 0px 0px;
+}
+.card-img{
+    position: relative;
+    height: 230px;
+    width: 100%;
+}
+.card-img-top{
+    border-radius: 10px;
+    height: 230px;
+}
+.card-zzim-btn{
+    position: absolute;
+    height: 30px;
+    top: 190px;
+    left: 215px;
+    border: none;
+    border-radius: 15px;
+    /* background-color: #96a0a1; */
+    opacity: 0.8;
+    
+}
+.card-price{
+	color: black;
+
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    .card-img {
+        position: relative;
+        height: 200px;
+    }
+    .card-img-top {
+        height: 200px;
+    }
+    .card-zzim-btn {
+        top: 165px;
+        left: 172px;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .card-img {
+        position: relative;
+        height: 150px;
+    }
+
+    .card-img-top {
+        height: 150px;
+    }
+
+    .card-zzim-btn {
+        top: 115px;
+        left: 112px;
+    }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+    .card-img {
+        position: relative;
+        height: 250px;
+    }
+
+    .card-img-top {
+        height: 250px;
+    }
+
+    .card-zzim-btn {
+        top: 215px;
+        left: 473px;
+    }
+}
+@media (min-width: 0px) and (max-width: 576px) {
+    .card-img {
+        position: relative;
+        height: 250px;
+    }
+
+    .card-img-top {
+        height: 250px;
+    }
+
+    .card-zzim-btn {
+        position: absolute;
+        height: 30px;
+        top: 215px;
+        left: 5px;
+    }
+}
+/*상품 리스트 끝*/
+
+/* 별점 */
+
+.rating {
+    width: 83.5px;
+    height: 17.5px;
+    
+    position: relative;
+    background-color: gray;
+}
+
+.rating progress.rating-bg {
+    -webkit-appearance: none;
+    -moz-appearence: none;
+    appearance: none;
+    border: none;
+    display: inline-block;
+    height: 18px;
+    padding-bottom: 1px;
+    width: 100%;
+    color: orange;
+}
+
+.rating progress.rating-bg::-webkit-progress-value {
+    background-color: orange;
+}
+
+.rating progress.rating-bg::-moz-progress-bar {
+    background-color: orange;
+}
+
+.rating svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.starNum{
+    float:right;
+    position: relative;
+    bottom: 21px;
+    right: 110px;
+}
+.starAverage{
+    font-weight: bold;
+}
+.starTotal{
+    color: #9d9cbb;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    .starNum {
+        float: right;
+        position: relative;
+        bottom: 21px;
+        right: 50px;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .starNum {
+        float:none;
+        position:static;
+        bottom: 0px;
+        right: 0px;
+    }
+}
+@media (min-width: 558px) and (max-width: 768px) {
+    .starNum {
+        float: right;
+        position: relative;
+        bottom: 21px;
+        right: 350px;
+    }
+}
+@media (min-width: 0px) and (max-width: 558px) {
+    .starNum {
+        float: none;
+        position: static;
+        bottom: 0px;
+        right: 0px;
+    }
+}
+/* 별점 끝 */

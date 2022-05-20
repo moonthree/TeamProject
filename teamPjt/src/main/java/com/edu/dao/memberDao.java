@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.vo.LoginVO;
 import com.edu.vo.MemberVO;
 
 
@@ -26,5 +27,9 @@ public class memberDao {
 	public MemberVO selectOne(MemberVO vo) {
 		return sqlSession.selectOne("memberMapper.selectOne", vo);
 
+	}
+	
+	public MemberVO login(LoginVO vo) {
+		return sqlSession.selectOne("memberMapper.login", vo);
 	}
 }

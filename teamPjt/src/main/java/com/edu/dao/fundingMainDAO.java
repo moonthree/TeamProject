@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,42 +24,15 @@ public class fundingMainDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
-	/*
-	 * public List<FundingMainVO> listDog(Pagination page) throws Exception{ return
-	 * sqlSession.selectList("FundingMainMapper.listDog", page); }
-	 */
-
-	/*
-	 * public List<FundingMainVO> listCat(Pagination page) throws Exception{ return
-	 * sqlSession.selectList("FundingMainMapper.listCat", page); }
-	 */
+	//펀딩 메인페이지
 	public List<FundingMainVO> listMain(FundingMainVO vo) throws Exception{
 		return sqlSession.selectList("FundingMainMapper.listMain", vo);
 	}
-	
-	/*
-	 * public List<FundingMainVO> listCat(FundingMainVO vo) throws Exception{ return
-	 * sqlSession.selectList("FundingMainMapper.listCat", vo); }
-	 * 
-	 * public List<FundingMainVO> listOther(Pagination page) throws Exception{
-	 * return sqlSession.selectList("FundingMainMapper.listOther", page); }
-	 */
 	
 	// 펀딩 총 갯수
 	public int listMainCount(FundingMainVO vo) throws Exception{
 		return sqlSession.selectOne("FundingMainMapper.listMainCount", vo);
 	}
-	
-	/*
-	 * public int listDogCount() throws Exception{ return
-	 * sqlSession.selectOne("FundingMainMapper.listDogCount"); } public int
-	 * listCatCount() throws Exception{ return
-	 * sqlSession.selectOne("FundingMainMapper.listCatCount"); } public int
-	 * listOtherCount() throws Exception{ return
-	 * sqlSession.selectOne("FundingMainMapper.listOtherCount"); }
-	 */
-	
 	
 	// 게시물 조회
 	public FundingMainVO read(int funding_idx) throws Exception{
@@ -74,8 +48,8 @@ public class fundingMainDAO {
 		return sqlSession.selectOne("FundingMainMapper.orderCount", vo);
 	}
 	//펀딩 커뮤니티 댓글 리스트
-	public List<FundingCommunityVO> readFundingCommunityComent(int funding_idx) throws Exception{
-		return sqlSession.selectList("FundingMainMapper.readFundingCommunityComment", funding_idx);
+	public List<FundingCommunityVO> readFundingCommunityComent(FundingCommunityVO fcvo) throws Exception{
+		return sqlSession.selectList("FundingMainMapper.readFundingCommunityComment", fcvo);
 	}
 	//펀딩 커뮤니티 댓글 작성
 	public int writeFundingCommunityComment(FundingCommunityVO vo) throws Exception{
@@ -89,8 +63,7 @@ public class fundingMainDAO {
 	public void deleteFundingCommunityComment(FundingCommunityVO vo) throws Exception{
 		sqlSession.delete("FundingMainMapper.deleteFundingCommunityComment", vo);	
 	}
-	//펀딩 커뮤니티 댓글 숫자
-	
+	//펀딩 커뮤니티 댓글 개수
 	public int countFundingCommunityComment(FundingCommunityVO fcvo) throws Exception{ 
 		return sqlSession.selectOne("FundingMainMapper.countFundingCommunityComment", fcvo); 
 	}
@@ -100,6 +73,11 @@ public class fundingMainDAO {
 	public List<FundingQnaVO> getQnaList(Map<String, Object> paramMap) {
 		return sqlSession.selectList("FundingMainMapper.readFundingQnaList", paramMap);
 	}
+	//펀딩 qna 답변 리스트
+	public List<FundingQnaVO> getQnaAnswer(Map<String, Object> paramMap) {
+		return sqlSession.selectList("FundingMainMapper.readFundingQnaAnswer", paramMap);
+	}
+	
 	//펀딩 qna 작성
 	public int qnaInsert(Map<String, Object> paramMap) {
 		return sqlSession.insert("FundingMainMapper.insertFundingQna", paramMap);
@@ -107,6 +85,10 @@ public class fundingMainDAO {
 	//펀딩 qna 답변 작성 완료
 	public int qnaAnswerDone(FundingQnaVO vo) throws Exception{
 		return sqlSession.update("FundingMainMapper.qnaAnswerDone", vo);
+	}
+	//펀딩 qna 답변 수정
+	public void qnaAnswerModify(FundingQnaVO vo) throws Exception{
+		sqlSession.update("FundingMainMapper.qnaAnswerModify", vo);	
 	}
 	//펀딩 QNA 삭제
 	public void deleteFundingQna(FundingQnaVO vo) throws Exception{
@@ -116,6 +98,12 @@ public class fundingMainDAO {
 	public void modifyFundingQna(FundingQnaVO vo) throws Exception{
 		sqlSession.update("FundingMainMapper.modifyFundingQna", vo);	
 	}
+	//펀딩 qna 개수
+	public int countFundingQna(FundingQnaVO vo) throws Exception{ 
+		return sqlSession.selectOne("FundingMainMapper.countFundingQna", vo); 
+	}
+	
+	
 	//zzim 등록
 	public int insertZzim(Map<String, Object> paramMap) {
 		return sqlSession.insert("FundingMainMapper.insertZzim", paramMap);
@@ -162,6 +150,38 @@ public class fundingMainDAO {
 	// 결제 정보
 	public int insertPay(Funding_order_payVO payvo) {
 		return sqlSession.insert("FundingMainMapper.insertPay", payvo);
+	}
+	// 결제 금액 합산
+	public void addPrice(Funding_orderVO ordervo) {
+		sqlSession.update("FundingMainMapper.addPrice", ordervo);
+	}
+	//옵션 수량 감소 메소드
+	public int update_option(Funding_order_optionVO opderOptionvo) {
+		
+		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo);
+	}
+	
+	//펀딩 내용 가져오기 (modify.do 사용)
+	public FundingMainVO select_fundingOne(int funding_idx) {
+		return sqlSession.selectOne("FundingMainMapper.funding_one", funding_idx);
+	}
+	
+	//펀딩 옵션 가져오기 (modify.do 사용)
+	public List<Funding_optionVO> select_fundingOption(int funding_idx) {
+		
+		return sqlSession.selectList("FundingMainMapper.fundingOption_list",funding_idx);
+	}
+	
+	//펀딩 옵션 수량 증가 메소드
+	public int  addStock(Funding_optionVO vo) {
+		return sqlSession.update("FundingMainMapper.fundingOption_plus", vo);
+	}
+	
+	//펀딩 제품 pdf 업데이트
+	public int update_content(HashMap<String, Object> map) {
+		return sqlSession.update("FundingMainMapper.funding_file_update",map);
+		
+				
 	}
 	
 }

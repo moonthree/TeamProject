@@ -1,0 +1,609 @@
+@charset "UTF-8";
+
+/*
+    수정 내역
+    01. 05/15 vscode start
+*/
+
+/*
+    전체
+*/
+.middleBar{
+    color: #9d9cbb;
+}
+.bold{
+    font-weight: bold;
+}
+.thin{
+	font-weight: 200;
+	font-size: 12px;
+}
+/*상단 어두운 썸네일*/
+.topcard{
+    margin-bottom: 30px;
+}
+.FVtitleImg {
+    height: 200px;
+    opacity: 0.2;
+}
+.topContent>h3 {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.card-category {
+    text-align: center;
+    color: #c19a6b;
+    font-weight: bold;
+}
+.card-title {
+    text-align: center;
+    font-weight: bold;
+}
+/*
+뷰 상단
+*/
+.mainIMG {
+    width: 100%;
+    height: 500px;
+}
+.viewBusinessName{
+    margin-bottom: 5px;
+}
+.viewTitle{
+    font-size: 20px;
+    font-weight: bold;
+}
+.viewPrice{
+    margin-top: 5px;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+}
+.viewExpress{
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #e2e2e2;
+}
+.viewExpressPrice{
+    font-weight: bold;
+    font-size: 20px;
+}
+.viewDate{
+    font-size: 20px;
+    font-weight: bold;
+    color: #fa6462;
+}
+.viewDateText{
+    font-size: 15px;
+}
+/*뷰 셀렉트 부분 시작*/
+select {
+    width: 100%;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #d7dbe1;
+    font-family: inherit;
+    background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 99% 50%;
+    border-radius: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand {
+    display: none;
+}
+.viewOptionSelect{
+    margin-top: 5px;
+    border-top: 1px solid #e2e2e2;
+    padding: 10px 0px 10px 0px;
+}
+.viewOptionBox{
+    margin-top: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.storeOptionBox{
+    padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.storeOptionBox1{
+    margin-bottom: 10px;
+}
+.storeOptionBoxHide{
+    position: relative;
+    float: right;
+    font-size: 20px;
+    bottom: 5px;
+    border: none;
+    background-color: white;
+}
+.storeOptionBoxPrice{
+    float: right;
+}
+
+.viewTotalPriceDiv{
+    margin-top: 20px;
+}
+.viewTotalPriceText{
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.viewTotalPriceText2{
+    padding-bottom: 5px;
+    text-align: end;
+}
+.viewTotalNum{
+    font-size: 15px;
+    color: #9d9cbb;
+}
+.viewTotalPrice{
+    color: #6b90dc;
+    font-size: 25px;
+    font-weight: bold;
+}
+/*뷰 셀렉트 부분 끝*/
+
+/*뷰 구매, 찜 버튼 시작*/
+.viewBtn{
+	margin-top: 20px;
+}
+.viewZzimBtn{
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #e0e2e4;
+}
+.viewZzimBtn:hover{
+    color: red;
+}
+.viewPurchaseBtn {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #fa6462;
+    border: 1px solid #fa6462;
+    color: white;
+    font-weight: bold;
+}
+.viewPurchaseBtn:hover{
+    background-color: #fa6462;
+}
+/*뷰 구매, 찜 버튼 끝*/
+
+/*뷰 이전 펀딩 정보 시작*/
+.viewPastFunding{
+    border-top: 1px solid #e2e2e2;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+.viewPastFunding1{
+    background-color: #f9fafb;
+    margin-top: 10px;
+    height: 40px;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+.leftcol{
+    padding-top: 5px;
+}
+.rightCol{
+    text-align: end;
+}
+.rightCol > span{
+    font-weight: bold;
+    font-size: 19px;
+}
+.viewPastFundingLast{
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+/*뷰 이전 펀딩 정보 끝*/
+
+/* 뷰 상단의 별점 */
+.viewStar{
+    margin-bottom: 10px;
+}
+.rating {
+    width: 83.5px;
+    height: 17.5px;
+
+    position: relative;
+    background-color: gray;
+}
+
+.rating progress.rating-bg {
+    -webkit-appearance: none;
+    -moz-appearence: none;
+    appearance: none;
+    border: none;
+    display: inline-block;
+    height: 18px;
+    padding-bottom: 1px;
+    width: 100%;
+    color: orange;
+}
+
+.rating progress.rating-bg::-webkit-progress-value {
+    background-color: orange;
+}
+
+.rating progress.rating-bg::-moz-progress-bar {
+    background-color: orange;
+}
+
+.rating svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.starNum {
+    float: right;
+    position: relative;
+    bottom: 20px;
+    right: 220px;
+}
+
+.starAverage {
+    font-weight: 500;
+}
+
+.starTotal {
+    font-weight: 500;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .starNum {
+        float: right;
+        position: relative;
+        bottom: 20px;
+        right: 150px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .starNum {
+        float: right;
+        position: relative;
+        bottom: 20px;
+        right: 50px;
+    }
+}
+
+@media (min-width: 558px) and (max-width: 768px) {
+    .starNum {
+        float: right;
+        position: relative;
+        bottom: 20px;
+        right: 290px;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 558px) {
+    .starNum {
+        float: none;
+        position: static;
+        bottom: 0px;
+        right: 0px;
+    }
+}
+
+/*뷰 상단의 별점 끝 */
+
+/*뷰 상단 끝*/
+
+
+/*
+#myTab = 펀딩/스토어/커뮤니티/Q&A
+*/
+#myTab {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    border-bottom: none;
+}
+.viewtab{
+    width: 25%;
+    height: 50px;
+    padding: 0px;
+    border-right: 1px solid #e2e2e2;
+}
+.storeViewTab{
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    vertical-align: middle;
+    background-color: #f3f5f7 !important;
+}
+.storeViewTab > span{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+.nav-link.visited {
+    background-color: #3d3d4f !important;
+}
+.nav-link.active {
+    background-color: #3d3d4f !important;
+}
+
+
+/*
+0516 추가
+리뷰
+*/
+.reviewTop{
+    font-weight: bold;
+    font-size: 25px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+.reviewTop > span {
+    font-size: 13px;
+    font-weight: lighter;
+}
+.reviewTop > .writeReview{
+    float: right;
+    border: 1px solid #fa6462;
+    color: #fa6462;
+}
+.reviewTop>.writeReview:hover{
+    background-color: #fa6462;
+    border: 1px solid #fa6462;
+    color: white;
+}
+.reviewTop>.writeReview:active{
+    background-color: #fa6462 !important;
+    border: 1px solid #fa6462 !important;
+    color: white;
+}
+
+.reviewMiddle{
+    background-color: #FAFAFA;
+    text-align: center;
+    padding: 20px 0px 20px 0px;
+}
+.reviewMiddle > .col-md-4 > p{
+    font-size: 13px;
+    font-weight: bold;
+}
+.reviewNum{
+    font-size: 25px;
+    font-weight: bold;
+}
+.reviewMiddlePhoto{
+    margin: 20px 0px 20px 0px;
+    padding-bottom: 20px;
+    border-bottom:  1px solid black;
+}
+.reviewMiddlePhoto > p {
+    font-weight: bold;
+}
+.reviewMiddlePhoto > img{
+    height: 100px;
+    margin-right: 10px;
+}
+.reviewBottom{
+    padding-top: 20px;
+}
+.reviewBottom > .reviewBottomTop > div{
+    font-weight: bold;
+}
+#reviewSort{
+    float: right;
+    width: 200px;
+}
+.tdImg > img{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+tbody{
+	border-bottom: 1px solid black;
+}
+
+td{
+    border-top: none !important;
+}
+
+
+.reviewLike{
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    float: right;
+}
+.reviewLike:hover{
+    background-color: #dee2e6;
+}
+
+/*
+0520추가 리뷰 중단 포토
+*/
+.b{
+	margin-right: 15px;
+}
+/* #reviewMiddlePhoto{
+	display:flex; 
+	justify-content: space-around;
+}
+@media (min-width: 0px) and (max-width: 992px) {
+    #reviewMiddlePhoto{
+		display: inline;
+        justify-content: space-between;
+	}
+}
+ */
+
+
+/* 리뷰 중단의 별점 */
+.viewStar2 {
+    margin-bottom: 10px;
+    padding-left: 116px;
+}
+
+.rating2 {
+    width: 115px;
+    height: 24px;
+
+    position: relative;
+    background-color: red;
+}
+
+.rating2 progress.rating2-bg {
+    -webkit-appearance: none;
+    -moz-appearence: none;
+    appearance: none;
+    border: none;
+    display: inline-block;
+    height: 25px;
+    padding-bottom: 1px;
+    width: 100%;
+    color: orange;
+}
+
+.rating2 progress.rating2-bg::-webkit-progress-value {
+    background-color: orange;
+}
+
+.rating2 progress.rating2-bg::-moz-progress-bar {
+    background-color: orange;
+}
+
+.rating2 svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.starNum2{
+    font-size: 25px;
+    font-weight: bold;
+}
+.starNum2 > span {
+    color: #e1e3e5;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    .viewStar2 {
+        padding-left: 87px;
+    }
+    
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .viewStar2 {
+        padding-left: 45px;
+    }
+}
+
+@media (min-width: 558px) and (max-width: 768px) {
+    .reviewMiddle>.col-md-4{
+        border-top : 1px solid #e2e2e2
+    }
+    .viewStar2 {
+        padding-left: 197px;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 558px) {
+    .reviewMiddle {
+        text-align: left;
+    }
+    .reviewMiddle>.col-md-4 {
+        border-top: 1px solid #e2e2e2
+    }
+    .viewStar2 {
+        padding-left: 0px;
+    }
+}
+
+/*리뷰 중단의 별점 끝 */
+
+/*리뷰 중단의 별점 비율 시작*/
+#progress{
+    height: 50px;
+    padding-left: 93px;
+}
+.progressPerP{
+    margin-bottom: 0px;
+    padding-right: 10px;
+}
+.progress-bar-vertical {
+    width: 10px;
+    min-height: 50px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 26px;
+    float:left;
+}
+.progress-bar-vertical .progress-bar {
+    width: 100%;
+    height: 0;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
+}
+.progress-bar{
+    background-color: orange;
+    vertical-align: top !important;
+}
+.progress > span{
+    position: absolute;
+    font-weight: bold;
+    color: black;
+    bottom: 60px;
+    font-size: 18px;
+}
+.progressPer > span {
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    #progress {
+        padding-left: 60px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #progress {
+        padding-left: 35px;
+    }
+    .progress-bar-vertical {
+        margin-right: 20px;
+        float: left;
+    }
+    .progressPer>span {
+        font-size: 13px;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+}
+
+@media (min-width: 558px) and (max-width: 768px) {
+    #progress {
+        padding-left: 174px;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 558px) {
+    #progress {
+        padding-left: 0px;
+    }
+    .progressPer>span {
+        font-size: 13px;
+        font-weight: bold;
+        margin-right: 6px;
+    }
+}
+/*리뷰 중단의 별점 비율 끝*/
