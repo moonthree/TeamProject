@@ -22,40 +22,71 @@
 			s.store_funding,
 			s.store_express_fee,
 			s.store_views,
-			m.member_idx,
-			m.member_business_name
-		FROM store s, member m
 		<choose>
-			<when test="fund != null">
-				where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
-			</when>
-			<when test="dog != null">
-				where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1
-			</when>
-			<when test="cat != null">
-				where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
-			</when>
-			<when test="other != null">
-				where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1
-			</when>
-			<otherwise>
-				where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
-			</otherwise>
-		</choose>
-		<choose>
-			<when test="sortNew != null">
-				order by store_idx desc limit #{startRowNum}, 12;
-			</when>
-			<when test="sortView != null">
-				order by store_views desc limit #{startRowNum}, 12;
-			</when>
 			<when test="sortStar != null">
-				order by #{starAvg} desc limit #{startRowNum}, 12;
+				sr.avg_star
+				from store s
+				left outer join (select AVG(sr.store_review_star) as 'avg_star', store_idx from store_review sr group by store_idx) sr
+				<choose>
+					<when test="fund != null">
+						on s.store_funding = 1 AND s.store_idx = sr.store_idx AND store_permit_state=1
+					</when>
+					<when test="dog != null">
+						on s.store_category = 0 AND s.store_idx = sr.store_idx AND store_permit_state=1
+					</when>
+					<when test="cat != null">
+						on s.store_category = 1 AND s.store_idx = sr.store_idx AND store_permit_state=1
+					</when>
+					<when test="other != null">
+						on s.store_category = 2 AND s.store_idx = sr.store_idx AND store_permit_state=1
+					</when>
+					<otherwise>
+						on s.store_funding = 1 AND s.store_idx = sr.store_idx AND store_permit_state=1
+					</otherwise>
+				</choose>
+				order by sr.avg_star desc limit #{startRowNum}, 12;
 			</when>
 			<otherwise>
-				order by store_idx desc limit #{startRowNum}, 12;
+					m.member_idx,
+					m.member_business_name
+				FROM store s, member m
+				<choose>
+					<when test="fund != null">
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+					</when>
+					<when test="dog != null">
+						where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1
+					</when>
+					<when test="cat != null">
+						where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+					</when>
+					<when test="other != null">
+						where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1
+					</when>
+					<otherwise>
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sortNew != null">
+						order by store_idx desc limit #{startRowNum}, 12;
+					</when>
+					<when test="sortView != null">
+						order by store_views desc limit #{startRowNum}, 12;
+					</when>
+					<when test="sortHighPrice != null">
+						order by store_price desc limit #{startRowNum}, 12;
+					</when>
+					<when test="sortLowPrice != null">
+						order by store_price asc limit #{startRowNum}, 12;
+					</when>
+					<otherwise>
+						order by store_idx desc limit #{startRowNum}, 12;
+					</otherwise>
+				</choose>
 			</otherwise>
 		</choose>
+			
 	</select>
 	<!-- 스토어 메인 카운트 -->
 	<select id="listMainCount" resultType="int">
@@ -137,13 +168,42 @@
 			m.member_photo
 		FROM store_review sr, member m
 		WHERE sr.store_idx = #{store_idx} and sr.member_idx = m.member_idx
-		order by store_review_idx desc limit #{startRowNum}, 5;
+		<choose>
+			<when test="sortReviewLike != null">
+				order by store_review_like desc limit #{startRowNum}, 5;
+			</when>
+			<when test="sortReviewNew != null">
+				order by store_review_idx desc limit #{startRowNum}, 5;
+			</when>
+			<when test="sortReviewHighStar != null">
+				order by store_review_star desc limit #{startRowNum}, 5;
+			</when>
+			<when test="sortReviewLowStar != null">
+				order by store_review_star asc limit #{startRowNum}, 5;
+			</when>
+			<otherwise>
+				order by store_review_like desc limit #{startRowNum}, 5;
+			</otherwise>
+		</choose>
 	</select>
 	<!-- 스토어 리뷰 카운트 -->
 	<select id="countStoreReviewList" parameterType="StoreReviewVO" resultType="int">
 		SELECT COUNT(store_review_idx)
 		FROM store_review
 		where store_idx=#{store_idx};
+	</select>
+	<!-- 리뷰 사진만 가져오기 -->
+	<select id="storeReviewPhoto" parameterType ="StoreReviewVO" resultType="StoreReviewVO">
+		SELECT  
+				store_review_idx,
+				store_review_photo1,
+				store_review_photo2,
+				store_review_photo3,
+				store_review_photo4,
+				store_review_photo5
+		FROM store_review
+		WHERE store_idx = #{store_idx}
+		order by store_review_idx desc;
 	</select>
 	<!-- 스토어 별점 평균 -->
 	<select id="starAvg" resultType="double">
@@ -195,6 +255,60 @@
 				#{store_review_photo5}
 			)
 	</insert>
+	<!-- 찜 가져오기 -->
+	<select id="selectZzimStore" resultType="ZzimVO" parameterType="java.util.HashMap">
+		SELECT member_idx
+		FROM zzim
+		WHERE store_idx = #{store_idx} AND member_idx = #{member_idx};
+	</select>
+	<!-- 찜 취소 -->
+	<delete id="deleteZzimStore" parameterType="java.util.HashMap">
+		DELETE FROM zzim
+		WHERE store_idx = #{store_idx} AND member_idx = #{member_idx};
+	</delete>
+	<!-- 리뷰 추천 하기 -->
+	<insert id="doReviewLike" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="store_review_like_idx">
+		INSERT INTO store_review_like
+			(
+				store_review_idx,
+				member_idx
+			)
+		VALUES
+			(
+				#{store_review_idx},
+				#{member_idx}
+			)
+	</insert>
+	<!-- 리뷰 추천 개수 가져오기 -->
+	<select id="getReviewLikeNum" parameterType="java.util.HashMap" resultType="int">
+		SELECT store_review_like
+		FROM store_review
+		WHERE store_review_idx = #{store_review_idx};
+	</select>
+	<!-- 리뷰 추천 수 증가 -->
+	<update id="updateReviewLike" parameterType="java.util.HashMap" useGeneratedKeys="true">
+		UPDATE store_review 
+		SET store_review_like = store_review_like+1
+		WHERE store_review_idx = #{store_review_idx};
+	</update>
+	<!-- 리뷰 추천 여부 가져오기ss -->
+	<select id="selectThumbsUp" resultType="StoreReviewLikeVO" parameterType="java.util.HashMap">
+		SELECT member_idx
+		FROM store_review_like
+		WHERE store_review_idx = #{store_review_idx} AND member_idx = #{member_idx};
+	</select>
+	<!-- 리뷰 추천 취소 하기 -->
+	<delete id="cancelLike" parameterType="java.util.HashMap">
+		DELETE FROM store_review_like
+		WHERE store_review_idx = #{store_review_idx} AND member_idx = #{member_idx};
+	</delete>
+	<!-- 리뷰 추천 수 감소 -->
+	<update id="updateReviewLike2" parameterType="java.util.HashMap" useGeneratedKeys="true">
+		UPDATE store_review 
+		SET store_review_like = store_review_like-1
+		WHERE store_review_idx = #{store_review_idx};
+	</update>
+	
 	
 	<!-- 스토어 옵션 리스트 -->
 	<select id="storeOptionList" resultType="StoreOptionVO">

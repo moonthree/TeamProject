@@ -27,7 +27,8 @@
     <!-- 하루 후 -->
 	<c:set var="twoDayAfter" value="<%=new Date(new Date().getTime() + 60*60*24*1000*2)%>"/>
 	<fmt:formatDate value="${twoDayAfter}" pattern="MM/dd" var="twoDayAfterStr"/>
-    
+    <input type="number" id="zzim_member_idx" value="${login.member_idx }" style="display:none;"/>
+    <input type="number" id="zzim_store_idx" value="${read.store_idx }" style="display:none;"/>
     
     
     
@@ -241,7 +242,7 @@
 			                            <path
 			                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 			                        </svg>
-			                        찜하기2
+			                        찜하기
 			                    </button>
 	                		</c:if>
 		                    <button type="button" id="zzimDelBtn" class="viewZzimBtn notZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
@@ -252,7 +253,6 @@
 	                	</c:if>
 	                </div>
 	                <c:if test="${read.store_funding eq 0 }">
-	                	스토어 전용 상품
 	                </c:if>
 	                <c:if test="${read.store_funding eq 1 }">
 	                	<div class="viewPastFunding">
@@ -450,31 +450,76 @@
 	                        </div>
 	                    </div>
 	                </div>
+<!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 -->
 	            <div class="reviewMiddlePhoto">
 	                <p>포토</p>
-	                <c:forEach items="${storeReviewList}" var="reviewPhoto">
-		                <img src="../resources/upload/${reviewPhoto.store_review_photo1 }" alt="">
-	                </c:forEach>
-	            </div>
-	            <div class="reviewBottom">
-	                <div class="reviewBottomTop">
-	                    <div>리뷰 ${totalRow}건</div>
-	                    <select name="reviewSort">
-	                        <option value="">추천순</option>
-	                        <option value="">최신순</option>
-	                        <option value="">평점 높은순</option>
-	                        <option value="">평점 낮은순</option>
-	                    </select>
+	                <div id="reviewMiddlePhoto">
+	                	<c:forEach begin="0" end="20" items="${storeReviewPhoto}" var="reviewPhoto" varStatus="status">
+			                <c:choose>
+	                           		<c:when test="${reviewPhoto.store_review_photo1 eq null }">
+	                           		</c:when>
+	                           		<c:when test="${reviewPhoto.store_review_photo2 eq null }">
+	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		</c:when>
+	                           		<c:when test="${reviewPhoto.store_review_photo3 eq null }">
+	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		</c:when>
+	                           		<c:when test="${reviewPhoto.store_review_photo4 eq null }">
+	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		</c:when>
+	                           		<c:when test="${reviewPhoto.store_review_photo5 eq null }">
+	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+		                                <img src="../resources/upload/${reviewPhoto.store_review_photo5 }" class="a${status.index } b imgs" alt="" style="height: 120px; width:120px;">
+	                           		</c:otherwise>
+	                           	</c:choose>
+		                </c:forEach>
 	                </div>
+	            </div>
+<!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 --><!-- 리뷰 중단 포토 끝 -->	            
+	            <div class="reviewBottom">
+                	<table>
+                		<thead>
+                			<tr>
+                				<td style="width: 100%; font-weight:bold;">
+                					리뷰 ${totalRow}건
+                				</td>
+                				<td style="width: 100%; text-align:right;">
+                					<form action="store_view.do" method="get" id="abcde">
+				                    	<input type="hidden" name="store_idx" value="${read.store_idx }">
+				                    	<input type="hidden" name="store_funding" value="${read.store_funding }">
+					                    <select id="reviewSort" name="reviewSort">
+					                        <option value="sortReviewLike" ${reviewSort eq 'sortReviewLike' ? 'selected' : ''}>추천순</option>
+					                        <option value="sortReviewNew" ${reviewSort eq 'sortReviewNew' ? 'selected' : ''}>최신순</option>
+					                        <option value="sortReviewHighStar" ${reviewSort eq 'sortReviewHighStar' ? 'selected' : ''}>평점 높은순</option>
+					                        <option value="sortReviewLowStar" ${reviewSort eq 'sortReviewLowStar' ? 'selected' : ''}>평점 낮은순</option>
+					                    </select>
+				                    </form>
+                				</td>
+                			</tr>
+                		</thead>
+                	</table>
+	                <input type="number" id="storeReviewListSize" value="${storeReviewList.size() }" style="display:none;">
 	                
 	                <table class="table storetable">
-	                	<c:forEach items="${storeReviewList}" var="reviewList">
+	                	<c:forEach items="${storeReviewList}" var="reviewList" varStatus="status">
 	                		<thead>
 		                        <tr>
-		                            <td style="width:10%" class="tdImg">
+		                            <td style="width:5%" class="tdImg">
 		                                <img src="../resources/upload/${reviewList.member_photo }" alt="">
 		                            </td>
-		                            <td style="width:90%" scope="row">
+		                            <td style="width:100%" scope="row">
 		                                <!--별점-->
 		                                <div class="viewStar">
 		                                    <svg style="display:none;">
@@ -520,19 +565,45 @@
 		                                        </svg>
 		                                    </div>
 		                                </div>
-		                                <!--별점 끝-->
+ <!--별점 끝--> <!--별점 끝--> <!--별점 끝--> <!--별점 끝--> <!--별점 끝-->	
 		                                <span class="reviewName">${reviewList.member_name }</span>
 		                                <span class="middleBar">|</span>
 		                                <fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
 		                                <span class="reviewReg"><fmt:formatDate value="${regdate}" pattern="yyyy-MM-dd" /></span>
-		                                <button class="reviewLike">
-		                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="30" fill="red" class="bi bi-hand-thumbs-up"
-		                                        viewBox="0 0 16 20">
-		                                        <path
-		                                            d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
-		                                    </svg>
-		                                    0
-		                                </button>
+<!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 -->
+										<input type="number" id="storeReview_store_review_idx${status.index }" value="${reviewList.store_review_idx }" style="display:none;">
+										
+										<c:if test="${login eq null }">
+											<button class="reviewLike" style="" data-toggle="modal" data-target="#loginModal">
+			                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="30" fill="red" class="bi bi-hand-thumbs-up"
+			                                        viewBox="0 0 16 20">
+			                                        <path
+			                                            d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
+			                                    </svg>
+			                                    ${reviewList.store_review_like}
+			                                </button>
+										</c:if>
+										<c:if test="${login ne null }">
+											<button id="reviewLike${status.index }" class="reviewLike reviewLike2 doLike${reviewList.store_review_idx }" style="" data-id="${login.member_idx }" data-id2="${reviewList.store_review_idx }">
+			                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="30" fill="red" class="bi bi-hand-thumbs-up"
+			                                        viewBox="0 0 16 20">
+			                                        <path
+			                                            d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
+			                                    </svg>
+		                                    	<span class="doLikeSpan${reviewList.store_review_idx }">${reviewList.store_review_like}</span>
+			                                </button>
+			                                <button id="reviewLikeCancle${status.index }" class="reviewLike cancelLike cancelLike${reviewList.store_review_idx }" data-id="${login.member_idx }" data-id2="${reviewList.store_review_idx }" style="background-color:#fa6462; color:white;">
+			                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="30" fill="white" class="bi bi-hand-thumbs-up"
+			                                        viewBox="0 0 16 20">
+			                                        <path
+			                                            d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
+			                                    </svg>
+			                                    <span class="cancelLikeSpan${reviewList.store_review_idx }">${reviewList.store_review_like}</span>
+			                                </button>
+										</c:if>
+										
+		                                
+<!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 -->
 		                                <br>
 		                                <span class="reviewOption">옵션명 주르르르르륵</span>
 		                            <td>
@@ -546,37 +617,37 @@
 		                            			${reviewList.store_review_content }
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo2 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
 		                            			<br>
 				                              	${reviewList.store_review_content }
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo3 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
 				                              	${reviewList.store_review_content }
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo4 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
 				                              	${reviewList.store_review_content }
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo5 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
 				                              	${reviewList.store_review_content }
 		                            		</c:when>
 		                            		<c:otherwise>
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo5 }" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
 				                              	${reviewList.store_review_content }
 		                            		</c:otherwise>
@@ -587,19 +658,20 @@
 	                	</c:forEach>
 	                </table>
 	            </div>
+	            <!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 -->
 	            <div>
 		        	<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
 						    <c:if test="${prev }">
-						    	<li class="page-item"><a class="page-link prev" href="store_view.do?pageNum=${startPage-1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}#FVcommu">이전</a></li>
+						    	<li class="page-item"><a class="page-link prev" href="store_view.do?pageNum=${startPage-1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVcommu">이전</a></li>
 						    </c:if> 
 						
 						    <c:forEach begin="${startPage}" end="${endPage}" var="idx">
-						    	<li class="page-item"><a class="page-link" href="store_view.do?pageNum=${idx}&store_idx=${read.store_idx}&store_funding=${read.store_funding}#FVcommu">${idx}</a></li>
+						    	<li class="page-item"><a class="page-link" href="store_view.do?pageNum=${idx}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVcommu">${idx}</a></li>
 						    </c:forEach>
 						
 						    <c:if test="${next}">
-						    	<li class="page-item"><a class="page-link next" href="store_view.do?pageNum=${endPage+1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}#FVcommu">다음</a></li>
+						    	<li class="page-item"><a class="page-link next" href="store_view.do?pageNum=${endPage+1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVcommu">다음</a></li>
 						    </c:if> 
 						  </ul>
 					 </nav>
@@ -636,7 +708,7 @@
       </div>
       <div class="modal-footer login_modal_footer">
         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_select.do'" class="joinModalBtn login_modalBtn btn btn-outline-info btn-lg">회원가입</button>
-        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/store/store_view.do?store_idx=${read.store_idx}&store_funding=${read.store_funding}&login=1w213123214342543'"  class="login_modalBtn loginModalBtn btn btn-info btn-lg">로그인</button>
+        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/store/store_view.do?store_idx=${read.store_idx}&store_funding=${read.store_funding}&login=1w212343242erwewrwe2343242342342342342reterterter3123214342543'"  class="login_modalBtn loginModalBtn btn btn-info btn-lg">로그인</button>
       </div>
     </div>
   </div>
@@ -725,7 +797,78 @@
     </div>
 <!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 -->
 <!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 -->
-	
+
+<!-- 갤러리 모달 -->
+<div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content login_modal_content">
+      <div class="modal-header login_modal_header">
+        <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body login_modal_body">
+      	<h4>갤러리</h4>
+      	<c:forEach items="${storeReviewPhoto}" var="reviewPhoto" varStatus="status">
+          <c:choose>
+       		<c:when test="${reviewPhoto.store_review_photo1 eq null }">
+       		</c:when>
+        		<c:when test="${reviewPhoto.store_review_photo2 eq null }">
+        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+        		</c:when>
+        		<c:when test="${reviewPhoto.store_review_photo3 eq null }">
+        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px ; margin:10px 10px 10px 10px;">
+              		<img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+        		</c:when>
+        		<c:when test="${reviewPhoto.store_review_photo4 eq null }">
+        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+		            <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+		            <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+        		</c:when>
+        		<c:when test="${reviewPhoto.store_review_photo5 eq null }">
+        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+        		</c:when>
+        		<c:otherwise>
+        		  <img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	              <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	              <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	              <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+	              <img src="../resources/upload/${reviewPhoto.store_review_photo5 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
+        		</c:otherwise>
+        	</c:choose>
+         </c:forEach>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 사진 상세 모달 -->
+<div class="modal fade" id="photoBigModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content login_modal_content">
+      <div class="modal-header">
+        <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body login_modal_body">
+      	<div class="modalBox">
+		<img src="" alt="">
+			<p></p>
+		</div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달 끝 -->
 <script src="../resources/js/store/store_view_load.js"></script>
 <script src="../resources/js/store/store_view_select.js"></script>
 <script>

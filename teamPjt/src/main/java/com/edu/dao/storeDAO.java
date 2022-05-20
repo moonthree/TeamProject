@@ -2,6 +2,7 @@ package com.edu.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimVO;
 
 @Repository
 public class storeDAO {
@@ -42,6 +44,10 @@ public class storeDAO {
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectOne("StoreMapper.countStoreReviewList", vo);
 	}
+	// 스토어 리뷰 사진만 가져오기
+	public List<StoreReviewVO> storeReviewPhoto(StoreReviewVO vo) throws Exception{
+		return sqlSession.selectList("StoreMapper.storeReviewPhoto", vo);
+	}
 	// 스토어 리뷰 평균
 	public Double starAvg(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectOne("StoreMapper.starAvg", vo);
@@ -67,7 +73,38 @@ public class storeDAO {
 	public int storeReviewWrite(StoreReviewVO vo) throws Exception{
 		return sqlSession.insert("StoreMapper.storeReviewWrite", vo);
 	}
-	
+	//zzim select
+	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.selectZzimStore", paramMap);
+	}
+	//zzim 삭제
+	public int deleteZzimStore(Map<String, Object> paramMap) {
+		return sqlSession.delete("StoreMapper.deleteZzimStore", paramMap);
+	}
+	//리뷰 추천 insert
+	public int doReviewLike(Map<String, Object> paramMap) {
+		return sqlSession.insert("StoreMapper.doReviewLike", paramMap);
+	}
+	//리뷰 추천 증가 update
+	public int updateReviewLike(Map<String, Object> paramMap) {
+		return sqlSession.update("StoreMapper.updateReviewLike", paramMap);
+	}
+	//리뷰 추천 개수 가져오기
+	public int getReviewLikeNum(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("StoreMapper.getReviewLikeNum", paramMap);
+	}
+	//리뷰 추천 select
+	public List<StoreReviewVO> selectThumbsUp(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.selectThumbsUp", paramMap);
+	}
+	//리뷰 추천 취소 delete
+	public int cancelLike(Map<String, Object> paramMap) {
+		return sqlSession.delete("StoreMapper.cancelLike", paramMap);
+	}
+	//리뷰 추천 수 감소
+	public int updateReviewLike2(Map<String, Object> paramMap) {
+		return sqlSession.update("StoreMapper.updateReviewLike2", paramMap);
+	}
 	
 	
 	// 스토어 옵션 리스트
