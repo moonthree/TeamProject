@@ -109,6 +109,10 @@ public class StoreController {
 			vo.setSortView("b");
 		}else if(condition.equals("sortStar")) {
 			vo.setSortStar("c");
+		}else if(condition.equals("sortHighPrice")) {
+			vo.setSortHighPrice("d");
+		}else if(condition.equals("sortLowPrice")) {
+			vo.setSortLowPrice("e");
 		}
 		if(categorySelect.equals("dog")) {
 			vo.setDog("dog");
@@ -208,6 +212,27 @@ public class StoreController {
 			model.addAttribute("orderCount", orderCount);
 		}
 		
+		//스토어 리뷰 정렬
+		String reviewSort= request.getParameter("reviewSort");
+		if(reviewSort == null) {
+			reviewSort = "";
+		}
+		System.out.println(reviewSort);
+		String encodedk = URLEncoder.encode(reviewSort);			//특수기호를 인코딩한 키워드를 준비한다.
+		
+		if(reviewSort.equals("sortReviewLike")) {
+			srvo.setSortReviewLike("a");
+		}else if(reviewSort.equals("sortReviewNew")){
+			srvo.setSortReviewNew("b");
+		}else if(reviewSort.equals("sortReviewHighStar")) {
+			srvo.setSortReviewHighStar("c");
+		}else if(reviewSort.equals("sortReviewLowStar")) {
+			srvo.setSortReviewLowStar("d");
+		}
+		
+		//스토어 리뷰 사진만 가져오기 리스트
+		ArrayList<StoreReviewVO> storeReviewPhoto = null;
+		storeReviewPhoto = (ArrayList<StoreReviewVO>) sts.storeReviewPhoto(srvo);
 		//스토어 리뷰 리스트
 		final int PAGE_ROW_COUNT = 5; 							//한 페이지에 몇개씩 표시할 것인지
 		final int displayPageNum = 3;							//페이징 번호 몇 개
@@ -243,6 +268,7 @@ public class StoreController {
 		boolean next = endPage * PAGE_ROW_COUNT >= totalRow ? false : true;
 		
 		request.setAttribute("storeReviewList", storeReviewList);
+		request.setAttribute("storeReviewPhoto", storeReviewPhoto);
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("totalRow", totalRow);
 		request.setAttribute("startRowNum", startRowNum);
@@ -250,6 +276,7 @@ public class StoreController {
 		request.setAttribute("next", next);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("startPage", startPage);
+		request.setAttribute("reviewSort", reviewSort);
 		//스토어 리뷰 리스트 끝
 		
 		//스토어 별점 평균
@@ -567,22 +594,52 @@ public class StoreController {
 		}
 		return retVal;
 	}
-	
 	// 찜 select
 	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
 	@ResponseBody
 	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
 		Map<String, Object> selectZzim = new HashMap<String, Object>();
-		List<ZzimVO> result = fms.selectZzim(paramMap);		
+		List<ZzimVO> result = sts.selectZzimStore(paramMap);		
 		return result;		
 	}
-	
 	// 찜 delete
 	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)
 	@ResponseBody
 	public Object deleteZzim(@RequestParam Map<String, Object> paramMap){
 		Map<String, Object> deleteZzim = new HashMap<String, Object>();
-		int result = fms.deleteZzim(paramMap);
+		int result = sts.deleteZzimStore(paramMap);
 		return result;
+	}
+	// 리뷰 추천 insert, update, getssss
+	@RequestMapping(value ="/doReviewLike", method= RequestMethod.POST)
+	@ResponseBody
+	public Object doReviewLike(@RequestParam Map<String, Object> paramMap){
+		
+		/*
+		 * Map<String, Object> retVal = new HashMap<String, Object>();
+		 * System.out.println(retVal);
+		 */
+		sts.updateReviewLike(paramMap);
+		sts.doReviewLike(paramMap);
+		int result = sts.getReviewLikeNum(paramMap);
+		return result;
+	}
+	//리뷰 추천 취소 delete, update, get
+	@RequestMapping(value ="/cancelLike", method= RequestMethod.POST)
+	@ResponseBody
+	public Object cancelLike(@RequestParam Map<String, Object> paramMap){
+		
+		sts.updateReviewLike2(paramMap);
+		sts.cancelLike(paramMap);
+		int result = sts.getReviewLikeNum(paramMap);
+		return result;
+	}
+	//리뷰 추천 select
+	@RequestMapping(value ="/selectThumbsUp", method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectThumbsUp(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> selectThumbsUp = new HashMap<String, Object>();
+		List<StoreReviewVO> result = sts.selectThumbsUp(paramMap);		
+		return result;		
 	}
 }

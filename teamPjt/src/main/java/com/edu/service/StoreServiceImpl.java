@@ -3,6 +3,7 @@ package com.edu.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimVO;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -61,6 +63,12 @@ public class StoreServiceImpl implements StoreService{
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception {
 		return dao.countStoreReviewList(vo);
 	}
+	//스토어 리뷰 사진만 가져오기
+	@Override
+	public List<StoreReviewVO> storeReviewPhoto(StoreReviewVO vo) throws Exception {
+		ArrayList<StoreReviewVO> storeReviewPhoto = (ArrayList<StoreReviewVO>) dao.storeReviewPhoto(vo);
+		return storeReviewPhoto;
+	}
 	//스토어 별점 평균
 	@Override
 	public Double starAvg(StoreReviewVO vo) throws Exception {
@@ -93,6 +101,47 @@ public class StoreServiceImpl implements StoreService{
 	public int storeReviewWrite(StoreReviewVO vo) throws Exception {
 		return dao.storeReviewWrite(vo);
 	}
+	//찜 select
+	@Override
+	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {
+		return dao.selectZzimStore(paramMap);
+	}
+	//찜 delete
+	@Override
+	public int deleteZzimStore(Map<String, Object> paramMap) {
+		return dao.deleteZzimStore(paramMap);
+	}
+	//스토어 리뷰 추천 하기
+	@Override
+	public int doReviewLike(Map<String, Object> paramMap) {
+		return dao.doReviewLike(paramMap);
+	}
+	//스토어 리뷰 추천 수 증가
+	@Override
+	public int updateReviewLike(Map<String, Object> paramMap) {
+		return dao.updateReviewLike(paramMap);
+	}
+	//리뷰 추천 개수 가져오기
+	@Override
+	public int getReviewLikeNum(Map<String, Object> paramMap) {
+		return dao.getReviewLikeNum(paramMap);
+	}
+	//스토어 리뷰 추천 select
+	@Override
+	public List<StoreReviewVO> selectThumbsUp(Map<String, Object> paramMap) {
+		return dao.selectThumbsUp(paramMap);
+	}
+	//리뷰 추천 취소
+	@Override
+	public int cancelLike(Map<String, Object> paramMap) {
+		return dao.cancelLike(paramMap);
+	}
+	//리뷰 추천 감소
+	@Override
+	public int updateReviewLike2(Map<String, Object> paramMap) {
+		return dao.updateReviewLike2(paramMap);
+	}
+	
 	
 	// 스토어 옵션 리스트
 	@Override
@@ -113,7 +162,6 @@ public class StoreServiceImpl implements StoreService{
 	}
 	@Override
 	public int storeOptionReg(List<StoreOptionVO> vo) {
-		// TODO Auto-generated method stub
 		return dao.storeOptionReg(vo);
 	}
 }

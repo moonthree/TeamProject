@@ -18,6 +18,7 @@ public class StoreVO {
 	private int store_express_fee;
 	private int store_views;
 	
+	
 	private MemberVO memberVO;
 	private String member_business_name;
 	private int funding_current_price;
@@ -28,13 +29,14 @@ public class StoreVO {
 	private String sortNew;
 	private String sortView;
 	private String sortStar;
+	private String sortHighPrice;
+	private String sortLowPrice;
 	private int startRowNum;
 	private int endRowNum;
 	private int rowCount;
 	private int totalRow;
 	private boolean prev;
 	private boolean next;
-	
 	
 	private Double starAvg;
 	
@@ -241,6 +243,18 @@ public class StoreVO {
 	}
 	public void setFunding_current_price(int funding_current_price) {
 		this.funding_current_price = funding_current_price;
+	}
+	public String getSortHighPrice() {
+		return sortHighPrice;
+	}
+	public void setSortHighPrice(String sortHighPrice) {
+		this.sortHighPrice = sortHighPrice;
+	}
+	public String getSortLowPrice() {
+		return sortLowPrice;
+	}
+	public void setSortLowPrice(String sortLowPrice) {
+		this.sortLowPrice = sortLowPrice;
 	}
 	
 	

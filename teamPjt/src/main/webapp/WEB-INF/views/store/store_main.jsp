@@ -25,7 +25,7 @@
 	        <div class="row" id="category">
 	            <div class="col-sm-3 col-6" id="fundCategory" style="cursor:pointer;">
 	                <a href="#">
-	                    <img src="../resources/image/img/paws.png" alt="photo" class="rounded-circle"/>
+	                    <img src="../resources/image/img/trophy.png" alt="photo" class="rounded-circle"/>
 	                    <br>
 	                    펀딩 성공 상품
 	                </a>
@@ -46,7 +46,7 @@
 	            </div>
 	            <div class="col-sm-3 col-6" id="otherCategory" style="cursor:pointer;">
 	                <a href="#">
-	                    <img src="../resources/image/img/other.png" alt="photo" class="rounded-circle"/>
+	                    <img src="../resources/image/img/llama.png" alt="photo" class="rounded-circle"/>
 	                    <br>
 	                    반려 동물
 	                </a>
@@ -68,6 +68,8 @@
 		                  <option value="sortNew" ${condition eq 'sortNew' ? 'selected' : ''}>최신순</option>
 		                  <option value="sortView" ${condition eq 'sortView' ? 'selected' : ''}>인기순</option>
 		                  <option value="sortStar" ${condition eq 'sortStar' ? 'selected' : ''}>평점순</option>
+		                  <option value="sortHighPrice" ${condition eq 'sortHighPrice' ? 'selected' : ''}>높은 가격순</option>
+		                  <option value="sortLowPrice" ${condition eq 'sortLowPrice' ? 'selected' : ''}>낮은 가격순</option>
 		              </select>
 		          </div>
 	        </div>
@@ -154,7 +156,7 @@
         		</c:forEach>
         	</div>
         </c:if>
-        
+        <!-- 페이징 --><!-- 페이징 --><!-- 페이징 --><!-- 페이징 -->
         <div>
         	<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">

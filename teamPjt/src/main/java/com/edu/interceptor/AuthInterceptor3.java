@@ -13,7 +13,6 @@ public class AuthInterceptor3 extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         
-//    	System.out.println("AuthInterceptor.pre>>");
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
         String query = request.getQueryString();
@@ -21,14 +20,10 @@ public class AuthInterceptor3 extends HandlerInterceptorAdapter {
 		
         System.out.println(query.length());
         // 뷰에 접속
-		if(query.length() > 40) {
+		if(query.length() > 90) {
 			// 로그인하지 않은 사용자일 경우 로그인 페이지로 이동
 			System.out.println(query.length());
 			if( session.getAttribute(LOGIN) == null) {
-	//			System.out.println("session is null");
-//				System.out.println(uri);
-//				System.out.println(query);
-//				System.out.println(path);
 				if(request.getMethod().equalsIgnoreCase("get")) {
 					path = uri + "?" + query;
 				}

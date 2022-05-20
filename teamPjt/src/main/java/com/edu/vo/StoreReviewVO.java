@@ -25,11 +25,39 @@ public class StoreReviewVO {
 	private int totalRow;
 	private boolean prev;
 	private boolean next;
+
+	private String sortReviewLike;
+	private String sortReviewNew;
+	private String sortReviewHighStar;
+	private String sortReviewLowStar;
 	
 	
 	
 	
-	
+	public String getSortReviewLike() {
+		return sortReviewLike;
+	}
+	public void setSortReviewLike(String sortReviewLike) {
+		this.sortReviewLike = sortReviewLike;
+	}
+	public String getSortReviewNew() {
+		return sortReviewNew;
+	}
+	public void setSortReviewNew(String sortReviewNew) {
+		this.sortReviewNew = sortReviewNew;
+	}
+	public String getSortReviewHighStar() {
+		return sortReviewHighStar;
+	}
+	public void setSortReviewHighStar(String sortReviewHighStar) {
+		this.sortReviewHighStar = sortReviewHighStar;
+	}
+	public String getSortReviewLowStar() {
+		return sortReviewLowStar;
+	}
+	public void setSortReviewLowStar(String sortReviewLowStar) {
+		this.sortReviewLowStar = sortReviewLowStar;
+	}
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
