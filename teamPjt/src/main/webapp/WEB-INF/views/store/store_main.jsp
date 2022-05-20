@@ -83,7 +83,7 @@
 		                <div class="card">
 		                    <div class="card-img">
 		                        <a href="store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
-		                            <img src="../resources/image/funding_main/${item.store_thumbnail}" class="card-img-top img2" alt="...">
+		                            <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top img2" alt="...">
 		                        </a>
 		                        <%-- <button id="zzimBtn" class="card-zzim-btn doZzim" type="button" style="background-color: white;" data-id="${login.member_idx }" data-id2="${item.store_idx }" data-id3="${item.funding_idx }">>
 		                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-heart"

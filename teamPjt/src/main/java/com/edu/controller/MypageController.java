@@ -195,7 +195,7 @@ public class MypageController {
 	         }
 	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
 	      } else {
-	         pw.println("<script>alert('회원가입 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+	         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
 	      }
 	      pw.flush();
 	      
