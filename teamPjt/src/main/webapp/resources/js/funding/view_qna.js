@@ -69,14 +69,14 @@ var qnaModalSubmit = $("#qnaSubmitBtn");
  // qna 모달 작성 끝
  
 // qna 모 view 시작
-var qnaViewContent = "";
+/*var qnaViewContent = "";
 
 
 $('.qnaViewModal2').click(function(){
 	qnaViewContent = $(this).data('id');
 		$('#qnaViewDiv').html(qnaViewContent);
 	
-});
+});*/
 // qna 모달 view 끝
 
 // qna 모달 답변 시작
@@ -358,7 +358,7 @@ var qnaAdminBtn = $("#qnaAdminBtn");
 		
 	});
 // 관리자 qna 삭제 모달에서 아니오 누르면 
-var qnaAdminNo = $("#qnaAdminBtn");
+var qnaAdminNo = $("#qnaAdminNo");
 	qnaAdminNo.on("click", function(){
 		 $('#qnaAdminModal').modal('hide')
 	});

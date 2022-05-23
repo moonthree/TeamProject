@@ -24,46 +24,27 @@
 		<collection property="memberVO" resultMap="MemberVO"></collection>
 	</resultMap>
 	
-	<select id="SearchFunding" parameterType="com.edu.vo.SearchCriteria" resultType="FundingMainVO">
-		SELECT funding_idx,
-			funding_title,
-			funding_thumbnail,
-			funding_target_price,
-			funding_current_price,
-			funding_start_date,
-			funding_end_date,
-			funding_permit_state,
-			funding_current_state,
-			funding_category,
-			funding_views
-		FROM funding
-		where 1=1 AND funding_title LIKE CONCAT('%${keyword}%')
-		order by funding_idx desc limit #{rowStart}, 9;
-	</select>
-	
-	<select id="searchFundingCount" parameterType="com.edu.vo.SearchCriteria" resultType="int">
-		SELECT COUNT(funding_idx)
-		FROM funding
-		WHERE 1=1 AND funding_title LIKE CONCAT('%${keyword}%')
-		
-		<!-- <include refid="SearchFundingCase"></include> -->
-	</select>
-	
-	<sql id="SearchFundingCase">
-		<if test="searchType != null">
-			<if test="searchType == 'dog'.toString()">AND funding_category = 0</if>
-			<if test="searchType == 'cat'.toString()">AND funding_category = 1</if>
-			<if test="searchType == 'other'.toString()">AND funding_category = 2</if>
-			<if test="searchType == 'all'.toString()"></if>
-		</if>
-	</sql>
-	
 	<select id="searchCount" parameterType="FundingMainVO" resultType="int">
 		SELECT COUNT(funding_idx)
 		FROM funding
 		WHERE 1=1 
 		AND funding_title LIKE CONCAT('%${keyword}%') 
 		AND funding_permit_state = 1
+		<choose>
+			<when test="all != null">
+			</when>
+			<when test="dog != null">
+				AND funding_category = 0
+			</when>
+			<when test="cat != null">
+				AND funding_category = 1
+			</when>
+			<when test="other != null">
+				AND funding_category = 2
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="searchList" parameterType="FundingMainVO" resultType="FundingMainVO" resultMap="FundingMainVO">
@@ -88,10 +69,127 @@
 			AND fd.funding_title LIKE CONCAT('%${keyword}%')
 			AND fd.funding_permit_state = 1
 			AND fd.member_idx = mem.member_idx
-		order by fd.funding_idx desc limit #{startRowNum}, 6;
+			<choose>
+				<when test="all != null">
+				</when>
+				<when test="dog != null">
+					AND fd.funding_category = 0
+				</when>
+				<when test="cat != null">
+					AND fd.funding_category = 1
+				</when>
+				<when test="other != null">
+					AND fd.funding_category = 2
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="sortNew != null">
+					order by funding_idx desc limit #{startRowNum}, 8;
+				</when>
+				<when test="sortView != null">
+					order by funding_views desc limit #{startRowNum}, 8;
+				</when>
+				<when test="sortPrice != null">
+					order by funding_current_price desc limit #{startRowNum}, 8;
+				</when>
+				<when test="sortdeadline != null">
+					order by funding_end_date desc limit #{startRowNum}, 8;
+				</when>
+				<otherwise>
+					order by funding_idx desc limit #{startRowNum}, 8;
+				</otherwise>
+			</choose>
+		<!-- order by fd.funding_idx desc limit #{startRowNum}, 8; -->
 	</select>
 	
 	
+	<!-- 스토어 검색 리스트 -->
+	<select id="searchStoreList" parameterType="StoreVO" resultType="StoreVO">
+		SELECT 
+		    s.store_idx,
+			s.member_idx,
+			s.funding_idx,
+			s.store_price,
+			s.store_title,
+			s.store_thumbnail,
+			s.store_content,
+			s.store_notice,
+			s.store_write_date,
+			s.store_permit_state,
+			s.store_current_state,
+			s.store_category,
+			s.store_funding,
+			s.store_express_fee,
+			s.store_views,
+			sr.avg_star
+		FROM store s
+		LEFT OUTER JOIN (select AVG(sr.store_review_star) as 'avg_star', store_idx from store_review sr group by store_idx) sr
+		ON s.store_idx = sr.store_idx 
+			AND s.store_idx = sr.store_idx 
+			AND store_permit_state=1
+			<choose>
+				<when test="all != null">
+				</when>
+				<when test="dog != null">
+					AND s.store_category = 0
+				</when>
+				<when test="cat != null">
+					AND s.store_category = 1
+				</when>
+				<when test="other != null">
+					AND s.store_category = 2
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+		WHERE s.store_title LIKE CONCAT('%${keyword}%')
+		<choose>
+			<when test="sortNewStore != null">
+				order by store_idx desc limit #{startRowNumStore}, 8;
+			</when>
+			<when test="sortViewStore != null">
+				order by store_views desc limit #{startRowNumStore}, 8;
+			</when>
+			<when test="sortStarStore != null">
+				order by sr.avg_star desc limit #{startRowNumStore}, 8;
+			</when>
+			<when test="sortHighPriceStore != null">
+				order by store_price desc limit #{startRowNumStore}, 8;
+			</when>
+			<when test="sortLowPriceStore != null">
+				order by store_price asc limit #{startRowNumStore}, 8;
+			</when>
+			<otherwise>
+				order by store_idx desc limit #{startRowNumStore}, 8;
+			</otherwise>
+		</choose>
+		<!-- order by s.store_idx desc limit #{startRowNumStore}, 8; --> 
+	</select>
+	
+	<select id="searchStoreCount" parameterType="StoreVO" resultType="int">
+		SELECT COUNT(store_idx)
+		FROM store
+		WHERE 1=1 
+		AND store_title LIKE CONCAT('%${keyword}%') 
+		AND store_permit_state = 1
+		<choose>
+			<when test="all != null">
+			</when>
+			<when test="dog != null">
+				AND store_category = 0
+			</when>
+			<when test="cat != null">
+				AND store_category = 1
+			</when>
+			<when test="other != null">
+				AND store_category = 2
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
 	
 	
 </mapper>

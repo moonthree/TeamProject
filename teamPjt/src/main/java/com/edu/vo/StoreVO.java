@@ -38,11 +38,100 @@ public class StoreVO {
 	private boolean prev;
 	private boolean next;
 	
+	//검색 관련
+	private int startRowNumStore;
+	private int endRowNumStore;
+	private int rowCountStore;
+	private int totalRowStore;
+	
+	private String all;
+	private String sortNewStore;
+	private String sortViewStore;
+	private String sortStarStore;
+	private String sortHighPriceStore;
+	private String sortLowPriceStore;
+	
+	private String keyword = "";
+	
 	private Double starAvg;
+	private Double avg_star;
 	
 	
 	
 	
+	
+	public String getAll() {
+		return all;
+	}
+	public void setAll(String all) {
+		this.all = all;
+	}
+	public String getSortNewStore() {
+		return sortNewStore;
+	}
+	public void setSortNewStore(String sortNewStore) {
+		this.sortNewStore = sortNewStore;
+	}
+	public String getSortViewStore() {
+		return sortViewStore;
+	}
+	public void setSortViewStore(String sortViewStore) {
+		this.sortViewStore = sortViewStore;
+	}
+	public String getSortStarStore() {
+		return sortStarStore;
+	}
+	public void setSortStarStore(String sortStarStore) {
+		this.sortStarStore = sortStarStore;
+	}
+	public String getSortHighPriceStore() {
+		return sortHighPriceStore;
+	}
+	public void setSortHighPriceStore(String sortHighPriceStore) {
+		this.sortHighPriceStore = sortHighPriceStore;
+	}
+	public String getSortLowPriceStore() {
+		return sortLowPriceStore;
+	}
+	public void setSortLowPriceStore(String sortLowPriceStore) {
+		this.sortLowPriceStore = sortLowPriceStore;
+	}
+	public Double getAvg_star() {
+		return avg_star;
+	}
+	public void setAvg_star(Double avg_star) {
+		this.avg_star = avg_star;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public int getStartRowNumStore() {
+		return startRowNumStore;
+	}
+	public void setStartRowNumStore(int startRowNumStore) {
+		this.startRowNumStore = startRowNumStore;
+	}
+	public int getEndRowNumStore() {
+		return endRowNumStore;
+	}
+	public void setEndRowNumStore(int endRowNumStore) {
+		this.endRowNumStore = endRowNumStore;
+	}
+	public int getRowCountStore() {
+		return rowCountStore;
+	}
+	public void setRowCountStore(int rowCountStore) {
+		this.rowCountStore = rowCountStore;
+	}
+	public int getTotalRowStore() {
+		return totalRowStore;
+	}
+	public void setTotalRowStore(int totalRowStore) {
+		this.totalRowStore = totalRowStore;
+	}
 	public Double getStarAvg() {
 		return starAvg;
 	}

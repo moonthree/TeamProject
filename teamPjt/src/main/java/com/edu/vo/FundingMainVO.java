@@ -32,11 +32,12 @@ public class FundingMainVO {
 	private String dog;
 	private String cat;
 	private String other;
+	private String all;
 	
 	private String sortNew;
 	private String sortView;
 	private String sortPrice;
-	
+	private String sortdeadline;
 
 	private int startRowNum;
 	private int endRowNum;
@@ -47,6 +48,19 @@ public class FundingMainVO {
 	private boolean next;
 	
 	
+	
+	public String getSortdeadline() {
+		return sortdeadline;
+	}
+	public void setSortdeadline(String sortdeadline) {
+		this.sortdeadline = sortdeadline;
+	}
+	public String getAll() {
+		return all;
+	}
+	public void setAll(String all) {
+		this.all = all;
+	}
 	public int getTotalRow() {
 		return totalRow;
 	}

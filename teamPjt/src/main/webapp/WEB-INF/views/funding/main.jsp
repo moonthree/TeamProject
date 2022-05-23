@@ -83,7 +83,7 @@
 		                    <a href="view.do?funding_idx=${item.funding_idx}">
 		                    	<img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 		                    </a>
-		                    <div class="card-body">
+		                    <div class="card-body funding_title">
 			                    <a href="view.do?funding_idx=${item.funding_idx}">
 			                        <h5 class="card-title">${item.funding_title}</h5>
 			                    </a>
