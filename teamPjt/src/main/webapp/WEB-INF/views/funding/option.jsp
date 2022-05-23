@@ -28,7 +28,7 @@
     <!-- 펀딩 제목  -->
 	<div><h3>${read.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
-        <form name="order" id="orderform" action="option.do" method="post" class="orderform">
+        <form name="order" id="orderform" action="reserve.do" method="get" class="orderform">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
             	<input type="hidden" name="funding_title" value="${read.funding_title}">

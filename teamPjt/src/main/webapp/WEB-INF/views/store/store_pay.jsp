@@ -25,7 +25,6 @@
         }
     }
 
-	history.replaceState({}, null, location.pathname);
 </script>
 
 <title>스토어 주문 및 결제</title>

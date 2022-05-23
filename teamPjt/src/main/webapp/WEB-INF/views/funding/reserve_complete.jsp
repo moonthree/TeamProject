@@ -15,7 +15,7 @@
 		var date = end_date.split("-");
 		var end_date_text = new Date(date.toLocaleString());
 		end_date_text = end_date_text.getFullYear() + "년 " + ((end_date_text.getMonth() + 1) > 9 ? (end_date_text.getMonth() + 1).toString() : "0" + (end_date_text.getMonth() + 1)) + "월 " + (end_date_text.getDate() > 9 ? end_date_text.getDate().toString() : "0" + end_date_text.getDate().toString()) + "일";
-		document.querySelector('#end_date_text').textContent = end_date_text;
+		document.getElementById('end_date').textContent = end_date_text;
 		
 		// 결제 예정일
 		var pay_date = new Date(date.toLocaleString());
