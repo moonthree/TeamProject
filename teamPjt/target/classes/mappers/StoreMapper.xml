@@ -310,6 +310,100 @@
 	</update>
 	
 	
+<!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 -->
+	<!-- 스토어 qna 작성 -->
+	<insert id="insertStoreQna" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="store_qna_idx">
+		insert into store_qna
+		(
+            store_idx,
+            member_idx,
+            parent_id,
+            depth,
+            store_qna_secret,
+            store_qna_content,
+            store_qna_writer_idx
+        )
+        values
+        (
+            #{store_idx},
+            #{member_idx},
+            #{parent_id},
+            #{depth},
+            #{store_qna_secret},
+            #{store_qna_content},
+            #{store_qna_writer_idx}
+        )
+	</insert>
+	<!-- 스토어 qna 댓글 리스트 ssss-->
+	<select id="readStoreQnaList" resultType="StoreQnaVO" parameterType="java.util.HashMap">
+		select 
+			qna.store_qna_idx,
+			qna.store_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.store_qna_state,
+			qna.store_qna_secret,
+			qna.store_qna_content,
+			qna.store_qna_writer_idx,
+			qna.store_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM store_qna AS qna
+		JOIN member AS mem 
+		ON qna.store_idx = #{store_idx} and qna.member_idx = mem.member_idx and qna.depth = 0
+		order by store_qna_idx desc limit ${startRowNumQna}, 9;
+	</select>
+	<!-- 스토어 qna 댓글 답변-->
+	<select id="readStoreQnaAnswer" resultType="StoreQnaVO" parameterType="java.util.HashMap">
+		select 
+			qna.store_qna_idx,
+			qna.store_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.store_qna_state,
+			qna.store_qna_secret,
+			qna.store_qna_content,
+			qna.store_qna_writer_idx,
+			qna.store_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM store_qna AS qna
+		JOIN member AS mem 
+		ON qna.store_idx = ${store_idx} and qna.member_idx = mem.member_idx and qna.parent_id = #{store_qna_idx}
+	</select>
+	<!-- 스토어 qna 답변 등록 완료 -->
+	<update id="qnaAnswerDone" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_state = 1
+		WHERE store_idx = #{store_idx} and store_qna_idx = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 답변 수정 -->
+	<update id="qnaAnswerModify" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_content = #{store_qna_content}
+		WHERE parent_id = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 수정 -->
+	<update id="modifyStoreQna" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_content = #{store_qna_content}, store_qna_secret = #{store_qna_secret}
+		WHERE store_qna_idx = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 삭제 -->
+	<delete id="deleteStoreQna" parameterType="StoreQnaVO">
+		DELETE FROM store_qna
+		WHERE store_qna_idx = #{store_qna_idx};
+	</delete>
+	<!-- 스토어 qna 개수 -->
+	<select id="countStoreQna" parameterType="StoreQnaVO" resultType="int">
+		SELECT COUNT(store_qna_idx)
+		FROM store_qna
+		where store_idx=#{store_idx} and depth = 0;
+	</select>
+<!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 -->
+	
 	<!-- 스토어 옵션 리스트 -->
 	<select id="storeOptionList" resultType="StoreOptionVO">
 		SELECT store_idx,

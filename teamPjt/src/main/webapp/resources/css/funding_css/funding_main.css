@@ -20,11 +20,23 @@ main {
     height: 100%;
 	line-height: 100%;
 }
-/*sssssssssssssssssssssssssssssssssssss*/
+/*ssssssssssssssssssssssssssssssssssssssss*/
+.funding_title > a {
+	display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    text-overflow: ellipsis; 
+	overflow: hidden;
+	height: 67.5px;
+}
 .card{
 	margin-bottom : 20px;
 	border : none;
+	border-bottom: 1px solid #e2e2e2;
 	/* 1px solid #e9e9e9; */
+}
+.search_fund_card{
+	padding-bottom : 20px;
 }
 
 .card-body{

@@ -427,22 +427,6 @@
                     	</c:if>
                     </div>
                 </div>
-               <%--  질문 크기 : ${listQna.size() }
-                답변 크기 : ${qnaAnswer.size() }
-                <br>
-                <c:forEach items="${listQna}" var="qnaList" varStatus="status">
-                 	qnaList : ${qnaList.funding_qna_idx } <br>
-               		<c:forEach items="${qnaAnswer}" var="qnaAnswer" end="0">
-               			<c:choose>
-               				<c:when test="${qnaList.funding_qna_idx eq qnaAnswer.parent_id }">
-               					답변 있음<br>
-               				</c:when>
-               				<c:otherwise>
-               					답변 없음<br>
-               				</c:otherwise>
-               			</c:choose>
-					</c:forEach>
-                </c:forEach> --%>
                 <table class="table QnAtable">
                     <thead>
                         <tr>
@@ -904,31 +888,6 @@
             </div>
         </form>
     </div>
-    
-    <!-- Q&A 뷰 모달 -->
-    <%-- <div class="modal fade" id="qnaViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content write_modal_content">
-                  <div class="modal-header write_modal_header">
-                      <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body write_modal_body">
-                  
-                      <h4>뷰창</h4>
-                      
-                      
-                  	  <input type=number id="funding_qna_secret" name="funding_qna_secret" value="" style="display:none;" />
-                      <input type=text id="funding_idx" name="funding_idx" value="${read.funding_idx}" style="display:none;" />
-                      <input type=text id="member_idx" name="member_idx" value="${member.member_idx}" style="display:none;" />
-                      <!-- <div id="qnaViewDiv" style="max-width: 200px; white-space:normal;">
-                      </div> -->
-                      <textarea id="qnaViewDiv" cols="60" rows="7" readonly="readonly"></textarea>
-                  </div>
-              </div>
-          </div>
-    </div> --%>
     
     <!-- Q&A 답변 모달 -->
     <div class="modal fade" id="qnaAnswerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

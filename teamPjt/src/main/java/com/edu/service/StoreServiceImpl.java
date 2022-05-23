@@ -15,6 +15,7 @@ import com.edu.dao.storeDAO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -141,7 +142,51 @@ public class StoreServiceImpl implements StoreService{
 	public int updateReviewLike2(Map<String, Object> paramMap) {
 		return dao.updateReviewLike2(paramMap);
 	}
-	
+
+//스토어 qna 시작
+	//스토어 qna 답글 리스트
+	@Override
+	public List<StoreQnaVO> getQnaAnswer(Map<String, Object> paramMap) {
+		ArrayList<StoreQnaVO> getQnaAnswer = (ArrayList<StoreQnaVO>) dao.getQnaAnswer(paramMap);
+		return getQnaAnswer;
+	}
+	// 스토어 qna 댓글 리스트
+	@Override
+	public List<StoreQnaVO> getQnaList(Map<String, Object> paramMap) {
+		//mysql에서 계층적 쿼리 처리가 어려우니 여기서 해결 -> 답변형 게시판 위해서
+		List<StoreQnaVO> fundingQnaList = dao.getQnaList(paramMap);
+		return fundingQnaList;
+	}
+	//스토어 qna 작성
+	@Override
+	public int qnaInsert(Map<String, Object> paramMap) {
+		return dao.qnaInsert(paramMap);
+	}
+	// 스토어 qna 답변 작성 완료
+	@Override
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception {
+		return dao.qnaAnswerDone(vo);
+	}
+	// 스토어 qna 답변 수정
+	@Override
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception {
+		dao.qnaAnswerModify(vo);
+	}
+	// 스토어 qna 삭제
+	@Override
+	public void deleteStoreQna(StoreQnaVO vo) throws Exception {
+		dao.deleteStoreQna(vo);
+	}
+	// 스토어 qna 수정
+	@Override
+	public void modifyStoreQna(StoreQnaVO vo) throws Exception {
+		dao.modifyStoreQna(vo);
+	}
+	// 스토어 qna 개수
+	public int countStoreQna(StoreQnaVO vo) throws Exception {
+		return dao.countStoreQna(vo);
+	}
+//스토어 QNA 끝		
 	
 	// 스토어 옵션 리스트
 	@Override

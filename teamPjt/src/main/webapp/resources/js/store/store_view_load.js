@@ -17,25 +17,12 @@ var selectedTab = localStorage.getItem('selectedTab');
 if (selectedTab != null) {
     $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
 }
-/*$('#myTab a').click(function(e) {
-  e.preventDefault();
-  $(this).tab('show');
-  
-  window.scrollTo(100, 100);
-});
-
-// store the currently selected tab in the hash value
-$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-  var id = $(e.target).attr("href").substr(1);
-  window.location.hash = id;
-  window.scrollTo(100, 100);
-});
-
-// on load of the page: switch to the currently selected tab
-var hash = window.location.hash;
-$('#myTab a[href="' + hash + '"]').tab('show');*/
-
 $(document).ready(function() {
+	//qna관련
+	//qna 자기 눌렀을 때 닫히기 위해서
+  	 $('.hideQna').hide();
+  	 $('.hideQna2').hide();
+  	 
 	// 부트스트랩 드랍다운 작동하게 해줌
     $(".dropdown-toggle").dropdown();
     
@@ -43,7 +30,7 @@ $(document).ready(function() {
     $('#reviewSort').on('change', function(){
 		this.form.submit()
 	})
-    
+	
     // input file 파일 첨부시 fileCheck 함수 실행
 	$("#input_file").on("change", fileCheck);
 	

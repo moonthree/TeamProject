@@ -1,0 +1,72 @@
+/**
+ * 
+ */
+ 
+ /*
+    필터 모달 시작
+*/
+.bold{
+    font-weight: bold;
+}
+/*상단 시작*/
+.modal-title{
+    font-weight: bold;
+}
+/*상단 끝*/
+
+/*중단 시작*/
+.filter_span{
+    background-color: #f0f2f5;
+    margin-right: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    color: #60656a;
+}
+.filter_span2{
+    background-color: #f0f2f5;
+    margin-right: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    color: #60656a;
+}
+
+.modal-body{
+    padding: 12px;
+}
+.modal-body > div {
+    margin: 10px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
+}
+.clicked {
+    color: red;
+ }
+
+.modalBodyDiv{
+    border-top: 1px solid black;
+}
+.modalBodyBtn{
+    width: 49%;
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px 0px 10px 0px;
+}
+
+/*중단 끝*/
+
+/*하단 버튼 시작*/
+.footer{
+    padding: 12px;
+    margin: 10px 0px 10px 0px;
+    border-top: 1px solid brown;
+}
+#filterResetBtn{
+    width: 49%;
+}
+#filterDoBtn{
+    width: 49%;
+}
+/*하단 버튼 끝*/
+
+/*
+    필터 모달 끝
+*/

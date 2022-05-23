@@ -335,6 +335,21 @@ select::-ms-expand {
 
 
 /*
+0520 추가 qna 한줄만 출력
+*/
+.qnaDivContent{
+	display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient:vertical;
+	max-width: 300px; 
+	max-height:24px;
+    line-height:20px;
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap;
+}
+
+/*
 0516 추가
 리뷰
 */
@@ -361,6 +376,21 @@ select::-ms-expand {
 }
 .reviewTop>.writeReview:active{
     background-color: #fa6462 !important;
+    border: 1px solid #fa6462 !important;
+    color: white;
+}
+
+.qnabtn{
+	border: 1px solid #fa6462;
+    color: #fa6462;
+}
+.qnabtn:hover{
+	background-color: #fa6462;
+    border: 1px solid #fa6462;
+    color: white;
+}
+.qnabtn:active{
+	background-color: #fa6462 !important;
     border: 1px solid #fa6462 !important;
     color: white;
 }
