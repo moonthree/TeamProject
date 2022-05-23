@@ -345,6 +345,21 @@ public class MypageController {
 		return "mypage/info_funding_detail";
 	}
 
+	@RequestMapping(value = "/info_store_detail.do", method = RequestMethod.GET)
+	public String info_store_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("store_order_idx") int store_order_idx) {
+		
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		
+		System.out.println("콘트롤러로 가져온 store_ORDER_IDX : "+store_order_idx);
+		
+		
+		return "mypage/info_store_detail";
+	}
+
 	@RequestMapping(value = "/info_zzim.do")
 	public String info_zzim(Model model, FundingMainVO vo, HttpServletRequest request) throws Exception {
 		

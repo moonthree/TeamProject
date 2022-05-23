@@ -35,6 +35,18 @@
 		WHERE	funding_idx = #{ f_idx }
 	</select>
 	
+	<select id="findSellerIdx" parameterType="int" resultType="int">
+		SELECT  member_idx
+		FROM	funding
+		WHERE	funding_idx = #{ funding_idx }
+	</select>
+	
+	<select id="checkLevel" parameterType="int" resultType="int">
+		select 	member_level 
+		from 	member 
+		where 	member_idx=#{member_idx}
+	</select>
+	
 	<insert id="insertLog" parameterType="java.util.HashMap">
 		INSERT 
 		INTO	message (from_member_idx, to_member_idx, funding_idx, message_content, message_photo)
@@ -47,24 +59,41 @@
 				)
 	</insert>
 	
-	<select id="message_dialogue" parameterType="int" resultType="MessageVO">
-		SELECT 	m.member_idx,
-				m.member_name,
-				m.member_photo,
-				ms.message_idx,
-				ms.from_member_idx,
-				ms.to_member_idx,
-				ms.funding_idx,
-				ms.message_content,
-				ms.message_photo,
-				ms.message_state,
-				ms.message_send_person,
-				ms.message_date
-		FROM 	message ms, member m
-		WHERE 	ms.from_member_idx = m.member_idx
-		AND 	ms.to_member_idx= #{to_member_idx}
-		GROUP BY ms.from_member_idx
-		ORDER BY ms.message_date DESC
+	<select id="getFrom_member_idxs" parameterType="int" resultType="MessageVO">
+		select 	msd.from_member_idx 
+		from(select * from message m
+			where 	m.to_member_idx=#{to_member_idx}
+			and 	m.message_state=1
+			order by m.message_date desc LIMIT 18446744073709551615) msd
+		GROUP by msd.from_member_idx
+	</select>
+	
+	<select id="message_dialogue" parameterType="java.util.HashMap" resultType="MessageVO">
+		select msd.*
+		  from (select 	m.member_idx,
+						m.member_name,
+						m.member_photo,
+						ms.message_idx,
+						ms.from_member_idx,
+						ms.to_member_idx,
+						ms.funding_idx,
+						ms.message_content,
+						ms.message_photo,
+						ms.message_state,
+						ms.message_send_person,
+						ms.message_date
+				from message ms, member m 
+		       <if test="member_level == 0">
+		       WHERE ms.from_member_idx = m.member_idx
+			     AND ms.to_member_idx= #{ to_member_idx }
+			   </if>
+			   <if test="member_level == 1">
+			   WHERE ms.to_member_idx = m.member_idx
+			     AND ms.from_member_idx= #{ to_member_idx }
+			   </if>
+			   order by ms.message_date desc  
+			   LIMIT 18446744073709551615) msd 
+		group by msd.from_member_idx;
 	</select>
 	
 	<select id="message_dialogue_detail" parameterType="java.util.HashMap" resultType="MessageVO">
@@ -81,10 +110,36 @@
 				ms.message_send_person,
 				ms.message_date
 		FROM    message ms, member m
+		<if test="member_level == 0">
 		WHERE	ms.from_member_idx = m.member_idx
+		</if>
+		<if test="member_level == 1">
+		WHERE	ms.to_member_idx = m.member_idx
+		</if>
 		AND 	to_member_idx= #{ to_member_idx }
 		AND 	from_member_idx= #{ from_member_idx }
 		ORDER BY message_date
 	</select>
+	
+	<insert id="sendMessage" parameterType="java.util.HashMap">
+		INSERT INTO message(from_member_idx, 
+							to_member_idx,
+							funding_idx,
+							message_content, 
+							message_send_person, 
+							message_state) 
+		VALUES(#{from_member_idx},
+				#{to_member_idx},
+				#{funding_idx},
+				#{message_content},
+				<if test="member_level == 0">
+					1
+				</if>
+				<if test="member_level == 1">
+					0
+				</if>
+				,
+				1)
+	</insert>
 
 </mapper>

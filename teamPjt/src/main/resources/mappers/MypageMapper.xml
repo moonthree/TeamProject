@@ -327,6 +327,7 @@
 				fo.funding_order_total_price,
 				fo.funding_order_pay_state,
 				fo.funding_order_donation,
+				f.member_idx,
 				f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
