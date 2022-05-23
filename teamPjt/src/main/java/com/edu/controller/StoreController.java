@@ -32,6 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
+import com.edu.vo.FundingCommunityVO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreExpressVO;
@@ -40,6 +44,7 @@ import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -51,6 +56,16 @@ import com.siot.IamportRestClient.response.Payment;
 @Controller
 @RequestMapping(value = "/store")
 public class StoreController {
+	
+	/*
+	 * 컨트롤 f 로 찾아가기
+	 * 01 = 스토어 메인페이지
+	 * 02 = 스토어 뷰페이지
+	 * 03 = 스토어 qna
+	 * 04 = 스토어 상품 등록
+	 * 05 = 스토어 리뷰
+	 * 06 = 스토어 결제
+	 * */
 	
 	@Autowired
 	private fundingMainService fms;
@@ -67,7 +82,7 @@ public class StoreController {
 	public String main() {
 		return "store/store_main";
 	}
-	// 스토어 메인페이지 
+	// 스토어 메인페이지 01
 	@RequestMapping(value = "/store_main.do", method=RequestMethod.GET)
 	public String listMain(StoreReviewVO srvo, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		//세션사용자정보 가져옴
@@ -196,9 +211,9 @@ public class StoreController {
 		return sts.countStoreReviewList(srvo);
 	}
 	
-	// 스토어 뷰페이지 
+	// 스토어 뷰페이지 02
 	@RequestMapping(value = "/store_view.do", method = RequestMethod.GET)
-	public String store_view(Model model, HttpSession session, HttpServletRequest request, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
+	public String store_view(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, HttpServletRequest request, StoreQnaVO sqvo, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
 		
 		//store_idx에 따른 뷰페이지 정보 가져오기
 		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
@@ -312,6 +327,58 @@ public class StoreController {
 		request.setAttribute("star2", star2);
 		request.setAttribute("star1", star1);
 		
+
+		//펀딩 qna 댓글 리스트
+		
+		int pageNumQna = 1;
+		
+		String strPageNumQna = request.getParameter("pageNumQna"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNumQna != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNumQna = Integer.parseInt(strPageNumQna);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCountQna = PAGE_ROW_COUNT;
+		
+		sqvo.setStartRowNumQna(startRowNumQna);
+		
+		paramMap.put("startRowNumQna", startRowNumQna);
+		
+		sqvo.setRowCountQna(rowCountQna);
+		
+		ArrayList<StoreQnaVO> listQna = null;
+		int totalRowQna = 0;
+
+		listQna = (ArrayList<StoreQnaVO>)sts.getQnaList(paramMap);
+		
+		//qna 댓글 개수
+		totalRowQna = sts.countStoreQna(sqvo);
+		
+		System.out.println("totalRowQna = " + totalRowQna);
+		System.out.println("startRowNumQna = " + startRowNumQna);
+			
+		// 전체 페이지의 개수
+		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT);
+		
+		int endPageQna = (int) (Math.ceil(pageNumQna / (double)displayPageNum) * displayPageNum);
+		int startPageQna = (endPageQna - displayPageNum) + 1;
+		
+		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT));
+		if (endPageQna > tempEndPageQna) {
+			endPageQna = tempEndPageQna;
+		}
+		boolean prevQna = startPageQna == 1 ? false : true;
+		boolean nextQna = endPageQna * PAGE_ROW_COUNT >= totalRowQna ? false : true;
+		
+		request.setAttribute("listQna", listQna);
+		request.setAttribute("totalPageCountQna", totalPageCountQna);
+		request.setAttribute("pageNumQna", pageNumQna);
+		request.setAttribute("startRowNumQna", startRowNumQna);
+		request.setAttribute("prevQna", prevQna);
+		request.setAttribute("nextQna", nextQna);
+		request.setAttribute("endPageQna", endPageQna);
+		request.setAttribute("startPageQna", startPageQna);
+		
 		
 		//세션사용자정보 가져옴
 		session = request.getSession();
@@ -327,7 +394,79 @@ public class StoreController {
 		return "store/store_view";
 	}
 	
-	/*스토어 상품 등록 페이지*/
+//qna 시작 03
+	//스토어 qna 작성, 답변 작성 ajax로 불러옴
+	@RequestMapping(value ="/qnaInsert2", method= RequestMethod.POST)
+	@ResponseBody
+	public Object qnaInsert2(@RequestParam Map<String, Object> paramMap){
+		
+		//리턴값
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		int result = sts.qnaInsert(paramMap);
+		if(result>0) {
+			retVal.put("code", "OK");
+			retVal.put("store_idx", paramMap.get("store_idx"));
+			retVal.put("member_idx", paramMap.get("member_idx"));
+			retVal.put("store_qna_idx", paramMap.get("store_qna_idx"));
+			retVal.put("parent_id", paramMap.get("parent_id"));
+			retVal.put("store_qna_secret", paramMap.get("store_qna_secret"));
+			retVal.put("message", "등록 성공!");
+		}else {
+			retVal.put("code", "FAIL");
+			retVal.put("message", "등록 실패!");
+		}
+		return retVal;
+	}
+	// 스토어 qna 수정
+	@RequestMapping(value ="/qnaModify2", method= RequestMethod.POST)
+	@ResponseBody
+	public void modifyFundingQna(StoreQnaVO vo) throws Exception {
+		sts.modifyStoreQna(vo);
+	}
+	// 스토어 qna 답변 수정
+	@RequestMapping(value ="/qnaAnswerModify2", method= RequestMethod.POST)
+	@ResponseBody
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception {
+		sts.qnaAnswerModify(vo);
+	}
+	//스토어 qna 답변 상태 업데이트
+	@RequestMapping(value ="/qnaAnswerDone2", method= RequestMethod.POST)
+	@ResponseBody
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception{
+		return sts.qnaAnswerDone(vo);
+	}
+	//스토어 큐엔에이 답변 출력
+	@RequestMapping(value ="/qnaList2", method= RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<StoreQnaVO> qnaList(StoreQnaVO vo, HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
+		//클릭한 qna의 qna 번호 가져오기
+		String Strstore_qna_idx = request.getParameter("store_qna_idx");
+		int store_qna_idx = Integer.parseInt(Strstore_qna_idx);
+		String Strstore_idx = request.getParameter("store_idx");
+		int store_idx = Integer.parseInt(Strstore_idx);
+		
+		//vo에 클릭한 qna 번호 저장
+		vo.setStore_qna_idx(store_qna_idx);
+		vo.setStore_idx(store_idx);
+		
+		ArrayList<StoreQnaVO> qnaAnswer = null;
+		qnaAnswer = (ArrayList<StoreQnaVO>) sts.getQnaAnswer(paramMap);
+		System.out.println(qnaAnswer);
+		
+		return qnaAnswer;
+	}
+	//스토어 qna 삭제
+	@RequestMapping(value ="/qnaDelete2", method= RequestMethod.POST)
+	@ResponseBody
+	public void deleteFundingQna(StoreQnaVO vo) throws Exception {
+		sts.deleteStoreQna(vo);
+	}
+//qna 끝
+	
+	
+	
+	
+	/*스토어 상품 등록 페이지  04*/
 	@RequestMapping(value="store_register.do",method = RequestMethod.GET)
 	public String stroe_reg(Model model,HttpServletRequest request ) {
 		
@@ -432,13 +571,6 @@ public class StoreController {
 	      
 
 	   }
-
-	
-	
-	
-	
-	
-	
 	/*스토어 상품 등록 미리보기*/
 	@RequestMapping(value="/store_preview.do",method = RequestMethod.POST)
 	public String store_preview(StoreVO vo, Model model, 
@@ -509,7 +641,7 @@ public class StoreController {
 	
 	
 	
-	// 스토어 리뷰 작성
+	// 스토어 리뷰 작성 05
 	@ResponseBody
 	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)
 	public String fileUpload(StoreReviewVO vo, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
@@ -572,8 +704,42 @@ public class StoreController {
 		sts.storeReviewWrite(vo);
 		return strResult;
 	}
-	
-	// 스토어 결제페이지
+	// 리뷰 추천 insert, update, getssss
+	@RequestMapping(value ="/doReviewLike", method= RequestMethod.POST)
+	@ResponseBody
+	public Object doReviewLike(@RequestParam Map<String, Object> paramMap){
+		
+		/*
+		 * Map<String, Object> retVal = new HashMap<String, Object>();
+		 * System.out.println(retVal);
+		 */
+		sts.updateReviewLike(paramMap);
+		sts.doReviewLike(paramMap);
+		int result = sts.getReviewLikeNum(paramMap);
+		return result;
+	}
+	//리뷰 추천 취소 delete, update, get
+	@RequestMapping(value ="/cancelLike", method= RequestMethod.POST)
+	@ResponseBody
+	public Object cancelLike(@RequestParam Map<String, Object> paramMap){
+		
+		sts.updateReviewLike2(paramMap);
+		sts.cancelLike(paramMap);
+		int result = sts.getReviewLikeNum(paramMap);
+		return result;
+	}
+	//리뷰 추천 select
+	@RequestMapping(value ="/selectThumbsUp", method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectThumbsUp(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> selectThumbsUp = new HashMap<String, Object>();
+		List<StoreReviewVO> result = sts.selectThumbsUp(paramMap);		
+		return result;		
+	}
+//리뷰 끝		
+
+//결제 시작
+	// 스토어 결제페이지 06
 	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
 	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -689,7 +855,11 @@ public class StoreController {
 		
 		return "store/store_pay_complete";
 	}
-	// 찜 insert
+	
+	
+	
+//찜 시작	
+	// 찜 insert 07
 	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)
 	@ResponseBody
 	public Object insertZzim(@RequestParam Map<String, Object> paramMap){
@@ -722,36 +892,5 @@ public class StoreController {
 		int result = sts.deleteZzimStore(paramMap);
 		return result;
 	}
-	// 리뷰 추천 insert, update, getssss
-	@RequestMapping(value ="/doReviewLike", method= RequestMethod.POST)
-	@ResponseBody
-	public Object doReviewLike(@RequestParam Map<String, Object> paramMap){
-		
-		/*
-		 * Map<String, Object> retVal = new HashMap<String, Object>();
-		 * System.out.println(retVal);
-		 */
-		sts.updateReviewLike(paramMap);
-		sts.doReviewLike(paramMap);
-		int result = sts.getReviewLikeNum(paramMap);
-		return result;
-	}
-	//리뷰 추천 취소 delete, update, get
-	@RequestMapping(value ="/cancelLike", method= RequestMethod.POST)
-	@ResponseBody
-	public Object cancelLike(@RequestParam Map<String, Object> paramMap){
-		
-		sts.updateReviewLike2(paramMap);
-		sts.cancelLike(paramMap);
-		int result = sts.getReviewLikeNum(paramMap);
-		return result;
-	}
-	//리뷰 추천 select
-	@RequestMapping(value ="/selectThumbsUp", method= RequestMethod.POST)
-	@ResponseBody
-	public Object selectThumbsUp(@RequestParam Map<String, Object> paramMap){
-		Map<String, Object> selectThumbsUp = new HashMap<String, Object>();
-		List<StoreReviewVO> result = sts.selectThumbsUp(paramMap);		
-		return result;		
-	}
+	
 }

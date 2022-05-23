@@ -14,6 +14,10 @@ import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
+import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -109,6 +113,41 @@ public class storeDAO {
 	public int updateReviewLike2(Map<String, Object> paramMap) {
 		return sqlSession.update("StoreMapper.updateReviewLike2", paramMap);
 	}
+//스토어 qna 시작
+	//스토어 qna 리스트
+	public List<StoreQnaVO> getQnaList(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.readStoreQnaList", paramMap);
+	}
+	//스토어 qna 답변 리스트
+	public List<StoreQnaVO> getQnaAnswer(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.readStoreQnaAnswer", paramMap);
+	}
+	
+	//스토어 qna 작성
+	public int qnaInsert(Map<String, Object> paramMap) {
+		return sqlSession.insert("StoreMapper.insertStoreQna", paramMap);
+	}
+	//스토어 qna 답변 작성 완료
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception{
+		return sqlSession.update("StoreMapper.qnaAnswerDone", vo);
+	}
+	//스토어 qna 답변 수정
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception{
+		sqlSession.update("StoreMapper.qnaAnswerModify", vo);	
+	}
+	//스토어 QNA 삭제
+	public void deleteStoreQna(StoreQnaVO vo) throws Exception{
+		sqlSession.delete("StoreMapper.deleteStoreQna", vo);
+	}
+	//스토어 qna 수정
+	public void modifyStoreQna(StoreQnaVO vo) throws Exception{
+		sqlSession.update("StoreMapper.modifyStoreQna", vo);	
+	}
+	//스토어 qna 개수
+	public int countStoreQna(StoreQnaVO vo) throws Exception{ 
+		return sqlSession.selectOne("StoreMapper.countStoreQna", vo); 
+	}
+//스토어 qna 끝
 	
 	// 스토어 옵션 리스트
 	public List<StoreOptionVO> storeOptionList(StoreOptionVO vo) {

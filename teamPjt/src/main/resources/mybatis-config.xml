@@ -28,6 +28,7 @@
 		<typeAlias type="com.edu.vo.StoreOrderPayVO" alias="storeOrderPayVO"/>
 		<typeAlias type="com.edu.vo.StoreReviewVO" alias="storeReviewVO"/>
 		<typeAlias type="com.edu.vo.StoreReviewLikeVO" alias="storeReviewLikeVO"/>
+		<typeAlias type="com.edu.vo.StoreQnaVO" alias="storeQnaVO"/>
 		
 		<!-- 메세지  -->
 		<typeAlias type="com.edu.vo.MessageVO" alias="MessageVO"/>

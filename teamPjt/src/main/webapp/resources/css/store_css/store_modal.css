@@ -178,3 +178,47 @@ textarea {
     /* 마우스 클릭 체크 */
 }
 /*리뷰 작성 모달의 별점 끝*/
+
+
+
+
+/* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 *//* qna 모달 시작 */
+.qnaWriteWarning{
+	background-color: #ffefef;
+    color: #ff7272;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.commuWriteNotice{
+    font-size: 10px;
+}
+/*비공개 버튼*/
+input[class="cb"]+label {
+    display: inline-block;
+    border-radius: 30px;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #bcbcbc;
+    cursor: pointer;
+    margin-top: 5px;
+}
+input[class="cb"]:checked+label {
+    background-color: #17a2b8;
+    border: 2px solid #17a2b8;
+}
+input[class="cb"] {
+    display: none;
+}
+.cbp{
+    width: 100px;
+    display:inline-block;
+    margin-bottom: 30px;
+    position: relative;
+    bottom: 14px;
+}
+
+
+
+/* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 *//* qna 모달 끝 */
