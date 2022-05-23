@@ -10,9 +10,79 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
- <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_reserve.css">
  <!-- 다음주소 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+    main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
+    .step_circle{
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .card {
+        border-radius: 2px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    .order td, .order th {
+        padding: 20px;
+        vertical-align: middle;
+        border-top: 1px solid black;
+    }
+    
+    table td{
+        text-align: right;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    .addressInfo_button_div::after{
+		content:'';
+		display:block;
+		clear:both;
+	}
+	.addressInfo_input_div{
+		display: none;
+	}
+	
+	input[type="radio"] {
+		zoom: 1.5;
+	}
+	label{
+		cursor: pointer;
+	}
+	
+	#my_modal {
+        display: none;
+        width: 500px;
+	    height: 445px;
+	    line-height: 2;
+	    padding: 20px 30px;
+	    background-color: #fefefe;
+	    border: 1px solid #888;
+	    border-radius: 3px;
+    }
+
+    #my_modal .modal_close_btn {
+        position: absolute;
+	    bottom: 20px;
+	    right: 40px;
+	    text-decoration-line: none;
+	    cursor: pointer;
+	    font-size: 18px;
+	    font-weight: 600;
+	    color: green;
+    }
+</style>
 <script>
     function handleOnInput(el, maxlength) {
         if(el.value.length > maxlength)  {
@@ -21,26 +91,25 @@
         }
     }
 	
-    history.replaceState({}, null, location.pathname);
 </script>
-<title>펀딩 결제 예약</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
     <main>
     <!-- 펀딩 제목  -->
-	<div><h3>${param.funding_title }</h3></div>
+	<div><h3 style="text-align: center; font-weight: bold;padding: 30px;color: #F2EDD7;background-color: #393232;">${param.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
             	<input type="hidden" name="funding_title" value="${param.funding_title}">
                 <div class="wrap" style="margin: 30px 0px 20px auto;">
-                    <div class="step">
-                        <div class="step_circle none_select_circle">옵션 선택</div>
+                    <div class="step" style="text-align: center; width: 455px; margin: 0 auto; font-weight: 600;">
+                        <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">옵션 선택</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle select_circle">결제 예약</div>
+                        <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">결제 예약</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle none_select_circle">예약 완료</div>
+                        <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">예약 완료</div>
                     </div>
                 </div>
             </div>
@@ -60,7 +129,7 @@
 			                        <th width="70%" style="border-top: 1px dashed gray;">
 			                            <div style="min-height: 50px;">
 			                            	<!-- 옵션 이름  -->
-			                                <div class="table_option_name">
+			                                <div style="color: #4E944F;">
 			                                    ${list.funding_option_name}
 			                                </div>
 			                                <!-- 옵션 설명 -->
@@ -126,11 +195,11 @@
         <div class="row" style="margin-top: 30px;">
             <!-- 구매자 정보 -->
             <div class="col-md-6" style="padding: 30px;">
-                <table class="table table-borderless card buyer_card">
+                <table style="margin: 0px auto; width: 100%; line-height: 2; vertical-align: middle; background-color:#E9EFC0; border-radius: 3px; border:none; padding: 20px;" class="table table-borderless card">
                     <thead>
                       <tr>
                         <th scope="col" colspan="2">
-                            <div style="font-size: 25px;">구매자 정보</div>
+                            <div style="font-size: 20pt;">구매자 정보</div>
                         </th>
                       </tr>
                     </thead>
@@ -164,7 +233,7 @@
             
             <!-- 배송지 정보 -->
             <div class="col-md-6" style="padding: 30px;">
-                <div class="addressInfo_div" style="font-size: 25px; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+                <div class="addressInfo_div" style="font-size: 20pt; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
 
                 <!-- 선택 버튼  (새로입력/기존주소) -->
                 <div class="addressInfo_button_div">
@@ -203,7 +272,7 @@
                         	    <input type="number" class="form-control address1_input" name="funding_express_postnum1" placeholder="우편번호">
                             </div>
                             <div class="col-sm-5">
-                                <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #fa6462; border: none;">주소 찾기</button>
+                                <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #83BD75; border: none;">주소 찾기</button>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -268,8 +337,7 @@
 
         <div class="row">
             <!-- 결제 정보 -->
-            <!-- 임시로 value 1로 전부 입력해둠 -->
-            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보   ///  임시로 전부 입력해놓음</div>
+            <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보</div>
             <div class="col-lg-7">
 <!--                 <div class="form-group"> -->
 <!--                     <div class="form-check form-check-inline"> -->
@@ -287,32 +355,32 @@
                          <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
                          <div class="row">
                              <div class="col">
-                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required" value="1111">
+                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required">
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required value="1111">
+                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required value="1111">
+                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required value="1111">
+                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required>
                              </div>
                          </div>
                      </div>
                      <div class="form-row">
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">유효기간</label>
-                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required value="11/11">
+                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required>
                          </div>
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">카드 비밀번호</label>
-                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required value="11">
+                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required>
                          </div>
                      </div>
                      <div class="form-group">
                          <label for="" style="font-weight: bold;">생년월일 (주민번호 앞 6자리)</label>
-                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required value="111111">
+                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required>
                      </div>   
                 </div>
             </div>
@@ -338,7 +406,7 @@
         <!-- 동의 -->
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-                <div style="font-size: 25px; font-weight: bold; padding: 20px 0px; margin: 20px 0 auto;" class="col-md-12">약관 동의</div>
+                <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px; margin: 20px 0 auto;" class="col-md-12">약관 동의</div>
             </div>
             <div class="col-xs-12" style="width: 100%;">
                 <table style="border: 1px solid lightgray;" cellpadding="20px" width="100%">
@@ -424,7 +492,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px;">
-            <button type="button" class="btn btn_success" id="next">결제 예약하기</button>
+            <button type="button" class="btn btn-success" id="next" style="height: 60px; width: 200px; font-size: 15pt; font-weight: bold;">결제 예약하기</button>
         </div>
     </div>
     </main>
