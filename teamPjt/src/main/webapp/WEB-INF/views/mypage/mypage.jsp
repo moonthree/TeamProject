@@ -253,7 +253,7 @@
                           <!--이미지-->
 	                      <div class="card img-container">
                             <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/upload/funding/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
                             </div>
 	                      </div>
 	                        </div>

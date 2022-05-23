@@ -89,7 +89,7 @@
 			                        			</div>
 			                        		</div>
 			                        		<div class="col-md-6 col-sm-6" style="text-align: right; color:blue;">
-			                        		스토어 / 
+			                        		펀딩 / 
 			                        		${item.funding_category eq 0 ? '강아지 용품' : ''}
 			                        		${item.funding_category eq 1 ? '고양이 용품' : ''}
 			                        		${item.funding_category eq 2 ? '다른 동물 용품' : ''}

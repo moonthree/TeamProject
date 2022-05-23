@@ -32,10 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
-import com.edu.vo.FundingCommunityVO;
-import com.edu.vo.FundingMainVO;
-import com.edu.vo.FundingQnaVO;
-import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreExpressVO;
@@ -52,6 +48,7 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+
 
 @Controller
 @RequestMapping(value = "/store")
