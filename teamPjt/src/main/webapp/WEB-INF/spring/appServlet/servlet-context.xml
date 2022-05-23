@@ -48,7 +48,9 @@
         <interceptor>
             <mapping path="/funding/option.do"/>
             <mapping path="/funding/reserve.do"/>
+            <mapping path="/funding/reserve_complete.do"/>
             <mapping path="/store/store_pay.do"/>
+            <mapping path="/store/store_pay_complete.do"/>
             <mapping path="/mypage/mypage.do"/>
             <mapping path="/mypage/mypage2.do"/>
             <mapping path="/mypage/info_funding_detail.do"/>

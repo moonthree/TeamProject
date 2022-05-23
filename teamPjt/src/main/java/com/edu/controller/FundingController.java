@@ -27,6 +27,7 @@ import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailParameterVO;
+import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_expressVO;
@@ -51,7 +52,7 @@ public class FundingController {
 	@Autowired
 	private MypageService mypageService ;
 	
-	// 펀딩 메인페이지 카테고리
+	// 펀딩 메인페이지
 	@RequestMapping(value = "/main.do")
 	public String main() {
 		return "funding/main";
@@ -155,11 +156,15 @@ public class FundingController {
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
-	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
+	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,Funding_optionVO optionvo, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
+		
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
 		
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_thumbnail());
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_notice());
+		System.out.println(fms.read(vo.getFunding_idx()).getFunding_content());
 		//세션사용자정보 가져옴
 		session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
@@ -549,6 +554,10 @@ public class FundingController {
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = fms.selectOne(login);
 		model.addAttribute("member", member);
+		
+		//펀딩리스트
+		List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(login.getMember_idx());
+		model.addAttribute("myFundingList",mfl);
 		
 		return "funding/reserve_complete";
 	}
