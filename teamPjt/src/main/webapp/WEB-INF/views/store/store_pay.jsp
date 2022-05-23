@@ -25,9 +25,8 @@
         }
     }
 
-	history.replaceState({}, null, location.pathname);
-
 </script>
+
 <title>스토어 주문 및 결제</title>
 </head>
 <body>
@@ -58,20 +57,26 @@
 	        </div>
 	    </div>
         
-        <form id="reserveform" name="reserveform" action="reserve.do" method="post">
-        
+        <form id="paymentForm" name="paymentForm" action="store_pay.do" method="post">
+        <input type="hidden" name="member_idx" value="${member.member_idx}">
+        <input type="hidden" name="select" value="${param.select}">
+        <input type="hidden" name="store_idx" value="${param.store_idx }">
+        <input type="hidden" name="store_order_pay_card_name" value="">
+        <input type="hidden" name="store_order_pay_card_number" value="">
+        <input type="hidden" name="store_order_pay_amount" value="">
         <div class="row" style="margin-top: 30px;">
 	        <!-- 구매자 정보 -->
-            <div class="col-md-6" style="padding: 30px;">
+            <div class="col-md-6">
+	        <div class="addressInfo_div section_title">구매자 정보</div>
                 <table class="table table-borderless card buyer_card">
-                    <thead>
-                      <tr>
-                        <th scope="col" colspan="2">
-                            <div style="font-size: 25px;">구매자 정보</div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
+<!--                     <thead> -->
+<!--                       <tr> -->
+<!--                         <th scope="col" colspan="2"> -->
+<!--                             <div style="font-size: 25px;">구매자 정보</div> -->
+<!--                         </th> -->
+<!--                       </tr> -->
+<!--                     </thead> -->
+                    <tbody style="display: inline-table;">
                       <tr>
                         <th scope="row" width="30%">이름</th>
                         <td>${member.member_name}</td>
@@ -83,17 +88,6 @@
                       <tr>
                         <th scope="row">이메일</th>
                         <td>${member.member_email}</td>
-                      </tr>
-                      <tr>
-                          <td colspan="2" style="padding-top: 0px">
-                              <hr>
-                            <div class="form-check" style="text-align: left;">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" style="zoom: 1.5;">
-                                <label class="form-check-label" for="defaultCheck1" style="cursor:pointer; ">
-                                  	<span style="font-weight: bold">(선택)</span> 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.
-                                </label>
-                              </div>
-                          </td>
                       </tr>
                     </tbody>
                 </table>
@@ -124,20 +118,20 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_name1">
+                            	<input type="text" class="form-control" name="store_express_name1">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	 <input type="tel" onkeyup="mobile_keyup(this)" class="form-control m-input telCheckSize" name="funding_express_phone1" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                            	 <input type="tel" onkeyup="mobile_keyup(this)" class="form-control m-input telCheckSize" name="store_express_phone1" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
                                     aria-label="Default" aria-describedby="inputGroup-sizing-default">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="number" class="form-control address1_input" name="funding_express_postnum1" placeholder="우편번호">
+                        	    <input type="number" class="form-control address1_input" name="store_express_postnum1" placeholder="우편번호">
                             </div>
                             <div class="col-sm-5">
                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #fa6462; border: none;">주소 찾기</button>
@@ -146,13 +140,13 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="funding_express_addr1_1" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" name="store_express_addr1_1" placeholder="기본 주소">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" name="funding_express_addr2_1" placeholder="상세 주소">
+                                <input type="text" class="form-control address3_input" name="store_express_addr2_1" placeholder="상세 주소">
                             </div>
                         </div>
                 	</div>
@@ -161,19 +155,19 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}">
+                            	<input type="text" class="form-control" name="store_express_name2" value="${member.member_name}">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_phone2" value="${member.member_phone}">
+                            	<input type="text" class="form-control" name="store_express_phone2" value="${member.member_phone}">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}">
+                        	    <input type="text" class="form-control address1_input" name="store_express_postnum2" value="${member.member_postnum}">
                             </div>
                             <div class="col-sm-5">
 <!--                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button> -->
@@ -182,13 +176,13 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}">
+                                <input type="text" class="form-control address2_input" name="store_express_addr1_2" value="${member.member_addr}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}">
+                                <input type="text" class="form-control address3_input" name="store_express_addr2_2" value="${member.member_addr2}">
                             </div>
                         </div>
                 	</div>
@@ -217,11 +211,11 @@
 			        		<div class="store_option_price_info">
 		        				<!-- 수량 -->
 			        			<c:set var="p_num" value="p_num${select}" />
-	                       		<input type="hidden" id="count" name="funding_order_option_select_count" value="${param[p_num]}">
+	                       		<input type="hidden" id="count" name="count" value="${param[p_num]}">
 	                       		<span class="info_count">수량: <c:out value="${param[p_num]}"/>개</span>
 				        		<!-- 가격 -->
 			        			<c:set var="price" value="price${select}" />
-	                       		<input type="hidden" id="price" name="funding_order_option_select_count" value="${param[p_num]}">
+	                       		<input type="hidden" id="price" name="price" value="${param[p_num]}">
 	                       		<span class="info_price"><fmt:formatNumber value="${param[price]*param[p_num]}" type="number" />원</span>
 			        		</div>
 	        				<div class="line"></div>
@@ -238,7 +232,6 @@
         	<!-- 결제 금액 -->
             <div class="col-md-6" style="padding: 0px 30px;">
             	<div class="section_title">결제 금액</div>
-	            <input type="hidden" name="member_idx" value="${member.member_idx}">
                 <table style="margin: 0px auto; width: 90%; border-top: 1px solid black; border-bottom: 1px solid black; vertical-align: middle;" class="table order">
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">상품 금액</th>
@@ -260,7 +253,7 @@
                         <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
                         <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
                         	<!-- 배송비 추가 해야 함 -->
-                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
+                        	<input type="hidden" id="sumTotal_id" name="store_order_total_price" value="${param.total_price+param.express_fee}">
                         	<strong><fmt:formatNumber value="${param.total_price+param.express_fee}" type="number" /></strong>원
                         	<div id="sumTotal"></div>
                         </th>
@@ -296,7 +289,7 @@
                                 <label class="custom-control-label" for="chk1"><span style="font-weight: bold">(필수)</span> 개인정보 제3자 제공 동의</label>
                             </div>
                         </td>
-                        <td>
+                        <td style="text-align: right;">
                             <!-- 모달창 -->
                             <div id="my_modal" style="text-align: left">
 							 	<div style="font-weight: bold; font-size: 22px;">개인정보 제3자 제공 동의</div>
@@ -317,7 +310,7 @@
                                 <label class="custom-control-label" for="chk2"><span style="font-weight: bold">(필수)</span> 후원 유의사항 확인</label>
                             </div>
                         </td>
-                        <td>
+                        <td style="text-align: right;">
                         	<div class="accordion" id="accordionExample">
 							  <div>
 							    <div>
@@ -478,17 +471,17 @@
 	// 유효성 검사
         $("#next").click(function(){
         	setTimeout( function(){
-        	var funding_express_name1 = $('input[name=funding_express_name1]').val();
-        	var funding_express_phone1 = $('input[name=funding_express_phone1]').val();
-        	var funding_express_postnum1 = $('input[name=funding_express_postnum1]').val();
-        	var funding_express_addr2_1 = $('input[name=funding_express_addr2_1]').val();
+        	var store_express_name1 = $('input[name=store_express_name1]').val();
+        	var store_express_phone1 = $('input[name=store_express_phone1]').val();
+        	var store_express_postnum1 = $('input[name=store_express_postnum1]').val();
+        	var store_express_addr2_1 = $('input[name=store_express_addr2_1]').val();
         	var card_num1 = $('input[id=card_num1]').val();
         	var card_num2 = $('input[id=card_num2]').val();
         	var card_num3 = $('input[id=card_num3]').val();
         	var card_num4 = $('input[id=card_num4]').val();
-        	var funding_order_pay_card_valid = $('input[name=funding_order_pay_card_valid]').val();
-        	var funding_order_pay_card_password = $('input[name=funding_order_pay_card_password]').val();
-        	var funding_order_pay_register_num = $('input[name=funding_order_pay_register_num]').val();
+        	var store_order_pay_card_valid = $('input[name=store_order_pay_card_valid]').val();
+        	var store_order_pay_card_password = $('input[name=store_order_pay_card_password]').val();
+        	var store_order_pay_register_num = $('input[name=store_order_pay_register_num]').val();
         	var reserveform = document.reserveform;
         	
         	// 필수 동의 안했을 때
@@ -508,28 +501,28 @@
             if($("#chk1").is(":checked") && $("#chk2").is(":checked")){
             	// 배송지 - 새로 입력 확인
                 if($('input:radio[id=inlineRadio1]').is(':checked')){
-                	if (funding_express_name1 == '') {
+                	if (store_express_name1 == '') {
                         alert('신규 배송지에 받을사람을 입력하세요.'); 
                         setTimeout(function(){
-                          $('input[name=funding_express_name1]').focus();
+                          $('input[name=store_express_name1]').focus();
                         }, 0);
                         return false;
-                      } else if (funding_express_phone1 == '') {
+                      } else if (store_express_phone1 == '') {
                         alert('신규 배송지에 휴대폰 번호를 입력하세요.');
                         setTimeout(function(){
-                        	$('input[name=funding_express_phone1]').focus();
+                        	$('input[name=store_express_phone1]').focus();
                         }, 0);
                         return false;
-                      } else if (funding_express_postnum1 == '') {
+                      } else if (store_express_postnum1 == '') {
                         alert('우편번호를 검색해서 주소를 입력하세요.');
                         setTimeout(function(){
-                        	$('input[name=funding_express_postnum1]').focus();
+                        	$('input[name=store_express_postnum1]').focus();
                         }, 0);
                         return false;
-                      } else if (funding_express_addr2_1 == '') {
+                      } else if (store_express_addr2_1 == '') {
                         alert('상세 주소를 입력하세요.');
                         setTimeout(function(){
-                        	$('input[name=funding_express_addr2_1]').focus();
+                        	$('input[name=store_express_addr2_1]').focus();
                         }, 0);
                         return false;
                       }
@@ -560,7 +553,10 @@
             			*/
             			merchant_uid: 'merchant_' + new Date().getTime(),
             			name: '${param.store_title}', //결제창에서 보여질 이름
-            			amount: 1000, //가격
+            			
+            			// 가격은 1000원으로 설정
+            			amount: 1000,
+//             			amount: '${param.total_price+param.express_fee}',
             			buyer_email: '${member.member_email}',
             			buyer_name: '${member.member_name}',
             			buyer_tel: '${member_member_phone}',
@@ -568,41 +564,28 @@
             			buyer_postcode: '${member.member_postnum}',
             			}, function (rsp) {
             				console.log(rsp);
-            				if (rsp.success) {
-            					var msg = '결제가 완료되었습니다.';
 //             					msg += '고유ID : ' + rsp.imp_uid;
 //             					msg += '상점 거래ID : ' + rsp.merchant_uid;
 //             					msg += '결제 금액 : ' + rsp.paid_amount;
 //             					msg += '카드 승인번호 : ' + rsp.apply_num;
-            					var result = {
-            						"card_name" : rsp.card_name,
-            						"card_number" : rsp.card_number,
-            						"paid_amount" : rsp.paid_amount,
-           							}
-            						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-            		                // 결제내역을 사용자에게 보여주기 위해 필요함.
-            		               	$.ajax({
-            							url : "/store/store_pay.do",
-            							type : "POST",
-            							data : JSON.stringify(result,
-            									['card_name', 'card_number', 'paid_amount']),
-            							dataType : 'json',
-            							success : function(result){
-            								if(result == "y") {
-            									alert(msg);
-            									location.href = "/store/store_complete.do"; 
-            								}else{
-            									alert("DB입력실패");
-            									return false;
-            								}
-            							},
-            							error : function(a,b,c){}
-            						});
-            				} else {
-            					var msg = '결제에 실패하였습니다.';
-            					msg += '\n에러내용 : ' + rsp.error_msg;
-            				}
-            			alert(msg);
+
+           						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+           		                // 결제내역을 사용자에게 보여주기 위해 필요함.
+         		        	$.ajax({
+        						url : "verifyIamport/"+rsp.imp_uid,
+        						type : "post",
+         					}).done(function(data){
+     							console.log(data);
+     						// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+     					        if(rsp.paid_amount == data.response.amount){
+     						       	$('input[name=store_order_pay_card_name]').attr('value',data.response.cardName);
+     						       	$('input[name=store_order_pay_card_number]').attr('value',data.response.cardNumber);
+     						       	$('input[name=store_order_pay_amount]').attr('value',data.response.amount);
+          							$('#paymentForm').submit();
+     					        } else {
+     					        	alert("결제 실패");
+     					       	}
+         					});
             		});
                 }
             	

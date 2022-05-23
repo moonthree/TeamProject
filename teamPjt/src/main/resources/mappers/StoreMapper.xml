@@ -466,4 +466,82 @@
 		</foreach>
 	</insert>
 	
+	
+	<!-- 결제 -->
+	<!-- 주문 번호 -->
+	<insert id="insertOrder" parameterType="StoreOrderVO">
+		INSERT INTO store_order(
+			member_idx
+		  , store_idx
+		  , store_order_total_price
+		  , store_order_pay_state
+		  , store_order_date
+		)VALUES(
+			#{member_idx}
+		  , #{store_idx}
+		  , #{store_order_total_price}
+		  , #{store_order_pay_state}
+		  , now()
+		)
+	</insert>
+	<!-- 주문 옵션 번호 -->
+	<insert id="insertOrderOption" parameterType="StoreOrderOptionVO">
+		INSERT INTO store_order_option(
+			store_order_idx
+		  , store_order_option_select_idx
+		  , store_order_option_select_count
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{store_order_option_select_idx}
+		  , #{store_order_option_select_count}
+		)
+	</insert>
+	<!-- 주문 배송지 정보 -->
+	<insert id="insertExpress" parameterType="StoreExpressVO">
+		INSERT INTO store_express(
+			store_order_idx
+		  , member_idx
+		  , store_express_postnum
+		  , store_express_addr1
+		  , store_express_addr2
+		  , store_express_phone
+		  , store_express_name
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{member_idx}
+		  , #{store_express_postnum}
+		  , #{store_express_addr1}
+		  , #{store_express_addr2}
+		  , #{store_express_phone}
+		  , #{store_express_name}
+		)
+	</insert>
+	<!-- 결제 정보 -->
+	<insert id="insertPay" parameterType="StoreOrderPayVO">
+		INSERT INTO store_order_pay(
+			store_order_idx
+		  , store_order_pay_card_name
+		  , store_order_pay_card_number
+		  , store_order_pay_amount
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{store_order_pay_card_name}
+		  , #{store_order_pay_card_number}
+		  , #{store_order_pay_amount}
+		)
+	</insert>
+	<!-- 결제 완료 - 스토어 정보 -->
+	<select id="store_info" resultType="StoreVO">
+		SELECT store_title 
+		FROM store 
+		WHERE store_idx = #{store_idx};
+	</select>
+	
+	<!-- 결제 완료 시 스토어 옵션 수량 빼기 -->
+	<update id="update_option" parameterType="StoreOrderOptionVO">
+		UPDATE store_option 
+		SET store_option_stock = store_option_stock - #{store_order_option_select_count}
+		where store_option_idx = #{store_order_option_select_idx}
+	</update>
+	
 </mapper>

@@ -21,9 +21,8 @@
         }
     }
 	
-    history.replaceState({}, null, location.pathname);
 </script>
-<title>Insert title here</title>
+<title>펀딩 결제 예약</title>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
