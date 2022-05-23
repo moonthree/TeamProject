@@ -4,7 +4,6 @@
 
 <mapper namespace="FundingMainMapper">
 
-	<!-- resultMap join하려면 필요 -->
 	<resultMap type="MemberVO" id="MemberVO">
 		<result column="member_name" property="member_name"/>
 		<result column="member_photo" property="member_photo"/>

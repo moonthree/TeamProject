@@ -247,13 +247,13 @@
                   <div class="mydiv" id="mydiv">
 					<c:if test="${select3Store.size()>0}">
 						<c:forEach var="item" items="${select3Store}">
-                    <div class="card mb-3"  onclick="location.href='../funding/view.do?funding_idx=${item.store_idx}'" style="cursor:pointer;">
+                    <div class="card mb-3"  onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
                       <div class="row g-0">
                         <div class="col-lg-5 col-md-6">
                           <!--이미지-->
 	                      <div class="card img-container">
                             <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/upload/funding/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
                             </div>
 	                      </div>
 	                        </div>

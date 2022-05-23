@@ -95,8 +95,8 @@
 		                            </svg>
 		                        </button> --%>
 		                    </div>
-		                    <div class="card-body">
-		                        <a href="store_view.do?store_idx=${item.store_idx}">
+		                    <div class="card-body store_title">
+		                        <a href="store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
 		                            <div class="card-title">${item.store_title}</div>
 		                        </a>
 		                        <p class="card-price"><fmt:formatNumber value="${item.store_price }" type="number" />원</p><span>idxtest : ${item.store_idx}   viewTest : ${item.store_views}</span>

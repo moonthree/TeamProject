@@ -60,7 +60,15 @@ select {
 /* 카테고리 끝 */
 
 
-/*상품 리스트 시작*/
+/*상품 리스트 시작sssssssssssss*/
+.store_title > a {
+	display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    text-overflow: ellipsis; 
+	overflow: hidden;
+	height: 67.5px;
+}
 .selectRow {
     padding-bottom: 20px;
     border-bottom: 1px solid #e2e2e2;
@@ -209,6 +217,12 @@ select {
     bottom: 21px;
     right: 110px;
 }
+.starNumSearch{
+    float:right;
+    position: relative;
+    bottom: 21px;
+    right: 140px;
+}
 .starAverage{
     font-weight: bold;
 }
@@ -222,6 +236,12 @@ select {
         bottom: 21px;
         right: 50px;
     }
+    .starNumSearch{
+	    float:right;
+	    position: relative;
+	    bottom: 21px;
+	    right: 100px;
+	}
 }
 @media (min-width: 768px) and (max-width: 992px) {
     .starNum {
@@ -230,6 +250,12 @@ select {
         bottom: 0px;
         right: 0px;
     }
+    .starNumSearch{
+	    float: none;
+        position: static;
+        bottom: 0px;
+        right: 0px;
+	}
 }
 @media (min-width: 558px) and (max-width: 768px) {
     .starNum {
@@ -238,6 +264,12 @@ select {
         bottom: 21px;
         right: 350px;
     }
+    .starNumSearch{
+	    float: right;
+        position: relative;
+        bottom: 21px;
+        right: 400px;
+	}
 }
 @media (min-width: 0px) and (max-width: 558px) {
     .starNum {
@@ -246,5 +278,11 @@ select {
         bottom: 0px;
         right: 0px;
     }
+    .starNumSearch{
+	    float: none;
+        position: static;
+        bottom: 0px;
+        right: 0px;
+	}
 }
 /* 별점 끝 */

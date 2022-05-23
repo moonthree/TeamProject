@@ -8,8 +8,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_order_payVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.FundingQnaVO;
+import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -105,6 +113,41 @@ public class storeDAO {
 	public int updateReviewLike2(Map<String, Object> paramMap) {
 		return sqlSession.update("StoreMapper.updateReviewLike2", paramMap);
 	}
+//스토어 qna 시작
+	//스토어 qna 리스트
+	public List<StoreQnaVO> getQnaList(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.readStoreQnaList", paramMap);
+	}
+	//스토어 qna 답변 리스트
+	public List<StoreQnaVO> getQnaAnswer(Map<String, Object> paramMap) {
+		return sqlSession.selectList("StoreMapper.readStoreQnaAnswer", paramMap);
+	}
+	
+	//스토어 qna 작성
+	public int qnaInsert(Map<String, Object> paramMap) {
+		return sqlSession.insert("StoreMapper.insertStoreQna", paramMap);
+	}
+	//스토어 qna 답변 작성 완료
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception{
+		return sqlSession.update("StoreMapper.qnaAnswerDone", vo);
+	}
+	//스토어 qna 답변 수정
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception{
+		sqlSession.update("StoreMapper.qnaAnswerModify", vo);	
+	}
+	//스토어 QNA 삭제
+	public void deleteStoreQna(StoreQnaVO vo) throws Exception{
+		sqlSession.delete("StoreMapper.deleteStoreQna", vo);
+	}
+	//스토어 qna 수정
+	public void modifyStoreQna(StoreQnaVO vo) throws Exception{
+		sqlSession.update("StoreMapper.modifyStoreQna", vo);	
+	}
+	//스토어 qna 개수
+	public int countStoreQna(StoreQnaVO vo) throws Exception{ 
+		return sqlSession.selectOne("StoreMapper.countStoreQna", vo); 
+	}
+//스토어 qna 끝
 	
 	// 스토어 옵션 리스트
 	public List<StoreOptionVO> storeOptionList(StoreOptionVO vo) {
@@ -121,5 +164,30 @@ public class storeDAO {
 		
 		return sqlSession.insert("StoreMapper.StoreOption_Reg", vo);
 	}
-
+	
+	// 결제
+	// 주문 번호
+	public int insertOrder(StoreOrderVO ordervo) {
+		return sqlSession.insert("StoreMapper.insertOrder", ordervo);
+	}
+	// 주문 옵션 정보 등록
+	public int insertOrderOption(StoreOrderOptionVO orderoptionvo) {
+		return sqlSession.insert("StoreMapper.insertOrderOption", orderoptionvo);
+	}
+	// 배송지 정보
+	public int insertExpress(StoreExpressVO expressvo) {
+		return sqlSession.insert("StoreMapper.insertExpress", expressvo);
+	}
+	// 결제 정보
+	public int insertPay(StoreOrderPayVO payvo) {
+		return sqlSession.insert("StoreMapper.insertPay", payvo);
+	}
+	// 주문 완료 - 주문 정보
+	public StoreVO store_info(int store_idx) {
+		return sqlSession.selectOne("StoreMapper.store_info", store_idx);
+	}
+	//옵션 수량 감소 메소드
+	public int update_option(StoreOrderOptionVO orderoptionvo) {
+		return sqlSession.update("StoreMapper.update_option", orderoptionvo);
+	}
 }

@@ -33,8 +33,8 @@ public class MessageServiceImpl implements MessageService{
 
 	//메세지 불러오기 - 판매자마다 단한개
 	@Override
-	public List<MessageVO> message_dialogue(int to_member_idx) {
-		return dao.message_dialogue(to_member_idx);
+	public List<MessageVO> message_dialogue(Map<String,Object> param) {
+		return dao.message_dialogue(param);
 	}
 	//메세지 로그 불러오기
 	@Override
@@ -42,5 +42,26 @@ public class MessageServiceImpl implements MessageService{
 		return dao.message_dialogue_detail(param);
 	}
 
+	//메세지 보내기
+	@Override
+	public void sendMessage(Map<String, Object> param) {
+		dao.sendMessage(param);
+	}
+
+	@Override
+	public int findSellerIdx(int funding_idx) {
+		return dao.findSellerIdx(funding_idx);
+	}
+
+	@Override
+	public int checkLevel(int member_idx) {
+		return dao.checkLevel(member_idx);
+	}
+
+	@Override
+	public List<MessageVO> getFrom_member_idxs(int to_member_idx) {
+		return dao.getFrom_member_idxs(to_member_idx);
+	}
+	
 	
 }
