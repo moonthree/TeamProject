@@ -8,6 +8,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.vo.Funding_order_payVO;
+import com.edu.vo.StoreExpressVO;
+import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
 import com.edu.vo.StoreOptionVO;
@@ -158,5 +164,30 @@ public class storeDAO {
 		
 		return sqlSession.insert("StoreMapper.StoreOption_Reg", vo);
 	}
-
+	
+	// 결제
+	// 주문 번호
+	public int insertOrder(StoreOrderVO ordervo) {
+		return sqlSession.insert("StoreMapper.insertOrder", ordervo);
+	}
+	// 주문 옵션 정보 등록
+	public int insertOrderOption(StoreOrderOptionVO orderoptionvo) {
+		return sqlSession.insert("StoreMapper.insertOrderOption", orderoptionvo);
+	}
+	// 배송지 정보
+	public int insertExpress(StoreExpressVO expressvo) {
+		return sqlSession.insert("StoreMapper.insertExpress", expressvo);
+	}
+	// 결제 정보
+	public int insertPay(StoreOrderPayVO payvo) {
+		return sqlSession.insert("StoreMapper.insertPay", payvo);
+	}
+	// 주문 완료 - 주문 정보
+	public StoreVO store_info(int store_idx) {
+		return sqlSession.selectOne("StoreMapper.store_info", store_idx);
+	}
+	//옵션 수량 감소 메소드
+	public int update_option(StoreOrderOptionVO orderoptionvo) {
+		return sqlSession.update("StoreMapper.update_option", orderoptionvo);
+	}
 }
