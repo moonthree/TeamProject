@@ -20,7 +20,7 @@
 	}
 	
 </script>
-<title>Insert title here</title>
+<title>펀딩 옵션 선택</title>
 </head>
 <body>
 <c:import url="/header.do"></c:import>

@@ -22,6 +22,10 @@
 		<typeAlias type="com.edu.vo.StoreVO" alias="StoreVO"/>
 		<typeAlias type="com.edu.vo.StoreOptionVO" alias="StoreOptionVO"/>
 		<typeAlias type="com.edu.vo.StoreVO" alias="storeVO"/>
+		<typeAlias type="com.edu.vo.StoreOrderVO" alias="storeOrderVO"/>
+		<typeAlias type="com.edu.vo.StoreOrderOptionVO" alias="storeOrderOptionVO"/>
+		<typeAlias type="com.edu.vo.StoreExpressVO" alias="storeExpressVO"/>
+		<typeAlias type="com.edu.vo.StoreOrderPayVO" alias="storeOrderPayVO"/>
 		<typeAlias type="com.edu.vo.StoreReviewVO" alias="storeReviewVO"/>
 		<typeAlias type="com.edu.vo.StoreReviewLikeVO" alias="storeReviewLikeVO"/>
 		

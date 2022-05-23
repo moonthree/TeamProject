@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_reserve_complete.css">
 <script>
 	window.onload = function(){
 		var end_date = document.getElementById('end_date').value;
@@ -34,60 +35,13 @@
 	}
 	
 </script>
-<style>
-    main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-    }
-    .step_circle{
-        display: table-cell;
-        vertical-align: middle;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-    .reserve_card{
-    	padding: 40px 70px;
-	    background-color: #E9EFC0;
-	    width: 80%;
-	    margin: 50px auto;
-        border-radius: 2px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-	}
-    .btn-light{
-    	width: 230px; margin: 10px 30px; border: 1px solid gainsboro;
-    }
-    table.type04 {
-	 	border-collapse: separate;
-	    border-spacing: 1px;
-	    text-align: left;
-	    line-height: 2;
-	    margin: 20px 10px;
-	    width: 97%;
-	    border-top: 2px solid black;
-	}
-	table.type04 th {
-	  width: 20%;
-	  padding: 10px;
-	  font-weight: bold;
-	  vertical-align: top;
-	  border-bottom: 1px solid #ccc;
-	}
-	table.type04 td {
-	  width: 80%;
-	  padding: 10px;
-	  vertical-align: top;
-	  border-bottom: 1px solid #ccc;
-	}
-</style>
-<title>Insert title here</title>
+<title>펀딩 결제 예약 완료</title>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
     <main>
     <!-- 펀딩 제목  -->
-	<div><h3 style="text-align: center; font-weight: bold;padding: 30px;color: #F2EDD7;background-color: #393232;">${read.funding_title }</h3></div>
+	<div><h3>${read.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
@@ -97,11 +51,11 @@
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
                         <div class="step_circle" style="background: #fff; border: 1px dashed #979797;">결제 예약</div>
                         <div style=" display: table-cell; vertical-align: middle; color: #979797">------------</div>
-                        <div class="step_circle" style="color: #fff; border: none; background: #4E944F;">예약 완료</div>
+                        <div class="step_circle" style="color: #fff; border: none; background: #fa6462;">예약 완료</div>
                     </div>
                 </div>
                 <div class="reserve_card">
-                    <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12"><div style="color: green">${member.member_name}님,</div> 펀딩 예약이 완료되었습니다.</div>
+                    <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12"><div style="color: #fa6462">${member.member_name}님,</div> 펀딩 예약이 완료되었습니다.</div>
                     <table class="type04">
 					  <tr>
 					    <th scope="row">프로젝트명</th>
@@ -135,12 +89,12 @@
                     <div style="display: inline-block; text-align: center; width: 100%; margin: 15px 0;">
                     <c:forEach var="item" items="${myFundingList}" varStatus="i">
                     	<c:if test="${i.first}">
-                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/mypage/info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">
+                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/mypage/info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" class="btn reserve_detail">
                         	펀딩 상세 내역 보기
                         </button>
                     	</c:if>
                     </c:forEach>
-                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/main.do'" class="btn btn-success" style="height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;">펀딩 홈 가기</button>
+                        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/main.do'" class="btn funding_home">펀딩 홈 가기</button>
                     </div>
                     </div>
                 </div>

@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+	main {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 300px;
+    }
+    
+    h3{
+		text-align: center; font-weight: bold;padding: 30px;
+		color: #FEF9EF;background-color: #21243D;
+	}
+	
+    .step_circle{
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .reserve_card{
+    	padding: 40px 70px;
+	    background-color: #feffe5;
+	    width: 80%;
+	    margin: 70px auto;
+        border-radius: 2px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	}
+    .btn-light{
+    	width: 230px; margin: 10px 30px; border: 1px solid gainsboro;
+    }
+    table.type04 {
+	 	border-collapse: separate;
+	    border-spacing: 1px;
+	    text-align: left;
+	    line-height: 2;
+	    margin: 20px 10px;
+	    width: 97%;
+	    border-top: 2px solid black;
+	}
+	table.type04 th {
+	  width: 20%;
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
+	table.type04 td {
+	  width: 80%;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
+	
+    .btn:hover{
+    	text-decoration: none;
+    	color: #343a40;
+    }
+    
+	.reserve_detail{
+		height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px;
+		color: #fa6462; background-color: white;
+		border: 1px solid #fa6462;
+	}
+	
+	.funding_home{
+		height: 60px; width: 250px; font-size: 15pt; font-weight: bold; margin: 10px 30px; background-color: #fa6462; border:none;
+		color: white;
+	}
+	
+	

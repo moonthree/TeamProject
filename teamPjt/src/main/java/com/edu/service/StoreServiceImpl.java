@@ -13,8 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.edu.dao.memberDao;
 import com.edu.dao.storeDAO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -164,6 +169,40 @@ public class StoreServiceImpl implements StoreService{
 	public int storeOptionReg(List<StoreOptionVO> vo) {
 		return dao.storeOptionReg(vo);
 	}
+	
+	// 결제
+	// 주문 번호
+	@Override
+	public int insertOrder(StoreOrderVO ordervo) {
+		return dao.insertOrder(ordervo);
+	}
+	// 주문 옵션 정보 등록
+	@Override
+	public int insertOrderOption(StoreOrderOptionVO orderoptionvo) {
+		return dao.insertOrderOption(orderoptionvo);
+	}
+	// 배송 정보 등록
+	@Override
+	public int insertExpress(StoreExpressVO expressvo) {
+		return dao.insertExpress(expressvo);
+	}
+	// 결제 정보 저장
+	@Override
+	public int insertPay(StoreOrderPayVO payvo) {
+		return dao.insertPay(payvo);
+	}
+	// 결제 완료 - 스토어 정보
+	@Override
+	public StoreVO store_info(int store_idx) {
+		return dao.store_info(store_idx);
+	}
+	
+	//스토어 옵션 수량 감소 메소드
+	@Override
+	public int update_option(StoreOrderOptionVO orderoptionvo) {
+		return dao.update_option(orderoptionvo);
+	}
+	
 }
 
 	

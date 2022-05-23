@@ -2,17 +2,17 @@ package com.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.mail.Store;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,15 +32,21 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
-import com.edu.vo.FundingCommunityVO;
-import com.edu.vo.FundingMainVO;
-import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
+import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 @RequestMapping(value = "/store")
@@ -568,7 +575,7 @@ public class StoreController {
 	
 	// 스토어 결제페이지
 	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
-	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request) {
+	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request, HttpServletResponse response) {
 		
 		// 옵션 출력
 		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
@@ -582,15 +589,103 @@ public class StoreController {
 		
 		return "store/store_pay";
 	}
+	
 	@RequestMapping(value = "/store_pay.do", method = RequestMethod.POST)
-	public void pay() {
+	@ResponseBody
+	public void pay(StoreOrderVO ordervo, StoreOrderOptionVO orderoptionvo, StoreExpressVO expressvo, StoreOrderPayVO payvo, HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("inlineRadioOptions1") String radio) throws IOException {
+		
+		// 스토어 주문 번호
+		int result = sts.insertOrder(ordervo);
+		
+		// 스토어 주문 옵션 저장
+		String select = request.getParameter("select");
+		String[] select_idx = select.split(",");
+		String[] select_count = request.getParameterValues("count");
+		for(int i=0; i<select_idx.length; i++) {
+			int si = Integer.parseInt(select_idx[i]);
+			int sc = Integer.parseInt(select_count[i]);
+			orderoptionvo.setStore_order_option_select_idx(si);
+			orderoptionvo.setStore_order_option_select_count(sc);
+			sts.insertOrderOption(orderoptionvo);
+			
+			//옵션 수량에 따른 스토어 상품 옵션 수량 감소하게 함 -> update 수량
+			sts.update_option(orderoptionvo);
+		}
+		
+		// 스토어 주문 배송지 저장
+		String name = "";
+		String phone = "";
+		String postnum = "";
+		String addr1 = "";
+		String addr2 = "";
+		System.out.println(radio);
+		if(radio.equals("option1")) {
+			name = request.getParameter("store_express_name1");
+			phone = request.getParameter("store_express_phone1");
+			postnum = request.getParameter("store_express_postnum1");
+			addr1 = request.getParameter("store_express_addr1_1");
+			addr2 = request.getParameter("store_express_addr2_1");
+			
+		}else {
+			name = request.getParameter("store_express_name2");
+			phone = request.getParameter("store_express_phone2");
+			postnum = request.getParameter("store_express_postnum2");
+			addr1 = request.getParameter("store_express_addr1_2");
+			addr2 = request.getParameter("store_express_addr2_2");
+		}
+		expressvo.setStore_express_name(name);
+		expressvo.setStore_express_phone(phone);
+		expressvo.setStore_express_postnum(postnum);
+		expressvo.setStore_express_addr1(addr1);
+		expressvo.setStore_express_addr2(addr2);
+		sts.insertExpress(expressvo);
+		
+		// 결제 정보 저장
+		sts.insertPay(payvo);
 		
 		
+		int store_idx = Integer.parseInt(request.getParameter("store_idx"));
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
+		if(result>0) {
+			// 저장 완료
+			pw.println("<script>alert('결제가 완료되었습니다.');location.href='store_pay_complete.do?store_idx="+store_idx+"';</script>");
+		}else {
+			// 저장 안됭
+			pw.println("<script>alert('결제가 실패하었습니다.');location.href='reserInteger.parseIntve.do';</script>");
+		}
+		pw.flush();
 	}
+	
+	// 결제 검증
+	private IamportClient api;
+	public StoreController() {
+		this.api = new IamportClient("0592735777149220", "c38863fa697011512241e9543b0a8a0e6055505edadadcfa7db2ebeba5031a556b1d24d43572d885");
+	}
+	@ResponseBody
+	@RequestMapping(value="/verifyIamport/{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{
+			return api.paymentByImpUid(imp_uid);
+	}
+	
 	// 스토어 결제 완료페이지
 	@RequestMapping(value = "/store_pay_complete.do", method = RequestMethod.GET)
-	public String pay_complete() {
+	public String pay_complete(HttpServletRequest request, Model model, StoreVO vo) throws Exception {
 		
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member", member);
+		
+		//store_idx에 따른 뷰페이지 정보 가져오기
+		StoreVO store_info = sts.store_info(vo.getStore_idx());
+		model.addAttribute("info", store_info );
+		
+		//스토어리스트
+		List<StoreInfoDetailVO> msl = ms.myStoreList(login.getMember_idx());
+		model.addAttribute("myStoreList", msl);
 		
 		return "store/store_pay_complete";
 	}

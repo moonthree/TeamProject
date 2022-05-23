@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -62,5 +66,19 @@ public interface StoreService {
 	
 	//스토어 옵션 등록ㄴ
 	int storeOptionReg(List<StoreOptionVO> vo);
-
+	
+	// 결제
+	// 주문 번호
+	int insertOrder(StoreOrderVO ordervo);
+	// 주문 옵션 정보 등록
+	int insertOrderOption(StoreOrderOptionVO orderoptionvo);
+	// 배송 정보 등록
+	int insertExpress(StoreExpressVO expressvo);
+	// 결제 정보
+	int insertPay(StoreOrderPayVO payvo);
+	// 주문 완료 - 주문 정보
+	StoreVO store_info(int store_idx);
+	
+	//스토어 옵션 수량 감소 메소드
+	int update_option(StoreOrderOptionVO orderoptionvo);
 }
