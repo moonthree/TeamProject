@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_view.css">
 <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_view_select.css">
 <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_modal.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/event_css/event_view.css">
 </head>
 <body>
 	<%
@@ -59,7 +60,7 @@
 	        <div class="card-img-overlay">
 	            <br>
 	            <h5 class="card-category">
-	                store_idx test : ${read.store_idx} aaa
+	                store_idx test : ${read.store_idx} aaa ${event }
 	            	<c:if test="${read.store_category == 0 }">
 	           			강아지 용품
 		           	</c:if>
@@ -135,7 +136,12 @@
 	                </div>
 	                <!--별점 끝-->
 	
-	                <div class="viewPrice"><fmt:formatNumber value="${read.store_price }" type="number" />원</div>
+	                <div class="viewPrice"><span class='card-price-event'><fmt:formatNumber value="${read.store_price }" type="number" />원</span>
+	                	<br><span style="color:#fa6462">${event }%&nbsp;</span><span><fmt:formatNumber value="${read.store_price - read.store_price * event /100}" maxFractionDigits="0" type="number" />원</span>
+	                </div>
+	                
+	                
+	                
 	                <div class="viewExpress">
 	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
@@ -166,7 +172,9 @@
 				                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
 				                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
 				                            <div class="select_menu_item_price">
-				                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+				                            	<span class="card-price-event"><fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원</span>
+	                							<br><span style="color:#fa6462">${event }%&nbsp;</span>
+	                							<span><fmt:formatNumber value="${optionlist.store_option_price - optionlist.store_option_price * event /100}" maxFractionDigits="0" type="number" />원</span>
 				                            </div>
 				                        </div>
 				                    </li>
@@ -201,7 +209,7 @@
 											</svg>
 		                        		</button>
 		                        		<!-- 수량  -->
-		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
+		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price - optionlist.store_option_price * event /100}">
 		                        		<input type="hidden" name="stock${optionlist.store_option_idx}" id="stock" value="${optionlist.store_option_stock}">
 		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
 		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">
@@ -213,7 +221,7 @@
 		                        	</p>
 				                </div>
 				                <div class="money" style="float: left;">
-			                    	<div id="sum${optionlist.store_option_idx}" class="sum${optionlist.store_option_idx}" style="line-height: 2"><fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원</div>
+			                    	<div id="sum${optionlist.store_option_idx}" class="sum${optionlist.store_option_idx}" style="line-height: 2"><fmt:formatNumber value="${optionlist.store_option_price - optionlist.store_option_price * event /100}" type="number" />원</div>
 	                        	</div>
 				            </div>
 				        </div>

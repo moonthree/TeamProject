@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="EventMapper">
+	<select id="eventMain" parameterType="EventVO" resultType="EventVO">
+		SELECT
+			 event_idx,
+			 member_idx,
+			 event_price,
+			 event_thumbnail,
+			 event_title,
+			 event_subtitle
+		FROM 
+			event
+		order by event_idx desc
+	</select>
+	
+	<select id="read" parameterType="EventVO" resultType="EventVO">
+		SELECT
+			 event_idx,
+			 member_idx,
+			 event_price,
+			 event_thumbnail,
+			 event_title,
+			 event_subtitle
+		FROM 
+			event
+		WHERE
+			member_idx = #{member_idx}
+	</select>
+	
+	<select id="eventView" parameterType="StoreVO" resultType="StoreVO">
+		SELECT
+			s.store_idx,
+			s.member_idx,
+			s.funding_idx,
+			s.store_price,
+			s.store_title,
+			s.store_thumbnail,
+			s.store_content,
+			s.store_notice,
+			s.store_write_date,
+			s.store_permit_state,
+			s.store_current_state,
+			s.store_category,
+			s.store_funding,
+			s.store_express_fee,
+			s.store_views,
+			sr.avg_star
+		from store s
+		left outer join (select AVG(sr.store_review_star) as 'avg_star', store_idx from store_review sr group by store_idx) sr
+		on s.store_idx = sr.store_idx AND s.store_permit_state=1
+		where member_idx = #{member_idx}
+		order by s.store_idx desc
+	</select>
+</mapper>

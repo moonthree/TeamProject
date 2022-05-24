@@ -86,7 +86,7 @@
                         <div class="chip">고양이</div>
                     </label>
                     <input type="radio" class="btn_category" name="funding_category" value="2" id="btn_03">
-                    <label for="btn_02">
+                    <label for="btn_03">
                         <div class="chip">다른 동물들</div>
                     </label>
                 </div>
