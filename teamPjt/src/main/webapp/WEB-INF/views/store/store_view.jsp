@@ -139,7 +139,14 @@
 	                <div class="viewExpress">
 	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
-	                    <span class="viewExpressPrice">${read.store_express_fee }</span>원
+	                    <span class="viewExpressPrice">
+	                    	<c:if test="${read.store_express_fee eq 0}">
+					        		무료 배송
+					        	</c:if>
+					        	<c:if test="${read.store_express_fee ne 0}">
+					        		<fmt:formatNumber value="${read.store_express_fee }" type="number" />원
+					        	</c:if>
+	                    </span>
 	                    <br>
 	                    <span class="viewDate">${twoDayAfterStr} <span class="viewDateText">도착 예정</span></span>
 	                </div>
@@ -155,21 +162,38 @@
 				        <div class="select_container">
 				            <div class="select_title">
 				                <div class="select_menu_title" id="select_menu_title">상품 선택</div>
-				                <div class="morebtn">↓</div>
+				                <div class="morebtn">
+				                	<span class="arrow">
+							            <span></span>
+							            <span></span>
+							        </span>
+				                </div>
 				            </div>
 				            <ul class="select_menu_content">
 				                <div>
 				                	<c:forEach var="optionlist" items="${optionlist}">
-				                    <li class="menu${optionlist.store_option_idx} li_menu" id="menu${optionlist.store_option_idx}" onclick="javascript:option.checkSelect(${optionlist.store_option_idx});">
-				                        <div class="select_menu_item_container">
-				                            <input type="hidden" value="${optionlist.store_option_idx}">
-				                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
-				                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
-				                            <div class="select_menu_item_price">
-				                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
-				                            </div>
-				                        </div>
-				                    </li>
+				                		<c:if test="${optionlist.store_option_stock > 0}">
+						                    <li class="menu${optionlist.store_option_idx} li_menu" id="menu${optionlist.store_option_idx}" onclick="javascript:option.checkSelect(${optionlist.store_option_idx});">
+						                        <div class="select_menu_item_container">
+						                            <input type="hidden" value="${optionlist.store_option_idx}">
+						                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
+						                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
+						                            <div class="select_menu_item_price">
+						                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+						                            </div>
+						                        </div>
+						                    </li>
+				                		</c:if>
+				                		<c:if test="${optionlist.store_option_stock < 1}">
+						                        <div class="select_menu_item_container" onclick="javascript:soldout();" style="color: #bcbdbe">
+						                            <input type="hidden" value="${optionlist.store_option_idx}">
+						                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
+						                            <div class="select_menu_item_content" style="color: #bcbdbe">품절</div>
+						                            <div class="select_menu_item_price">
+						                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+						                            </div>
+						                        </div>
+				                		</c:if>
 	                				</c:forEach>
 				                </div>
 				            </ul>
@@ -1483,6 +1507,11 @@ let option = {
         	
         }
     });
+	
+	// sold out 품절
+	function soldout(){
+		alert('해당 상품은 품절입니다.');
+	}
 	
 </script>
 <script src="../resources/js/store/store_view_review.js"></script>

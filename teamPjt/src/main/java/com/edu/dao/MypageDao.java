@@ -141,5 +141,14 @@ public class MypageDao {
 		return sqlSession.delete("MypageMapper.fundingWithdraw", funding_order_idx); //funding_order
 	}
 
+	//스토어 관리
+	public List<StoreVO> storeAdmin(int store_idx){
+		return sqlSession.selectList("MypageMapper.storeAdmin", store_idx);
+	}
+	
+	//배송 상태 변셩
+	public int update_Express(int store_order_idx){
+		return sqlSession.update("MypageMapper.update_Express", store_order_idx);
+	}
 	
 }

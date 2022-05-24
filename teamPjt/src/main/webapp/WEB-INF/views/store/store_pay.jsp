@@ -45,7 +45,7 @@
 						</svg>
 	        		</span>
 	        		<div class="message_container">
-	        			<p class="message_p">펀딩에 성공하여 상시 판매하는 스토어 상품입니다.</p>
+	        			<p class="message_p">본 상품은 상시 판매하는 스토어 상품입니다.</p>
 	        			<div class="message_d">
 	        				<ul>
 	        					<li>구매 즉시 결제가 진행됩니다.</li>
