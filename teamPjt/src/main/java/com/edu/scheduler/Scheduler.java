@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.edu.dao.schedulerDAO;
 import com.edu.vo.FundingMainVO;
 
+//<!-- 주석 version13 -->
 @Component
 public class Scheduler {
 	
