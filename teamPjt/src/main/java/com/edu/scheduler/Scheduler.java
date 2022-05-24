@@ -27,7 +27,7 @@ public class Scheduler {
 		//"0 */5 * * * *" ->5분주기
 		//매일 자정 0 0 0 * * *
 	
-	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 * * * * *")
 	public void test() {
 		scdao.FundingSuccess();
 		scdao.FundingFail();
