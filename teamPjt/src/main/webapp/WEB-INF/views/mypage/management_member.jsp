@@ -58,19 +58,7 @@
                             <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
-                            <th scope="col">
-                                <div class="dropdown stateDropdown">
-                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-                                        id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                        상태
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">전체</a>
-                                        <a class="dropdown-item" href="#">회원</a>
-                                        <a class="dropdown-item" href="#">탈퇴한 회원</a>
-                                    </div>
-                                </div>
-                            </th>
+                            <th scope="col">상태</th>
                             <th scope="col">버튼</th>
                         </tr>
                     </thead>

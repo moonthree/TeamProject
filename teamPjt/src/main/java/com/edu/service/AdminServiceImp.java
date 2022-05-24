@@ -12,6 +12,7 @@ import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
 import com.edu.vo.StoreVO;
 
+//주석 version12 
 @Service
 public class AdminServiceImp implements AdminService{
 	
@@ -97,6 +98,31 @@ public class AdminServiceImp implements AdminService{
 	public int update_store2(int store_idx) {
 		
 		return admindao.update_store2(store_idx);
+	}
+	
+	//제품 관리 펀딩 페이징
+	@Override
+	public List<FundingMainVO> pro_funding(Pagination page) {
+		
+		return admindao.pro_funding(page);
+	}
+	//제품 관리 펀딩 페이징
+	@Override
+	public int pro_FundingCount() {
+		
+		return admindao.pro_fundingCount();
+	}
+	
+	//제품 관리 스토어 페이징
+	@Override
+	public List<StoreVO> pro_store(Pagination2 page2) {
+		
+		return admindao.pro_store(page2);
+	}
+	
+	@Override
+	public int pro_StoreCount() {
+		return admindao.pro_storeCount();
 	}
 
 	

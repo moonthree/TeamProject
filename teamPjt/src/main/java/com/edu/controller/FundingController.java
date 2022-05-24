@@ -118,6 +118,8 @@ public class FundingController {
 		//글 목록 얻어오기
 		listMain = (ArrayList<FundingMainVO>) fms.listMain(vo);
 		
+		
+		
 		// 글의 개수
 		totalRow = fms.listMainCount(vo);
 		
