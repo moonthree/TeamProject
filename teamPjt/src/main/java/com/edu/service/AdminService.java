@@ -7,7 +7,7 @@ import com.edu.vo.MemberVO;
 import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
 import com.edu.vo.StoreVO;
-
+//주석 version12 
 public interface AdminService {
 
 	//모든 소비자 계정 찾기

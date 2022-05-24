@@ -12,6 +12,7 @@ import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
 import com.edu.vo.StoreVO;
 
+//주석 version12 
 @Service
 public class AdminServiceImp implements AdminService{
 	

@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    
+    <!-- 주석 version12 -->
     <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
         $(document).ready(function () {

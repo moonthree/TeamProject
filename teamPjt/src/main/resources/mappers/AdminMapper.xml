@@ -4,6 +4,7 @@
 	
 <mapper namespace="adminMapper">
 	<!-- 소비자 계정 가져오기 -->
+	<!-- // 주석 version12  -->
 	<select id="listMember_seller" resultType="memberVO" parameterType="com.edu.vo.Pagination">
 		SELECT 
 			member_idx
