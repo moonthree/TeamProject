@@ -188,12 +188,14 @@
 				s.store_category,
 				s.store_funding,
 				s.store_express_fee,
-				s.store_views
-		FROM	store s, store_order so, member m
+				s.store_views,
+				se.store_express_state
+		FROM	store s, store_order so, member m, store_express se
 		WHERE	s.store_idx = so.store_idx
 		AND		s.member_idx = m.member_idx
-		AND		so.member_idx = #{ member_idx }
-		ORDER BY so.store_order_date
+		AND		se.store_order_idx = so.store_order_idx
+		AND		so.member_idx = #{member_idx}
+		ORDER BY so.store_order_date DESC
 	</select>
 	
 	<!-- mypage1 스토어 3개  -->
@@ -217,10 +219,12 @@
 				s.store_category,
 				s.store_funding,
 				s.store_express_fee,
-				s.store_views
-		FROM	store s, store_order so, member m
+				s.store_views,
+				se.store_express_state
+		FROM	store s, store_order so, member m, store_express se
 		WHERE	s.store_idx = so.store_idx
 		AND		s.member_idx = m.member_idx
+		AND		se.store_order_idx = so.store_order_idx
 		AND		so.member_idx = #{ member_idx }
 		ORDER BY so.store_order_date DESC LIMIT 3;
 	</select>
@@ -346,7 +350,6 @@
 		WHERE 	fo.funding_order_idx = #{ funding_order_idx }
 		AND 	fo.funding_idx = f.funding_idx;
 	</select>
-	
 	<!-- funding_order_pay -->
 	<select id="fundingPayDetail" parameterType="int" resultType="funding_order_payVO">
 		 SELECT funding_order_pay_idx, 
@@ -358,7 +361,6 @@
 		 FROM   funding_order_pay
 		 WHERE	funding_order_idx = #{funding_order_idx}
 	</select>
-	
 	<!-- funding_express -->
 	<select id="fundingExpressDetail" parameterType="java.util.HashMap" resultType="funding_expressVO">
 		SELECT  funding_express_idx,
@@ -373,7 +375,6 @@
 		FROM funding_express
 		WHERE funding_order_idx = #{funding_order_idx}
 	</select>
-	
 	<!-- funding_option -->
 	<select id="fundingOptionDetail" parameterType="int" resultType="com.edu.vo.FundingInfoDetailVO">
 		SELECT  foo.funding_order_idx,
@@ -388,6 +389,73 @@
 		AND	 	fp.funding_option_idx = foo.funding_order_option_select_idx
 		AND 	fo.funding_order_idx = #{funding_order_idx};
 	</select>
+	
+	<!-- store_info_detail -->
+	<!-- store & store_order -->
+	<select id="storeInfoDetail" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
+		SELECT 	so.store_order_idx, 
+				so.store_order_date,
+				so.store_order_total_price,
+				so.store_order_pay_state,
+				s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_funding,
+				s.store_category,
+				s.store_views,
+				s.store_express_fee
+		FROM 	store_order so, store s 
+		WHERE 	so.store_order_idx = #{store_order_idx}
+		AND 	so.store_idx = s.store_idx;
+	</select>
+	<!-- store_order_pay -->
+	<select id="storePayDetail" parameterType="int" resultType="storeOrderPayVO">
+		SELECT  store_order_pay_idx, 
+				store_order_idx,
+				store_order_pay_card_name, 
+				store_order_pay_card_number,
+				store_order_pay_amount
+		FROM    store_order_pay
+		WHERE	store_order_idx = #{store_order_idx}
+	</select>
+	<!-- store_express -->
+	<select id="storeExpressDetail" parameterType="int" resultType="storeExpressVO">
+		SELECT  store_express_idx,
+				store_order_idx,
+				member_idx,
+				store_express_postnum,
+				store_express_addr1,
+				store_express_addr2,
+				store_express_phone,
+				store_express_name,
+				store_express_state
+		FROM  	store_express
+		WHERE 	store_order_idx = #{store_order_idx}
+	</select>
+	<!-- store_option -->
+	<select id="storeOptionDetail" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
+		SELECT  soo.store_order_idx,
+				soo.store_order_option_idx,
+				soo.store_order_option_select_idx,
+				soo.store_order_option_select_count,
+				sp.store_option_name,
+				sp.store_option_price,
+				sp.store_option_detail
+		FROM	store_order so, store_order_option soo, store_option sp
+		WHERE 	so.store_order_idx = soo.store_order_idx
+		AND	 	sp.store_option_idx = soo.store_order_option_select_idx
+		AND 	so.store_order_idx = #{store_order_idx}
+	</select>
+	
+	
 	
 	<!-- 찜 취소 -->
 	<delete id="deleteZzim" parameterType="java.util.HashMap">
@@ -413,6 +481,13 @@
 		WHERE  store_idx = #{store_idx}
 		AND    so.store_order_idx = se.store_order_idx
 	</select>
+	<!-- 구매 취소 -->
+	<update id="storeWithdraw" parameterType="int">
+		UPDATE 	store_order 
+		SET		store_order_pay_state = 1
+		WHERE 	store_order_idx = #{ store_order_idx }
+	</update>
+	
 	
 	<!-- 배송 상태 변경 -->
 	<update id="update_Express">

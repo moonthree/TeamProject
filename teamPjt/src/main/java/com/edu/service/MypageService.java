@@ -11,7 +11,9 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
@@ -89,6 +91,17 @@ public interface MypageService {
 	//funding_option1
 	List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx);
 	
+	
+	/*store_info_detail*/
+	//store & store_order
+	StoreInfoDetailVO storeDetail(int store_order_idx);
+	//store_order_pay
+	StoreOrderPayVO storePayDetail(int store_order_idx);
+	//store_express
+	StoreExpressVO storeExpressDetail(int store_order_idx);
+	//store_option
+	List<StoreInfoDetailVO> storeOptionDetail(int store_order_idx);
+	
 	//찜 취소
 	int deleteZzim(Map<String, Integer> paramMap);
 	
@@ -106,4 +119,6 @@ public interface MypageService {
 	
 	// 배송 상태 변경
 	int update_Express(int store_order_idx);
+	//구매 취소
+	int storeWithdraw(int store_order_idx);
 }
