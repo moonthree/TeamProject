@@ -276,7 +276,7 @@
 	                            </div>
 	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
 	                            
-	                            <p class="card-text" >
+	                            <p class="card-text">
 	                              <div class="row">
 	                                <div class="col">by. ${ item.member_name }</div>
 	                                <div></div>
