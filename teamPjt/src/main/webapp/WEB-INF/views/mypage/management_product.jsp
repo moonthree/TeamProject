@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-    
+    <!-- 주석 version12 -->
     <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -26,124 +26,194 @@
 <body>
 	<c:import url="/header.do"></c:import>
 <main id="wrapper">
-	<div class="container" >
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <h2 class="apptitle">상품 관리 페이지</h2>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <form class="form-inline my-2 my-lg-0 PMsearch">
-                    <input class="form-control mr-sm-2"  type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
+	<div class="container">
+        <h2 class="apptitle">승인된 제품 페이지 입니다.</h2>
         <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
-            <li class="nav-item nav-pills viewtab" role="presentation">
-                <a class="nav-link active" data-toggle="tab" href="#fundingApproval" role="tab"
-                    aria-controls="fundingApproval" aria-selected="true"><span class="atab">펀딩승인</span></a>
+      		<li class="nav-item nav-pills viewtab" role="presentation" > 
+                  <a id="alink1" class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
+                    aria-controls="tab1"  aria-selected="true">펀딩</a>  
             </li>
-            <li class="nav-item nav-pills viewtab" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#storeApproval" role="tab" aria-controls="storeApproval"
+             <li class="nav-item nav-pills viewtab" role="presentation">
+      
+                <a id="alink2" class="nav-link" data-toggle="tab"   role="tab" aria-controls="tab2" href="#tab2"
                     aria-selected="false"><span class="toptab">스토어</span></a>
             </li>
         </ul>
+        
         <div class="tab-content" id="myTabContent">
-            <!--펀딩-->
-            <div class="tab-pane fade active show " id="fundingApproval" role="tabpanel"
-                aria-labelledby="fundingApproval-tab">
+           
+           	<!-- 펀딩 페이징1-->
+           <div class="tab-pane fade active show" id="tab1" role="tabpanel"
+                aria-labelledby="tab1-tab"> 
+                <c:if test="${listFun.size() eq 0}">
+                   
+                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+             
+				</c:if>
+				 <c:if test="${listFun.size() ne 0}">
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th scope="col" class="PMtable">번호</th>
-                            <th class="tdtitle scope=" col" style="width : 60%">제목</th>
-                            <th scope="col">
-                                <div class="dropdown stateDropdown">
-                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                        aria-expanded="false">
-                                        상태
-                                    </a>                   
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">전체</a>
-                                        <a class="dropdown-item" href="#">펀딩 진행중</a>
-                                        <a class="dropdown-item" href="#">펀딩 종료</a>
-                                    </div>
-                                </div>
-                            </th>
+                            <th scope="col">펀딩 번호</th>
+                            <th class="tdtitle scope="col" style="width : 55%">제목</th>
+                            <th scope="col">상태</th>
+                            <th scope="col">카테고리</th>
                             <th scope="col">버튼</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td>펀딩 진행중</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-success">보류</button>
-                                <button type="button" class="btn btn-outline-danger">삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td>펀딩 종료</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-success">보류</button>
-                                <button type="button" class="btn btn-outline-danger">삭제</button>
-                            </td>
-                        </tr>
+                    	<c:forEach var="funList" items="${listFun}">
+	                        <tr>
+	                            <th>${funList.funding_idx}</th>
+	                            <td class="tdtitle">
+		                            <a href="<%=request.getContextPath()%>/funding/view.do?funding_idx=${funList.funding_idx}">
+		                            		${funList.funding_title}
+		                            </a>
+	                            </td>
+	                            <td>
+	                           		<c:if test="${funList.funding_permit_state eq 0}">
+	                           		<span style="color: blue;">승인 대기</span>
+	                           		</c:if>
+	                            </td>
+	                            <td>
+	                            	<c:if test="${funList.funding_category eq 0}">강아지</c:if>
+	                            	<c:if test="${funList.funding_category eq 1}">고양이</c:if>
+	                            	<c:if test="${funList.funding_category eq 2}">기타동물</c:if>
+	                            </td>
+	                            <td>
+	                                <button type="button" onclick="updateStateFunding(this)" class="btn btn-outline-success">제품 보류</button>
+	                                <button type="button" onclick="updateStateFunding2(this)" class="btn btn-outline-danger" >제품 거절</button>
+	                            </td>
+	                        </tr>
+                        </c:forEach>
                     </tbody>
-                </table>
+                    </table>
+                <div>
+                <!-- 펀딩 페이징 기법 -->
+	        	<nav aria-label="Page navigation example">
+					  <ul class="pagination justify-content-center">
+					    <c:if test="${pageOne.prev}">
+					    	<li class="page-item"><a class="page-link" href="management_product.do${pageOne.makeQuery(pageOne.startPage - 1)}#tab1">이전</a></li>
+					    </c:if> 
+					
+					    <c:forEach begin="${pageOne.startPage}" end="${pageOne.endPage}" var="idx">
+					    	<li class="page-item"><a class="page-link" href="management_product.do${pageOne.makeQuery1(idx)}#tab1">${idx}</a></li>
+					    </c:forEach>
+					
+					    <c:if test="${pageOne.next && pageOne.endPage > 0}">
+					    	<li class="page-item"><a class="page-link" href="management_product.do${pageOne.makeQuery(pageOne.endPage + 1)}#tab1">다음</a></li>
+					    </c:if> 
+					  </ul>
+				 </nav>
+				</div>
+				</c:if>
             </div>
-            <!--스토어-->
-            <div class="tab-pane fade" id="storeApproval" role="tabpanel" aria-labelledby="storeApproval-tab">
+           
+           <!-- 스토어 페이징2-->
+           <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+           	<c:if test="${listStore.size() eq 0}">
+                   
+                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+             
+			</c:if>
+			 <c:if test="${listStore.size() ne 0}">
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th scope="col">번호</th>
-                            <th class="tdtitle" scope="col" style="width : 60%">제목</th>
-                            <th scope="col">
-                                <div class="dropdown">
-                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-expanded="false">
-                                        상태
-                                    </a>
-                                
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">전체</a>
-                                        <a class="dropdown-item" href="#">판매중</a>
-                                        <a class="dropdown-item" href="#">판매 중지</a>
-                                    </div>
-                                </div>
-                            </th>
-                            <th scope="col">버튼</th>
+                            <th scope="col" style="width :5%">번호</th>
+                            <th class="tdtitle" style="width : 40%">제목</th>
+                            <th scope="col" style="width : 10%">상태 </th>
+                            <th scope="col"style="width : 20%">카테고리</th>
+                            <th scope="col"style="width : 24%">버튼</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td>판매중</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-success">보류</button>
-                                <button type="button" class="btn btn-outline-danger">삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td class="tdtitle">Mark</td>
-                            <td>판매 중지</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-success">보류</button>
-                                <button type="button" class="btn btn-outline-danger">삭제</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+					 <tbody>
+					 	<c:forEach var="StoreList" items="${listStore}">
+	                        <tr>
+	                            <th>${StoreList.store_idx}</th>
+	                            <td class="tdtitle">
+	                            
+		                            		<a href="<%=request.getContextPath()%>/store/store_view.do?store_idx=${StoreList.store_idx}&store_funding=${StoreList.store_funding}">
+		                            			${StoreList.store_title}
+		                            		</a>
+	                            </td>
+	                            <td>
+	                           		<c:if test="${StoreList.store_permit_state eq 0}">
+	                           		<span style="color: blue;">승인 대기</span>
+	                           		</c:if>
+	                            </td>
+	                            <td>
+	                            	<c:if test="${StoreList.store_category eq 0}">강아지</c:if>
+	                            	<c:if test="${StoreList.store_category eq 1}">고양이</c:if>
+	                            	<c:if test="${StoreList.store_category eq 2}">기타동물</c:if>
+	                            </td>
+	                            <td>
+	                                <button type="button" onclick="updateStateStore(this)" class="btn btn-outline-success">제품 보류</button>
+	                                <button type="button" onclick="updateStateStore2(this)" class="btn btn-outline-danger" >제품 거절</button>
+	                            </td>
+	                        </tr>
+                        </c:forEach>
+                        </tbody>
+               		</table>
+                        <!-- 스토어 페이징 기법 -->
+			              <div>
+			                 <nav aria-label="Page navigation example">
+			                    <ul class="pagination justify-content-center">
+			                      <c:if test="${pageTwo.prev}">
+			                         <li class="page-item"><a class="page-link" href="management_product.do${pageTwo.makeQuery1(pageTwo.startPage - 1)}#tab2">이전</a></li>
+			                      </c:if> 
+			                  
+			                      <c:forEach begin="${pageTwo.startPage}" end="${pageTwo.endPage}" var="idx2">
+			                         <li class="page-item"><a class="page-link" href="management_product.do${pageTwo.makeQuery1(idx2)}#tab2">${idx2}</a></li>
+			                      </c:forEach>
+			                  
+			                      <c:if test="${pageTwo.next && pageTwo.endPage > 0}">
+			                         <li class="page-item"><a class="page-link" href="management_product.do${pageTwo.makeQuery1(pageTwo.endPage + 1)}#tab2">다음</a></li>
+			                      </c:if> 
+			                    </ul>
+			                </nav>
+			            </div>	
+			             </c:if> 	
             </div>
         </div>
-    </div>
-</main>    
+        </div>
+
+</main>
 <c:import url="/footer.do"></c:import>
 </body>
+<script type="text/javascript">
+
+
+$('#myTab #alink1').click(function(e) {
+	e.preventDefault();
+	history.replaceState({}, null, location.pathname);
+	loaction.href=location.pathname;
+//	window.location.reload();
+    $(this).tab('show');
+    window.scrollTo(100, 100);
+  });
+  
+$('#myTab #alink2').click(function(e) {
+    e.preventDefault();
+    history.replaceState({}, null, location.pathname);
+    loaction.href=location.pathname;
+    $(this).tab('show');
+    window.scrollTo(100, 100);
+  });
+  
+  
+  // store the currently selected tab in the hash value
+  $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+    var id = $(e.target).attr("href").substr(1);
+    window.location.hash = id;
+    window.scrollTo(100, 100);
+  });
+  
+  // on load of the page: switch to the currently selected tab
+  var hash = window.location.hash;
+  $('#myTab a[href="' + hash + '"]').tab('show'); 
+
+</script>
+
 </html>

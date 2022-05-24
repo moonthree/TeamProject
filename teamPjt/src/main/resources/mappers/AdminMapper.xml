@@ -4,6 +4,7 @@
 	
 <mapper namespace="adminMapper">
 	<!-- 소비자 계정 가져오기 -->
+	<!-- // 주석 version12  -->
 	<select id="listMember_seller" resultType="memberVO" parameterType="com.edu.vo.Pagination">
 		SELECT 
 			member_idx
@@ -123,7 +124,6 @@
 	</select>
 	
 	
-	
 	<!-- 관리자가 승인하여 스토어 상태 업데이트함  승인으로-->
 	<update id="updateStore_State" parameterType="int">
 	UPDATE store
@@ -137,6 +137,52 @@
 	SET store_permit_state = 2
 	WHERE store_idx = #{store_idx}
 	</update>
+	
+	
+	<!-- 펀딩 승인 후 페이지에 올라온 제품 가져오기(project 관리 페이지) -->
+	<select id="productFunding" resultType="fundingMainVO" parameterType="com.edu.vo.Pagination">
+		SELECT 
+		 funding_idx
+		,member_idx
+		,funding_title
+		,funding_permit_state
+		,funding_category
+		FROM funding
+		WHERE funding_permit_state = 1
+		order by funding_idx asc limit #{rowStart},10
+	</select>
+	<select id="pro_fundingCount" resultType="int">
+		SELECT COUNT(funding_idx)
+		FROM funding
+		where funding_permit_state = 1
+		AND funding_idx > 0
+	</select>
+	
+	
+	<!-- 스토어 제품 가져오기 -->
+	<select id="productStore" resultType="StoreVO" parameterType="com.edu.vo.Pagination2">
+		SELECT 
+		 store_idx
+		,funding_idx
+		,member_idx
+		,store_title
+		,store_permit_state
+		,store_category
+		FROM store
+		WHERE store_permit_state = 1
+		order by store_idx asc limit #{rowStart},10
+	</select>
+	<!-- 스토어 제품 page -->
+	<select id="pro_storeCount" resultType="int">
+		SELECT COUNT(store_idx)
+		FROM store
+		where store_permit_state = 1
+		AND store_idx > 0
+	</select>
+	
+	
+	
+	
 	
 	
 	
