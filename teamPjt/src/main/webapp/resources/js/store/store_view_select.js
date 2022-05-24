@@ -6,8 +6,10 @@
     $('.select_menu_container').on('click touch', function(e) {
         var self = $(this);
         self.toggleClass('open');
+        
+		$('.arrow').toggleClass("active");
     });
-
+	
     // 닫기 (open 제거)
     $(document).on('click touch', function(e) {
         var select_container = $('.select_container');

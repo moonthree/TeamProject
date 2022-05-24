@@ -9,9 +9,7 @@
 	<title>펫딩 홈페이지</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
@@ -45,21 +43,27 @@ section04 : 새로 오픈한 프로젝트
            </ol>
            <div class="carousel-inner">
                <div class="carousel-item active">
+               	   <a href="event/event_view.do?member_idx=1">
                    <img src="resources/image/home/dogbob.png" class="d-block w-100" alt="...">
+                   </a>
                    <div class="carousel-caption d-none d-md-block">
                        <h3 class="main_image_h3"></h3>
                        <p class="main_image_p"></p>
                    </div>
                </div>
                <div class="carousel-item">
+               	   <a href="event/event_view.do?member_idx=2">
                    <img src="resources/image/home/cattower.png" class="d-block w-100" alt="...">
+                   </a>
                    <div class="carousel-caption d-none d-md-block">
                        <h3 class="main_image"></h3>
                        <p></p>
                    </div>
                </div>
                <div class="carousel-item">
+               	   <a href="event/event_view.do?member_idx=2">
                    <img src="resources/image/home/dogbob2.png" class="d-block w-100" alt="...">
+                   </a>
                    <div class="carousel-caption d-none d-md-block">
                        <h3 class="main_image"></h3>
                        <p></p>
@@ -192,7 +196,7 @@ section04 : 새로 오픈한 프로젝트
 		                       	   		</c:forEach>
                        	   			</c:when>
                        	   			<c:when test="${login.member_pet eq 2}">
-                       	   				<c:forEach var="item" items="${fundHomeOhter}">
+                       	   				<c:forEach var="item" items="${fundHomeOther}">
 		                       	   			<div class="col-sm-4">
 				                               <div class="card section01_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">

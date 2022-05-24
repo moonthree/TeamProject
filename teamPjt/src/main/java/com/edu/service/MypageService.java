@@ -114,6 +114,11 @@ public interface MypageService {
 	//펀딩 취소
 	int fundingWithdraw(int funding_order_idx);
 	
+	// 스토어 관리
+	List<StoreVO> store_admin(int store_idx);
+	
+	// 배송 상태 변경
+	int update_Express(int store_order_idx);
 	//구매 취소
 	int storeWithdraw(int store_order_idx);
 }

@@ -470,6 +470,17 @@
 		WHERE 	funding_order_idx = #{ funding_order_idx }
 	</update>
 	
+	<!-- 스토어 관리 페이지 -->
+	<select id="storeAdmin" parameterType="int" resultType="com.edu.vo.StoreAdminVO">
+		SELECT so.store_order_idx, 
+			   se.store_express_idx, 
+			   so.member_idx, 
+			   so.store_order_pay_state, 
+			   se.store_express_state
+		FROM   store_order so, store_express se
+		WHERE  store_idx = #{store_idx}
+		AND    so.store_order_idx = se.store_order_idx
+	</select>
 	<!-- 구매 취소 -->
 	<update id="storeWithdraw" parameterType="int">
 		UPDATE 	store_order 
@@ -478,4 +489,10 @@
 	</update>
 	
 	
+	<!-- 배송 상태 변경 -->
+	<update id="update_Express">
+		UPDATE store_express
+		SET	   store_express_state = 1
+		WHERE  store_order_idx = #{store_order_idx}
+	</update>
 </mapper>

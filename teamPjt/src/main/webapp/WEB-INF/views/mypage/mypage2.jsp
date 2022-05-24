@@ -215,6 +215,7 @@
                               </div>                             
                               <div class="row" style="position: absolute; bottom: 5px; right:50px">
                                 <div class="col">
+                                  <button type="button" class="button-6" onclick="location.href='<%= request.getContextPath()%>/mypage/store_admin.do?store_idx=${item.store_idx}'">관리</button>
                                   <button type="button" class="button-6">수정</button>
                                 </div>
                               </div>

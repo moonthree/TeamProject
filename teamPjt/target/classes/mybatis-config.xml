@@ -38,6 +38,7 @@
 		<typeAlias type="com.edu.vo.FileUploadVO" alias ="fileuploadVO"/>
 		<typeAlias type="com.edu.vo.ChangePwVO" alias ="changePwVO"/>
 		<typeAlias type="com.edu.vo.ZzimVO" alias ="zzimVO"/>
+		<typeAlias type="com.edu.vo.EventVO" alias ="eventVO"/>
 		
 	</typeAliases>
 </configuration>

@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.event_main_container > h5{
+    margin-top: 20px;
+    font-weight: bold;
+}
+.event_main_card{
+    border: none;
+}
+.event_main_card > a > img{
+    height: 200px;
+    width: 100%;
+}
+.event_main_card_text > span {
+    color: #8a8a8e;   
+}
