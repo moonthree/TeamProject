@@ -94,7 +94,25 @@ public class adminDao {
 		}
 		
 		
+		///제품 관리//
+		//펀딩 목록 가져오기 상태 1인것만
+		public List<FundingMainVO> pro_funding(Pagination page ){
+			
+			return sqlSession.selectList("adminMapper.productFunding",page);
+		}
+		public int pro_fundingCount() {
+			return 	sqlSession.selectOne("adminMapper.pro_fundingCount");
+		}
 		
+		//스토어 목록 가져오기 상태 1인것만
+		public List<StoreVO> pro_store(Pagination2 page){
+			
+			return sqlSession.selectList("adminMapper.productStore",page);
+		}
+		//스토어 페이징 카운트
+		public int pro_storeCount() {
+			return 	sqlSession.selectOne("adminMapper.pro_storeCount");
+		}
 		
 		
 	

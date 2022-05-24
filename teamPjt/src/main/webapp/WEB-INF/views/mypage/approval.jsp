@@ -124,10 +124,11 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th scope="col">번호</th>
-                            <th class="tdtitle" style="width : 60%">제목</th>
-                            <th scope="col">상태</th>
-                            <th scope="col">버튼</th>
+                            <th scope="col" style="width :5%">번호</th>
+                            <th class="tdtitle" style="width : 40%">제목</th>
+                            <th scope="col" style="width : 10%">상태 </th>
+                            <th scope="col"style="width : 20%">카테고리</th>
+                            <th scope="col"style="width : 24%">버튼</th>
                         </tr>
                     </thead>
 					 <tbody>
@@ -135,9 +136,10 @@
 	                        <tr>
 	                            <th>${StoreList.store_idx}</th>
 	                            <td class="tdtitle">
-		                            <%-- <a href="<%=request.getContextPath()%>/funding/view.do?funding_idx=${funList.funding_idx}"> --%>
-		                            		${StoreList.store_title}
-		                            <!-- </a> -->
+	                            
+		                            		<a href="<%=request.getContextPath()%>/store/store_view.do?store_idx=${StoreList.store_idx}&store_funding=${StoreList.store_funding}">
+		                            			${StoreList.store_title}
+		                            		</a>
 	                            </td>
 	                            <td>
 	                           		<c:if test="${StoreList.store_permit_state eq 0}">

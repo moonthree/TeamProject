@@ -442,19 +442,18 @@ public class StoreController {
 			,String store_option_name, int []store_option_price, String store_option_detail, 
 			int []store_option_stock) throws IllegalStateException, IOException, ParseException {
 		
-		
+			
 			MemberVO mvo = (MemberVO) request.getSession().getAttribute("login");
 		
 			
 			String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
 			
+			
 			File dir = new File(path);
 			String org_ThumName = store_thumbnail_temp.getOriginalFilename();
 			String org_DetailName = store_Detail_temp.getOriginalFilename();
 			String org_NoticeName = store_Notice_temp.getOriginalFilename();
-			System.out.println(org_ThumName);
-			System.out.println(org_DetailName);
-			System.out.println(org_NoticeName);
+			
 			
 			if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
 				dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성

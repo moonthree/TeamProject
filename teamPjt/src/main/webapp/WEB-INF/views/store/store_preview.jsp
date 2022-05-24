@@ -141,7 +141,8 @@
 	                        <div class="storeOptionBox box${status.index}">
 	                            <div class="storeOptionBox1">
 	                                <span class="storeOptionText">${option.store_option_detail}</span>
-	                                <button class="storeOptionBoxHide">x</button>
+	                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                                <span style="display:right; color: gray;">${option.store_option_stock}개</span>
 	                            </div>
 	                            <div class="">
 	                                <input type="number"/>

@@ -3,10 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+		
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -25,6 +28,8 @@
 	<context:component-scan base-package="com.edu.service" />
 	<context:component-scan base-package="com.edu.dao" />
 	<context:component-scan base-package="com.edu.interceptor" />
+	
+	
 	
 	
 	<!-- spring file uploader -->
@@ -66,5 +71,12 @@
 <!--             <beans:ref bean="auth3"/> -->
 <!--         </interceptor> -->
     </interceptors>
+  
+  
+  <!-- 스케쥴러 파일이 존재하는 패키지 -->
+	<context:component-scan base-package="com.edu.scheduler"></context:component-scan>
+	<!-- 크론탭 설정에 -->
+	<task:scheduler id="taskScheduler" pool-size="10"/>
+	<task:annotation-driven scheduler="taskScheduler" />
   
 </beans:beans>

@@ -78,7 +78,7 @@
                         <div class="chip">고양이</div>
                     </label>
                     <input type="radio" class="btn_category" name="store_category" value="2" id="btn_03">
-                    <label for="btn_02">
+                    <label for="btn_03">
                         <div class="chip">다른 동물들</div>
                     </label>
                 </div>
@@ -92,7 +92,7 @@
 			 <!-- 펀딩 옵션 필드 -->
             <div class="form-group">
                 <label>제품 옵션</label>
-                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.</div>
+                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.(금액 최대 :1,000,000,000원, 수량 최대: 10000 )</div>
                 
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
@@ -106,11 +106,11 @@
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="text" class="text" name="store_option_stock" style="width:100%;" placeholder="수량" />
+                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr>
@@ -130,11 +130,11 @@
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" class="text" name="name2" style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="text" class="text" name="store_option_stock" style="width:100%;" placeholder="수량" />
+                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr id="addRow">
@@ -151,7 +151,7 @@
                 <label>배송비</label>
                 <div class="input_description">배송비 추가 예정</div>
                 <!-- 배송비 -->
-                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="목표 금액 입력" min="0" style="width: calc(100% - 37px); display: inline;">
+                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송비 입력" min="0" style="width: calc(100% - 37px); display: inline;">
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
         </div>

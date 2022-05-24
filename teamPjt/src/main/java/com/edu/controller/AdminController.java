@@ -51,9 +51,30 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/management_product.do")
-	public String management_product() {
+	public String management_product(Model model,Pagination page1, Pagination2 page2) {
+		
+		model.addAttribute("listFun",adminService.pro_funding(page1));
+		PageMaker pageMaker_One = new PageMaker();
+		pageMaker_One.setPage(page1);
+		pageMaker_One.setTotalCount(adminService.pro_FundingCount());
+		model.addAttribute("pageOne", pageMaker_One);
+		
+		
+		//스토어 신청한 제품 목록 가져오기 
+		model.addAttribute("listStore", adminService.pro_store(page2));
+		PageMaker2 pageMaker_Two = new PageMaker2();
+		pageMaker_Two.setPage(page2);
+		pageMaker_Two.setTotalCount(adminService.store_Count());
+		model.addAttribute("pageTwo", pageMaker_Two);	
+		
+		
 		return "mypage/management_product";
 	}
+	
+	
+	
+	
+	
 
 	@RequestMapping(value = "/management_member.do")
 	public String management_member(Model model ,Pagination page1, Pagination2 page2) {
@@ -145,6 +166,6 @@ public class AdminController {
 			}
 		
 		
-
+	
 	
 }
