@@ -281,7 +281,7 @@
 	                                <div class="col">by. ${ item.member_name }</div>
 	                                <div></div>
 	                              </div>               
-	                            </p> 
+	                            </p>
 	                            <div class="row" style=" position: absolute; bottom: 10px; right:65px; text-align:right;">
                                 	<c:choose>
 						       			<c:when test="${ item.store_order_pay_state eq 0 }">
