@@ -23,7 +23,9 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
@@ -252,7 +254,7 @@ public class MypageServiceImp implements MypageService{
 	        		"								<table class=\"container header\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"620\" style=\"width: 620px;\">\r\n" + 
 	        		"									<tr>\r\n" + 
 	        		"										<td style=\"padding: 30px 0 30px 0; border-bottom: solid 1px #eeeeee;\" align=\"left\">\r\n" + 
-	        		"											<span style=\"font-size: 30px; text-decoration: none; color: #000000;\">PeDDing</span>\r\n" + 
+	        		"											<span style=\"font-size: 30px; text-decoration: none; color: #000000;\">PetDDing</span>\r\n" + 
 	        		"										</td>\r\n" + 
 	        		"									</tr>\r\n" + 
 	        		"								</table>\r\n" + 
@@ -338,7 +340,7 @@ public class MypageServiceImp implements MypageService{
 	        		"																<td class=\"info-bullets__icon\" style=\"padding: 0 15px 0 0;\">\r\n" + 
 	        		"																	<img src=\"https://i.ibb.co/tmcVjnM/email.png\" style=\"width: 20px;\">\r\n" + 
 	        		"																</td>\r\n" + 
-	        		"																<td class=\"info-bullets__content\" style=\"color: #969696; font-size: 16px;\">contactPeDDing@gmail.com</td>\r\n" + 
+	        		"																<td class=\"info-bullets__content\" style=\"color: #969696; font-size: 16px;\">contactPetDDing@gmail.com</td>\r\n" + 
 	        		"															</tr>\r\n" + 
 	        		"														</table>\r\n" + 
 	        		"													</td>\r\n" + 
@@ -368,7 +370,7 @@ public class MypageServiceImp implements MypageService{
 	        		"											<table class=\"container\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"620\" align=\"center\" style=\"border-top: 1px solid #eeeeee; width: 620px;\">\r\n" + 
 	        		"												<tr>\r\n" + 
 	        		"													<td style=\"text-align: center; padding: 50px 0 10px 0;\">\r\n" + 
-	        		"														<a href=\"#\" style=\"font-size: 28px; text-decoration: none; color: #d5d5d5;\">PeDDing</a>\r\n" + 
+	        		"														<a href=\"#\" style=\"font-size: 28px; text-decoration: none; color: #d5d5d5;\">PetDDing</a>\r\n" + 
 	        		"													</td>\r\n" + 
 	        		"												</tr>\r\n" + 
 	        		"\r\n" + 
@@ -507,6 +509,28 @@ public class MypageServiceImp implements MypageService{
 		return mdao.fundingOptionDetail(funding_order_idx);
 	}
 	
+	/*store_info_detail*/
+	@Override
+	public StoreInfoDetailVO storeDetail(int store_order_idx) {
+		return mdao.storeDetail(store_order_idx);
+	}
+	@Override
+	public StoreOrderPayVO storePayDetail(int store_order_idx) {
+		return mdao.storePayDetail(store_order_idx);
+	}
+
+	@Override
+	public StoreExpressVO storeExpressDetail(int store_order_idx) {
+		return mdao.storeExpressDetail(store_order_idx);
+	}
+	@Override
+	public List<StoreInfoDetailVO> storeOptionDetail(int store_order_idx) {
+		return mdao.storeOptionDetail(store_order_idx);
+	}
+
+	
+	
+	
 	//찜 취소
 	@Override
 	public int deleteZzim(Map<String, Integer> paramMap) {
@@ -532,16 +556,11 @@ public class MypageServiceImp implements MypageService{
 		return mdao.fundingWithdraw(funding_order_idx);
 	}
 
-	
-	
-	
+	@Override
+	public int storeWithdraw(int store_order_idx) {
+		return mdao.storeWithdraw(store_order_idx);
+	}
 
-	
-
-	
-   
-	
-	
 
 	
 }
