@@ -890,4 +890,192 @@ public class StoreController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/store_view_event.do", method = RequestMethod.GET)
+	public String store_view_event(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, HttpServletRequest request, StoreQnaVO sqvo, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
+		
+		String event = request.getParameter("event");
+		
+		int event2 = Integer.parseInt(event);
+		
+		request.setAttribute("event", event2);
+		
+		//store_idx에 따른 뷰페이지 정보 가져오기
+		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
+		model.addAttribute("read", store );
+
+		int store_fund = store.getStore_funding();
+		
+		if(store_fund == 0) {
+			model.addAttribute("orderCount", 0);
+		}else {
+			int funding_idx = store.getFunding_idx();
+			int orderCount =0;
+			Funding_orderVO fovo = new Funding_orderVO();
+			if(funding_idx>0) {
+				fovo.setFunding_idx(funding_idx);
+				orderCount = fms.orderCount(fovo);
+			}
+			model.addAttribute("orderCount", orderCount);
+		}
+		
+		//스토어 리뷰 정렬
+		String reviewSort= request.getParameter("reviewSort");
+		if(reviewSort == null) {
+			reviewSort = "";
+		}
+		System.out.println(reviewSort);
+		String encodedk = URLEncoder.encode(reviewSort);			//특수기호를 인코딩한 키워드를 준비한다.
+		
+		if(reviewSort.equals("sortReviewLike")) {
+			srvo.setSortReviewLike("a");
+		}else if(reviewSort.equals("sortReviewNew")){
+			srvo.setSortReviewNew("b");
+		}else if(reviewSort.equals("sortReviewHighStar")) {
+			srvo.setSortReviewHighStar("c");
+		}else if(reviewSort.equals("sortReviewLowStar")) {
+			srvo.setSortReviewLowStar("d");
+		}
+		
+		//스토어 리뷰 사진만 가져오기 리스트
+		ArrayList<StoreReviewVO> storeReviewPhoto = null;
+		storeReviewPhoto = (ArrayList<StoreReviewVO>) sts.storeReviewPhoto(srvo);
+		//스토어 리뷰 리스트
+		final int PAGE_ROW_COUNT = 5; 							//한 페이지에 몇개씩 표시할 것인지
+		final int displayPageNum = 3;							//페이징 번호 몇 개
+		int pageNum = 1; 										//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		
+		String strPageNum = request.getParameter("pageNum"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNum != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNum = Integer.parseInt(strPageNum);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNum = (pageNum -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCount = PAGE_ROW_COUNT;
+		srvo.setStartRowNum(startRowNum);
+		ArrayList<StoreReviewVO> storeReviewList = null;
+		int totalRow = 0;
+		
+		storeReviewList = (ArrayList<StoreReviewVO>) sts.storeReviewList(srvo);
+		totalRow = sts.countStoreReviewList(srvo);
+		
+		System.out.println("리뷰개수: "+totalRow);
+		
+			// 전체 페이지의 개수
+		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
+		
+		int endPage = (int) (Math.ceil(pageNum / (double)displayPageNum) * displayPageNum);
+		int startPage = (endPage - displayPageNum) + 1;
+		
+		int tempEndPage = (int) (Math.ceil(totalRow / (double)PAGE_ROW_COUNT));
+		if (endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		boolean prev = startPage == 1 ? false : true;
+		boolean next = endPage * PAGE_ROW_COUNT >= totalRow ? false : true;
+		
+		request.setAttribute("storeReviewList", storeReviewList);
+		request.setAttribute("storeReviewPhoto", storeReviewPhoto);
+		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("startRowNum", startRowNum);
+		request.setAttribute("prev", prev);
+		request.setAttribute("next", next);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("reviewSort", reviewSort);
+		//스토어 리뷰 리스트 끝
+		
+		//스토어 별점 평균
+		double starAvg = 0;
+		if(sts.starAvg(srvo) == null) {
+			starAvg= 0;
+		}else{
+			starAvg = Math.round(sts.starAvg(srvo) * 10) / 10.0;
+		}
+		request.setAttribute("starAvg", starAvg);
+		
+		//스토어 별점 별 카운트
+		double star55 = sts.star5(srvo);
+		double star44 = sts.star4(srvo);
+		double star33 = sts.star3(srvo);
+		double star22 = sts.star2(srvo);
+		double star11 = sts.star1(srvo);
+		int star5 = (int) Math.round(star55/totalRow*100);
+		int star4 = (int) Math.round(star44/totalRow*100);
+		int star3 = (int) Math.round(star33/totalRow*100);
+		int star2 = (int) Math.round(star22/totalRow*100);
+		int star1 = (int) Math.round(star11/totalRow*100);
+		request.setAttribute("star5", star5);
+		request.setAttribute("star4", star4);
+		request.setAttribute("star3", star3);
+		request.setAttribute("star2", star2);
+		request.setAttribute("star1", star1);
+		
+
+		//펀딩 qna 댓글 리스트
+		
+		int pageNumQna = 1;
+		
+		String strPageNumQna = request.getParameter("pageNumQna"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNumQna != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNumQna = Integer.parseInt(strPageNumQna);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCountQna = PAGE_ROW_COUNT;
+		
+		sqvo.setStartRowNumQna(startRowNumQna);
+		
+		paramMap.put("startRowNumQna", startRowNumQna);
+		
+		sqvo.setRowCountQna(rowCountQna);
+		
+		ArrayList<StoreQnaVO> listQna = null;
+		int totalRowQna = 0;
+
+		listQna = (ArrayList<StoreQnaVO>)sts.getQnaList(paramMap);
+		
+		//qna 댓글 개수
+		totalRowQna = sts.countStoreQna(sqvo);
+		
+		System.out.println("totalRowQna = " + totalRowQna);
+		System.out.println("startRowNumQna = " + startRowNumQna);
+			
+		// 전체 페이지의 개수
+		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT);
+		
+		int endPageQna = (int) (Math.ceil(pageNumQna / (double)displayPageNum) * displayPageNum);
+		int startPageQna = (endPageQna - displayPageNum) + 1;
+		
+		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT));
+		if (endPageQna > tempEndPageQna) {
+			endPageQna = tempEndPageQna;
+		}
+		boolean prevQna = startPageQna == 1 ? false : true;
+		boolean nextQna = endPageQna * PAGE_ROW_COUNT >= totalRowQna ? false : true;
+		
+		request.setAttribute("listQna", listQna);
+		request.setAttribute("totalPageCountQna", totalPageCountQna);
+		request.setAttribute("pageNumQna", pageNumQna);
+		request.setAttribute("startRowNumQna", startRowNumQna);
+		request.setAttribute("prevQna", prevQna);
+		request.setAttribute("nextQna", nextQna);
+		request.setAttribute("endPageQna", endPageQna);
+		request.setAttribute("startPageQna", startPageQna);
+		
+		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member",member);
+
+		
+		// 옵션 출력
+		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
+		model.addAttribute("optionlist", optionlist);
+		
+		return "store/store_view_event";
+	}
+	
 }
