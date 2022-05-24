@@ -30,6 +30,20 @@ public class StoreInfoDetailVO {
 	private int store_order_pay_state;
 	private Date store_order_date;
 	
+	//funding_option
+	private String store_option_name;
+	private int store_option_price;
+	private String store_option_detail;
+	private int store_option_stock;
+	
+	//storeOrderOption
+	private int store_order_option_idx;								
+	private int store_order_option_select_idx;				
+	private int store_order_option_select_count;
+	
+	//storeExpress
+	private int store_express_state;
+	
 	public int getStore_idx() {
 		return store_idx;
 	}
@@ -150,4 +164,54 @@ public class StoreInfoDetailVO {
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
+	public int getStore_order_option_idx() {
+		return store_order_option_idx;
+	}
+	public void setStore_order_option_idx(int store_order_option_idx) {
+		this.store_order_option_idx = store_order_option_idx;
+	}
+	public int getStore_order_option_select_idx() {
+		return store_order_option_select_idx;
+	}
+	public void setStore_order_option_select_idx(int store_order_option_select_idx) {
+		this.store_order_option_select_idx = store_order_option_select_idx;
+	}
+	public int getStore_order_option_select_count() {
+		return store_order_option_select_count;
+	}
+	public void setStore_order_option_select_count(int store_order_option_select_count) {
+		this.store_order_option_select_count = store_order_option_select_count;
+	}
+
+	public String getStore_option_name() {
+		return store_option_name;
+	}
+	public void setStore_option_name(String store_option_name) {
+		this.store_option_name = store_option_name;
+	}
+	public int getStore_option_price() {
+		return store_option_price;
+	}
+	public void setStore_option_price(int store_option_price) {
+		this.store_option_price = store_option_price;
+	}
+	public String getStore_option_detail() {
+		return store_option_detail;
+	}
+	public void setStore_option_detail(String store_option_detail) {
+		this.store_option_detail = store_option_detail;
+	}
+	public int getStore_option_stock() {
+		return store_option_stock;
+	}
+	public void setStore_option_stock(int store_option_stock) {
+		this.store_option_stock = store_option_stock;
+	}
+	public int getStore_express_state() {
+		return store_express_state;
+	}
+	public void setStore_express_state(int store_express_state) {
+		this.store_express_state = store_express_state;
+	}
+
 }

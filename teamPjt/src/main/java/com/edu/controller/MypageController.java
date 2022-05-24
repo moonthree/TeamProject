@@ -356,6 +356,17 @@ public class MypageController {
 		
 		System.out.println("콘트롤러로 가져온 store_ORDER_IDX : "+store_order_idx);
 		
+		//store_order_idx로 store_orderVO를 가져오기
+		model.addAttribute("detail", mypageService.storeDetail(store_order_idx));
+			
+		//store_order_idx를 가지고 store_order_payVO가지고 오기
+		model.addAttribute("pay",mypageService.storePayDetail(store_order_idx));
+		
+		//store_order_idx를 가지고 store_expressVO가지고 오기
+		model.addAttribute("express",mypageService.storeExpressDetail(store_order_idx));
+		
+		//store_order_option은 따로 리스트형식으로 가져오기 - vo두개로 나눌것 첫번쨰껀 store_optionVO 두번째껀 store_order_optionVO
+		model.addAttribute("option",mypageService.storeOptionDetail(store_order_idx));
 		
 		return "mypage/info_store_detail";
 	}
@@ -518,10 +529,29 @@ public class MypageController {
 		int result = mypageService.fundingWithdraw(funding_order_idx);
 		if(result > 0 ) {
 			System.out.println("펀딩 취소 성공");
-			return "mypage/info_funding";
+			//이젠 페이지로 돌아간다
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		    
 		}else {
 			System.out.println("펀딩 취소 실패");
-			
+			//이젠 페이지로 돌아간다
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		}
+	}
+	//구매 취소
+	@RequestMapping(value = "/storeWithdraw.do", method = RequestMethod.POST)
+	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, HttpServletRequest request) {
+		int result = mypageService.storeWithdraw(store_order_idx);
+		if(result > 0 ) {
+			System.out.println("구매 취소 성공");
+			//이젠 페이지로 돌아간다
+			model.addAttribute("msg", "구매가 취소되었습니다");
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		}else {
+			System.out.println("구매 취소 실패");
 			//이젠 페이지로 돌아간다
 			String referer = request.getHeader("Referer");
 		    return "redirect:"+ referer;
