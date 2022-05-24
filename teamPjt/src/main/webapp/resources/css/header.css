@@ -259,8 +259,13 @@ a:active{
 }
 
 /* 검색창 사라짐 */
-@media screen and (max-width: 1200px) {
-    .search_container{
-        display: none;
+@media (min-width: 992px) and (max-width: 1200px) {
+    .search_box{
+    	width: 100px;
+    }
+    #searchBtn{
+    	position:absolute;
+    	top:10px;
+    	right:10px;
     }
 }

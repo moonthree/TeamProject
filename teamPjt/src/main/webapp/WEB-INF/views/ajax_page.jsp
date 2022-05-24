@@ -6,13 +6,13 @@
 	                <div class="container">
 	                    <div class="row fundingRow card-list-container thumbnails">
 	                    	<c:forEach var="item" items="${searchList}">
-	                    		<div class="col-md-4 col-sm-12 item">
+	                    		<div class="col-md-3 col-sm-12 item">
 					        		<div class="card">
 					                    <a href="funding/view.do?funding_idx=${item.funding_idx} ">
-					                    	<img src="resources/image/funding_main/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
+					                    	<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 					                    </a>
-					                    <div class="card-body">
-						                    <a href="view.do?funding_idx=${item.funding_idx} ">
+					                    <div class="card-body funding_title">
+						                    <a href="funding/view.do?funding_idx=${item.funding_idx} ">
 						                        <h5 class="card-title">${item.funding_title}</h5>
 						                    </a>
 					                        <p class="card-text">

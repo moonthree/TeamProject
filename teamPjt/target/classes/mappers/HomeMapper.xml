@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HomeMapper">
+
+<!-- 취향 맞춤 펀딩 프로젝트 용도 -->
+	<select id="fundHomeAll" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_permit_state=1
+		ORDER BY funding_current_price desc limit 0, 6;
+	</select>
+	<select id="fundHomeDog" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_category = 0 AND funding_permit_state=1
+		ORDER BY funding_current_price desc limit 0, 6;
+	</select>
+	<select id="fundHomeCat" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_category = 1 AND funding_permit_state=1
+		ORDER BY funding_current_price desc limit 0, 6;
+	</select>
+	<select id="fundHomeOther" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_category = 2 AND funding_permit_state=1
+		ORDER BY funding_current_price desc limit 0, 6;
+	</select>
+<!-- 취향 맞춤 펀딩 프로젝트 용도 끝 -->
+<!-- 새로 오픈한 프로젝트 용도 -->
+	<select id="fundHomeNew" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_permit_state=1
+		ORDER BY funding_idx desc limit 0, 6;
+	</select>
+<!-- 새로 오픈한 프로젝트 용도 끝-->
+<!-- 실시간 랭킹 용도 -->
+	<select id="fundHomeView" parameterType="FundingMainVO" resultType="FundingMainVO">
+		SELECT 
+			funding_idx,
+			member_idx,
+			funding_title,
+			funding_thumbnail,
+			funding_target_price,
+			funding_current_price,
+			funding_start_date,
+			funding_end_date,
+			funding_permit_state,
+			funding_current_state,
+			funding_category,
+			funding_views
+		FROM funding
+		WHERE funding_permit_state=1
+		ORDER BY funding_views desc limit 0, 5;
+	</select>
+	<select id="storeHomeView" parameterType="StoreVO" resultType="StoreVO">
+		SELECT 
+			store_idx,
+			member_idx,
+			funding_idx,
+			store_price,
+			store_title,
+			store_thumbnail,
+			store_content,
+			store_notice,
+			store_write_date,
+			store_permit_state,
+			store_current_state,
+			store_category,
+			store_funding,
+			store_express_fee,
+			store_views
+		FROM store
+		WHERE store_permit_state=1
+		ORDER BY store_views desc limit 0, 5;
+	</select>
+<!-- 실시간 랭킹 용도 끝-->
+
+<!-- 스토어 추천 제품 용도 -->
+	<select id="storeHomeFund" parameterType="StoreVO" resultType="StoreVO">
+		SELECT 
+			store_idx,
+			member_idx,
+			funding_idx,
+			store_price,
+			store_title,
+			store_thumbnail,
+			store_content,
+			store_notice,
+			store_write_date,
+			store_permit_state,
+			store_current_state,
+			store_category,
+			store_funding,
+			store_express_fee,
+			store_views
+		FROM store
+		WHERE store_permit_state=1 AND store_funding = 1
+		ORDER BY store_idx desc limit 0, 6;
+	</select>
+</mapper>

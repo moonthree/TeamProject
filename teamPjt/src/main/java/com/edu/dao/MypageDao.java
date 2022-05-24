@@ -14,7 +14,9 @@ import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
@@ -101,6 +103,7 @@ public class MypageDao {
 		return sqlSession.selectList("MypageMapper.sellerStoreList", member_idx);
 	}
 	
+	
 	/*funding_info_detail*/
 	//funding & funding_order
 	public FundingInfoDetailVO fundingDetail(int funding_order_idx){
@@ -118,6 +121,24 @@ public class MypageDao {
 	public List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx) {
 		return sqlSession.selectList("MypageMapper.fundingOptionDetail", funding_order_idx);
 	}
+	/*store_info_detail*/
+	//store & store_order
+	public StoreInfoDetailVO storeDetail(int store_order_idx){
+		return sqlSession.selectOne("MypageMapper.storeInfoDetail", store_order_idx);
+	}
+	//store_order_pay
+	public StoreOrderPayVO storePayDetail(int store_order_idx) {
+		return sqlSession.selectOne("MypageMapper.storePayDetail", store_order_idx);
+	}
+	//store_express
+	public StoreExpressVO storeExpressDetail(int store_order_idx) {
+		return sqlSession.selectOne("MypageMapper.storeExpressDetail", store_order_idx);
+	}
+	//store_option
+	public List<StoreInfoDetailVO> storeOptionDetail(int store_order_idx) {
+		return sqlSession.selectList("MypageMapper.storeOptionDetail", store_order_idx);
+	}
+	
 	
 	
 	//찜 취소
@@ -137,9 +158,21 @@ public class MypageDao {
 	
 	//펀딩 취소
 	public int fundingWithdraw(int funding_order_idx) {
-		
 		return sqlSession.delete("MypageMapper.fundingWithdraw", funding_order_idx); //funding_order
 	}
+	//구매취소
+	public int storeWithdraw(int store_order_idx) {
+		return sqlSession.update("MypageMapper.storeWithdraw", store_order_idx); //store_order
+	}
 
+	//스토어 관리
+	public List<StoreVO> storeAdmin(int store_idx){
+		return sqlSession.selectList("MypageMapper.storeAdmin", store_idx);
+	}
+	
+	//배송 상태 변셩
+	public int update_Express(int store_order_idx){
+		return sqlSession.update("MypageMapper.update_Express", store_order_idx);
+	}
 	
 }

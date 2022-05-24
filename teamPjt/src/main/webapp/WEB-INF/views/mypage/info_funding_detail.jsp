@@ -141,6 +141,13 @@ $(function(){
     <div class="container" >
         
     <!--본문-->
+    <div class="row" style="margin-top:10px"> 
+        <div class="col-sm-9"></div>
+        <div class="col-sm-3">
+        <button type="button" class="btn btn-dark" style="width: 100%; height:50px; " onclick="window.open('note.do?seller=${detail.member_idx}&consumer=${member.member_idx}&funding_idx=${detail.funding_idx }','PopupWin', 'width=500,height=700');" >판매자에게 문의하기</button>
+        </div>		
+    </div>
+		
         <div class="row">
             <!--펀딩 내역-->
             <div class="col-md-12 col-sm-12" style="margin-top: 10%;">
@@ -198,7 +205,8 @@ $(function(){
                 </table>
             </div>
         </div>
-
+		
+		
         <div class="row">
             <!--결제 내역-->
             <div class="col-md-6 col-sm-12" style="margin-top: 10%;">
@@ -448,8 +456,7 @@ $(function(){
         <div class="row" style="margin-top:10px"> 
             <div class="col-sm-12">
             <button type="button" class="btn btn-dark" style="width: 100%; height:70px; " onclick="location.href='info_funding.do'">펀딩 목록 돌아가기</button>
-            </div>
-       		
+            </div>		
         </div>
     </div>
     <script>

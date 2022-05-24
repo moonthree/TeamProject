@@ -243,16 +243,27 @@
             <artifactId>mail</artifactId>
             <version>1.4.6</version>
         </dependency>
-	
+		
+		<!-- iamport 결제 -->
+		<dependency>
+		  <groupId>com.github.iamport</groupId>
+		  <artifactId>iamport-rest-client-java</artifactId>
+		  <version>0.2.13</version>
+		</dependency>
 		    
 		     
 	</dependencies>
-	<!-- jdbc를 사용하기 위해 repositories 태그 사용 -->
 	<repositories>
+	<!-- jdbc를 사용하기 위해 repositories 태그 사용 -->
 		<repository>
 			<id>oracle</id>
 			<name>ORACLE JDBC Repository</name>
 			<url>https://maven.xwiki.org/externals/</url>
+		</repository>
+		<!-- iamport 결제 -->
+		<repository>
+		  	<id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
     <build>

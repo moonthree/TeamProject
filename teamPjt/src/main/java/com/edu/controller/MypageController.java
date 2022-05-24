@@ -345,6 +345,32 @@ public class MypageController {
 		return "mypage/info_funding_detail";
 	}
 
+	@RequestMapping(value = "/info_store_detail.do", method = RequestMethod.GET)
+	public String info_store_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("store_order_idx") int store_order_idx) {
+		
+		// 세션에 있는 사용자의 정보를 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		MemberVO member = mypageService.selectOne(login);
+		model.addAttribute("member", member);
+		
+		System.out.println("콘트롤러로 가져온 store_ORDER_IDX : "+store_order_idx);
+		
+		//store_order_idx로 store_orderVO를 가져오기
+		model.addAttribute("detail", mypageService.storeDetail(store_order_idx));
+			
+		//store_order_idx를 가지고 store_order_payVO가지고 오기
+		model.addAttribute("pay",mypageService.storePayDetail(store_order_idx));
+		
+		//store_order_idx를 가지고 store_expressVO가지고 오기
+		model.addAttribute("express",mypageService.storeExpressDetail(store_order_idx));
+		
+		//store_order_option은 따로 리스트형식으로 가져오기 - vo두개로 나눌것 첫번쨰껀 store_optionVO 두번째껀 store_order_optionVO
+		model.addAttribute("option",mypageService.storeOptionDetail(store_order_idx));
+		
+		return "mypage/info_store_detail";
+	}
+
 	@RequestMapping(value = "/info_zzim.do")
 	public String info_zzim(Model model, FundingMainVO vo, HttpServletRequest request) throws Exception {
 		
@@ -503,10 +529,29 @@ public class MypageController {
 		int result = mypageService.fundingWithdraw(funding_order_idx);
 		if(result > 0 ) {
 			System.out.println("펀딩 취소 성공");
-			return "mypage/info_funding";
+			//이젠 페이지로 돌아간다
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		    
 		}else {
 			System.out.println("펀딩 취소 실패");
-			
+			//이젠 페이지로 돌아간다
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		}
+	}
+	//구매 취소
+	@RequestMapping(value = "/storeWithdraw.do", method = RequestMethod.POST)
+	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, HttpServletRequest request) {
+		int result = mypageService.storeWithdraw(store_order_idx);
+		if(result > 0 ) {
+			System.out.println("구매 취소 성공");
+			//이젠 페이지로 돌아간다
+			model.addAttribute("msg", "구매가 취소되었습니다");
+			String referer = request.getHeader("Referer");
+		    return "redirect:"+ referer;
+		}else {
+			System.out.println("구매 취소 실패");
 			//이젠 페이지로 돌아간다
 			String referer = request.getHeader("Referer");
 		    return "redirect:"+ referer;
@@ -752,5 +797,25 @@ public class MypageController {
 		
 	}
 		
+	// 스토어 관리 페이지
+	@RequestMapping(value= "/store_admin.do", method = RequestMethod.GET)
+	public String store_admin(Model model, int store_idx) {
+		
+		// 스토어 관리 페이지
+		List<StoreVO> sa = mypageService.store_admin(store_idx);
+		model.addAttribute("admin", sa);
+		
+		return "mypage/store_admin";
+	}
 	
+	// 배송 상태 변경하기
+	@RequestMapping(value = "/update_Express.do")
+	@ResponseBody
+	public int updateFundingState(int store_order_idx) {
+		
+		// update 쿼리문
+		int result = mypageService.update_Express(store_order_idx);
+		
+		return result;
+	}
 }

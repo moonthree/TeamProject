@@ -1,10 +1,17 @@
 package com.edu.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.edu.vo.FundingQnaVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -52,6 +59,24 @@ public interface StoreService {
 	//리뷰 추천 수 감소
 	public int updateReviewLike2(Map<String, Object> paramMap);
 	
+	//스토어 qna 댓글 리스트
+	List<StoreQnaVO> getQnaList(Map<String, Object> paramMap);
+	//스토어 qna 답글 리스트
+	List<StoreQnaVO> getQnaAnswer(Map<String, Object> paramMap);
+	//스토어 QNA 댓글 작성
+	public int qnaInsert(Map<String, Object> paramMap);
+	//스토어 qna 답변 작성 완료
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception;
+	//스토어 qna 답변 수정
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception;
+	//스토어 qna 삭제
+	public void deleteStoreQna(StoreQnaVO vo) throws Exception;
+	//스토어 qna 수정
+	public void modifyStoreQna(StoreQnaVO vo) throws Exception;
+	//스토어 qna 개수
+	public int countStoreQna(StoreQnaVO vo) throws Exception;
+	
+	
 	// 스토어 옵션 리스트
 	List<StoreOptionVO> storeOptionList(StoreOptionVO vo);
 	//멤버조회
@@ -62,5 +87,19 @@ public interface StoreService {
 	
 	//스토어 옵션 등록ㄴ
 	int storeOptionReg(List<StoreOptionVO> vo);
-
+	
+	// 결제
+	// 주문 번호
+	int insertOrder(StoreOrderVO ordervo);
+	// 주문 옵션 정보 등록
+	int insertOrderOption(StoreOrderOptionVO orderoptionvo);
+	// 배송 정보 등록
+	int insertExpress(StoreExpressVO expressvo);
+	// 결제 정보
+	int insertPay(StoreOrderPayVO payvo);
+	// 주문 완료 - 주문 정보
+	StoreVO store_info(int store_idx);
+	
+	//스토어 옵션 수량 감소 메소드
+	int update_option(StoreOrderOptionVO orderoptionvo);
 }

@@ -114,6 +114,8 @@ $(document).ready (function () {
 					</table>
                 </div>
                 <div class="tab-pane fade" id="note">
+                	레벨 : ${ member.member_level }<br>
+                	
                 	<table class="table" style="border: none">
 						 <c:if test="${dialogue.size()>0}">
 							<c:forEach var="item" items="${dialogue}">
@@ -121,14 +123,15 @@ $(document).ready (function () {
 							    <tr>
 							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
 							    	<th style="text-align:right;">
-							    		
+							    		소비자 : ${ item.to_member_idx }<br>
+										판매자 : ${ item.from_member_idx }<br>
 										<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
 				    	
 							    	</th>
 							    </tr>
 							<!-- 메세지 내용 -->
-							    <tr onclick="window.open('note.do?seller=${item.member_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
+							    <tr onclick="window.open('note.do?seller=${item.from_member_idx}&consumer=${item.to_member_idx }&funding_idx=${ item.funding_idx }','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
 							      	<th>
 								      	
 			                        </th>

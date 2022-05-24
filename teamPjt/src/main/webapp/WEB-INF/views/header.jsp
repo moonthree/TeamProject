@@ -117,7 +117,10 @@
                         <a class="navtext" href="<%=request.getContextPath()%>/store/store_main.do">스토어</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">기획전</a>
+                        <a class="navtext" href="<%=request.getContextPath()%>/event/event_main.do">기획전</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">1</a>
                     </li>
                    
                     <li class="nav-item dropdown">
@@ -135,20 +138,8 @@
                 <!-- 검색창 -->
                 <div class="search_container">
                     <div class="search_box">
-                        <%-- <input type="text" placeholder="검색" style="border: none;" class="search_input">
-                        <a href="<%=request.getContextPath()%>/search.do" style="float: right;">
-                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/><path d='M0 0h24v24H0z' fill='none'/></svg>
-                        </a> --%>
-                        
                         <div class="search">
 	                        <form role="form" method="get" class="searchForm">
-	                        	<%-- <select name="searchType">
-							      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
-							      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-							      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>카테고리</option>
-							      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+카테고리</option>
-							    </select> --%>
-	                        
 		                        <input type="text" name="keyword" id="keywordInput" value="${keyword}" placeholder="검색" style="border: none;" class="search_input">
 		                        <a id="searchBtn" style="float: right;">
 		                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/><path d='M0 0h24v24H0z' fill='none'/></svg>

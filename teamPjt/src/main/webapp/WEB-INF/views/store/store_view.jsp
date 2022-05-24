@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.Date" %> 
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,23 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_modal.css">
 </head>
 <body>
+	<%
+		pageContext.setAttribute("CR", "\r");
+		pageContext.setAttribute("LF", "\n");
+		pageContext.setAttribute("CRLF", "\r\n");
+		pageContext.setAttribute("SP", "&nbsp;");
+		pageContext.setAttribute("BR", "<br/>");
+	%>
+	<!-- 컨트롤 f로 찾아가기
+	0010 = 상단, 0011 = 셀렉트, 0012 = 구매, 찜 버튼
+	0020 = 리뷰, 0021 = 리뷰포토, 0022 = 리뷰추천  0023 = 리뷰페이징
+	0030 = qna, 0031 = qna상태, 0032 = qna제목, 0033 = qna페이징
+	0040 = 모달, 0041 = 리뷰등록, 0042 = 갤러리, 0043 = 사진상세, 
+	0044 = qna등록, 0045 = qna수정, 0046 = qna답변, 0047 = qna답변수정
+	0049 = qna관리자삭제
+	0050 = 자바스크립트
+	 -->
+	
 	<!-- 날짜 계산 -->
 	<c:set var="now" value="<%=new java.util.Date()%>"/>
     <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd " /></c:set>
@@ -35,9 +53,9 @@
 	<c:import url="/header.do"></c:import>
 	
 	<main>
-	    <!-- 상단 썸네일 -->
+	    <!-- 상단 썸네일 0010 -->
 	    <div class="card bg-dark text-white topcard">
-	        <img src="../resources/image/funding_main/doghome.png" class="card-img FVtitleImg" alt="...">
+	        <img src="../resources/upload/store/${read.store_thumbnail }" class="card-img FVtitleImg" alt="...">
 	        <div class="card-img-overlay">
 	            <br>
 	            <h5 class="card-category">
@@ -121,12 +139,19 @@
 	                <div class="viewExpress">
 	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
-	                    <span class="viewExpressPrice">${read.store_express_fee }</span>원
+	                    <span class="viewExpressPrice">
+	                    	<c:if test="${read.store_express_fee eq 0}">
+					        		무료 배송
+					        	</c:if>
+					        	<c:if test="${read.store_express_fee ne 0}">
+					        		<fmt:formatNumber value="${read.store_express_fee }" type="number" />원
+					        	</c:if>
+	                    </span>
 	                    <br>
 	                    <span class="viewDate">${twoDayAfterStr} <span class="viewDateText">도착 예정</span></span>
 	                </div>
 	                
-	                <!-- 셀렉트 시작 -->
+	                <!-- 셀렉트 시작 0011 -->
 	                <!-- 셀렉트 시작 -->
 	                <!-- 셀렉트 시작 -->
 	                <form id="selectform" method="get" action="store_pay.do">
@@ -137,21 +162,38 @@
 				        <div class="select_container">
 				            <div class="select_title">
 				                <div class="select_menu_title" id="select_menu_title">상품 선택</div>
-				                <div class="morebtn">↓</div>
+				                <div class="morebtn">
+				                	<span class="arrow">
+							            <span></span>
+							            <span></span>
+							        </span>
+				                </div>
 				            </div>
 				            <ul class="select_menu_content">
 				                <div>
 				                	<c:forEach var="optionlist" items="${optionlist}">
-				                    <li class="menu${optionlist.store_option_idx} li_menu" id="menu${optionlist.store_option_idx}" onclick="javascript:option.checkSelect(${optionlist.store_option_idx});">
-				                        <div class="select_menu_item_container">
-				                            <input type="hidden" value="${optionlist.store_option_idx}">
-				                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
-				                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
-				                            <div class="select_menu_item_price">
-				                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
-				                            </div>
-				                        </div>
-				                    </li>
+				                		<c:if test="${optionlist.store_option_stock > 0}">
+						                    <li class="menu${optionlist.store_option_idx} li_menu" id="menu${optionlist.store_option_idx}" onclick="javascript:option.checkSelect(${optionlist.store_option_idx});">
+						                        <div class="select_menu_item_container">
+						                            <input type="hidden" value="${optionlist.store_option_idx}">
+						                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
+						                            <div class="select_menu_item_content">${optionlist.store_option_detail}</div>
+						                            <div class="select_menu_item_price">
+						                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+						                            </div>
+						                        </div>
+						                    </li>
+				                		</c:if>
+				                		<c:if test="${optionlist.store_option_stock < 1}">
+						                        <div class="select_menu_item_container" onclick="javascript:soldout();" style="color: #bcbdbe">
+						                            <input type="hidden" value="${optionlist.store_option_idx}">
+						                            <div class="select_menu_item_title">${optionlist.store_option_name}</div>
+						                            <div class="select_menu_item_content" style="color: #bcbdbe">품절</div>
+						                            <div class="select_menu_item_price">
+						                            	<fmt:formatNumber value="${optionlist.store_option_price}" type="number" />원
+						                            </div>
+						                        </div>
+				                		</c:if>
 	                				</c:forEach>
 				                </div>
 				            </ul>
@@ -222,7 +264,7 @@
 	                <!-- 셀렉트 끝 -->
 	                <div class="viewBtn">
 	                	<button type="button" class="viewPurchaseBtn">구매하기</button>
-	                	<!-- 구매, 찜 로그인 처리 -->
+	                	<!-- 구매, 찜 로그인 처리 0012 -->
 	                	<!-- 로그인 안 했으면 -->
 	                	<c:if test="${login eq null}">
 		                    <button type="button" class="viewZzimBtn" data-toggle="modal" data-target="#loginModal">
@@ -338,7 +380,7 @@
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
 	                <img src="../resources/upload/store/${read.store_notice}" class="card-img-top img2" alt="...">
 	            </div>
-            <!--리뷰 시작-->
+            <!--리뷰 시작 0020-->
             <!--리뷰 시작-->
             <!--리뷰 시작-->
 	            <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
@@ -461,7 +503,8 @@
 	                        </div>
 	                    </div>
 	                </div>
-<!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 -->
+	                
+<!-- 리뷰 중단 포토 0021 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 --><!-- 리뷰 중단 포토 -->
 	            <div class="reviewMiddlePhoto">
 	                <p>포토</p>
 	                <div id="reviewMiddlePhoto">
@@ -581,7 +624,7 @@
 		                                <span class="middleBar">|</span>
 		                                <fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
 		                                <span class="reviewReg"><fmt:formatDate value="${regdate}" pattern="yyyy-MM-dd" /></span>
-<!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 -->
+<!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 0022 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 -->
 										<input type="number" id="storeReview_store_review_idx${status.index }" value="${reviewList.store_review_idx }" style="display:none;">
 										
 										<c:if test="${login eq null }">
@@ -669,7 +712,7 @@
 	                	</c:forEach>
 	                </table>
 	            </div>
-	            <!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 -->
+	            <!-- 리뷰 페이징 0023 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 --><!-- 리뷰 페이징 -->
 	            <div>
 		        	<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
@@ -691,10 +734,250 @@
             <!--리뷰 끝-->
             <!--리뷰 끝-->
             <!--리뷰 끝-->
-            <!--Q&A-->
-	            <div class="tab-pane fade" id="FVQnA" role="tabpanel" aria-labelledby="FVQnA-tab">
-	                ss
-	            </div>
+<!--qna 0030 시작--><!--qna 시작--><!--qna 시작--><!--qna 시작--><!--qna 시작-->            <!--qna 시작-->
+	            <!--Q&A-->
+            <div class="tab-pane fade" id="FVQnA" role="tabpanel" aria-labelledby="FVQnA-tab">
+                <div class="row">
+                    <div class="col-md-9 col-sm-12">
+                        <h3 style="padding-top: 10px;">Q&A<span style="font-size: 12px;"> | 참여하려는 펀딩에 대해 궁금한 점이 있으신 경우 문의해주세요.</span></h3>
+                    </div>
+                    <div class="col-md-3 col-sm-12" style="text-align: right;">
+                        <c:if test="${login eq null}">
+                    		<button type="button" class="btn btn-outline-info btn-lg qnabtn" data-toggle="modal" data-target="#loginModal">상품 Q&A 작성하기</button>
+                    	</c:if>
+                    	<c:if test="${login ne null}">
+                    		<c:choose>
+        						<c:when test="${read.member_idx eq login.member_idx}">
+                    				&nbsp;
+        						</c:when>
+        						<c:otherwise>
+                    				<button type="button" class="btn btn-outline-info btn-lg qnabtn" data-toggle="modal" data-target="#qnaModal">상품 Q&A 작성하기</button>
+        						</c:otherwise>
+       						</c:choose>
+                    	</c:if>
+                    </div>
+                </div>
+                <table class="table QnAtable">
+                    <thead>
+                        <tr>
+                            <th scope="col">답변 상태</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	
+                    	<c:forEach items="${listQna}" var="qnaList" varStatus="status">
+                    		
+                   		<!-- 답변 상태 0031 -->
+                    		<tr class="tr${qnaList.store_qna_idx}">
+                    			<c:set var="qnaState" value="${qnaList.store_qna_state }"></c:set>
+                    			<c:set var="qnaSecret" value="${qnaList.store_qna_secret }"></c:set>
+                    			<c:if test="${qnaState eq 0}">
+                    				<c:if test="${qnaList.depth eq 0}">
+                    					<td style="width: 15%;">답변 대기</td>
+                    					<div class="answer" style="display:none;"></div>
+                    				</c:if>
+                    				<c:if test="${qnaList.depth eq 1}">
+                    					<td style="width: 15%;">&nbsp;&nbsp;&nbsp;ㄴ<span class="reply">답변</span></td>
+                    				</c:if>
+                    				
+                    			</c:if>
+	                            <c:if test="${qnaState eq 1}">
+                    				<td style="width: 15%;">답변 완료</td>
+                    				<div class="answer" style="display:none;"></div>
+                    			</c:if>
+                    			<c:set var="qna" value="${fn:replace(qnaList.store_qna_content,CRLF, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,CR, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,CR, BR)}" />
+								<c:set var="qna" value="${fn:replace(qna,' ',SP)}" />
+                                   
+                              	
+                   			<!-- 답변 제목 0032 -->		
+                    			<!-- 비밀글 아니면 -->
+                    			<c:if test="${qnaSecret eq 0}">
+                    				<td style="width: 45%;">
+                    					<div class="qnaDivContent">
+                    						<!-- 답변 완료면 -->
+                    						<c:if test="${qnaState eq 1}">
+	                    						<a class="showQna" data-id="${qnaList.store_qna_idx }" data-id2="${qnaList.store_qna_content}" data-id3="${read.store_idx }">
+		                    						<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
+		                    							<input type="text" name="store_qna_idx" class="store_qna_idx" value="" style="display:none;"/>
+		                    							<input type="text" name="store_idx" class="store_idx" value="" style="display:none;"/>
+		                    						</span>
+	                    						</a>
+	                    						<a class="hideQna">
+	                    							<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
+		                    						</span>
+	                    						</a>
+                    						</c:if>
+                    						<!-- 답변 대기면 -->
+                    						<c:if test="${qnaState eq 0}">
+	                    						<a class="noshowQna" data-id="${qnaList.store_qna_idx }" data-id2="${qnaList.store_qna_content}">
+		                    						<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
+		                    							<input type="text" name="store_qna_idx" class="store_qna_idx" value="" style="display:none;"/>
+		                    						</span>
+	                    						</a>
+	                    						<a class="hideQna2">
+	                    							<span class="qnaContent">
+		                    							<c:out value="${qna}" escapeXml="false"/>
+		                    						</span>
+	                    						</a>
+                    						</c:if>
+                    					</div>
+                    				</td>
+                    			</c:if>
+                    			<!-- 비밀글이면 -->
+	                            <c:if test="${qnaSecret eq 1}">
+	                            	<td style="width: 45%;">
+	                            		<div class="qnaDivContent">
+	                            			<!-- 본인, 판매자, 관리자면 클릭 가능 아니면 불가능ssssss-->
+	                            			<!-- 답변완료면 -->
+	                            			<c:if test="${qnaState eq 1}">
+	                            				<c:choose>
+		                    						<c:when test="${qnaList.member_idx eq login.member_idx || read.member_idx eq login.member_idx || qnaList.store_qna_writer_idx eq login.member_idx || login.member_level eq 2}">
+		                    								<a class="showQna" data-id="${qnaList.store_qna_idx }" data-id2="${qnaList.store_qna_content}" data-id3="${read.store_idx }">
+		                    									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+								                                    viewBox="0 0 16 16">
+								                                    <path
+								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+								                                </svg>
+		                    									<span class="qnaContent"><c:out value="${qna}" escapeXml="false"/></span>
+		                    									<input type="text" name="store_qna_idx" class="store_qna_idx" value="" style="display:none;"/>
+		                    									<input type="text" name="store_idx" class="store_idx" value="" style="display:none;"/>
+		                    								</a>
+		                    								<a class="hideQna">
+		                    									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+								                                    viewBox="0 0 16 16">
+								                                    <path
+								                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+								                                </svg>
+				                    							<span class="qnaContent">
+					                    							<c:out value="${qna}" escapeXml="false"/>
+					                    						</span>
+				                    						</a>
+		                    						</c:when>
+		                    						<c:otherwise>
+		                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+						                                    viewBox="0 0 16 16">
+						                                    <path
+						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+						                                </svg>
+				                    					비밀글입니다.
+				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/>/span> 
+		                    						</c:otherwise>
+		                    					</c:choose>
+	                            			</c:if>
+	                            			<!-- 답변대기면 -->
+	                            			<c:if test="${qnaState eq 0}">
+	                            				<c:choose>
+		                    						<c:when test="${qnaList.member_idx eq loginPerson || seller eq loginPerson || qnaList.store_qna_writer_idx eq loginPerson || login.member_level eq 2}">
+		                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+						                                    viewBox="0 0 16 16">
+						                                    <path
+						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+						                                </svg>
+				                    					<c:if test="${qnaState eq 0}">
+				                    						<a class="noshowQna" data-id="${qnaList.store_qna_idx }" data-id2="${qnaList.store_qna_content}">
+					                    						<span class="qnaContent">
+					                    							<c:out value="${qna}" escapeXml="false"/>
+					                    							<input type="text" name="store_qna_idx" class="store_qna_idx" value="" style="display:none;"/>
+					                    						</span>
+				                    						</a>
+				                    						<a class="hideQna2">
+				                    							<span class="qnaContent">
+					                    							<c:out value="${qna}" escapeXml="false"/>
+					                    						</span>
+				                    						</a>
+			                    						</c:if>
+		                    						</c:when>
+		                    						<c:otherwise>
+		                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+						                                    viewBox="0 0 16 16">
+						                                    <path
+						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+						                                </svg>
+				                    					비밀글입니다.
+				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> 
+		                    						</c:otherwise>
+		                    					</c:choose>
+	                            			</c:if>
+                    					</div>
+                    				</td>
+                    			</c:if>
+<!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 --><!-- 작성자 -->
+          						<td style="width: 20%;">${qnaList.member_name}</td>
+	                            
+                           	<!-- 등록일 -->
+	                            <fmt:parseDate var="qnaRegDate" value="${qnaList.store_qna_regdate }" pattern="yyyy-MM-dd"/>
+	                            <fmt:formatDate var="qnaRegDate2" value="${qnaRegDate }" pattern="yyyy-MM-dd"/>
+	                            
+	                            <c:choose>
+	                            	<c:when test="${qnaState eq 0 && qnaList.member_idx eq login.member_idx && qnaList.depth eq 0}">
+               							<td style="width: 20%;"> <!-- 질문 수정 -->
+               								${qnaRegDate2} 
+               								&nbsp;
+               								<button class="doModify btn btn-outline-info" data-toggle="modal" data-target="#qnaModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.store_qna_idx }" data-id3="${qnaList.member_idx}" data-id4="${qnaList.store_qna_content}">수정</button>
+               							</td>
+               						</c:when>
+               						<c:when test="${qnaState eq 0 && read.member_idx eq login.member_idx && qnaList.depth eq 0}">
+               							<td style="width: 20%;"> <!-- 답변 -->
+               								${qnaRegDate2}
+               								&nbsp;
+               								<button class="doAnswer btn btn-warning" data-toggle="modal" data-target="#qnaAnswerModal" data-id="${qnaList.store_qna_idx }" data-id2="${qnaList.member_idx }">답변 하기</button>
+               							</td>
+               						</c:when>
+               						<c:when test="${qnaState eq 1 && read.member_idx eq login.member_idx && qnaList.depth eq 0}">
+               							<td style="width: 20%;"> <!-- 답변 수정 -->
+               								${qnaRegDate2}
+               								&nbsp;
+               								<button class="doQnaAnswerModify btn btn-outline-success" data-toggle="modal" data-target="#qnaAnswerModifyModal" data-id="${qnaList.parent_id }" data-id2="${qnaList.store_qna_idx }" data-id3="${qnaList.member_idx}" data-id4="${read.store_idx}">답변 수정</button>
+               							</td>
+               						</c:when>
+               						<c:when test="${login.member_level eq 2 && qnaList.depth eq 0}">
+               							<td style="width: 20%;"> <!--관리자 삭제 -->
+               								${qnaRegDate2}
+               								&nbsp;
+               								<button class="qnaAdminDoDel btn btn-outline-danger" data-toggle="modal" data-target="#qnaAdminModal" data-id="${qnaList.store_qna_idx }">삭제</button>
+               							</td>
+               						</c:when>
+               						<c:otherwise>
+               							<td style="width: 20%;">${qnaRegDate2}</td>
+               						</c:otherwise>
+            					</c:choose>
+	                            
+                        	</tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <!--  0033 qna 페이징 -->
+                <div>
+		        	<nav aria-label="...">
+						  <ul class="pagination justify-content-center">
+						    <c:if test="${prevQna }">
+						    	<li class="page-item">
+						    		<a class="page-link prev" href="store_view.do?pageNumQna=${startPageQna-1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVQnA">이전</a>
+						    	</li>
+						    </c:if> 
+						    <c:forEach begin="${startPageQna}" end="${endPageQna}" var="idx">
+						    	<li class="page-item">
+						    		<a class="page-link" href="store_view.do?pageNumQna=${idx}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVQnA">${idx}</a>
+						    	</li>
+						    </c:forEach>
+						    <c:if test="${nextQna}">
+						    	<li class="page-item">
+							    	<a class="page-link next" href="store_view.do?pageNumQna=${endPageQna+1}&store_idx=${read.store_idx}&store_funding=${read.store_funding}&reviewSort=${reviewSort }#FVQnA">다음</a>
+						    	</li>
+						    </c:if> 
+						  </ul>
+					 </nav>
+				</div>
+            </div>
+<!--qna 끝--><!--qna 끝--><!--qna 끝--><!--qna 끝--><!--qna 끝--><!--qna 끝--><!--qna 끝-->
 	        </div>
 	
 	    </div>
@@ -705,7 +988,7 @@
 <!-- 모달 시작 -->
 <!-- 모달 시작 -->
 <!-- 모달 시작 -->
-<!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 -->
+<!-- 로그인 모달 0040 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 --><!-- 로그인 모달 -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content login_modal_content">
@@ -728,7 +1011,7 @@
 <!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 --><!-- 로그인 모달 끝 -->
 
 <!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 -->
-<!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 -->
+<!-- 리뷰 등록 모달 0041 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 --><!-- 리뷰 등록 모달 -->
 <div class="modal fade" id="reviewWriteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -743,7 +1026,7 @@
                         <table>
                             <tr class="tr1">
                                 <td class="td1">
-                                    <img src="../resources/image/funding_main/${read.store_thumbnail }" alt="" class="td1Img">
+                                    <img src="../resources/upload/store/${read.store_thumbnail }" alt="" class="td1Img">
                                 </td>
                                 <td class="td2">
                                     <div class="bold">${read.store_title }</div>
@@ -809,7 +1092,7 @@
 <!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 -->
 <!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 --><!-- 리뷰 등록 모달 끝 -->
 
-<!-- 갤러리 모달 -->
+<!-- 갤러리 모달 0042 -->
 <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content login_modal_content">
@@ -858,7 +1141,7 @@
   </div>
 </div>
 
-<!-- 사진 상세 모달 -->
+<!-- 사진 상세 모달 0043 -->
 <div class="modal fade" id="photoBigModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content login_modal_content">
@@ -879,7 +1162,214 @@
   </div>
 </div>
 
-<!-- 모달 끝 -->
+<!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 --><!-- qna 모달 시작 -->
+
+<!-- Q&A 등록 모달 0044 -->
+    <div class="modal fade" id="qnaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaSubmitForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                        
+                        <h4 class="bold">Q&A 작성하기</h4>
+                        
+                        <p>
+                        	판매자의 답변이 필요한 문의 글을 남겨주세요.
+                        	<br>상품에 대한 리뷰는 상품평에 작성해주세요.
+                        </p>
+                        
+                        
+                    	<input type=number id="store_qna_secret" name="store_qna_secret" value="" style="display:none;" />
+                        <input type=text id="store_idx" name="store_idx" value="${read.store_idx}" style="display:none;" />
+                        <input type=text id="member_idx" name="member_idx" value="${login.member_idx}" style="display:none;" />
+                        <textarea name="store_qna_content" id="store_qna_content" cols="60" rows="10"
+                            placeholder="상품에 대한 궁금증을 남겨주세요"></textarea>
+                        
+                        <input type="checkbox" id="cb1" class="cb">
+                        <label for="cb1"></label>
+                        <p class="cbp">비공개</p>
+                        
+                        <p class="qnaWriteWarning">
+                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            유의하여 주시기 바랍니다.
+                        </p>
+
+                        <h4 class="bold">Q&A 작성 유의사항</h4>
+                        <p class="commuWriteNotice">
+                            1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
+                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
+                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                        </p>
+                        
+                    
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                        <button type="button" id="qnaSubmitBtn" class="qnaBtn btn btn-outline-info">등록</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Q&A 수정 모달  -->
+    <div class="modal fade" id="qnaModifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaModifyForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4 class="bold">Q&A 수정하기</h4>
+                        
+                        <input type=number class="parent_id" name="parent_id" value="" style="display:none;" />
+                    	<input type=number class="store_qna_idx" name="store_qna_idx" value="" style="display:none;" />
+                    	<input type=number class="qna_answer_secret" name="store_qna_secret" value="" style="display:none;" />
+                    	<input type=number class="store_qna_writer_idx" name="store_qna_writer_idx" value="" style="display:none;" />
+                        <input type=text class="store_idx" name="store_idx" value="${read.store_idx}" style="display:none;" />
+                        <input type=text class="answer_member_idx" name="answer_member_idx" value="${login.member_idx}" style="display:none;" />
+                        <textarea name="store_qna_content" id="store_qna_modify" cols="60" rows="10"></textarea>
+                        
+                        <input type="checkbox" id="cb3" class="cb">
+                        <label for="cb3"></label>
+                        <p class="cbp">비공개</p>
+                        
+                        <p class="qnaWriteWarning">
+                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            유의하여 주시기 바랍니다.
+                        </p>
+
+                        <h4 class="bold">Q&A 작성 유의사항</h4>
+                        <p class="commuWriteNotice">
+                            1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
+                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
+                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                        </p>
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                    	<c:choose>
+	                        <c:when test ="${login.member_idx eq read.member_idx }">
+	                        	<button type="button" id="qnaModifyBtn" class="qnaBtn2 btn btn-outline-info">수정</button>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<button type="button" id="qnaModifyBtn" class="qnaBtn2 btn btn-outline-info">수정</button>
+	                        	<button type="button" id="qnaDeleteBtn" class="qnaBtn3 btn btn-outline-danger">삭제</button>
+	                        </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Q&A 답변 모달 -->
+    <div class="modal fade" id="qnaAnswerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaAnswerForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4 class="bold">답변하기</h4>
+                        
+                        <input type=number class="store_qna_idx" name="store_qna_idx" value="" style="display:none;" />
+                    	<input type=number class="store_qna_secret" name="store_qna_secret" value="" style="display:none;" />
+                    	<input type=number class="store_qna_writer_idx" name="store_qna_writer_idx" value="" style="display:none;" />
+                        <input type=number class="qna_store_idx" name="store_idx" value="${read.store_idx}" style="display:none;" />
+                        <input type=number class="answer_member_idx" name="answer_member_idx" value="${login.member_idx}" style="display:none;" />
+                        <textarea name="store_qna_answer_content" id="store_qna_answer_content" cols="60" rows="7"
+                            placeholder="답변을 작성해주세요."></textarea>
+                        
+                        <!-- <input type="checkbox" id="cb2" class="cb">
+                        <label for="cb2"></label>
+                        <p class="cbp">비공개</p> -->
+                        
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                    	<button type="button" id="qnaAnswerBtn" class="qnaBtn btn btn-outline-info">답변</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+     <!-- Q&A 답변 수정 모달 -->
+    <div class="modal fade" id="qnaAnswerModifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaAnswerModifyForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4 class="bold">답변 수정</h4>
+                        
+                        <input type=number class="parent_id" name="parent_id" value="" style="display:none;" />
+                    	<input type=number class="store_qna_idx" name="store_qna_idx" value="" style="display:none;" />
+                    	<input type=number class="qna_answer_secret" name="store_qna_secret" value="" style="display:none;" />
+                    	<input type=number class="store_qna_writer_idx" name="store_qna_writer_idx" value="" style="display:none;" />
+                        <input type=text class="store_idx" name="store_idx" value="${read.store_idx}" style="display:none;" />
+                        <input type=text class="answer_member_idx" name="answer_member_idx" value="${login.member_idx}" style="display:none;" />
+                        <textarea id="store_qna_answer_modify" name="store_qna_content" cols="60" rows="7"
+                            placeholder="작성한 답변을 수정할 수 있습니다."></textarea>
+                        
+                        <!-- <input type="checkbox" id="cb3" class="cb">
+                        <label for="cb3"></label>
+                        <p class="cbp">비공개</p> -->
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                    	<button type="button" id="qnaAnswerModifyBtn" class="btn btn-outline-info">수정</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+	<!-- 관리자 - Q&A 삭제 모달 -->
+    <div class="modal fade" id="qnaAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="qnaAdminForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4 class="bold">-관리자-<br><br>정말 삭제 하시겠습니까?</h4>
+                        <input type=text class="store_idx" name="store_idx" value="${read.store_idx}" style="display:none;" />
+                        <input type=text class="store_qna_idx" name="store_qna_idx" value="" style="display:none;" />
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                        <button type="button" id="qnaAdminBtn" class="qnaDeleteBtn qnaBtn btn btn-outline-danger">예</button>
+                        <button type="button" id="qnaAdminNo" class="qnaBtn btn btn-outline-success">아니오</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 --><!-- qna 모달 끝 -->
+
+
+<!-- 모달 끝 0050 -->
 <script src="../resources/js/store/store_view_load.js"></script>
 <script src="../resources/js/store/store_view_select.js"></script>
 <script>
@@ -1018,7 +1508,13 @@ let option = {
         }
     });
 	
+	// sold out 품절
+	function soldout(){
+		alert('해당 상품은 품절입니다.');
+	}
+	
 </script>
 <script src="../resources/js/store/store_view_review.js"></script>
+<script src="../resources/js/store/store_view_qna.js"></script>
 </body>
 </html>

@@ -41,11 +41,6 @@ public class MemberController {
 				
 				// 이전 destination 불러오기
 				Object dest = session.getAttribute("dest");
-//				if(dest.equals("/funding/option.do")){
-//					return "redirect:/.do";
-//				}else {
-//					return "redirect:" + ( dest != null ? (String)dest : "/.do");
-//				}
 				return "redirect:" + ( dest != null ? (String)dest : "/.do");
 			}else {
 				response.setContentType("text/html; charset=UTF-8"); 

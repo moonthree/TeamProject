@@ -310,6 +310,100 @@
 	</update>
 	
 	
+<!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 --><!-- 스토어 qna 시작 -->
+	<!-- 스토어 qna 작성 -->
+	<insert id="insertStoreQna" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="store_qna_idx">
+		insert into store_qna
+		(
+            store_idx,
+            member_idx,
+            parent_id,
+            depth,
+            store_qna_secret,
+            store_qna_content,
+            store_qna_writer_idx
+        )
+        values
+        (
+            #{store_idx},
+            #{member_idx},
+            #{parent_id},
+            #{depth},
+            #{store_qna_secret},
+            #{store_qna_content},
+            #{store_qna_writer_idx}
+        )
+	</insert>
+	<!-- 스토어 qna 댓글 리스트 ssss-->
+	<select id="readStoreQnaList" resultType="StoreQnaVO" parameterType="java.util.HashMap">
+		select 
+			qna.store_qna_idx,
+			qna.store_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.store_qna_state,
+			qna.store_qna_secret,
+			qna.store_qna_content,
+			qna.store_qna_writer_idx,
+			qna.store_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM store_qna AS qna
+		JOIN member AS mem 
+		ON qna.store_idx = #{store_idx} and qna.member_idx = mem.member_idx and qna.depth = 0
+		order by store_qna_idx desc limit ${startRowNumQna}, 9;
+	</select>
+	<!-- 스토어 qna 댓글 답변-->
+	<select id="readStoreQnaAnswer" resultType="StoreQnaVO" parameterType="java.util.HashMap">
+		select 
+			qna.store_qna_idx,
+			qna.store_idx,
+			qna.member_idx,
+			qna.parent_id,
+			qna.depth,
+			qna.store_qna_state,
+			qna.store_qna_secret,
+			qna.store_qna_content,
+			qna.store_qna_writer_idx,
+			qna.store_qna_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM store_qna AS qna
+		JOIN member AS mem 
+		ON qna.store_idx = ${store_idx} and qna.member_idx = mem.member_idx and qna.parent_id = #{store_qna_idx}
+	</select>
+	<!-- 스토어 qna 답변 등록 완료 -->
+	<update id="qnaAnswerDone" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_state = 1
+		WHERE store_idx = #{store_idx} and store_qna_idx = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 답변 수정 -->
+	<update id="qnaAnswerModify" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_content = #{store_qna_content}
+		WHERE parent_id = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 수정 -->
+	<update id="modifyStoreQna" parameterType="StoreQnaVO">
+		UPDATE store_qna 
+		SET store_qna_content = #{store_qna_content}, store_qna_secret = #{store_qna_secret}
+		WHERE store_qna_idx = #{store_qna_idx};
+	</update>
+	<!-- 스토어 qna 삭제 -->
+	<delete id="deleteStoreQna" parameterType="StoreQnaVO">
+		DELETE FROM store_qna
+		WHERE store_qna_idx = #{store_qna_idx};
+	</delete>
+	<!-- 스토어 qna 개수 -->
+	<select id="countStoreQna" parameterType="StoreQnaVO" resultType="int">
+		SELECT COUNT(store_qna_idx)
+		FROM store_qna
+		where store_idx=#{store_idx} and depth = 0;
+	</select>
+<!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 --><!-- 스토어 qna 끝 -->
+	
 	<!-- 스토어 옵션 리스트 -->
 	<select id="storeOptionList" resultType="StoreOptionVO">
 		SELECT store_idx,
@@ -371,5 +465,83 @@
 		)
 		</foreach>
 	</insert>
+	
+	
+	<!-- 결제 -->
+	<!-- 주문 번호 -->
+	<insert id="insertOrder" parameterType="StoreOrderVO">
+		INSERT INTO store_order(
+			member_idx
+		  , store_idx
+		  , store_order_total_price
+		  , store_order_pay_state
+		  , store_order_date
+		)VALUES(
+			#{member_idx}
+		  , #{store_idx}
+		  , #{store_order_total_price}
+		  , #{store_order_pay_state}
+		  , now()
+		)
+	</insert>
+	<!-- 주문 옵션 번호 -->
+	<insert id="insertOrderOption" parameterType="StoreOrderOptionVO">
+		INSERT INTO store_order_option(
+			store_order_idx
+		  , store_order_option_select_idx
+		  , store_order_option_select_count
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{store_order_option_select_idx}
+		  , #{store_order_option_select_count}
+		)
+	</insert>
+	<!-- 주문 배송지 정보 -->
+	<insert id="insertExpress" parameterType="StoreExpressVO">
+		INSERT INTO store_express(
+			store_order_idx
+		  , member_idx
+		  , store_express_postnum
+		  , store_express_addr1
+		  , store_express_addr2
+		  , store_express_phone
+		  , store_express_name
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{member_idx}
+		  , #{store_express_postnum}
+		  , #{store_express_addr1}
+		  , #{store_express_addr2}
+		  , #{store_express_phone}
+		  , #{store_express_name}
+		)
+	</insert>
+	<!-- 결제 정보 -->
+	<insert id="insertPay" parameterType="StoreOrderPayVO">
+		INSERT INTO store_order_pay(
+			store_order_idx
+		  , store_order_pay_card_name
+		  , store_order_pay_card_number
+		  , store_order_pay_amount
+		)VALUES(
+			(SELECT MAX(store_order_idx) FROM store_order)
+		  , #{store_order_pay_card_name}
+		  , #{store_order_pay_card_number}
+		  , #{store_order_pay_amount}
+		)
+	</insert>
+	<!-- 결제 완료 - 스토어 정보 -->
+	<select id="store_info" resultType="StoreVO">
+		SELECT store_title 
+		FROM store 
+		WHERE store_idx = #{store_idx};
+	</select>
+	
+	<!-- 결제 완료 시 스토어 옵션 수량 빼기 -->
+	<update id="update_option" parameterType="StoreOrderOptionVO">
+		UPDATE store_option 
+		SET store_option_stock = store_option_stock - #{store_order_option_select_count}
+		where store_option_idx = #{store_order_option_select_idx}
+	</update>
 	
 </mapper>

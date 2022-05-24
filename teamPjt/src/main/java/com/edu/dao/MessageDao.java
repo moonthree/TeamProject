@@ -32,8 +32,8 @@ public class MessageDao {
 	}
 	
 	//메세지불러오기 - 판매자마다 단한개
-	public List<MessageVO> message_dialogue(int to_member_idx) {
-		return sqlSession.selectList("MessageMapper.message_dialogue",to_member_idx);
+	public List<MessageVO> message_dialogue(Map<String,Object> paramMap) {
+		return sqlSession.selectList("MessageMapper.message_dialogue",paramMap);
 	}
 
 	//메세지 로그
@@ -41,5 +41,23 @@ public class MessageDao {
 		return sqlSession.selectList("MessageMapper.message_dialogue_detail",param);
 	}
 
+	//메세지 보내기
+	public void sendMessage(Map<String, Object> param) {
+		sqlSession.insert("MessageMapper.sendMessage", param);
+	}
+	
+	//판매자 member_idx찾기
+	public int findSellerIdx(int funding_idx) {
+		return sqlSession.selectOne("MessageMapper.findSellerIdx", funding_idx);
+	}
+	
+	//level체크하기
+	public int checkLevel(int member_idx) {
+		return sqlSession.selectOne("MessageMapper.checkLevel", member_idx);
+	}
+	
+	public List<MessageVO> getFrom_member_idxs(int to_member_idx) {
+		return sqlSession.selectList("MessageMapper.getFrom_member_idxs", to_member_idx);
+	}
 
 }

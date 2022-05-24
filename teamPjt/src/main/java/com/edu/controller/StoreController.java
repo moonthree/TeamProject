@@ -2,17 +2,17 @@ package com.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.mail.Store;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,19 +32,37 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
-import com.edu.vo.FundingCommunityVO;
-import com.edu.vo.FundingMainVO;
-import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreExpressVO;
+import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreOrderOptionVO;
+import com.edu.vo.StoreOrderPayVO;
+import com.edu.vo.StoreOrderVO;
+import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
+
 
 @Controller
 @RequestMapping(value = "/store")
 public class StoreController {
+	
+	/*
+	 * 컨트롤 f 로 찾아가기
+	 * 01 = 스토어 메인페이지
+	 * 02 = 스토어 뷰페이지
+	 * 03 = 스토어 qna
+	 * 04 = 스토어 상품 등록
+	 * 05 = 스토어 리뷰
+	 * 06 = 스토어 결제
+	 * */
 	
 	@Autowired
 	private fundingMainService fms;
@@ -60,7 +79,7 @@ public class StoreController {
 	public String main() {
 		return "store/store_main";
 	}
-	// 스토어 메인페이지 
+	// 스토어 메인페이지 01
 	@RequestMapping(value = "/store_main.do", method=RequestMethod.GET)
 	public String listMain(StoreReviewVO srvo, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		//세션사용자정보 가져옴
@@ -189,9 +208,9 @@ public class StoreController {
 		return sts.countStoreReviewList(srvo);
 	}
 	
-	// 스토어 뷰페이지 
+	// 스토어 뷰페이지 02
 	@RequestMapping(value = "/store_view.do", method = RequestMethod.GET)
-	public String store_view(Model model, HttpSession session, HttpServletRequest request, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
+	public String store_view(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, HttpServletRequest request, StoreQnaVO sqvo, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
 		
 		//store_idx에 따른 뷰페이지 정보 가져오기
 		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
@@ -305,6 +324,58 @@ public class StoreController {
 		request.setAttribute("star2", star2);
 		request.setAttribute("star1", star1);
 		
+
+		//펀딩 qna 댓글 리스트
+		
+		int pageNumQna = 1;
+		
+		String strPageNumQna = request.getParameter("pageNumQna"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNumQna != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNumQna = Integer.parseInt(strPageNumQna);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCountQna = PAGE_ROW_COUNT;
+		
+		sqvo.setStartRowNumQna(startRowNumQna);
+		
+		paramMap.put("startRowNumQna", startRowNumQna);
+		
+		sqvo.setRowCountQna(rowCountQna);
+		
+		ArrayList<StoreQnaVO> listQna = null;
+		int totalRowQna = 0;
+
+		listQna = (ArrayList<StoreQnaVO>)sts.getQnaList(paramMap);
+		
+		//qna 댓글 개수
+		totalRowQna = sts.countStoreQna(sqvo);
+		
+		System.out.println("totalRowQna = " + totalRowQna);
+		System.out.println("startRowNumQna = " + startRowNumQna);
+			
+		// 전체 페이지의 개수
+		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT);
+		
+		int endPageQna = (int) (Math.ceil(pageNumQna / (double)displayPageNum) * displayPageNum);
+		int startPageQna = (endPageQna - displayPageNum) + 1;
+		
+		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT));
+		if (endPageQna > tempEndPageQna) {
+			endPageQna = tempEndPageQna;
+		}
+		boolean prevQna = startPageQna == 1 ? false : true;
+		boolean nextQna = endPageQna * PAGE_ROW_COUNT >= totalRowQna ? false : true;
+		
+		request.setAttribute("listQna", listQna);
+		request.setAttribute("totalPageCountQna", totalPageCountQna);
+		request.setAttribute("pageNumQna", pageNumQna);
+		request.setAttribute("startRowNumQna", startRowNumQna);
+		request.setAttribute("prevQna", prevQna);
+		request.setAttribute("nextQna", nextQna);
+		request.setAttribute("endPageQna", endPageQna);
+		request.setAttribute("startPageQna", startPageQna);
+		
 		
 		//세션사용자정보 가져옴
 		session = request.getSession();
@@ -320,7 +391,79 @@ public class StoreController {
 		return "store/store_view";
 	}
 	
-	/*스토어 상품 등록 페이지*/
+//qna 시작 03
+	//스토어 qna 작성, 답변 작성 ajax로 불러옴
+	@RequestMapping(value ="/qnaInsert2", method= RequestMethod.POST)
+	@ResponseBody
+	public Object qnaInsert2(@RequestParam Map<String, Object> paramMap){
+		
+		//리턴값
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		int result = sts.qnaInsert(paramMap);
+		if(result>0) {
+			retVal.put("code", "OK");
+			retVal.put("store_idx", paramMap.get("store_idx"));
+			retVal.put("member_idx", paramMap.get("member_idx"));
+			retVal.put("store_qna_idx", paramMap.get("store_qna_idx"));
+			retVal.put("parent_id", paramMap.get("parent_id"));
+			retVal.put("store_qna_secret", paramMap.get("store_qna_secret"));
+			retVal.put("message", "등록 성공!");
+		}else {
+			retVal.put("code", "FAIL");
+			retVal.put("message", "등록 실패!");
+		}
+		return retVal;
+	}
+	// 스토어 qna 수정
+	@RequestMapping(value ="/qnaModify2", method= RequestMethod.POST)
+	@ResponseBody
+	public void modifyFundingQna(StoreQnaVO vo) throws Exception {
+		sts.modifyStoreQna(vo);
+	}
+	// 스토어 qna 답변 수정
+	@RequestMapping(value ="/qnaAnswerModify2", method= RequestMethod.POST)
+	@ResponseBody
+	public void qnaAnswerModify(StoreQnaVO vo) throws Exception {
+		sts.qnaAnswerModify(vo);
+	}
+	//스토어 qna 답변 상태 업데이트
+	@RequestMapping(value ="/qnaAnswerDone2", method= RequestMethod.POST)
+	@ResponseBody
+	public int qnaAnswerDone(StoreQnaVO vo) throws Exception{
+		return sts.qnaAnswerDone(vo);
+	}
+	//스토어 큐엔에이 답변 출력
+	@RequestMapping(value ="/qnaList2", method= RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<StoreQnaVO> qnaList(StoreQnaVO vo, HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception {
+		//클릭한 qna의 qna 번호 가져오기
+		String Strstore_qna_idx = request.getParameter("store_qna_idx");
+		int store_qna_idx = Integer.parseInt(Strstore_qna_idx);
+		String Strstore_idx = request.getParameter("store_idx");
+		int store_idx = Integer.parseInt(Strstore_idx);
+		
+		//vo에 클릭한 qna 번호 저장
+		vo.setStore_qna_idx(store_qna_idx);
+		vo.setStore_idx(store_idx);
+		
+		ArrayList<StoreQnaVO> qnaAnswer = null;
+		qnaAnswer = (ArrayList<StoreQnaVO>) sts.getQnaAnswer(paramMap);
+		System.out.println(qnaAnswer);
+		
+		return qnaAnswer;
+	}
+	//스토어 qna 삭제
+	@RequestMapping(value ="/qnaDelete2", method= RequestMethod.POST)
+	@ResponseBody
+	public void deleteFundingQna(StoreQnaVO vo) throws Exception {
+		sts.deleteStoreQna(vo);
+	}
+//qna 끝
+	
+	
+	
+	
+	/*스토어 상품 등록 페이지  04*/
 	@RequestMapping(value="store_register.do",method = RequestMethod.GET)
 	public String stroe_reg(Model model,HttpServletRequest request ) {
 		
@@ -425,13 +568,6 @@ public class StoreController {
 	      
 
 	   }
-
-	
-	
-	
-	
-	
-	
 	/*스토어 상품 등록 미리보기*/
 	@RequestMapping(value="/store_preview.do",method = RequestMethod.POST)
 	public String store_preview(StoreVO vo, Model model, 
@@ -501,7 +637,7 @@ public class StoreController {
 	
 	
 	
-	// 스토어 리뷰 작성
+	// 스토어 리뷰 작성 05
 	@ResponseBody
 	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)
 	public String fileUpload(StoreReviewVO vo, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
@@ -564,68 +700,6 @@ public class StoreController {
 		sts.storeReviewWrite(vo);
 		return strResult;
 	}
-	
-	// 스토어 결제페이지
-	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
-	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request) {
-		
-		// 옵션 출력
-		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
-		model.addAttribute("optionlist", optionlist);
-			
-		//세션에 있는 사용자의 정보 가져옴
-		HttpSession session = request.getSession();
-		MemberVO login = (MemberVO)session.getAttribute("login");
-		MemberVO member = sts.selectOne(login);
-		model.addAttribute("member", member);
-		
-		return "store/store_pay";
-	}
-	@RequestMapping(value = "/store_pay.do", method = RequestMethod.POST)
-	public void pay() {
-		
-		
-	}
-	// 스토어 결제 완료페이지
-	@RequestMapping(value = "/store_pay_complete.do", method = RequestMethod.GET)
-	public String pay_complete() {
-		
-		
-		return "store/store_pay_complete";
-	}
-	// 찜 insert
-	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)
-	@ResponseBody
-	public Object insertZzim(@RequestParam Map<String, Object> paramMap){
-		
-		Map<String, Object> retVal = new HashMap<String, Object>();
-		System.out.println(retVal);
-		int result = fms.insertZzim(paramMap);
-		if(result>0) {
-			retVal.put("code", "OK");
-			retVal.put("message", "찜 성공!");
-		}else {
-			retVal.put("code", "FAIL");
-			retVal.put("message", "찜 실패!");
-		}
-		return retVal;
-	}
-	// 찜 select
-	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
-	@ResponseBody
-	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
-		Map<String, Object> selectZzim = new HashMap<String, Object>();
-		List<ZzimVO> result = sts.selectZzimStore(paramMap);		
-		return result;		
-	}
-	// 찜 delete
-	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)
-	@ResponseBody
-	public Object deleteZzim(@RequestParam Map<String, Object> paramMap){
-		Map<String, Object> deleteZzim = new HashMap<String, Object>();
-		int result = sts.deleteZzimStore(paramMap);
-		return result;
-	}
 	// 리뷰 추천 insert, update, getssss
 	@RequestMapping(value ="/doReviewLike", method= RequestMethod.POST)
 	@ResponseBody
@@ -658,4 +732,349 @@ public class StoreController {
 		List<StoreReviewVO> result = sts.selectThumbsUp(paramMap);		
 		return result;		
 	}
+//리뷰 끝		
+
+//결제 시작
+	// 스토어 결제페이지 06
+	@RequestMapping(value = "/store_pay.do", method = RequestMethod.GET)
+	public String pay(Model model, StoreOptionVO optionvo, HttpServletRequest request, HttpServletResponse response) {
+		
+		// 옵션 출력
+		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
+		model.addAttribute("optionlist", optionlist);
+			
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = sts.selectOne(login);
+		model.addAttribute("member", member);
+		
+		return "store/store_pay";
+	}
+	
+	@RequestMapping(value = "/store_pay.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void pay(StoreOrderVO ordervo, StoreOrderOptionVO orderoptionvo, StoreExpressVO expressvo, StoreOrderPayVO payvo, HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("inlineRadioOptions1") String radio) throws IOException {
+		
+		// 스토어 주문 번호
+		int result = sts.insertOrder(ordervo);
+		
+		// 스토어 주문 옵션 저장
+		String select = request.getParameter("select");
+		String[] select_idx = select.split(",");
+		String[] select_count = request.getParameterValues("count");
+		for(int i=0; i<select_idx.length; i++) {
+			int si = Integer.parseInt(select_idx[i]);
+			int sc = Integer.parseInt(select_count[i]);
+			orderoptionvo.setStore_order_option_select_idx(si);
+			orderoptionvo.setStore_order_option_select_count(sc);
+			sts.insertOrderOption(orderoptionvo);
+			
+			//옵션 수량에 따른 스토어 상품 옵션 수량 감소하게 함 -> update 수량
+			sts.update_option(orderoptionvo);
+		}
+		
+		// 스토어 주문 배송지 저장
+		String name = "";
+		String phone = "";
+		String postnum = "";
+		String addr1 = "";
+		String addr2 = "";
+		System.out.println(radio);
+		if(radio.equals("option1")) {
+			name = request.getParameter("store_express_name1");
+			phone = request.getParameter("store_express_phone1");
+			postnum = request.getParameter("store_express_postnum1");
+			addr1 = request.getParameter("store_express_addr1_1");
+			addr2 = request.getParameter("store_express_addr2_1");
+			
+		}else {
+			name = request.getParameter("store_express_name2");
+			phone = request.getParameter("store_express_phone2");
+			postnum = request.getParameter("store_express_postnum2");
+			addr1 = request.getParameter("store_express_addr1_2");
+			addr2 = request.getParameter("store_express_addr2_2");
+		}
+		expressvo.setStore_express_name(name);
+		expressvo.setStore_express_phone(phone);
+		expressvo.setStore_express_postnum(postnum);
+		expressvo.setStore_express_addr1(addr1);
+		expressvo.setStore_express_addr2(addr2);
+		sts.insertExpress(expressvo);
+		
+		// 결제 정보 저장
+		sts.insertPay(payvo);
+		
+		
+		int store_idx = Integer.parseInt(request.getParameter("store_idx"));
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter pw = response.getWriter();
+		if(result>0) {
+			// 저장 완료
+			pw.println("<script>alert('결제가 완료되었습니다.');location.href='store_pay_complete.do?store_idx="+store_idx+"';</script>");
+		}else {
+			// 저장 안됭
+			pw.println("<script>alert('결제가 실패하었습니다.');location.href='reserInteger.parseIntve.do';</script>");
+		}
+		pw.flush();
+	}
+	
+	// 결제 검증
+	private IamportClient api;
+	public StoreController() {
+		this.api = new IamportClient("0592735777149220", "c38863fa697011512241e9543b0a8a0e6055505edadadcfa7db2ebeba5031a556b1d24d43572d885");
+	}
+	@ResponseBody
+	@RequestMapping(value="/verifyIamport/{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{
+			return api.paymentByImpUid(imp_uid);
+	}
+	
+	// 스토어 결제 완료페이지
+	@RequestMapping(value = "/store_pay_complete.do", method = RequestMethod.GET)
+	public String pay_complete(HttpServletRequest request, Model model, StoreVO vo) throws Exception {
+		
+		//세션에 있는 사용자의 정보 가져옴
+		HttpSession session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member", member);
+		
+		//store_idx에 따른 뷰페이지 정보 가져오기
+		StoreVO store_info = sts.store_info(vo.getStore_idx());
+		model.addAttribute("info", store_info );
+		
+		//스토어리스트
+		List<StoreInfoDetailVO> msl = ms.myStoreList(login.getMember_idx());
+		model.addAttribute("myStoreList", msl);
+		
+		return "store/store_pay_complete";
+	}
+	
+	
+	
+//찜 시작	
+	// 찜 insert 07
+	@RequestMapping(value ="/insertZzim2", method= RequestMethod.POST)
+	@ResponseBody
+	public Object insertZzim(@RequestParam Map<String, Object> paramMap){
+		
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		System.out.println(retVal);
+		int result = fms.insertZzim(paramMap);
+		if(result>0) {
+			retVal.put("code", "OK");
+			retVal.put("message", "찜 성공!");
+		}else {
+			retVal.put("code", "FAIL");
+			retVal.put("message", "찜 실패!");
+		}
+		return retVal;
+	}
+	// 찜 select
+	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> selectZzim = new HashMap<String, Object>();
+		List<ZzimVO> result = sts.selectZzimStore(paramMap);		
+		return result;		
+	}
+	// 찜 delete
+	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)
+	@ResponseBody
+	public Object deleteZzim(@RequestParam Map<String, Object> paramMap){
+		Map<String, Object> deleteZzim = new HashMap<String, Object>();
+		int result = sts.deleteZzimStore(paramMap);
+		return result;
+	}
+	
+	@RequestMapping(value = "/store_view_event.do", method = RequestMethod.GET)
+	public String store_view_event(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, HttpServletRequest request, StoreQnaVO sqvo, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
+		
+		String event = request.getParameter("event");
+		
+		int event2 = Integer.parseInt(event);
+		
+		request.setAttribute("event", event2);
+		
+		//store_idx에 따른 뷰페이지 정보 가져오기
+		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
+		model.addAttribute("read", store );
+
+		int store_fund = store.getStore_funding();
+		
+		if(store_fund == 0) {
+			model.addAttribute("orderCount", 0);
+		}else {
+			int funding_idx = store.getFunding_idx();
+			int orderCount =0;
+			Funding_orderVO fovo = new Funding_orderVO();
+			if(funding_idx>0) {
+				fovo.setFunding_idx(funding_idx);
+				orderCount = fms.orderCount(fovo);
+			}
+			model.addAttribute("orderCount", orderCount);
+		}
+		
+		//스토어 리뷰 정렬
+		String reviewSort= request.getParameter("reviewSort");
+		if(reviewSort == null) {
+			reviewSort = "";
+		}
+		System.out.println(reviewSort);
+		String encodedk = URLEncoder.encode(reviewSort);			//특수기호를 인코딩한 키워드를 준비한다.
+		
+		if(reviewSort.equals("sortReviewLike")) {
+			srvo.setSortReviewLike("a");
+		}else if(reviewSort.equals("sortReviewNew")){
+			srvo.setSortReviewNew("b");
+		}else if(reviewSort.equals("sortReviewHighStar")) {
+			srvo.setSortReviewHighStar("c");
+		}else if(reviewSort.equals("sortReviewLowStar")) {
+			srvo.setSortReviewLowStar("d");
+		}
+		
+		//스토어 리뷰 사진만 가져오기 리스트
+		ArrayList<StoreReviewVO> storeReviewPhoto = null;
+		storeReviewPhoto = (ArrayList<StoreReviewVO>) sts.storeReviewPhoto(srvo);
+		//스토어 리뷰 리스트
+		final int PAGE_ROW_COUNT = 5; 							//한 페이지에 몇개씩 표시할 것인지
+		final int displayPageNum = 3;							//페이징 번호 몇 개
+		int pageNum = 1; 										//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		
+		String strPageNum = request.getParameter("pageNum"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNum != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNum = Integer.parseInt(strPageNum);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNum = (pageNum -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCount = PAGE_ROW_COUNT;
+		srvo.setStartRowNum(startRowNum);
+		ArrayList<StoreReviewVO> storeReviewList = null;
+		int totalRow = 0;
+		
+		storeReviewList = (ArrayList<StoreReviewVO>) sts.storeReviewList(srvo);
+		totalRow = sts.countStoreReviewList(srvo);
+		
+		System.out.println("리뷰개수: "+totalRow);
+		
+			// 전체 페이지의 개수
+		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
+		
+		int endPage = (int) (Math.ceil(pageNum / (double)displayPageNum) * displayPageNum);
+		int startPage = (endPage - displayPageNum) + 1;
+		
+		int tempEndPage = (int) (Math.ceil(totalRow / (double)PAGE_ROW_COUNT));
+		if (endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		boolean prev = startPage == 1 ? false : true;
+		boolean next = endPage * PAGE_ROW_COUNT >= totalRow ? false : true;
+		
+		request.setAttribute("storeReviewList", storeReviewList);
+		request.setAttribute("storeReviewPhoto", storeReviewPhoto);
+		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("startRowNum", startRowNum);
+		request.setAttribute("prev", prev);
+		request.setAttribute("next", next);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("reviewSort", reviewSort);
+		//스토어 리뷰 리스트 끝
+		
+		//스토어 별점 평균
+		double starAvg = 0;
+		if(sts.starAvg(srvo) == null) {
+			starAvg= 0;
+		}else{
+			starAvg = Math.round(sts.starAvg(srvo) * 10) / 10.0;
+		}
+		request.setAttribute("starAvg", starAvg);
+		
+		//스토어 별점 별 카운트
+		double star55 = sts.star5(srvo);
+		double star44 = sts.star4(srvo);
+		double star33 = sts.star3(srvo);
+		double star22 = sts.star2(srvo);
+		double star11 = sts.star1(srvo);
+		int star5 = (int) Math.round(star55/totalRow*100);
+		int star4 = (int) Math.round(star44/totalRow*100);
+		int star3 = (int) Math.round(star33/totalRow*100);
+		int star2 = (int) Math.round(star22/totalRow*100);
+		int star1 = (int) Math.round(star11/totalRow*100);
+		request.setAttribute("star5", star5);
+		request.setAttribute("star4", star4);
+		request.setAttribute("star3", star3);
+		request.setAttribute("star2", star2);
+		request.setAttribute("star1", star1);
+		
+
+		//펀딩 qna 댓글 리스트
+		
+		int pageNumQna = 1;
+		
+		String strPageNumQna = request.getParameter("pageNumQna"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNumQna != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNumQna = Integer.parseInt(strPageNumQna);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}	
+		
+		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCountQna = PAGE_ROW_COUNT;
+		
+		sqvo.setStartRowNumQna(startRowNumQna);
+		
+		paramMap.put("startRowNumQna", startRowNumQna);
+		
+		sqvo.setRowCountQna(rowCountQna);
+		
+		ArrayList<StoreQnaVO> listQna = null;
+		int totalRowQna = 0;
+
+		listQna = (ArrayList<StoreQnaVO>)sts.getQnaList(paramMap);
+		
+		//qna 댓글 개수
+		totalRowQna = sts.countStoreQna(sqvo);
+		
+		System.out.println("totalRowQna = " + totalRowQna);
+		System.out.println("startRowNumQna = " + startRowNumQna);
+			
+		// 전체 페이지의 개수
+		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT);
+		
+		int endPageQna = (int) (Math.ceil(pageNumQna / (double)displayPageNum) * displayPageNum);
+		int startPageQna = (endPageQna - displayPageNum) + 1;
+		
+		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT));
+		if (endPageQna > tempEndPageQna) {
+			endPageQna = tempEndPageQna;
+		}
+		boolean prevQna = startPageQna == 1 ? false : true;
+		boolean nextQna = endPageQna * PAGE_ROW_COUNT >= totalRowQna ? false : true;
+		
+		request.setAttribute("listQna", listQna);
+		request.setAttribute("totalPageCountQna", totalPageCountQna);
+		request.setAttribute("pageNumQna", pageNumQna);
+		request.setAttribute("startRowNumQna", startRowNumQna);
+		request.setAttribute("prevQna", prevQna);
+		request.setAttribute("nextQna", nextQna);
+		request.setAttribute("endPageQna", endPageQna);
+		request.setAttribute("startPageQna", startPageQna);
+		
+		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member",member);
+
+		
+		// 옵션 출력
+		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
+		model.addAttribute("optionlist", optionlist);
+		
+		return "store/store_view_event";
+	}
+	
 }
