@@ -531,6 +531,18 @@ public class MypageServiceImp implements MypageService{
 	public int fundingWithdraw(int funding_order_idx) {
 		return mdao.fundingWithdraw(funding_order_idx);
 	}
+	
+	// 스토어 관리
+	@Override
+	public List<StoreVO> store_admin(int store_idx) {
+		return mdao.storeAdmin(store_idx);
+	}
+	
+	// 배송 상태 변경
+	@Override
+	public int update_Express(int store_order_idx) {
+		return mdao.update_Express(store_order_idx);
+	}
 
 	
 	

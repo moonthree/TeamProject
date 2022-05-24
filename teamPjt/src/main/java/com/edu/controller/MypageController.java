@@ -767,5 +767,25 @@ public class MypageController {
 		
 	}
 		
+	// 스토어 관리 페이지
+	@RequestMapping(value= "/store_admin.do", method = RequestMethod.GET)
+	public String store_admin(Model model, int store_idx) {
+		
+		// 스토어 관리 페이지
+		List<StoreVO> sa = mypageService.store_admin(store_idx);
+		model.addAttribute("admin", sa);
+		
+		return "mypage/store_admin";
+	}
 	
+	// 배송 상태 변경하기
+	@RequestMapping(value = "/update_Express.do")
+	@ResponseBody
+	public int updateFundingState(int store_order_idx) {
+		
+		// update 쿼리문
+		int result = mypageService.update_Express(store_order_idx);
+		
+		return result;
+	}
 }
