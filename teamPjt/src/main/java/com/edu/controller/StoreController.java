@@ -32,6 +32,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreExpressVO;
@@ -463,12 +465,29 @@ public class StoreController {
 	
 	
 	
-	/*스토어 상품 등록 페이지  04*/
-	@RequestMapping(value="store_register.do",method = RequestMethod.GET)
+	/*스토어 상품 등록 페이지  기본 0 신청 -> 새 스토어 오픈*/
+	@RequestMapping(value="/store_register.do",method = RequestMethod.GET)
 	public String stroe_reg(Model model,HttpServletRequest request ) {
 		
 		MemberVO login = (MemberVO) request.getSession().getAttribute("login");
+		model.addAttribute("check",0);
 		model.addAttribute("login",login);
+		return "store/store_reg";
+	}
+	
+	/*스토어 상품등록 페이지 1 신청 즉, 펀딩제품 성공해서 스토어 신청 페이지*/
+	@RequestMapping(value="/store_registerFun.do",method = RequestMethod.GET)
+	public String stroe_FunS(Model model,HttpServletRequest request, int funding_idx ) {
+		
+		MemberVO login = (MemberVO) request.getSession().getAttribute("login");
+		model.addAttribute("login",login);
+		model.addAttribute("check",1);
+		model.addAttribute("funding_idx",funding_idx);
+
+		FundingMainVO vo = fms.select_fundingOne(funding_idx);
+		List<Funding_optionVO> optionVO = fms.select_fundingOption(funding_idx);
+		model.addAttribute("funding", vo);
+		model.addAttribute("optionList",optionVO);
 		return "store/store_reg";
 	}
 	
@@ -478,93 +497,188 @@ public class StoreController {
 	   public void store_registerDB(StoreVO vo, Model model,HttpServletRequest request
 	         ,HttpServletResponse response
 	         ,String store_option_name, int []store_option_price, String store_option_detail, 
-	         int []store_option_stock) throws IOException {
-	      System.out.println(vo.toString());
-		   
-		   
-		   
-	         String []strName = store_option_name.split(",");
-	         String []strDetail = store_option_detail.split(",");
-	      
-	         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
-	      
-	         String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
-	         
-	         
-	         String thum = vo.getStore_thumbnail();
-	         String content = vo.getStore_content();
-	         String notice = vo.getStore_notice();
-	         
-	         
-	         File dir1 = new File(path+"/"+thum);
-	         File dir2 = new File(path+"/"+content);
-	         File dir3 = new File(path+"/"+notice);
-	         
-	 		 String extension1 = thum.substring(thum.lastIndexOf("."));
-	 		 String extension2 = content.substring(content.lastIndexOf("."));
-	 		 String extension3 = notice.substring(notice.lastIndexOf("."));
-	 		 
-	 		 
-	 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
-	 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
-	 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
-	         
-	 		 File newdir4 = new File(path+"/"+savedThumName);
-	         File newdir5 = new File(path+"/"+savedConName);
-	         File newdir6 = new File(path+"/"+savedNotName);
-	 		 
-	 		 /*파일 이름 난수로 변경*/
-		   
-		 	dir1.renameTo(newdir4);
-		 	dir2.renameTo(newdir5);
-		 	dir3.renameTo(newdir6);
-		        
-	         
-	         vo.setStore_thumbnail(savedThumName);
-	         vo.setStore_content(savedConName);
-	         vo.setStore_notice(savedNotName);
-	         
-	         //store 상품 등록 메소드 -> 옵션배열중 첫번째 가격이 vo세팅후 들어감
-	         vo.setStore_price(store_option_price[0]);
-	         int result = sts.store_reg(vo);
-	         
-	         response.setContentType("text/html; charset=euc-kr;");
-	         PrintWriter pw = response.getWriter();
-	         
-	         System.out.println(vo.toString());
-	         System.out.println(vo.getStore_idx());
+	         int []store_option_stock , int funding_idx) throws IOException {
 
-	      if (result > 0) { // 
-	         
-	         //마지막 증가된 Store idx 가져옴
-	         int sid = vo.getStore_idx();
-	         
-	         for(int i=0; i<store_option_price.length; i++) {
-	        	 StoreOptionVO voo = new StoreOptionVO();
-	           
-	            voo.setStore_option_name(strName[i]);
-	          
-	            voo.setStore_option_price(store_option_price[i]);
-	          
-	            voo.setStore_option_detail(strDetail[i]);
-	          
-	            voo.setStore_option_stock(store_option_price[i]);
-	            
-	            voo.setStore_idx(sid);
-	            optionVo.add(voo);
-	         }
-	         
-	         //스토어 옵션 저장
-	         int listresult = sts.storeOptionReg(optionVo);
+		   if(funding_idx == 0 ) {
+			   		System.out.println("기본 스토어  신청");
+			   	String []strName = store_option_name.split(",");
+		        String []strDetail = store_option_detail.split(",");
+		      
+		         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
+		      
+		         String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+		         
+		         
+		         String thum = vo.getStore_thumbnail();
+		         String content = vo.getStore_content();
+		         String notice = vo.getStore_notice();
+		         
+		         
+		         File dir1 = new File(path+"/"+thum);
+		         File dir2 = new File(path+"/"+content);
+		         File dir3 = new File(path+"/"+notice);
+		         
+		 		 String extension1 = thum.substring(thum.lastIndexOf("."));
+		 		 String extension2 = content.substring(content.lastIndexOf("."));
+		 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+		 		 
+		 		 
+		 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+		 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+		 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+		         
+		 		 File newdir4 = new File(path+"/"+savedThumName);
+		         File newdir5 = new File(path+"/"+savedConName);
+		         File newdir6 = new File(path+"/"+savedNotName);
+		 		 
+		 		
+			   
+			 	dir1.renameTo(newdir4);
+			 	dir2.renameTo(newdir5);
+			 	dir3.renameTo(newdir6);
+			        
+		         
+		         vo.setStore_thumbnail(savedThumName);
+		         vo.setStore_content(savedConName);
+		         vo.setStore_notice(savedNotName);
+		         
+		         //store 상품 등록 메소드 -> 옵션배열중 첫번째 가격이 vo세팅후 들어감
+		         vo.setStore_price(store_option_price[0]);
+		         int result = sts.store_reg(vo);
+		         
+		         response.setContentType("text/html; charset=euc-kr;");
+		         PrintWriter pw = response.getWriter();
+		         
+		         System.out.println(vo.toString());
+		         System.out.println(vo.getStore_idx());
 
-	         if(listresult > 0) {
-	            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
-	         }
-	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
-	      } else {
-	         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
-	      }
-	      pw.flush();
+		      if (result > 0) { // 
+		         
+		         //마지막 증가된 Store idx 가져옴
+		         int sid = vo.getStore_idx();
+		         
+		         for(int i=0; i<store_option_price.length; i++) {
+		        	 StoreOptionVO voo = new StoreOptionVO();
+		           
+		            voo.setStore_option_name(strName[i]);
+		          
+		            voo.setStore_option_price(store_option_price[i]);
+		          
+		            voo.setStore_option_detail(strDetail[i]);
+		          
+		            voo.setStore_option_stock(store_option_stock[i]);
+		            
+		            voo.setStore_idx(sid);
+		            optionVo.add(voo);
+		         }
+		         
+		         //스토어 옵션 저장
+		         int listresult = sts.storeOptionReg(optionVo);
+
+		         if(listresult > 0) {
+		            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+		         }
+		         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+		      } else {
+		         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+		      }
+		      pw.flush();
+			   
+			   
+			   
+			   
+			  //펀딩 성공 후 스토어 신청 
+		   }else {
+			   System.out.println("펀딩 성공후  스토어 신청");
+			   
+			   String []strName = store_option_name.split(",");
+		       String []strDetail = store_option_detail.split(",");
+		      
+		         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
+		      
+		         String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+		         
+		         
+		         String thum = vo.getStore_thumbnail();
+		         String content = vo.getStore_content();
+		         String notice = vo.getStore_notice();
+		         
+		         
+		         File dir1 = new File(path+"/"+thum);
+		         File dir2 = new File(path+"/"+content);
+		         File dir3 = new File(path+"/"+notice);
+		         
+		 		 String extension1 = thum.substring(thum.lastIndexOf("."));
+		 		 String extension2 = content.substring(content.lastIndexOf("."));
+		 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+		 		 
+		 		 
+		 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+		 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+		 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+		         
+		 		 File newdir4 = new File(path+"/"+savedThumName);
+		         File newdir5 = new File(path+"/"+savedConName);
+		         File newdir6 = new File(path+"/"+savedNotName);
+		 		 
+		 		
+			   
+			 	dir1.renameTo(newdir4);
+			 	dir2.renameTo(newdir5);
+			 	dir3.renameTo(newdir6);
+			        
+		         
+		         vo.setStore_thumbnail(savedThumName);
+		         vo.setStore_content(savedConName);
+		         vo.setStore_notice(savedNotName);
+		         
+		         //store 상품 등록 메소드 -> 옵션배열중 첫번째 가격이 vo세팅후 들어감
+		         vo.setStore_price(store_option_price[0]);
+		         vo.setFunding_idx(funding_idx);
+		         vo.setStore_funding(1);
+		         int result = sts.store_reg2(vo);
+		         
+		         response.setContentType("text/html; charset=euc-kr;");
+		         PrintWriter pw = response.getWriter();
+		         
+		         System.out.println(vo.toString());
+		         System.out.println(vo.getStore_idx());
+
+		      if (result > 0) { // 
+		         
+		         //마지막 증가된 Store idx 가져옴
+		         int sid = vo.getStore_idx();
+		         
+		         for(int i=0; i<store_option_price.length; i++) {
+		        	 StoreOptionVO voo = new StoreOptionVO();
+		           
+		            voo.setStore_option_name(strName[i]);
+		          
+		            voo.setStore_option_price(store_option_price[i]);
+		          
+		            voo.setStore_option_detail(strDetail[i]);
+		          
+		            voo.setStore_option_stock(store_option_stock[i]);
+		            
+		            voo.setStore_idx(sid);
+		            optionVo.add(voo);
+		         }
+		         
+		         //스토어 옵션 저장
+		         int listresult = sts.storeOptionReg(optionVo);
+
+		         if(listresult > 0) {
+		            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+		         }
+		         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+		      } else {
+		         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
+		      }
+		      pw.flush();
+		   }
+		   
+		   
+	       
 	      
 
 	   }
@@ -634,7 +748,14 @@ public class StoreController {
 		return "store/store_preview";
 	}
 	
-	
+	//스토어 등록 됬는지 확인하는 컨트롤러
+	@RequestMapping(value ="/check_store.do",method = RequestMethod.GET)
+	@ResponseBody
+	public int checkStore(int funding_idx) {
+		
+		int result = sts.store_Check(funding_idx);
+		return result;
+	}
 	
 	
 	// 스토어 리뷰 작성 05
@@ -1077,4 +1198,232 @@ public class StoreController {
 		return "store/store_view_event";
 	}
 	
+	 /*스토어 수정_수량 페이지*/
+		@RequestMapping(value= "/store_modify.do", method = RequestMethod.GET)
+		public String store_modify(int store_idx, Model model) {
+			
+			// 스토어 내용 불러오기
+			StoreVO vo =  sts.store_info(store_idx);
+			model.addAttribute("store", vo);
+			
+			//스토어 옵션 불러오기
+			StoreOptionVO option = new StoreOptionVO();
+			option.setStore_idx(store_idx);
+			List<StoreOptionVO> storeOptionVo = sts.storeOptionList(option);
+			
+			if(storeOptionVo.size() >0) {
+				
+				model.addAttribute("optionList", storeOptionVo);
+			}
+			
+			return "mypage/store_modify";
+		}
+		
+		/*스토어 옵션 수량 추가*/
+		@RequestMapping(value= "/store_modify.do", method = RequestMethod.POST)
+		@ResponseBody
+		public int store_modify2(Model model , HttpServletRequest req ) {
+			System.out.println("스토어 수량 추가 메소드 들어옴");
+				
+			String[] option_idx = req.getParameterValues("option_idx");
+			String[] store_option_plus = req.getParameterValues("store_option_plus");
+			StoreOptionVO vo = new StoreOptionVO();
+			int result = 1;
+			for(int i = 0; i<option_idx.length;i++) {
+				if(!store_option_plus[i].equals("0")) {
+					
+					vo.setStore_option_idx(Integer.parseInt(option_idx[i]));
+					System.out.println("idx : "+option_idx[i]);
+					vo.setStore_option_stock(Integer.parseInt(store_option_plus[i]));
+					System.out.println("수량"+store_option_plus[i]);
+					
+					result = sts.addStock(vo);
+					if(result == 0) {
+						return 0;
+					}else {
+						result = 1;
+					}
+				}
+			}
+			return result;
+		}
+		
+		/*스토어 상품 pdf변경 */
+		@RequestMapping(value="/store_modify_content.do", method=RequestMethod.GET)
+		public String modify_content(int store_idx, Model model,int check) {
+			System.out.println("get메소드" +store_idx);
+			//FundingMainVO vo =  fms.select_fundingOne(funding_idx);
+			StoreVO vo = sts.store_info(store_idx);
+			
+			
+			model.addAttribute("store", vo);
+			model.addAttribute("check",check);
+			model.addAttribute("store_idx", store_idx);
+			
+			
+			return "mypage/store_modify_file";
+		}
+		
+		/*스토어 공지사항 변경*/
+		@RequestMapping(value="/store_modify_notice.do", method=RequestMethod.GET)
+		public String modify_notice(int store_idx, Model model,int check) {
+			System.out.println("get메소드" +store_idx);
+			StoreVO vo = sts.store_info(store_idx);
+			
+			model.addAttribute("store", vo);
+			model.addAttribute("check",check);
+			model.addAttribute("store_idx", store_idx);
+			return "mypage/store_modify_file";
+		}
+		
+		
+		
+		/*스토어 컨텐츠 변경*/
+		@RequestMapping(value = "/store_update_conetent.do",method=RequestMethod.POST)
+		public String update_content(MultipartFile store_Detail_temp , HttpServletRequest request , Model model, 
+				int store_idx, int flag) throws IllegalStateException, IOException {
+			
+			
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+			
+			File dir = new File(path);
+			
+			String org_DetailName = store_Detail_temp.getOriginalFilename();
+			
+			if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+				dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
+			}
+			
+			if(!org_DetailName.isEmpty()) {
+				store_Detail_temp.transferTo(new File(path, org_DetailName));
+			}
+			StoreVO vo = sts.storeSelectOne(store_idx);
+			model.addAttribute("store", vo);
+			model.addAttribute("file_name" ,org_DetailName);
+			model.addAttribute("flag", flag);
+			
+			StoreOptionVO ovo = new StoreOptionVO();
+			ovo.setStore_idx(store_idx);
+			List<StoreOptionVO> storeOptionVo = sts.storeOptionList(ovo);
+			model.addAttribute("optionList", storeOptionVo);
+			
+		
+				return "mypage/store_preview2";
+		}
+		
+		/*스토어 공지사항 변경*/
+		@RequestMapping(value = "/store_update_notice.do",method=RequestMethod.POST)
+		public String update_notice(MultipartFile store_Notice_temp , HttpServletRequest request , Model model, 
+				int store_idx, int flag) throws IllegalStateException, IOException {
+			
+			
+			String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+			
+			File dir = new File(path);
+			
+			String org_DetailName = store_Notice_temp.getOriginalFilename();
+			
+			if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+				dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
+			}
+			
+			if(!org_DetailName.isEmpty()) {
+				store_Notice_temp.transferTo(new File(path, org_DetailName));
+			}
+			
+			System.out.println(org_DetailName);
+			
+			StoreVO vo = sts.storeSelectOne(store_idx);
+			model.addAttribute("store", vo);
+			model.addAttribute("file_name" ,org_DetailName);
+			model.addAttribute("flag", flag);
+			
+			StoreOptionVO ovo = new StoreOptionVO();
+			ovo.setStore_idx(store_idx);
+			List<StoreOptionVO> storeOptionVo = sts.storeOptionList(ovo);
+			model.addAttribute("optionList", storeOptionVo);
+			
+			
+		
+				return "mypage/store_preview2";
+		}
+		
+		
+		
+		
+		@RequestMapping(value="/update_file.do",method = RequestMethod.POST)
+		public void update_file(int store_idx, int check, String store_content, String store_notice, 
+				HttpServletResponse response, HttpServletRequest request) throws IOException {
+			//프로젝트 pdf 업데이트
+			
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			HashMap<String,Object> map2 = new HashMap<String,Object>();
+			response.setContentType("text/html; charset=euc-kr;" );
+			PrintWriter pw = response.getWriter();
+			String mainPath = request.getContextPath();
+			  String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+			
+			int result = 0;
+			
+			if(check == 0 ) {
+				/*파일 난수이름으로 바꾸기*/
+				   String content = store_content;
+				   File dir2 = new File(path+"/"+content);
+				   String extension2 = content.substring(content.lastIndexOf("."));
+				   String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
+				   File newdir5 = new File(path+"/"+savedConName);
+				   dir2.renameTo(newdir5);
+				   store_content = savedConName;
+				
+				System.out.println(store_idx +" : " +check + " : " +store_content +" : " +store_notice );
+				System.out.println("프로젝트 pdf 업데이트");
+				map.put("store_idx", store_idx);
+				map.put("checkValue", check);
+				map.put("store_content", store_content);
+				
+				result = sts.store_updateFile(map);
+				if (result == 1) {
+					System.out.println(mainPath);
+					
+					pw.println("<script>alert('제품 설명 파일 수정완료');location.href='"+mainPath+"/mypage/mypage2.do'"+"</script>");
+				}
+				else {
+					pw.println("<script>alert('제품 설명 파일 수정실패');window.history.back();</script>");
+				}
+			}else {
+			     
+		         String notice = store_notice;
+		         File dir3 = new File(path+"/"+notice);
+		 		 String extension3 = notice.substring(notice.lastIndexOf("."));
+		 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
+		   
+		         File newdir6 = new File(path+"/"+savedNotName);
+			 	 dir3.renameTo(newdir6);
+				
+				store_notice = savedNotName;
+				
+				System.out.println("공지사항 업데이트");
+				map2.put("store_idx", store_idx);
+				map2.put("checkValue", check);
+				map2.put("store_notice", store_notice);
+				result = sts.store_updateFile(map2);
+				
+				
+				if (result == 1) {
+					
+					pw.println("<script>alert('공지사항 파일 수정완료');location.href='"+mainPath+"/mypage/mypage2.do'"+"</script>");
+				}
+				else {
+					pw.println("<script>alert('공지사항 파일 수정실패');window.history.back();</script>");
+				}
+				
+			}
+			pw.flush();
+			
+		}
+		
+		
+		
+		
+		
 }

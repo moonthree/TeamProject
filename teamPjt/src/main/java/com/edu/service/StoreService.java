@@ -1,6 +1,7 @@
 package com.edu.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,8 +86,14 @@ public interface StoreService {
 	//스토어 제품 등록 -> 상태 0(단독 등록)
 	int store_reg(StoreVO vo);
 	
-	//스토어 옵션 등록ㄴ
+	//스토어 제품 등록 -> 상태 1(펀딩 성공 후 스토어 등록)
+	int store_reg2(StoreVO vo);
+	
+	//스토어 옵션 등록
 	int storeOptionReg(List<StoreOptionVO> vo);
+	
+	//스토어 상품 찾기 이미 올려진 펀딩 제품이라면 0 리턴
+	int store_Check(int funding_idx);
 	
 	// 결제
 	// 주문 번호
@@ -102,4 +109,12 @@ public interface StoreService {
 	
 	//스토어 옵션 수량 감소 메소드
 	int update_option(StoreOrderOptionVO orderoptionvo);
+	
+	//스토어 옵션 수량 증가 메소드
+	int addStock(StoreOptionVO optionvo);
+	
+	StoreVO storeSelectOne(int store_idx);
+	
+	//스토어 파일 업데이트
+	int store_updateFile(HashMap<String, Object> map);
 }

@@ -210,6 +210,15 @@ public class StoreServiceImpl implements StoreService{
 		
 		return dao.store_reg(vo);
 	}
+	
+	//스토어 상품 등록(펀딩 성공 후 등록: 상태 1일때)
+	@Override
+	public int store_reg2(StoreVO vo) {
+		
+		return dao.store_reg2(vo);
+	}
+	
+	//옵션 등록
 	@Override
 	public int storeOptionReg(List<StoreOptionVO> vo) {
 		return dao.storeOptionReg(vo);
@@ -242,11 +251,40 @@ public class StoreServiceImpl implements StoreService{
 		return dao.store_info(store_idx);
 	}
 	
+	//여기부터 2022-05-25.김주현
 	//스토어 옵션 수량 감소 메소드
 	@Override
 	public int update_option(StoreOrderOptionVO orderoptionvo) {
 		return dao.update_option(orderoptionvo);
 	}
+	
+	//스토어 제품 ajax 검색
+	@Override
+	public int store_Check(int funding_idx) {
+		
+		return dao.store_Check(funding_idx);
+	}
+	//스토어 수량 추가 메소드
+	@Override
+	public int addStock(StoreOptionVO optionvo) {
+		
+		return dao.addStock(optionvo);
+	}
+	//스토어 selectOne
+	@Override
+	public StoreVO storeSelectOne(int store_idx) {
+		
+		return dao.selectStoreOne(store_idx);
+	}
+	//스토어 파일 업데이트
+	@Override
+	public int store_updateFile(HashMap<String, Object> map) {
+		
+		return dao.store_updateFile(map);
+	}
+	
+	//여기까지 2022-05-25.김주현
+
 	
 }
 

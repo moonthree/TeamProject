@@ -301,10 +301,28 @@ main {
             color: rgba(249, 201, 10, 0.838);
             fill: rgba(249, 201, 10, 0.838);
           }
+          .hrTag {
+			    border: none;
+			    border-top: 2px solid #E3E7EB;
+			    overflow: visible;
+			    text-align: center;
+			    margin-top: 24px;
+			    height: 17px;
+			}
+          .hrTag:after{
+          	 	content: "End";
+			    position: relative;
+			    top: -15px;
+			    background: #F1F3F5; 
+			    padding: 0 10px;
+			    color: #868E96;
+			    font-size: 0.8em;
+         	 }
           
           @media (min-width: 767px) and (max-width: 992px){
             .card-img-top{
               height:200px;
 	         }
 	     }
+			
 /* 판매자 마이페이지 css end */

@@ -35,6 +35,14 @@ td{
 .tdtitle{
     text-align: left;
 }
+.img-thumbnail{
+	object-fit: cover;
+}
+/* img {
+  width: 300px;
+  height: 150px;
+  object-fit: cover;
+} */
 
 @media (min-width: 768px) {
     .PMsearch{

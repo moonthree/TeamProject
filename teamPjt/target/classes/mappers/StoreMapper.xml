@@ -416,7 +416,13 @@
 		 WHERE store_idx = #{store_idx}
 	</select>
 	
-	<!-- 스토어 상품 등록 -->
+	
+	<select id="store_Check" parameterType="int" resultType="int">
+		SELECT count(*) from store
+		where funding_idx = #{funding_idx}
+	</select>
+	
+	<!-- 스토어 상품 등록 단독 스토어 상품 등록 -->
 	<insert id="store_Reg" parameterType="StoreVO" useGeneratedKeys="true" keyProperty="store_idx">
 		INSERT INTO store(
 			member_idx,
@@ -440,6 +446,39 @@
 			#{store_permit_state},
 			#{store_current_state},
 			#{store_category},
+			#{store_express_fee}
+		)
+	
+	</insert>
+	
+		<!-- 스토어 상품 등록 펀딩 성공 후 스토어 제품 등록 -->
+	<insert id="store_Reg2" parameterType="StoreVO" useGeneratedKeys="true" keyProperty="store_idx">
+		INSERT INTO store(
+			member_idx,
+			store_price,
+			funding_idx,
+			store_title,
+			store_thumbnail,
+			store_content,
+			store_notice,
+			store_permit_state,
+			store_current_state,
+			store_category,
+			store_funding,
+			store_express_fee
+		)
+		VALUES(
+			#{member_idx},
+			#{store_price},
+			#{funding_idx},
+			#{store_title},
+			#{store_thumbnail},
+			#{store_content},
+			#{store_notice},
+			#{store_permit_state},
+			#{store_current_state},
+			#{store_category},
+			#{store_funding},
 			#{store_express_fee}
 		)
 	
@@ -544,4 +583,41 @@
 		where store_option_idx = #{store_order_option_select_idx}
 	</update>
 	
+	<!-- 스토어 옵션 수량 추가 -->
+	<update id="storeOption_plus" parameterType="StoreOptionVO">
+		UPDATE store_option 
+		SET store_option_stock = store_option_stock + #{store_option_stock}
+		where store_option_idx = #{store_option_idx}
+	</update>
+	
+	<select id="storeSelectOne" parameterType="int" resultType="StoreVO">
+	SELECT 
+	store_price,
+	store_title,
+	store_thumbnail,
+	store_content,
+	store_notice,
+	store_write_date,
+	store_permit_state,
+	store_category,
+	store_funding,
+	store_express_fee
+	FROM store
+	where store_idx = #{store_idx}
+	</select>
+	
+	<!-- 제품 설명서 pdf, 공지사항 변경 -->
+	<update id="store_file_update" parameterType="hashMap">
+	
+			UPDATE store 
+			<choose>
+				<when test="checkValue == 0">
+				SET store_content = #{store_content}
+				</when>
+				<otherwise>
+				SET store_notice = #{store_notice}
+				</otherwise>
+			</choose>
+			where store_idx = #{store_idx}
+	</update> 
 </mapper>

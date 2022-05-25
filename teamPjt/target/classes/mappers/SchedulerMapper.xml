@@ -21,10 +21,11 @@
 	UPDATE funding as a,
 	(select b.funding_current_state, b.funding_idx
 	from funding b
-	where b.funding_end_date = DATE_FORMAT(NOW(),'%Y-%m-%d')
+	where <![CDATA[b.funding_end_date < DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
 	<![CDATA[AND b.funding_current_price >= b.funding_target_price)]]> as b
 	set a.funding_current_state = 1
 	where a.funding_idx = b.funding_idx
+	AND a.funding_current_state = 0
 	</update>
 	
 	<!-- 12시 정각에 end date와 비교후 작고, 목표금액 달성했을 경우 1로 바꾼다 -> 즉 펀딩 실패 -->
@@ -33,10 +34,11 @@
 	UPDATE funding as a,
 	(select c.funding_current_state,c.funding_idx
 	from funding c
-	where c.funding_end_date = DATE_FORMAT(NOW(),'%Y-%m-%d')
+	where <![CDATA[c.funding_end_date < DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
 	<![CDATA[AND c.funding_current_price < c.funding_target_price)]]> as c
 	set a.funding_current_state = 2
 	where a.funding_idx = c.funding_idx
-	
+	AND a.funding_current_state = 0
+
 	</update>	
 </mapper>

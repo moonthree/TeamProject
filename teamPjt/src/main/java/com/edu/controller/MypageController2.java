@@ -3,9 +3,11 @@ package com.edu.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.MypageService;
+import com.edu.service.StoreService;
 import com.edu.vo.ChangePwVO;
 import com.edu.vo.EmailDTO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.StoreOptionVO;
+import com.edu.vo.StoreVO;
 
 
 @Controller
@@ -28,6 +34,10 @@ import com.edu.vo.MemberVO;
 public class MypageController2 {
 	@Autowired
 	private MypageService mypageService ;
+	
+	@Autowired
+	private StoreService sts;
+
 	
 	//아이디*비밀번호 찾기 ajax
 
@@ -116,5 +126,7 @@ public class MypageController2 {
         }
         return "/member/write"; // 실패했으므로 다시 write jsp 페이지로 이동함
     }
+    
+
 	
 }

@@ -25,8 +25,8 @@
    <c:import url="/header.do"></c:import>
 <main id="wrapper">
    <div class="container">
-   
    <br>
+    <h2 class="apptitle">계정 관리 페이지 입니다.</h2>
 <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
             <li class="nav-item nav-pills viewtab" role="presentation" > 
                   <a id="alink1" class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
@@ -42,15 +42,16 @@
 </div>
 
 <!-- Tab panes -->
+ <div class="container">
 <div class="tab-content"  id="myTabContent">
 
 <!-- 소비자  -->
   <div class="tab-pane fade active show" id="tab1" role="tabpanel"
                 aria-labelledby="tab1-tab"> 
-                 소비자 선택됨
+               
       <table class="table">
                   <c:if test="${seller.size() == 0}">
-                       <h3>등록된 소비자 계정이 없습니다.</h3>
+                       <span style="color: gray; font-weight: bold;">회원가입한 소비자 계정이 없습니다.</span>
                     </c:if>
                    <c:if test="${seller.size() > 0}">
                     <thead class="thead">
@@ -60,7 +61,7 @@
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
                             <th scope="col">상태</th>
-                            <th scope="col">버튼</th>
+                            <!-- <th scope="col">버튼</th> -->
                         </tr>
                     </thead>
                      <tbody>
@@ -71,9 +72,9 @@
                             <td class="tdtitle">${seller.member_name}</td>
                             <td class="tdtitle">${seller.member_email}</td>
                             <td>회원</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger">추방</button>
-                            </td>
+                         <!--    <td>
+                                 <button type="button" class="btn btn-outline-danger">추방</button>
+                            </td> -->
                         </tr> 
                       </c:forEach>
                       </c:if>
@@ -104,10 +105,10 @@
   <!-- 판매자  -->
   <div class="tab-pane fade" id="tab2" role="tabpanel"
                 aria-labelledby="tab2-tab">
-     판매자 선택됨
+    
          <table class="table">
                  <c:if test="${company.size() == 0}">
-                       <h3>등록된 판매자 계정이 없습니다.</h3>
+                      <span style="color: gray; font-weight: bold;">회원가입한 판매자 계정이 없습니다.</span>
                     </c:if>
                 <c:if test="${company.size() >0}">
                      <thead class="thead">
@@ -116,20 +117,20 @@
                             <th scope="col" class="PMtable">회원번호</th>
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
-                            <th scope="col">
-                                <div class="dropdown stateDropdown">
+                             <th scope="col">상태
+                               <!--  <div class="dropdown stateDropdown">
                                     <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-expanded="false">
                                         상태
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item" href="#">전체</a>
                                         <a class="dropdown-item" href="#">회원</a>
                                         <a class="dropdown-item" href="#">탈퇴한 회원</a>
-                                    </div>
-                                </div>
+                                    </div> 
+                                </div> -->
                             </th>
-                            <th scope="col">버튼</th>
+                           <!--  <th scope="col">버튼</th> -->
                         </tr>
                     </thead>        
                     <tbody> 
@@ -140,9 +141,9 @@
                             <td class="tdtitle">${company.member_name}</td>
                             <td class="tdtitle">${company.member_email}</td>
                             <td>회원</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger">추방</button>
-                            </td>
+                          <!--   <td>
+                                 <button type="button" class="btn btn-outline-danger">추방</button> 
+                            </td> -->
                         </tr>
                         </c:forEach>
                         </c:if>
@@ -170,7 +171,7 @@
             
          </div>
 </div>
-
+</div>
 </main>
 <c:import url="/footer.do"></c:import>
 <script type="text/javascript">
