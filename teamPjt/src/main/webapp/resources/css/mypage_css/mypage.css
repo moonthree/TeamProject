@@ -1,0 +1,232 @@
+main {
+    height: auto;
+    min-height: 100%;
+}
+/*
+옆에 내 정보 관련 부분
+01. my_top : 이미지, 닉네임
+02. my_middle : 쇼핑MY
+03. my_bottom : 고객센터, 공지사항
+*/
+.middlebar{
+    color: #eff0f2;
+}
+
+/* 01 my_top 시작*/
+.my_top{
+    text-align: center;
+    background-color: #525f78;
+    padding: 10px 0px 20px 0px;
+    border-radius: 20px;
+}
+.my_top > img{
+    margin: 20px 0px 20px 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.my_top > p{
+    color: #afb3ba;
+}
+/*my_top 끝*/
+
+/* 02 my_middle 시작*/
+.my_middle{
+    padding: 20px;
+    background-color: #e1e7ee;
+    border-radius: 20px;
+}
+.my_middle > h5{
+    font-weight: bold;
+}
+.my_middle > a > span {
+    float: right;
+}
+/*my_middle 끝*/
+
+/* 03 my_bottom 시작*/
+.my_bottom{
+    background-color: #f3f4f7;
+    padding: 20px 10px 10px 15px;
+    height: 100%;
+    border-radius: 20px;
+}
+.my_bottom > a > div {
+    float: right;
+}
+/*my_bottom 끝*/
+/*옆에 내 정보 관련 부분 끝*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* tab */
+.tabs{
+    position: absolute;
+    top: 45px;
+    right: 60px;
+ }
+.tab_check{
+	background:#fffffff6;
+    color:#525f78;
+    border-top: 3px solid #525f78;
+    cursor: pointer;
+    padding: 17px 20px;
+    margin: 0px 10px;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+    width: 110px;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+.tab_check a{
+	color:#525f78;
+}
+.tab{
+    cursor: pointer;
+    padding: 17px 20px;
+    margin: 0px 10px;
+    background: #525f78;
+    display: inline-block;
+    color: #fff;
+    border-top: 3px solid #aeb6bf;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+    width: 110px;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+.tab a{
+	 color:#fff;
+}
+.tab:hover{
+	background:#fffffff6;
+    color:#525f78;
+    border-top: 3px solid #525f78;
+}
+.mypage_header{
+	padding-top: 13px;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.mypage_background{
+	display: block;
+    position: absolute;
+    left: 0;
+    opacity: .9;
+    background-image: linear-gradient(263deg,#e1e7ee 100%,#00b2b2 0);
+    width: 100%;
+    height: 220px;
+	
+}
+
+.right_container{
+	padding: 40px;
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+	border-radius: 20px;
+	width: 100%;
+    margin: 0px auto;
+    min-height: 800px;
+    background-color: white; 
+}
+
+.right_container li{
+	width: 30%;
+	margin: 0px;
+}
+
+.right_container a{
+	width: 100%;
+}
+
+.box_title{
+	padding: 15px 0px 15px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+@media (min-width: 576px) {
+    .rounded-nav {
+      border-radius: 50rem !important;
+    }
+  }
+  
+  @media (min-width: 576px) {
+    .rounded-nav .nav-link {
+      border-radius: 50rem !important;
+    }
+  }
+  
+  /* With arrow tabs */
+  
+  .with-arrow .nav-link.active {
+    position: relative;
+  }
+  
+  .with-arrow .nav-link.active::after {
+    content: '';
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 21px solid #525f78;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+  }
+  
+  /* lined tabs */
+  
+  .lined .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .lined .nav-link:hover {
+    border: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .lined .nav-link.active {
+    background: none;
+    color: #555;
+    border-color: #525f78;
+  }
+  
+  /*
+  *
+  * ==========================================
+  * FOR DEMO PURPOSE
+  * ==========================================
+  *
+  */
+
+  .nav-pills .nav-link {
+    color: #555;
+  }
+  .text-uppercase {
+    letter-spacing: 0.1em;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #525f78;
+}
+  

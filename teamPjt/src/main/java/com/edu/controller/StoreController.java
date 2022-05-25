@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.edu.service.HomeService;
 import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
@@ -75,6 +76,8 @@ public class StoreController {
 	@Autowired
 	private MypageService ms;
 
+	@Autowired
+	private HomeService hs;
 	
 	// 스토어 메인페이지 
 	@RequestMapping(value = "/store_main.do")
@@ -978,6 +981,10 @@ public class StoreController {
 		List<StoreInfoDetailVO> msl = ms.myStoreList(login.getMember_idx());
 		model.addAttribute("myStoreList", msl);
 		
+		ArrayList<StoreVO> storeHomeView = null;
+		storeHomeView = (ArrayList<StoreVO>) hs.storeHomeView(vo);
+		request.setAttribute("storeHomeView", storeHomeView);
+
 		return "store/store_pay_complete";
 	}
 	

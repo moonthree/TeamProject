@@ -7,7 +7,14 @@ public class StoreOrderPayVO {
 	private String store_order_pay_card_name;
 	private String store_order_pay_card_number;
 	private String store_order_pay_amount;
+	private String store_order_pay_imp_uid;
 	
+	public String getStore_order_pay_imp_uid() {
+		return store_order_pay_imp_uid;
+	}
+	public void setStore_order_pay_imp_uid(String store_order_pay_imp_uid) {
+		this.store_order_pay_imp_uid = store_order_pay_imp_uid;
+	}
 	public int getStore_order_pay_idx() {
 		return store_order_pay_idx;
 	}

@@ -84,7 +84,7 @@
     }
     
 </style>
-<title>Insert title here</title>
+<title>회원가입</title>
 </head>
 <body>
 	
@@ -101,20 +101,19 @@
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-sm-12 col-md-6 col-lg-5">
-                <div class="card" style="width: 20rem; height: 270px; margin: 0 auto; border-top: 3px solid #FF8C32; margin-bottom: 30px;">
+                <div class="card" style="width: 20rem; height: 210px; margin: 0 auto; border-top: 3px solid #FF8C32; margin-bottom: 30px;">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #FF8C32;">일반 회원가입</h5>
                         <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_seller.do'" class="btn btn-outline-dark btnmargin" style="width: 60%;">이메일로 회원가입</button>
                         <button type="button" onclick="Fnkakao()" class="btn btn-outline-warning btnmargin" style="width: 60%;">카카오</button><br>
-                        <button type="button" class="btn btn-outline-success btnmargin" style="width: 60%;">네이버</button><br>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-5">
-                <div class="card" style="width: 20rem; height: 270px; margin: 0 auto; border-top: 3px solid #06113C">
+                <div class="card" style="width: 20rem; height: 210px; margin: 0 auto; border-top: 3px solid #06113C">
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: 600; color: #06113C;">판매자 회원가입</h5>
-                        <button type="button" class="btn btn-outline-dark btnmargin"  onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'"  style="width: 60%;">이메일로 회원가입</button>
+                        <button type="button" class="btn btn-outline-dark"  onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_company.do'"  style="width: 60%; margin-top: 50px;">이메일로 회원가입</button>
                     </div>
                 </div>
             </div>

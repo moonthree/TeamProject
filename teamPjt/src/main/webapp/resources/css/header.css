@@ -22,18 +22,6 @@ a.navtext:active {
     color: #693907;
 }
 
-a:hover{
-    color: black;
-}
-a:link{
-    color: black;
-}
-a:visited{
-    color: black;
-}
-a:active{
-    color: black;
-}
 .more a.dropdown-item{
     font-family: 'Jua', sans-serif;    
     font-size: 20px;
@@ -69,7 +57,6 @@ a:active{
 
 .header li{
 	margin-bottom: 7px;
-    padding: 15px 10px 0px 10px;
 }
 /* 검색 */
 .search_container{
@@ -151,6 +138,7 @@ a:active{
     box-sizing: border-box;
     border-radius: 4px;
     cursor: pointer;
+    height: 48px;
 }
 
 .mypage_name{
@@ -268,4 +256,53 @@ a:active{
     	top:10px;
     	right:10px;
     }
+}
+
+
+
+
+#nav-1 {
+    /* border: none; */
+    border-radius: 10em;
+    /* display: flex; */
+    list-style: none;
+    background: #f5f5f5;
+    padding: 0px;
+    width: 530px;
+    margin-bottom: 0px;
+}
+#nav-1 li {
+    margin: 0px;
+}
+#nav-1 li a {
+    position: relative;
+    border: none;
+    outline: none;
+    color: #333;
+    display: inline-block;
+    text-decoration: none;
+    z-index: 3;
+    padding: 6px 13px;
+    font-size: 25px;
+}
+
+#nav-1 .slide {
+    position: absolute;
+    display: inline-block;
+    border-radius: 50px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+    opacity: 0;
+    background: #ddd;
+    z-index: 1;
+    height: 40px;
+    margin-top: 4px;
+}
+#nav-1 .squeeze {
+    transform: scale(0.9);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }

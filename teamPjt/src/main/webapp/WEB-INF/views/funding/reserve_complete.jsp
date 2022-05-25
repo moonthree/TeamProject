@@ -99,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12" style="width: 100%; margin-top: 100px;">
+            <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">공유하기</div>
                 <div style="padding: 5px;">
@@ -127,65 +127,114 @@
             <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">취향 맞춤 펀딩 프로젝트</div>
-                <article>
                 <div class="row">
-                  <div class="col-lg-4 col-md-12">
-                      <div class="card">
-                      <img  style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAzMjNfMjYg%2FMDAxNjQ4MDI1NzI3ODUx.vzt2n8yQnjwEGoaBwNh5w-sWSoLsYNzKKe2PPUwHnG8g.4NpNElrFsZl3YMKWdwj94k8amFqu0B-D6XSfMJhaEZcg.JPEG.bryam%2F1_%25283%2529.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDEwMTZfMTky%2FMDAxNjAyODE3ODE5NDAw.lRnreU9Br7iCfOLs_Y7MG5dKCk0EaF-b-zQW6COrlWgg.fl-h-0x7OyDK2VX83_AqxZGhqSsgJrZCW9mM-UPsgfkg.JPEG.luckystar_00%2F%25BA%25B0%25BB%25E7%25C1%25F8%25B0%25FC_%25B9%25DD%25B7%25C1%25B5%25BF%25B9%25B01.jpg&type=sc960_832" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150715_105%2Fcodn9_1436957170912RkyPh_JPEG%2Fhttps3A2F2F41.media.tumblr.com2Fd3b5a3b8793fe1111ce4a544299fb3bb2Ftumblr_ne.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img  style="height: 200px; width: auto;" src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff4%2F9c%2F7c%2Ff49c7ced21fad4c5a70ac61940c4a435.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card" >
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA3MDhfMTAg%2FMDAxNjI1NzEwMDg0ODg4.aL9dS24RZ4Sp468CjTNI50iGF4vRlF_3xAraXo3OCVog.KA7XiKJw4wu11PlLNjX-pkK5Nz6iccYwsAy9PUqFnJMg.JPEG.lsb1933%2FIMG_8113.JPG&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card" >
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAzMjNfMjYg%2FMDAxNjQ4MDI1NzI3ODUx.vzt2n8yQnjwEGoaBwNh5w-sWSoLsYNzKKe2PPUwHnG8g.4NpNElrFsZl3YMKWdwj94k8amFqu0B-D6XSfMJhaEZcg.JPEG.bryam%2F1_%25283%2529.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  </article>
+					<c:choose>
+						<c:when test="${login.member_pet eq 0}">
+							<c:forEach var="item" items="${fundHomeDog}">
+								<div class="col-sm-4">
+						   			<div class="card section01_card">
+						   	   			<a href="funding/view.do?funding_idx=${item.funding_idx}">
+											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+										</a>
+										<div class="card-body">
+							    			<p class="card-text section01_title">
+								        		<a href="funding/view.do?funding_idx=${item.funding_idx}">
+													${item.funding_title}
+								    			</a>
+											</p>
+											<p class="card_text02">
+							    				${Math.round(item.funding_current_price/item.funding_target_price*100)}%
+												<span>| 
+													<c:if test="${item.funding_category eq 0}">강아지</c:if>
+													<c:if test="${item.funding_category eq 1}">고양이</c:if>
+													<c:if test="${item.funding_category eq 2}">반려동물</c:if>
+	                							</span>
+	            							</p>
+								        </div>
+							    	</div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:when test="${login.member_pet eq 1}">
+							<c:forEach var="item" items="${fundHomeCat}">
+								<div class="col-sm-4">
+								   <div class="card section01_card">
+								   	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
+											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+										</a>
+										<div class="card-body">
+										    <p class="card-text section01_title">
+										        <a href="funding/view.do?funding_idx=${item.funding_idx}">
+													${item.funding_title}
+											    </a>
+											</p>
+											<p class="card_text02">
+											    ${Math.round(item.funding_current_price/item.funding_target_price*100)}%
+												<span>| 
+													<c:if test="${item.funding_category eq 0}">강아지</c:if>
+													<c:if test="${item.funding_category eq 1}">고양이</c:if>
+													<c:if test="${item.funding_category eq 2}">반려동물</c:if>
+	                							</span>
+								            </p>
+								        </div>
+								    </div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:when test="${login.member_pet eq 2}">
+							<c:forEach var="item" items="${fundHomeOther}">
+								<div class="col-sm-4">
+								   <div class="card section01_card">
+								   	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
+											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+										</a>
+									<div class="card-body">
+										<p class="card-text section01_title">
+											<a href="funding/view.do?funding_idx=${item.funding_idx}">
+												${item.funding_title}
+								   			</a>
+										</p>
+										<p class="card_text02">
+										    ${Math.round(item.funding_current_price/item.funding_target_price*100)}%
+											<span>| 
+												<c:if test="${item.funding_category eq 0}">강아지</c:if>
+												<c:if test="${item.funding_category eq 1}">고양이</c:if>
+												<c:if test="${item.funding_category eq 2}">반려동물</c:if>
+                							</span>
+								            </p>
+								        </div>
+								    </div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="item" items="${fundHomeDog}">
+								<div class="col-sm-4">
+						   			<div class="card section01_card">
+						   	   			<a href="funding/view.do?funding_idx=${item.funding_idx}">
+											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+										</a>
+										<div class="card-body">
+							    			<p class="card-text section01_title">
+								        		<a href="funding/view.do?funding_idx=${item.funding_idx}">
+													${item.funding_title}
+								    			</a>
+											</p>
+											<p class="card_text02">
+							    				${Math.round(item.funding_current_price/item.funding_target_price*100)}%
+												<span>| 
+													<c:if test="${item.funding_category eq 0}">강아지</c:if>
+													<c:if test="${item.funding_category eq 1}">고양이</c:if>
+													<c:if test="${item.funding_category eq 2}">반려동물</c:if>
+	                							</span>
+	            							</p>
+								        </div>
+							    	</div>
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
             </div>
         </div>
     </main>
