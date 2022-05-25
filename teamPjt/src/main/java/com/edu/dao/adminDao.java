@@ -14,7 +14,7 @@ import com.edu.vo.StoreVO;
 
 @Repository
 public class adminDao {
-	// 주석 version12 
+	 // 주석 version13 -->
 	@Autowired
 	private SqlSession sqlSession;
 	//////////////////////여기서 부턴 소비자///////////////////////

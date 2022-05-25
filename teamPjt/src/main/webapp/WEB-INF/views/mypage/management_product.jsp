@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 주석 version13 -->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -47,7 +48,7 @@
                 aria-labelledby="tab1-tab"> 
                 <c:if test="${listFun.size() eq 0}">
                    
-                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+                    <span style="color: gray; font-weight: bold;">전시된 펀딩 제품이 없습니다.</span>
              
 				</c:if>
 				 <c:if test="${listFun.size() ne 0}">
@@ -55,10 +56,10 @@
                     <thead class="thead">
                         <tr>
                             <th scope="col">펀딩 번호</th>
-                            <th class="tdtitle scope="col" style="width : 55%">제목</th>
-                            <th scope="col">상태</th>
+                             <th scope="col" >썸네일</th>
+                            <th class="tdtitle" scope="col" style="width : 50%">제목</th>
                             <th scope="col">카테고리</th>
-                            <th scope="col">버튼</th>
+                           <!--  <th scope="col">버튼</th> -->
                         </tr>
                     </thead>
                     
@@ -66,25 +67,22 @@
                     	<c:forEach var="funList" items="${listFun}">
 	                        <tr>
 	                            <th>${funList.funding_idx}</th>
+	                            <td><img src="../resources/upload/funding/${funList.funding_thumbnail}"  class="rounded img-thumbnail "  alt="..."></td>
 	                            <td class="tdtitle">
 		                            <a href="<%=request.getContextPath()%>/funding/view.do?funding_idx=${funList.funding_idx}">
 		                            		${funList.funding_title}
 		                            </a>
 	                            </td>
-	                            <td>
-	                           		<c:if test="${funList.funding_permit_state eq 0}">
-	                           		<span style="color: blue;">승인 대기</span>
-	                           		</c:if>
-	                            </td>
+	                            
 	                            <td>
 	                            	<c:if test="${funList.funding_category eq 0}">강아지</c:if>
 	                            	<c:if test="${funList.funding_category eq 1}">고양이</c:if>
 	                            	<c:if test="${funList.funding_category eq 2}">기타동물</c:if>
 	                            </td>
-	                            <td>
+	                            <!-- <td>
 	                                <button type="button" onclick="updateStateFunding(this)" class="btn btn-outline-success">제품 보류</button>
 	                                <button type="button" onclick="updateStateFunding2(this)" class="btn btn-outline-danger" >제품 거절</button>
-	                            </td>
+	                            </td> -->
 	                        </tr>
                         </c:forEach>
                     </tbody>
@@ -114,18 +112,18 @@
            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
            	<c:if test="${listStore.size() eq 0}">
                    
-                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+                     <span style="color: gray; font-weight: bold;">전시된 스토어 제품이 없습니다.</span>
              
 			</c:if>
 			 <c:if test="${listStore.size() ne 0}">
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th scope="col" style="width :5%">번호</th>
-                            <th class="tdtitle" style="width : 40%">제목</th>
-                            <th scope="col" style="width : 10%">상태 </th>
-                            <th scope="col"style="width : 20%">카테고리</th>
-                            <th scope="col"style="width : 24%">버튼</th>
+                            <th scope="col">번호</th>
+                            <th class="tdtitle"  scope="col" style="width : 55%">제목</th>
+                          <!--   <th scope="col" style="width : 10%">상태 </th> -->
+                            <th scope="col">카테고리</th>
+                           <!--  <th scope="col"style="width : 24%">버튼</th> -->
                         </tr>
                     </thead>
 					 <tbody>
@@ -138,20 +136,16 @@
 		                            			${StoreList.store_title}
 		                            		</a>
 	                            </td>
-	                            <td>
-	                           		<c:if test="${StoreList.store_permit_state eq 0}">
-	                           		<span style="color: blue;">승인 대기</span>
-	                           		</c:if>
-	                            </td>
+
 	                            <td>
 	                            	<c:if test="${StoreList.store_category eq 0}">강아지</c:if>
 	                            	<c:if test="${StoreList.store_category eq 1}">고양이</c:if>
 	                            	<c:if test="${StoreList.store_category eq 2}">기타동물</c:if>
 	                            </td>
-	                            <td>
+	                           <!--  <td>
 	                                <button type="button" onclick="updateStateStore(this)" class="btn btn-outline-success">제품 보류</button>
 	                                <button type="button" onclick="updateStateStore2(this)" class="btn btn-outline-danger" >제품 거절</button>
-	                            </td>
+	                            </td> -->
 	                        </tr>
                         </c:forEach>
                         </tbody>

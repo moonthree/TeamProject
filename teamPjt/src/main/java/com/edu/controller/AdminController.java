@@ -16,8 +16,7 @@ import com.edu.vo.PageMaker2;
 import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
 
-/*주석 version12*/
-
+// 주석 version13 
 
 @Controller
 @RequestMapping(value = "/admin")

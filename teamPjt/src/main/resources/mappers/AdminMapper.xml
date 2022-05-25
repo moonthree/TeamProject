@@ -4,7 +4,7 @@
 	
 <mapper namespace="adminMapper">
 	<!-- 소비자 계정 가져오기 -->
-	<!-- // 주석 version12  -->
+	<!-- // 주석 version13 -->
 	<select id="listMember_seller" resultType="memberVO" parameterType="com.edu.vo.Pagination">
 		SELECT 
 			member_idx
@@ -145,6 +145,7 @@
 		 funding_idx
 		,member_idx
 		,funding_title
+		,funding_thumbnail
 		,funding_permit_state
 		,funding_category
 		FROM funding

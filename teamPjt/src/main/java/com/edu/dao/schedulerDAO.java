@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
 
-//스케줄러 dao
-
+ // 주석 version13 -->
 @Repository
 public class schedulerDAO {
 	

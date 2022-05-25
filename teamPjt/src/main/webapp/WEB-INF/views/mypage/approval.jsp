@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 주석 version12 -->
+<!-- 주석 version13 -->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -30,8 +30,9 @@
 
 	<c:import url="/header.do"></c:import>
 <main id="wrapper">
+
 	<div class="container">
-        <h2 class="apptitle">승인 대기 페이지</h2>
+	<h2 class="apptitle">승인 대기 페이지</h2>
         <ul class="nav nav-tabs ulviewTab" id="myTab" role="tablist">
       		<li class="nav-item nav-pills viewtab" role="presentation" > 
                   <a id="alink1" class="nav-link active taaa" data-toggle="tab"  role="tab" href="#tab1"
@@ -51,7 +52,8 @@
                 aria-labelledby="tab1-tab"> 
                 <c:if test="${listFun.size() eq 0}">
                    
-                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+            
+                  <span style="color: gray; font-weight: bold;">등록된 펀딩 제품이 없습니다.</span>
              
 				</c:if>
 				 <c:if test="${listFun.size() ne 0}">
@@ -118,7 +120,7 @@
            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
            	<c:if test="${listStore.size() eq 0}">
                    
-                    <h2>등록된 펀딩 제품이 없습니다.</h2>
+                   <span style="color: gray; font-weight: bold;">등록된 스토어 제품이 없습니다.</span>
              
 			</c:if>
 			 <c:if test="${listStore.size() ne 0}">

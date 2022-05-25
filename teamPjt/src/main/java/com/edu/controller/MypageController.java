@@ -743,7 +743,6 @@ public class MypageController {
 	
 	
 	
-	
 	@RequestMapping(value="update_file.do",method = RequestMethod.POST)
 	public void update_file(int funding_idx, int check, String funding_content, String funding_notice, 
 			HttpServletResponse response, HttpServletRequest request) throws IOException {

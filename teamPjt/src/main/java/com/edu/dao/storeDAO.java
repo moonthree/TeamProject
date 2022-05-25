@@ -16,6 +16,7 @@ import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.FundingQnaVO;
+import com.edu.vo.Funding_optionVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
@@ -154,11 +155,22 @@ public class storeDAO {
 		return sqlSession.selectList("StoreMapper.storeOptionList", vo);
 	}
 	
-	//스토어 제품 등록
+	//스토어 제품 있는지 체크 -> mypage2 에서 ajax로 넘어옴
+	public int store_Check(int funding_idx) {
+		
+		return sqlSession.selectOne("StoreMapper.store_Check", funding_idx);
+	}
+	//스토어 제품 등록 -> 단독 스토어 제품 등록
 	public int store_reg(StoreVO vo) {
 		
 		return sqlSession.insert("StoreMapper.store_Reg",vo);
 	}
+	//스토어 제품 등록 -> 펀딩 성공 후  스토어 제품 등록
+	public int store_reg2(StoreVO vo) {
+			
+		return sqlSession.insert("StoreMapper.store_Reg2",vo);
+	}
+	
 	//스토어 옵션제품 옵션 등록
 	public int storeOptionReg(List<StoreOptionVO> vo) {
 		
@@ -189,5 +201,17 @@ public class storeDAO {
 	//옵션 수량 감소 메소드
 	public int update_option(StoreOrderOptionVO orderoptionvo) {
 		return sqlSession.update("StoreMapper.update_option", orderoptionvo);
+	}
+	//옵션 수량 추가 메소드
+	public int  addStock(StoreOptionVO vo) {
+		return sqlSession.update("StoreMapper.storeOption_plus", vo);
+	}
+	//select one
+	public StoreVO selectStoreOne(int store_idx) {
+		return sqlSession.selectOne("StoreMapper.storeSelectOne", store_idx);
+	}
+	//스토어 파일 업데이트 메소드
+	public int store_updateFile(HashMap<String, Object> map) {
+		return sqlSession.update("StoreMapper.store_file_update", map);
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.edu.dao.schedulerDAO;
 import com.edu.vo.FundingMainVO;
 
+//<!-- 주석 version13 -->
 @Component
 public class Scheduler {
 	
@@ -27,7 +28,7 @@ public class Scheduler {
 		//"0 */5 * * * *" ->5분주기
 		//매일 자정 0 0 0 * * *
 	
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void test() {
 		scdao.FundingSuccess();
 		scdao.FundingFail();
