@@ -107,6 +107,12 @@ public class StoreServiceImpl implements StoreService{
 	public int storeReviewWrite(StoreReviewVO vo) throws Exception {
 		return dao.storeReviewWrite(vo);
 	}
+	//스토어 리뷰 수정
+	@Override
+	public int storeReviewModify(StoreReviewVO vo) throws Exception {
+		return dao.storeReviewModify(vo);
+	}
+	
 	//찜 select
 	@Override
 	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {
@@ -147,7 +153,27 @@ public class StoreServiceImpl implements StoreService{
 	public int updateReviewLike2(Map<String, Object> paramMap) {
 		return dao.updateReviewLike2(paramMap);
 	}
-
+	//리뷰 수정에 가져가기
+	@Override
+	public StoreReviewVO getReview(int store_idx, int member_idx, int store_order_idx) {
+		HashMap<String,Integer> hm = new HashMap<String,Integer>();
+		hm.put("store_idx", store_idx);
+		hm.put("member_idx", member_idx);
+		hm.put("store_order_idx", store_order_idx);
+		
+		dao.getReview(hm);
+		return dao.getReview(hm);
+	}
+	//스토어 리뷰 삭제(마이페이지)
+	@Override
+	public void storeReviewDelete(StoreReviewVO vo) {
+		dao.storeReviewDelete(vo);
+	}
+	//스토어 리뷰 관리자 삭제
+	@Override
+	public void storeReviewAdminDelete(StoreReviewVO vo) {
+		dao.storeReviewAdminDelete(vo);
+	}
 //스토어 qna 시작
 	//스토어 qna 답글 리스트
 	@Override
@@ -247,6 +273,7 @@ public class StoreServiceImpl implements StoreService{
 	public int update_option(StoreOrderOptionVO orderoptionvo) {
 		return dao.update_option(orderoptionvo);
 	}
+	
 	
 }
 

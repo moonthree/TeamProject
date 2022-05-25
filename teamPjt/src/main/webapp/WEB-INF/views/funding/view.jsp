@@ -42,7 +42,7 @@
     </form>
 	<!-- 썸네일 -->
     <div class="card bg-dark text-white topcard">
-        <img src="../resources/image/funding_main/${read.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
+        <img src="../resources/upload/funding/${read.funding_thumbnail }" class="card-img FVtitleImg" alt="...">
         <div class="card-img-overlay">
             <br>
             
@@ -83,13 +83,20 @@
                 <!-- 남은 날짜 계산 끝 -->
                 <fmt:parseNumber var="endDate2" value="${end.time / (1000*60*60)}" integerOnly="true" />
                 <fmt:parseNumber var="nowHour2" value="${nowHour.time / (1000*60*60)}" integerOnly="true" />
+                <c:choose>
+                	<c:when test="${read.funding_current_state eq 0 }">
+                		<c:if test="${endDate - nowDate le 1}">
+	            		<h3>마감 ${endDate2 - nowHour2 - 1}시간 전!!!</h3>
+		            	</c:if>
+		            	<c:if test="${endDate - nowDate gt 1}">
+		                	<h3>${endDate - nowDate}일 남음</h3>
+		            	</c:if>
+                	</c:when>
+                	<c:otherwise>
+                		<h3>펀딩이 종료된 프로젝트입니다.</h3>
+                	</c:otherwise>
+                </c:choose>
             	
-            	<c:if test="${endDate - nowDate le 1}">
-            		<h3>마감 ${endDate2 - nowHour2 - 1}시간 전!!!</h3>
-            	</c:if>
-            	<c:if test="${endDate - nowDate gt 1}">
-                	<h3>${endDate - nowDate}일 남음</h3>
-            	</c:if>
                 <div class="progress">
                     <div class="progress-bar-self progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${read.funding_current_price/read.funding_target_price*100}%" aria-valuenow="50"
                         aria-valuemin="0" aria-valuemax="100"></div>
@@ -98,59 +105,43 @@
                 <h3><fmt:formatNumber value="${read.funding_current_price}" type="number" /><span class="smalltext"> 원 펀딩</span></h3>
                 <h3><span id="supportNum"></span><span class="smalltext"> 명의 서포터</span></h3>
                 
-				<!-- 로그인 처리 -->
-<%--                 <c:if test="${login eq null}"> --%>
-				<!-- Button trigger modal -->
-<!-- 					<button type="button" class="btn btn-info FVbtn" data-toggle="modal" data-target="#loginModal"> -->
-<!-- 					  펀딩하기 -->
-<!-- 					</button> -->
-<!-- 					<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal"> -->
-<!-- 	                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" -->
-<!-- 	                        viewBox="0 0 16 16"> -->
-<!-- 	                        <path -->
-<!-- 	                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" /> -->
-<!-- 	                    </svg> -->
-<!-- 	                    	찜하기 -->
-<!-- 	                </button> -->
-<%-- 	                <button type="button" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }"> --%>
-<!-- 		                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" -->
-<!-- 		                        viewBox="0 0 16 16"> -->
-<!-- 		                        <path -->
-<!-- 		                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" /> -->
-<!-- 		                    </svg> -->
-<!-- 		                   	 찜 취소하기 -->
-<!-- 		             </button>  -->
-<%--                 </c:if> --%>
-<%--                 <c:if test="${login ne null}"> --%>
 
                 	<!-- funding_idx 값 포함해서 option 페이지로 이동 -->
-	                <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do?funding_idx=${read.funding_idx}'" class="btn btn-info FVbtn">펀딩하기</button>
-	        			<c:if test="${login eq null}">
-	        			<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal">
-	                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-	                        viewBox="0 0 16 16">
-	                        <path
-	                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-	                    </svg>
-	                    	찜하기
-	                	</button>
-                    	</c:if>
-                    	<c:if test="${login ne null}">
-	                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+                	<c:choose>
+                		<c:when test="${read.funding_current_state eq 0 }">
+                			<button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/option.do?funding_idx=${read.funding_idx}'" class="btn btn-info FVbtn">펀딩하기</button>
+			        			<c:if test="${login eq null}">
+			        			<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal">
 			                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
 			                        viewBox="0 0 16 16">
 			                        <path
 			                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 			                    </svg>
 			                    	찜하기
-			                </button>
-			                
-			                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
-			                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-								  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-								</svg>
-			                </button> 
-                    	</c:if>
+			                	</button>
+		                    	</c:if>
+		                    	<c:if test="${login ne null}">
+			                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+					                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+					                        viewBox="0 0 16 16">
+					                        <path
+					                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+					                    </svg>
+					                    	찜하기
+					                </button>
+					                
+					                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+					                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+										</svg>
+					                </button> 
+		                    	</c:if>
+                		</c:when>
+                		<c:otherwise>
+                			
+                		</c:otherwise>
+                	</c:choose>
+	                
 	                          
 <%--                 </c:if> --%>
                 <!-- 로그인 처리 끝 -->

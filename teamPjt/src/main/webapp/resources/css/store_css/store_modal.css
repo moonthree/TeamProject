@@ -60,18 +60,19 @@
 table{
     border: none;
 }
-.tr1{
+.rrtr1{
     border-bottom: 1px solid #dddddd;
     padding-top: 20px;
 }
-.td1{
+.rrtd1{
     width: 10%;
     text-align: center;
     font-weight: bold;
 }
-.td2{
+.rrtd2{
     width: 90%;
     padding: 10px 0px 10px 0px;
+    text-align: left;
 }
 .div2{
     margin-top: 20px;
@@ -86,7 +87,7 @@ textarea {
     width: 100px;
     height: 100px;
 }
-.option{
+.rr_option{
     font-size: 13px;
     font-weight: 400;
 }
@@ -174,6 +175,50 @@ textarea {
     text-align: left;
 }
 #myform input[type=radio]:checked~label {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 클릭 체크 */
+}
+/*리뷰 작성 모달의 별점 끝*/
+
+/*리뷰 작성 모달의 별점*/
+#myform2 fieldset {
+    display: inline-block;
+    /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    border: 0;
+    /* 필드셋 테두리 제거 */
+}
+#myform2 input[type=radio] {
+    display: none;
+    /* 라디오박스 감춤 */
+}
+#myform2 label {
+    font-size: 25px;
+    /* 이모지 크기 */
+    color: transparent;
+    /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0;
+    /* 새 이모지 색상 부여 */
+}
+#myform2 label:hover {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 호버 */
+}
+#myform2 label:hover~label {
+    text-shadow: 0 0 0 orange;
+    /* 마우스 호버 뒤에오는 이모지들 */
+}
+#myform2 fieldset {
+    display: inline-block;
+    /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl;
+    /* 이모지 순서 반전 */
+    border: 0;
+    /* 필드셋 테두리 제거 */
+}
+#myform2 fieldset legend {
+    text-align: left;
+}
+#myform2 input[type=radio]:checked~label {
     text-shadow: 0 0 0 orange;
     /* 마우스 클릭 체크 */
 }

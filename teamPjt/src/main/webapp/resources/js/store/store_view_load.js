@@ -53,10 +53,11 @@ $(document).ready(function() {
 	if(loginCheck==""){
 		
 	}else{
-	//찜 관련 시작
+	//찜 관련 시작sss
  	var objParams = {
 		member_idx : $('#zzim_member_idx').val(),
-		store_idx : $('#zzim_store_idx').val()
+		store_idx : $('#zzim_store_idx').val(),
+		zzim_category : 1
 		};
 		//console.log(objParams)
         
@@ -168,7 +169,8 @@ var zzimBtn = $("#zzimBtn");
 		var objParams2 = {
 			member_idx : $(this).data('id'),
 			store_idx : $(this).data('id2'),
-			funding_idx : $(this).data('id3')
+			funding_idx : $(this).data('id3'),
+			zzim_category : 1
 		};
 		console.log(objParams2)
 		$.ajax({
@@ -196,6 +198,7 @@ var zzimBtn2 = $("#zzimBtn2");
 		var objParams2 = {
 			member_idx : $(this).data('id'),
 			store_idx : $(this).data('id2'),
+			zzim_category : 1
 		};
 		console.log(objParams2)
 		$.ajax({
@@ -325,6 +328,7 @@ function fileCheck(e) {
     var files = e.target.files;   
     // 파일 배열 담기
     var filesArr = Array.prototype.slice.call(files);
+    console.log(filesArr)
     // 파일 개수 확인 및 제한
     if (fileCount >= totalCount) {
       alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');

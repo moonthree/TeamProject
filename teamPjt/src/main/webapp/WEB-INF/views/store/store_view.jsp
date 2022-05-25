@@ -386,13 +386,13 @@
 	            <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
 	                <div class="reviewTop">
 	                    상품리뷰
-	                    <c:if test="${login eq null }">
+	                   <%--  <c:if test="${login eq null }">
 		                    <button class="btn btn-outline-info btn-lg writeReview" data-toggle="modal" data-target="#loginModal">리뷰 작성</button>	                    
 	                    </c:if>
 	                    <c:if test="${login ne null }">
 		                    <button class="btn btn-outline-info btn-lg writeReview" data-toggle="modal" data-target="#reviewWriteModal">리뷰 작성</button>	                    
 	                    </c:if>
-
+ --%>
 	                    <br><span>상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
 	                </div>
 	                <div class="reviewMiddle row">
@@ -655,11 +655,13 @@
 			                                    <span class="cancelLikeSpan${reviewList.store_review_idx }">${reviewList.store_review_like}</span>
 			                                </button>
 										</c:if>
-										
+										<c:if test="${login.member_level eq 2}">
+											<button id="adminDoReviewDel" class="btn btn-outline-danger" data-toggle="modal" data-target="#reviewAdminModal" data-id="${reviewList.store_review_idx }">삭제</button>
+										</c:if>
 		                                
 <!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 -->
 		                                <br>
-		                                <span class="reviewOption">옵션명 주르르르르륵</span>
+		                                <span class="reviewOption">${reviewList.store_review_option }</span>
 		                            <td>
 		                        </tr>
 		                    </thead>
@@ -1360,6 +1362,30 @@
                     <div class="modal-footer write_modal_footer">
                         <button type="button" id="qnaAdminBtn" class="qnaDeleteBtn qnaBtn btn btn-outline-danger">예</button>
                         <button type="button" id="qnaAdminNo" class="qnaBtn btn btn-outline-success">아니오</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- 관리자 - 리뷰 삭제 모달 -->
+    <div class="modal fade" id="reviewAdminModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="reviewAdminForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content write_modal_content">
+                    <div class="modal-header write_modal_header">
+                        <button type="button" class="write_modal_close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body write_modal_body">
+                    
+                        <h4 class="bold">-관리자-<br><br>정말 삭제 하시겠습니까?</h4>
+                        <input type=hidden class="store_review_idx" name="store_review_idx" value=""/>
+                    </div>
+                    <div class="modal-footer write_modal_footer">
+                        <button type="button" id="reviewAdminBtn" class="qnaDeleteBtn qnaBtn btn btn-outline-danger">예</button>
+                        <button type="button" id="reviewAdminNo" class="qnaBtn btn btn-outline-success">아니오</button>
                     </div>
                 </div>
             </div>

@@ -37,6 +37,7 @@
 		 -->
 		 
 		 <!-- MySQL dataSource -->
+		 <!-- localhost 연결 -->
      <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
@@ -47,20 +48,21 @@
         <property name="password" value="1234"></property>
     </bean>       
         
-	<!-- sqlSessionFactory --> 
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
 	</bean>
 	
-	<!-- SqlSessionTemplate -->
+	
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean> 
+	<!-- localhost 연결 끝 -->
 	
-	<!--  
-	<bean id="dataSource"
+	 <!-- 서버 연결 -->
+	<!-- <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
@@ -81,6 +83,7 @@
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean> -->
+	<!-- 서버 연결 ㄲ끝-->
 	
 
 	<!-- transactionManager -->

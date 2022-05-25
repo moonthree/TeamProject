@@ -177,14 +177,14 @@
 					<c:forEach var="item" items="${select3Funding}">
 					
 	                    <div class="card mb-3">
-	                      <div class="row item" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
-	                        <div class="col-lg-5 col-md-6">
+	                      <div class="row item">
+	                        <div class="col-lg-5 col-md-6" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 	                          <!--이미지-->
-	                      <div class="card img-container">
-                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-                            </div>
-	                      </div>
+		                      <div class="card img-container">
+	                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+	                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+	                            </div>
+		                      </div>
 	                        </div>
 	                        <div class="col-lg-7 col-md-6">
 	                          <div class="card-body" style="margin-left: -20px;">
@@ -203,7 +203,7 @@
 	                            <div style="font-weight:100">
 	                            	
 	                            </div>
-	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
+	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px; cursor:pointer;" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'">${ item.funding_title }</h5>
 	                            
 	                            <p class="card-text" >
 	                              <div class="row">
@@ -247,15 +247,15 @@
                   <div class="mydiv" id="mydiv">
 					<c:if test="${select3Store.size()>0}">
 						<c:forEach var="item" items="${select3Store}">
-                    <div class="card mb-3"  onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
+                    <div class="card mb-3">
                       <div class="row g-0">
-                        <div class="col-lg-5 col-md-6">
+                        <div class="col-lg-5 col-md-6" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
                           <!--이미지-->
-	                      <div class="card img-container">
-                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-                            </div>
-	                      </div>
+		                      <div class="card img-container">
+	                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+	                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+	                            </div>
+		                      </div>
 	                        </div>
 	                        <div class="col-lg-7 col-md-6">
 	                          <div class="card-body" style="margin-left: -20px;">
@@ -274,7 +274,7 @@
 	                            <div style="font-weight:100">
 	                            	
 	                            </div>
-	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
+	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px; cursor:pointer;" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'">${ item.store_title }</h5>
 	                            
 	                            <p class="card-text" >
 	                              <div class="row">
