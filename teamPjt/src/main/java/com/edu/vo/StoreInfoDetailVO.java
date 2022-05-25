@@ -5,6 +5,7 @@ import java.util.Date;
 public class StoreInfoDetailVO {
 	//MEMBER
 	private String member_name;
+	private String member_phone;
 	
 	//STORE
 	private int store_idx;
@@ -212,6 +213,12 @@ public class StoreInfoDetailVO {
 	}
 	public void setStore_express_state(int store_express_state) {
 		this.store_express_state = store_express_state;
+	}
+	public String getMember_phone() {
+		return member_phone;
+	}
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
 	}
 
 }

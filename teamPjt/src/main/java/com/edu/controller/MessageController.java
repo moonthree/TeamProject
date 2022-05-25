@@ -1,5 +1,6 @@
 package com.edu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,100 +40,89 @@ public class MessageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
-		///페이지 불러왔을 때 message 테이블 체크함
-		List<FundingMainVO> fundingMainVO = messageService.checkFundingPermit(login.getMember_idx());
-		model.addAttribute("permitFunding",fundingMainVO);
-		
-		//판매자에따른 최신 쪽지 한개 - 불러오게 되는건 MessageVO 더미
-		//여기서 member의 level에 따라 바뀌는 메세지 불러오기
-		System.out.println("member_level : "+login.getMember_level());
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("to_member_idx",login.getMember_idx());
-		
-		//to_member_idx로 from_member_idx를 찾아와야함
-		//배열에 넣고 for 문돌림
-		List<MessageVO> from_member_idxs = messageService.getFrom_member_idxs(login.getMember_idx());
-		for(int i=0 ; i<from_member_idxs.size() ; i++) {
-			System.out.println("from_member_idx : "+from_member_idxs.get(i).getFrom_member_idx());
-			if(from_member_idxs.get(i).getFrom_member_idx() == login.getMember_idx()) {
-				model.addAttribute("isEqualLevel","y");
-			
-				
-			}else {
-				model.addAttribute("isEqualLevel","n");
-				
-			}
-		}
-		
-		param.put("member_level",login.getMember_level());
-		model.addAttribute("dialogue", messageService.message_dialogue(param));
-		
-		
+		//최신의 메세지를 가져오기 group by from_member_idx
+		model.addAttribute("dialogue",messageService.message_dialogue(login.getMember_idx()));
 		
 		return "message";
 	}
 	
 	//쪽지 상세
 	@RequestMapping(value = "/mypage/note.do")
-	public String note(Model model, HttpServletRequest request, @RequestParam("seller") int from_member_idx, @RequestParam("consumer") int to_member_idx, @RequestParam("funding_idx") int funding_idx) {
+	public String note(Model model, HttpServletRequest request, @RequestParam("funding_idx") int funding_idx, @RequestParam("message_idx") int message_idx) {
 		// 세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
-		Map<String, Object> param = new HashMap<String, Object>();
-		//판매자 idx 설정
-		param.put("from_member_idx", from_member_idx);
-		//소비자 idx 설정
-		param.put("to_member_idx", to_member_idx);
-		//member_level 설정 --> 프로필 사진과 이름을 다르게 넣어주기 위함
-		if(from_member_idx != login.getMember_idx()) {
-			param.put("member_level",0);
+		if(message_idx != 0) {
+			//message_idx로 대화 내역 불러오기
+			model.addAttribute("messages", messageService.message_dialogue_detail2(message_idx));
+			//상대방의 사진, 이름 가져오는 작업은 따로 해야함
+
+			return "note";
 		}else {
-			param.put("member_level",1);
+			//만약 찾은 message_idx가 0아닌경우 대화 내역을 체크해서 있으면 원래의 대화내역으로 데려다주고
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("funding_idx",funding_idx);
+			param.put("from_member_idx",login.getMember_idx());
+			int findMessageIdx = messageService.findMessageIdx(param);
+			System.out.println("funding_idx : "+funding_idx+" findMessageIdx : "+findMessageIdx);
+			
+			if(findMessageIdx != 0) { //기존 내역이 있는경우 -> message_idx가지고 경로이동
+				model.addAttribute("funding_idx",funding_idx);
+				model.addAttribute("message_idx",findMessageIdx);
+				
+				return "redirect:/mypage/note.do";
+			}else { //0이면 새로 만들어야함 그리고 리턴해 경로이동
+				
+				model.addAttribute("funding_idx",funding_idx);
+				model.addAttribute("message_idx",3);
+				
+				return "redirect:/mypage/note.do";
+			}
+			
 		}
-		//check 보낸이 받는이의 레벨 둘다 1이면 판마자끼리인거, 다르면 소비자 판매자끼리인거
-		// from_member_idx 의 레벨과 to_member_idx의 레벨을 체크
-		int from_member_level = messageService.checkLevel(from_member_idx);
-		int to_member_level = messageService.checkLevel(to_member_idx);
-		if(from_member_level == to_member_level) {
-			model.addAttribute("isEqualLevel","y");
-		}else {
-			model.addAttribute("isEqualLevel","n");
-		}
-		List<MessageVO> messageVOs = messageService.message_dialogue_detail(param);
-		model.addAttribute("messages", messageVOs);
-		return "note";
+		
+		
+		
+		
+		
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		param.put("to_member_idx",login.getMember_idx());
+//		param.put("funding_idx",funding_idx);
+//		model.addAttribute("messages", messageService.message_dialogue_detail(param));
+		
 	}
 	
 	//메시지 보내기
 	@RequestMapping(value="/mypage/sendMessage.do", method=RequestMethod.POST)
-	public String sendMessage(HttpServletRequest request, @RequestParam("message_content") String message_content,@RequestParam("seller") int from_member_idx, @RequestParam("consumer") int to_member_idx,@RequestParam("funding_idx") int funding_idx) {
+	public String sendMessage(HttpServletRequest request, @RequestParam("message_content") String message_content, @RequestParam("funding_idx") int funding_idx, @RequestParam("countMessages") int countMessages) {
 		// 세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 				
 		Map<String, Object> param = new HashMap<String, Object>();
-
-		//판매자 idx 설정
-		param.put("from_member_idx", from_member_idx);
-		//소비자 idx 설정
-		param.put("to_member_idx", to_member_idx);
-		//member_level 설정 --> message_send_person구분 0:판매자 1:소비자
-		if(from_member_idx != login.getMember_idx()) {
-			param.put("member_level",0);
-		}else {
-			param.put("member_level",1);
-		}
-		
+		//보내는 사람 idx 설정
+		param.put("from_member_idx", login.getMember_idx());
+		//받는 사람 idx 설정
+		param.put("to_member_idx", messageService.getMemberIdx(funding_idx));
 		//메세지 내용 설정
 		param.put("message_content",message_content);
 		param.put("funding_idx",funding_idx);
-	
+			
+		//1. countMessages의 갯수를 따져서 message테이블에 insert할지 정함
+		if(countMessages == 0) {
+			//2. message_idx생성
+			//messageService.insertMessageIdx(funding_idx);
+			//3. insert와 동시에 message_idx가져오기
+		}else {
+			//2. funding_idx member_idx를 통해 message_idx 가져오기
+		}
+		
 		messageService.sendMessage(param);
 		
-		return "redirect:/mypage/note.do?seller="+from_member_idx+"&consumer="+to_member_idx+"&funding_idx="+funding_idx;
+		return "redirect:/mypage/note.do?funding_idx="+funding_idx;
 	}
 
 	

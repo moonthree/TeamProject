@@ -78,13 +78,9 @@ $("window").load(scrollDown);
 		 <c:if test="${messages.size()>0}">
 			<c:forEach var="item" items="${messages}">
 			
-			<!-- 판판 -->
-			<c:if test="${ isEqualLevel eq 'y'}">
-				<c:if test="${item.from_member_idx eq member.member_idx}">
-					<c:if test="${item.message_send_person eq member.member_level}">
-						<table class="table" style="border: none; margin-top:30px; text-align:left;">
-					
-						<!-- 보낸사람 & 시각  -->
+			<!-- 왼쪽  -->
+			<c:if test="${ item.from_member_idx ne member.member_idx }">
+				<table class="table" style="border: none; margin-top:30px; text-align:left;">		
 					    <tr>
 					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
 					    	<td width="300px">
@@ -93,72 +89,20 @@ $("window").load(scrollDown);
 						    	</div>
 					    	</td>
 					    </tr>
-						<!-- 메세지 내용 -->
 					    <tr>
 					      	<th>
 		                    </th>
 		                    <td style="text-align:right;">
-								<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 						    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
 					    	</td>
 					    </tr>
-				    </table>
-				    
-				</c:if>
-			    <c:if test="${item.message_send_person ne member.member_level}">
-				    <table class="table" style="border: none; margin-top:30px; text-align:left;">
-					    <!-- 보낸사람 & 시각  -->
-					    <tr>
-					    	<th width="130px"></th>
-					    	<td width="300px">
-						    	<div style="background-color: #f5f5f5; border-radius: 20px; padding:10px" >
-						    		${ item.message_content }
-						    	</div>
-					    	</td>
-					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-					    	
-					    </tr>
-						<!-- 메세지 내용 -->
-					    <tr>
-					    	<td></td>	
-		                    <td style="text-align:right;">
-								<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-						    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-					    	</td>
-					    	<th>
-		                    </th>
-					    </tr>
-				    </table>
-			    </c:if>
-			</c:if>
-		<c:if test="${item.from_member_idx ne member.member_idx}">
-			<c:if test="${item.message_send_person ne member.member_level}">
-				<table class="table" style="border: none; margin-top:30px; text-align:left;">
-				
-					<!-- 보낸사람 & 시각  -->
-				    <tr>
-				    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-				    	<td width="300px">
-					    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
-					    		${ item.message_content }
-					    	</div>
-				    	</td>
-				    </tr>
-					<!-- 메세지 내용 -->
-				    <tr>
-				      	<th>
-	                    </th>
-	                    <td style="text-align:right;">
-							<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-				    	</td>
-				    </tr>
-				    
-			    </table>
-			</c:if>
-			<c:if test="${item.message_send_person eq member.member_level}">
+				</table>
+			</c:if>	    
+		
+			<!-- 오른쪽 -->
+			<c:if test="${ item.from_member_idx eq member.member_idx }">
 			    <table class="table" style="border: none; margin-top:30px; text-align:left;">
-				    <!-- 보낸사람 & 시각  -->
 				    <tr>
 				    	<th width="130px"></th>
 				    	<td width="300px">
@@ -167,126 +111,19 @@ $("window").load(scrollDown);
 					    	</div>
 				    	</td>
 				    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-				    	
 				    </tr>
-					<!-- 메세지 내용 -->
 				    <tr>
 				    	<td></td>	
-	                    <td style="text-align:right;">
-							<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+		                   <td style="text-align:right;">
+							<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
 				    	</td>
 				    	<th>
-	                    </th>
+		               	</th>
 				    </tr>
 			    </table>
-			</c:if>
-		</c:if>
-	</c:if>
-	<c:if test="${ isEqualLevel eq 'n' }">
-		<c:if test="${item.from_member_idx eq member.member_idx}">
-			<c:if test="${item.message_send_person eq member.member_level}">
-				<table class="table" style="border: none; margin-top:30px; text-align:left;">
-				
-					<!-- 보낸사람 & 시각  -->
-				    <tr>
-				    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-				    	<td width="300px">
-					    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
-					    		${ item.message_content }
-					    	</div>
-				    	</td>
-				    </tr>
-					<!-- 메세지 내용 -->
-				    <tr>
-				      	<th>
-		                   </th>
-		                   <td style="text-align:right;">
-							<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-				    	</td>
-				    </tr>
-				    
-			    </table>
-		    </c:if>
-		    <c:if test="${item.message_send_person ne member.member_level}">
-		    <table class="table" style="border: none; margin-top:30px; text-align:left;">
-			    <!-- 보낸사람 & 시각  -->
-			    <tr>
-			    	<th width="130px"></th>
-			    	<td width="300px">
-				    	<div style="background-color: #f5f5f5; border-radius: 20px; padding:10px" >
-				    		${ item.message_content }
-				    	</div>
-			    	</td>
-			    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-			    	
-			    </tr>
-				<!-- 메세지 내용 -->
-			    <tr>
-			    	<td></td>	
-	                   <td style="text-align:right;">
-						<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-				    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-			    	</td>
-			    	<th>
-	               	</th>
-			    </tr>
-		    </table>
-		    </c:if>
-		</c:if>
-	<c:if test="${item.from_member_idx ne member.member_idx}">
-		<c:if test="${item.message_send_person eq member.member_level}">
-			<table class="table" style="border: none; margin-top:30px; text-align:left;">
-			
-				<!-- 보낸사람 & 시각  -->
-			    <tr>
-			    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-			    	<td width="300px">
-				    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
-				    		${ item.message_content }
-				    	</div>
-			    	</td>
-			    </tr>
-				<!-- 메세지 내용 -->
-			    <tr>
-			      	<th>
-	                   </th>
-	                   <td style="text-align:right;">
-						<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-				    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-			    	</td>
-			    </tr>
-		    </table>
-		</c:if>
-		<c:if test="${item.message_send_person ne member.member_level}">
-		    <table class="table" style="border: none; margin-top:30px; text-align:left;">
-			    <!-- 보낸사람 & 시각  -->
-			    <tr>
-			    	<th width="130px"></th>
-			    	<td width="300px">
-				    	<div style="background-color: #f5f5f5; border-radius: 20px; padding:10px" >
-				    		${ item.message_content }
-				    	</div>
-			    	</td>
-			    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-			    	
-			    </tr>
-				<!-- 메세지 내용 -->
-			    <tr>
-			    	<td></td>	
-	                   <td style="text-align:right;">
-						<fmt:parseDate var="time" value="${item.message_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-				    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-			    	</td>
-			    	<th>
-	                   </th>
-			    </tr>
-			</table>
-		</c:if>
-	</c:if>
-	</c:if>
-				
+	   		</c:if>
+	   		
 		  	</c:forEach>
 		</c:if>
 	<footer></footer>
@@ -295,9 +132,11 @@ $("window").load(scrollDown);
 <div class="row sticky">
 
 <form id="messageFrm" action="sendMessage.do" method="post">
-	<input type="hidden" name="seller" value="${ param.seller }"/>
-	<input type="hidden" name="consumer" value="${ param.consumer }"/>
+	<!-- funding_idx를 가지고 보낼 사람의 member_idx를 찾아야함 -->
 	<input type="hidden" name="funding_idx" value="${ param.funding_idx }"/>
+	<!-- 메세지 사이즈가 0인경우 message_idx만드는 작업을 해야함 insert -->
+	<input type="hidden" name="countMessages" value="${ messages.size() }"/>
+	
 	<table>
 		<tr>
 			<td><img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;"></td>

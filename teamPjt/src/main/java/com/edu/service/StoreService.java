@@ -32,6 +32,9 @@ public interface StoreService {
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception;
 	// 스토어 리뷰 사진만 가져오기
 	List<StoreReviewVO> storeReviewPhoto(StoreReviewVO vo) throws Exception;
+	// 리뷰 수정에 리뷰 가져가기
+	public StoreReviewVO getReview(int store_idx, int member_idx, int store_order_idx);
+	
 	// 스토어 별점 평균
 	public Double starAvg(StoreReviewVO vo) throws Exception;
 	// 스토어 별점 별 카운트
@@ -43,6 +46,12 @@ public interface StoreService {
 	// 스토어 별점 별 카운트 끝
 	// 스토어 리뷰 작성
 	public int storeReviewWrite(StoreReviewVO vo) throws Exception;
+	// 스토어 리뷰 수정
+	public int storeReviewModify(StoreReviewVO vo) throws Exception;
+	// 스토어 리뷰 삭제
+	public void storeReviewDelete(StoreReviewVO vo);
+	// 스토어 리뷰 관리자 삭제
+	public void storeReviewAdminDelete(StoreReviewVO vo);
 	//찜 select
 	List<ZzimVO> selectZzimStore(Map<String, Object> paramMap);
 	//찜 delete
