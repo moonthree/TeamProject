@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
+import com.edu.service.PaymentService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingCommunityVO;
@@ -52,6 +53,9 @@ public class MypageController {
 	
 	@Autowired 
 	private fundingMainService fundingMainServiece;
+	
+	@Autowired
+	private PaymentService paymentService;
 	
 	//mesage
 	@RequestMapping(value = "/message.do")
@@ -542,9 +546,18 @@ public class MypageController {
 	}
 	//구매 취소
 	@RequestMapping(value = "/storeWithdraw.do", method = RequestMethod.POST)
-	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, HttpServletRequest request) {
+	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, 
+			@RequestParam("imp_uid") String imp_uid, @RequestParam("amount") int amount,
+			HttpServletRequest request) throws IOException {
 		int result = mypageService.storeWithdraw(store_order_idx);
 		if(result > 0 ) {
+			String token = paymentService.getToken();
+//			System.out.println("토큰 : " + token);
+			String reason = "결제 환불 이유";
+//			System.out.println(imp_uid);
+//			System.out.println(amount);
+			paymentService.paymentCancel(token, imp_uid, amount, reason);
+			
 			System.out.println("구매 취소 성공");
 			//이젠 페이지로 돌아간다
 			model.addAttribute("msg", "구매가 취소되었습니다");

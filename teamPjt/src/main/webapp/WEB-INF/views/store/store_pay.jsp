@@ -61,6 +61,7 @@
         <input type="hidden" name="member_idx" value="${member.member_idx}">
         <input type="hidden" name="select" value="${param.select}">
         <input type="hidden" name="store_idx" value="${param.store_idx }">
+        <input type="hidden" name="store_order_pay_imp_uid" value="">
         <input type="hidden" name="store_order_pay_card_name" value="">
         <input type="hidden" name="store_order_pay_card_number" value="">
         <input type="hidden" name="store_order_pay_amount" value="">
@@ -525,68 +526,101 @@
                         	$('input[name=store_express_addr2_1]').focus();
                         }, 0);
                         return false;
+                      } else {
+                    	// 전부 동의했을 경우 결제 진행
+                        	var IMP = window.IMP;
+                    		IMP.init('imp86698144'); // iamport 식별코드
+                    		IMP.request_pay({
+                    			pg: 'html5_inicis',
+                    			/*
+                    				'kakao':카카오페이,
+                    				'html5_inicis':이니시스(웹표준결제)
+                    				'nice':나이스페이
+                    				'jtnet':제이티넷
+                    				'uplus':LG유플러스
+                    				'danal':다날
+                    				'payco':페이코
+                    				'syrup':시럽페이
+                    				'paypal':페이팔
+                    			*/
+                    			pay_method: 'card',
+                    			/*
+                    				'samsung':삼성페이,
+                    				'card':신용카드,
+                    				'trans':실시간계좌이체,
+                    				'vbank':가상계좌,
+                    				'phone':휴대폰소액결제
+                    			*/
+                    			merchant_uid: 'merchant_' + new Date().getTime(),
+                    			name: '${param.store_title}', //결제창에서 보여질 이름
+                    			
+                    			// 가격은 1000원으로 설정
+                    			amount: 1000,
+//                     			amount: '${param.total_price+param.express_fee}',
+                    			buyer_email: '${member.member_email}',
+                    			buyer_name: '${member.member_name}',
+                    			buyer_tel: '${member_member_phone}',
+                    			buyer_addr: '${member.member_addr} ${member.member_addr2}',
+                    			buyer_postcode: '${member.member_postnum}',
+                    			}, function (rsp) {
+                    				console.log(rsp);
+//                     					msg += '고유ID : ' + rsp.imp_uid;
+//                     					msg += '상점 거래ID : ' + rsp.merchant_uid;
+//                     					msg += '결제 금액 : ' + rsp.paid_amount;
+//                     					msg += '카드 승인번호 : ' + rsp.apply_num;
+
+                   						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+                   		                // 결제내역을 사용자에게 보여주기 위해 필요함.
+                 		        	$.ajax({
+                						url : "verifyIamport/"+rsp.imp_uid,
+                						type : "post",
+                 					}).done(function(data){
+              							console.log(data);
+              						// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+              					        if(rsp.paid_amount == data.response.amount){
+              						       	$('input[name=store_order_pay_imp_uid]').attr('value',data.response.impUid);
+              						       	$('input[name=store_order_pay_card_name]').attr('value',data.response.cardName);
+              						       	$('input[name=store_order_pay_card_number]').attr('value',data.response.cardNumber);
+              						       	$('input[name=store_order_pay_amount]').attr('value',data.response.amount);
+                  							$('#paymentForm').submit();
+              					        } else {
+              					        	alert("결제 실패");
+              					       	}
+                 					});
+                    		});
                       }
                 }else{
-                	// 전부 동의했을 경우 결제 진행
-                	var IMP = window.IMP;
-            		IMP.init('imp86698144'); // iamport 식별코드
-            		IMP.request_pay({
-            			pg: 'html5_inicis',
-            			/*
-            				'kakao':카카오페이,
-            				'html5_inicis':이니시스(웹표준결제)
-            				'nice':나이스페이
-            				'jtnet':제이티넷
-            				'uplus':LG유플러스
-            				'danal':다날
-            				'payco':페이코
-            				'syrup':시럽페이
-            				'paypal':페이팔
-            			*/
-            			pay_method: 'card',
-            			/*
-            				'samsung':삼성페이,
-            				'card':신용카드,
-            				'trans':실시간계좌이체,
-            				'vbank':가상계좌,
-            				'phone':휴대폰소액결제
-            			*/
-            			merchant_uid: 'merchant_' + new Date().getTime(),
-            			name: '${param.store_title}', //결제창에서 보여질 이름
-            			
-            			// 가격은 1000원으로 설정
-            			amount: 1000,
-//             			amount: '${param.total_price+param.express_fee}',
-            			buyer_email: '${member.member_email}',
-            			buyer_name: '${member.member_name}',
-            			buyer_tel: '${member_member_phone}',
-            			buyer_addr: '${member.member_addr} ${member.member_addr2}',
-            			buyer_postcode: '${member.member_postnum}',
-            			}, function (rsp) {
-            				console.log(rsp);
-//             					msg += '고유ID : ' + rsp.imp_uid;
-//             					msg += '상점 거래ID : ' + rsp.merchant_uid;
-//             					msg += '결제 금액 : ' + rsp.paid_amount;
-//             					msg += '카드 승인번호 : ' + rsp.apply_num;
-
-           						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-           		                // 결제내역을 사용자에게 보여주기 위해 필요함.
-         		        	$.ajax({
-        						url : "verifyIamport/"+rsp.imp_uid,
-        						type : "post",
-         					}).done(function(data){
-     							console.log(data);
-     						// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
-     					        if(rsp.paid_amount == data.response.amount){
-     						       	$('input[name=store_order_pay_card_name]').attr('value',data.response.cardName);
-     						       	$('input[name=store_order_pay_card_number]').attr('value',data.response.cardNumber);
-     						       	$('input[name=store_order_pay_amount]').attr('value',data.response.amount);
-          							$('#paymentForm').submit();
-     					        } else {
-     					        	alert("결제 실패");
-     					       	}
-         					});
-            		});
+                  	var IMP = window.IMP;
+              		IMP.init('imp86698144'); // iamport 식별코드
+              		IMP.request_pay({
+              			pg: 'html5_inicis',
+              			pay_method: 'card',
+              			merchant_uid: 'merchant_' + new Date().getTime(),
+              			name: '${param.store_title}', //결제창에서 보여질 이름
+              			amount: 1000,
+              			buyer_email: '${member.member_email}',
+              			buyer_name: '${member.member_name}',
+              			buyer_tel: '${member_member_phone}',
+              			buyer_addr: '${member.member_addr} ${member.member_addr2}',
+              			buyer_postcode: '${member.member_postnum}',
+              			}, function (rsp) {
+              				console.log(rsp);
+           		        	$.ajax({
+          						url : "verifyIamport/"+rsp.imp_uid,
+          						type : "post",
+           					}).done(function(data){
+        							console.log(data);
+        					        if(rsp.paid_amount == data.response.amount){
+        						       	$('input[name=store_order_pay_imp_uid]').attr('value',data.response.impUid);
+        						       	$('input[name=store_order_pay_card_name]').attr('value',data.response.cardName);
+        						       	$('input[name=store_order_pay_card_number]').attr('value',data.response.cardNumber);
+        						       	$('input[name=store_order_pay_amount]').attr('value',data.response.amount);
+            							$('#paymentForm').submit();
+        					        } else {
+        					        	alert("결제 실패");
+        					       	}
+           					});
+              		});
                 }
             	
         	}

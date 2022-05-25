@@ -422,7 +422,8 @@
 				store_order_idx,
 				store_order_pay_card_name, 
 				store_order_pay_card_number,
-				store_order_pay_amount
+				store_order_pay_amount,
+				store_order_pay_imp_uid
 		FROM    store_order_pay
 		WHERE	store_order_idx = #{store_order_idx}
 	</select>
@@ -480,17 +481,20 @@
 		FROM   store_order so, store_express se
 		WHERE  store_idx = #{store_idx}
 		AND    so.store_order_idx = se.store_order_idx
+		ORDER BY so.store_order_idx DESC
 	</select>
-	<!-- 구매 취소 -->
+	<!-- 구매 취소 / 배송 상태 2로 변경 -->
 	<update id="storeWithdraw" parameterType="int">
-		UPDATE 	store_order 
-		SET		store_order_pay_state = 1
-		WHERE 	store_order_idx = #{ store_order_idx }
+		UPDATE store_order so, store_express se
+		SET    so.store_order_pay_state = 1
+			 , se.store_express_state = 2
+		WHERE  so.store_order_idx = #{store_order_idx} 
+		AND    se.store_order_idx = so.store_order_idx;
 	</update>
 	
 	
 	<!-- 배송 상태 변경 -->
-	<update id="update_Express">
+	<update id="update_Express" parameterType="int">
 		UPDATE store_express
 		SET	   store_express_state = 1
 		WHERE  store_order_idx = #{store_order_idx}

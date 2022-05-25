@@ -72,10 +72,13 @@
 	                            	<c:if test="${admin.store_express_state eq 1}">
 	                            		배송 시작
 	                            	</c:if>
+	                            	<c:if test="${admin.store_express_state eq 2}">
+	                            		취소
+	                            	</c:if>
 	                            </td>
 	                            <td>
 	                            	<c:if test="${admin.store_express_state eq 0}">
-		                            	<button type="button" onclick="updateExpress(this)" class="btn btn-outline-info">배송 시작</button>
+		                            	<button type="button" onclick="updateExpress(this)" class="btn btn-outline-info" style="font-size: 15px;">배송 시작</button>
 	                            	</c:if>
 	                            	<c:if test="${admin.store_express_state eq 1}">
 	                            		발송 완료
@@ -101,7 +104,6 @@
 			type:"post",
 			data:"store_order_idx="+store_order_idx,
 			success:function(result){
-				
 				if(result == 0){
 					alert("발송 처리 실패");
 				}else{

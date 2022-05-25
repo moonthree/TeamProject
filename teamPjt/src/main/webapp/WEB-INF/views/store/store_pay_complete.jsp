@@ -15,7 +15,7 @@
 	<c:import url="/header.do"></c:import>
     <main>
     <!-- 펀딩 제목  -->
-	<div><h3>${info.store_title}</h3></div>
+<%-- 	<div><h3>${info.store_title}</h3></div> --%>
     <div class="container" style="margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
@@ -26,10 +26,10 @@
 					    <th scope="row">상품명</th>
 					    <td>${info.store_title}</td>
 					  </tr>
-					  <tr>
-					    <th scope="row">배송 예정일</th>
-					    <td><div id="express_date" style="display: inline;">배송 날짜</div></td>
-					  </tr>
+<!-- 					  <tr> -->
+<!-- 					    <th scope="row">배송 예정일</th> -->
+<!-- 					    <td><div id="express_date" style="display: inline;">배송 날짜</div></td> -->
+<!-- 					  </tr> -->
 					  <tr>
 					    <td colspan="2" style="border-bottom: none; color: gray;">
 					    	* 주문하신 상품의 주문이 완료되었습니다.<br>
@@ -85,66 +85,42 @@
                 
             <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
-                <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">취향 맞춤 스토어 프로젝트</div>
-                <article>
+                <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">스토어 추천 제품</div>
                 <div class="row">
-                  <div class="col-lg-4 col-md-12">
-                      <div class="card">
-                      <img  style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAzMjNfMjYg%2FMDAxNjQ4MDI1NzI3ODUx.vzt2n8yQnjwEGoaBwNh5w-sWSoLsYNzKKe2PPUwHnG8g.4NpNElrFsZl3YMKWdwj94k8amFqu0B-D6XSfMJhaEZcg.JPEG.bryam%2F1_%25283%2529.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDEwMTZfMTky%2FMDAxNjAyODE3ODE5NDAw.lRnreU9Br7iCfOLs_Y7MG5dKCk0EaF-b-zQW6COrlWgg.fl-h-0x7OyDK2VX83_AqxZGhqSsgJrZCW9mM-UPsgfkg.JPEG.luckystar_00%2F%25BA%25B0%25BB%25E7%25C1%25F8%25B0%25FC_%25B9%25DD%25B7%25C1%25B5%25BF%25B9%25B01.jpg&type=sc960_832" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150715_105%2Fcodn9_1436957170912RkyPh_JPEG%2Fhttps3A2F2F41.media.tumblr.com2Fd3b5a3b8793fe1111ce4a544299fb3bb2Ftumblr_ne.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card">
-                      <img  style="height: 200px; width: auto;" src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff4%2F9c%2F7c%2Ff49c7ced21fad4c5a70ac61940c4a435.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card" >
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA3MDhfMTAg%2FMDAxNjI1NzEwMDg0ODg4.aL9dS24RZ4Sp468CjTNI50iGF4vRlF_3xAraXo3OCVog.KA7XiKJw4wu11PlLNjX-pkK5Nz6iccYwsAy9PUqFnJMg.JPEG.lsb1933%2FIMG_8113.JPG&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                    <div class="col-lg-4 col-md-12">
-                     <div class="card" >
-                      <img style="height: 200px; width: auto;" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAzMjNfMjYg%2FMDAxNjQ4MDI1NzI3ODUx.vzt2n8yQnjwEGoaBwNh5w-sWSoLsYNzKKe2PPUwHnG8g.4NpNElrFsZl3YMKWdwj94k8amFqu0B-D6XSfMJhaEZcg.JPEG.bryam%2F1_%25283%2529.jpg&type=a340" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">[wa배송] 카드 잃어버릴 걱정 끝! 소매에 주머니 달린 I TTC멘투맨</p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  </article>
+                	<div class="row">
+               	   	<c:forEach var="item" items="${storeHomeFund}">
+	                   <div class="col-lg-2 col-sm-4 col-6">
+	                       <div class="card section03_card">
+	                           <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
+		                            <img src="resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
+		                       </a>
+	                           <div class="card-body">
+	                               <p class="card-text section03_title">
+	                               		<a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
+	                               			${item.store_title }
+	                               		</a>
+	                               </p>
+	                               <p class="card_store_text02">
+	                                   <fmt:formatNumber value="${item.store_price }" type="number" /><span class="won">원</span>
+	                                   &nbsp;<span>|</span>&nbsp;
+	                                   <span>
+	                                   		<c:if test="${item.store_category eq 0}">
+				                        		강아지
+				                        	</c:if>
+				                        	<c:if test="${item.store_category eq 1}">
+				                        		고양이
+				                        	</c:if>
+				                        	<c:if test="${item.store_category eq 2}">
+				                        		반려동물
+				                        	</c:if>
+	                                   </span>
+	                               </p>
+	                           </div>
+	                       </div>
+	                   </div>
+               	   	</c:forEach>
+               	</div>
+                </div>
             </div>
         </div>
     </main>

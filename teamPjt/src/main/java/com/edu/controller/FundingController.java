@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.edu.service.HomeService;
 import com.edu.service.MypageService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FundingCommunityVO;
@@ -50,7 +51,10 @@ public class FundingController {
 	private fundingMainService fms;
 
 	@Autowired
-	private MypageService mypageService ;
+	private MypageService mypageService;
+	
+	@Autowired
+	private HomeService hs;
 	
 	// 펀딩 메인페이지
 	@RequestMapping(value = "/main.do")
@@ -560,6 +564,20 @@ public class FundingController {
 		//펀딩리스트
 		List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(login.getMember_idx());
 		model.addAttribute("myFundingList",mfl);
+		ArrayList<FundingMainVO> fundHomeAll = null;
+		ArrayList<FundingMainVO> fundHomeDog = null;
+		ArrayList<FundingMainVO> fundHomeCat = null;
+		ArrayList<FundingMainVO> fundHomeOther = null;
+		
+		fundHomeAll = (ArrayList<FundingMainVO>) hs.fundHomeAll(mainvo);
+		fundHomeDog = (ArrayList<FundingMainVO>) hs.fundHomeDog(mainvo);
+		fundHomeCat = (ArrayList<FundingMainVO>) hs.fundHomeCat(mainvo);
+		fundHomeOther = (ArrayList<FundingMainVO>) hs.fundHomeOther(mainvo);
+		
+		request.setAttribute("fundHomeAll", fundHomeAll);
+		request.setAttribute("fundHomeDog", fundHomeDog);
+		request.setAttribute("fundHomeCat", fundHomeCat);
+		request.setAttribute("fundHomeOther", fundHomeOther);
 		
 		return "funding/reserve_complete";
 	}

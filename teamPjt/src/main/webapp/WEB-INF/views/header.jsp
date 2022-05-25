@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="true" %>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- 로고 -->
                 <a class="navbar-brand" href="<%=request.getContextPath()%>/index.do">
-                    <img src="<%=request.getContextPath()%>/resources/image/111.png" style="width: 120px; height: 60px; padding: 5px;">
+                    <img src="<%=request.getContextPath()%>/resources/image/111.png" style="width: 90px; height: 70px;">
                 </a>
                 <div class="space"></div>
                 <!-- 로그인 전 -->
@@ -109,25 +110,27 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- 펀딩 스토어 기획전 더보기 -->
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto" id="nav-1">
+        			<li class="slide"></li>
+        			<li class="nav-item"></li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/funding/main.do">펀딩</a>
+                        <a class="navtext a_slide" href="<%=request.getContextPath()%>/funding/main.do">펀딩</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/store/store_main.do">스토어</a>
+                        <a class="navtext a_slide" href="<%=request.getContextPath()%>/store/store_main.do">스토어</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/event/event_main.do">기획전</a>
+                        <a class="navtext a_slide" href="<%=request.getContextPath()%>/event/event_main.do">기획전</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navtext" href="<%=request.getContextPath()%>/mypage/mypage.do">1</a>
+                        <a class="navtext a_slide" href="<%=request.getContextPath()%>/mypage/mypage.do">1</a>
                     </li>
                    
                     <li class="nav-item dropdown">
                        <div class="more">
                             <a class="navtext dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-expanded="false">더보기</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute;">
                                 <a class="dropdown-item" href="<%=request.getContextPath()%>/notice/notice_list.do">공지사항</a>
                                 <a class="dropdown-item" href="#">소개</a>
                                 <a class="dropdown-item" href="#">고객센터</a>
@@ -240,7 +243,23 @@
         $('#searchBtn').click(function() {
           window.location.href = "<%=request.getContextPath()%>/searchList.do?keyword=" + encodeURIComponent($('#keywordInput').val());
         });
-      });   
+      });
+      
+
+    	$(".a_slide").on("mouseover", function() {
+    	  var position = $(this)
+    	    .parent().position();
+    	  var width = $(this)
+    	    .parent().width();
+    	  $("#nav-1 .slide").css({ 
+    	    opacity: 1, left: +position.left, width: width+20 })
+    	    .addClass("squeeze");
+    	});
+
+    	$(".a_slide").on("mouseout", function() {
+    	  $("#nav-1 .slide").css({ opacity: 0 }).removeClass("squeeze");
+    	});
+
 </script>
 </body>
 </html>
