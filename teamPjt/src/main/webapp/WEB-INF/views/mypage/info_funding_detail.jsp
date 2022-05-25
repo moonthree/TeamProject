@@ -144,7 +144,7 @@ $(function(){
     <div class="row" style="margin-top:10px"> 
         <div class="col-sm-9"></div>
         <div class="col-sm-3">
-        <button type="button" class="btn btn-dark" style="width: 100%; height:50px; " onclick="window.open('note.do?seller=${detail.member_idx}&consumer=${member.member_idx}&funding_idx=${detail.funding_idx }','PopupWin', 'width=500,height=700');" >판매자에게 문의하기</button>
+        <button type="button" class="btn btn-dark" style="width: 100%; height:50px; " onclick="window.open('note.do?funding_idx=${detail.funding_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자에게 문의하기</button>
         </div>		
     </div>
 		

@@ -68,35 +68,7 @@
 		GROUP by msd.from_member_idx
 	</select>
 	
-	<select id="message_dialogue" parameterType="java.util.HashMap" resultType="MessageVO">
-		select msd.*
-		  from (select 	m.member_idx,
-						m.member_name,
-						m.member_photo,
-						ms.message_idx,
-						ms.from_member_idx,
-						ms.to_member_idx,
-						ms.funding_idx,
-						ms.message_content,
-						ms.message_photo,
-						ms.message_state,
-						ms.message_send_person,
-						ms.message_date
-				from message ms, member m 
-		       <if test="member_level == 0">
-		       WHERE ms.from_member_idx = m.member_idx
-			     AND ms.to_member_idx= #{ to_member_idx }
-			   </if>
-			   <if test="member_level == 1">
-			   WHERE ms.to_member_idx = m.member_idx
-			     AND ms.from_member_idx= #{ to_member_idx }
-			   </if>
-			   order by ms.message_date desc  
-			   LIMIT 18446744073709551615) msd 
-		group by msd.from_member_idx;
-	</select>
-	
-	<select id="message_dialogue_detail" parameterType="java.util.HashMap" resultType="MessageVO">
+	<select id="getMessageDialogue" parameterType="java.util.HashMap" resultType="MessageVO">
 		select 	m.member_idx,
 				m.member_name,
 				m.member_photo,
@@ -109,16 +81,68 @@
 				ms.message_state,
 				ms.message_send_person,
 				ms.message_date
-		FROM    message ms, member m
-		<if test="member_level == 0">
-		WHERE	ms.from_member_idx = m.member_idx
-		</if>
-		<if test="member_level == 1">
-		WHERE	ms.to_member_idx = m.member_idx
-		</if>
-		AND 	to_member_idx= #{ to_member_idx }
-		AND 	from_member_idx= #{ from_member_idx }
-		ORDER BY message_date
+		FROM 	message ms, member m 
+		WHERE 	ms.from_member_idx = m.member_idx
+		AND 	ms.to_member_idx=#{to_member_idx}
+		AND 	ms.from_member_idx=#{from_member_idx}
+		ORDER BY ms.message_date desc limit 1
+	</select>
+	
+	<select id="message_dialogue" parameterType="int" resultType="MessageVO">
+		SELECT 	msd.*
+		FROM	(SELECT ms.funding_idx,
+		  		  		m.member_idx,
+						m.member_name,
+						m.member_photo, 
+						mn.message_note_idx,
+						mn.message_idx,
+						mn.from_member_idx,
+						mn.to_member_idx,
+						mn.message_content,
+						mn.message_photo,
+						mn.c_or_p,
+						mn.message_note_date 
+				FROM 	message_note mn, member m, message ms
+						where m.member_idx = mn.from_member_idx 
+						and ms.message_idx = mn.message_idx
+						and mn.to_member_idx = #{member_idx}
+						order by mn.message_note_date desc
+				LIMIT 	18446744073709551615) msd
+				GROUP BY msd.from_member_idx
+	</select>
+	
+	<select id="message_dialogue_detail" parameterType="java.util.HashMap" resultType="MessageVO">
+		SELECT 	ms.funding_idx,
+			  	m.member_idx,
+				m.member_name,
+				m.member_photo, 
+				mn.message_note_idx,
+				mn.message_idx,
+				mn.from_member_idx,
+				mn.to_member_idx,
+				mn.message_content,
+				mn.message_photo,
+				mn.c_or_p,
+				mn.message_note_date 
+		FROM 	message_note mn, member m, message ms
+		WHERE 	m.member_idx = mn.from_member_idx 
+		AND 	mn.message_idx = ms.message_idx
+		AND		ms.message_idx = mn.message_idx
+		AND		mn.to_member_idx = #{to_member_idx}
+		AND 	ms.funding_idx = #{funding_idx}
+		ORDER BY mn.message_note_date
+	</select>
+	<select id="message_dialogue_detail2" parameterType="int" resultType="MessageVO">
+		select 	mn.message_note_idx,
+				mn.message_idx,
+				mn.from_member_idx,
+				mn.to_member_idx,
+				mn.message_content,
+				mn.message_photo,
+				mn.c_or_p,
+				mn.message_note_date
+		from message_note mn
+		where mn.message_idx=#{message_idx}
 	</select>
 	
 	<insert id="sendMessage" parameterType="java.util.HashMap">
@@ -141,5 +165,23 @@
 				,
 				1)
 	</insert>
-
+	
+	<select id="findMessageIdx" parameterType="int" resultType="int">
+		SELECT 	ifnull(mn.message_idx,0)
+		FROM 	message_note mn, message ms
+		WHERE	mn.message_idx = ms.message_idx
+		AND		mn.from_member_idx = #{from_member_idx}
+		AND 	ms.funding_idx = #{funding_idx}
+	</select>
+	
+	<insert id="insertMessageIdx" parameterType="int">
+		insert into message(message_idx,
+							funding_idx,
+							f_or_s,
+							message_category)
+		values(default,
+				#{funding_idx},
+				'f',
+				0)
+	</insert>
 </mapper>

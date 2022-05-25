@@ -276,13 +276,13 @@
 	                            </div>
 	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px; cursor:pointer;" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'">${ item.store_title }</h5>
 	                            
-	                            <p class="card-text" >
+	                            <p class="card-text">
 	                              <div class="row">
 	                                <div class="col">by. ${ item.member_name }</div>
 	                                <div></div>
 	                              </div>               
 	                            </p>
-	                            <div class="row" style=" position: absolute; bottom: 10px; right:65px">
+	                            <div class="row" style=" position: absolute; bottom: 10px; right:65px; text-align:right;">
                                 	<c:choose>
 						       			<c:when test="${ item.store_order_pay_state eq 0 }">
 											${ item.store_order_total_price }원 결제<br>
