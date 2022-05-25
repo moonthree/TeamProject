@@ -5,10 +5,12 @@ public class StoreReviewVO {
 	private int store_review_idx;
 	private int store_idx;
 	private int member_idx;
+	private int store_order_idx;
 	private int store_review_star;
 	private int store_review_like;
 	private String store_review_content;
 	private String store_review_regdate;
+	private String store_review_option;
 	private String store_review_photo1;
 	private String store_review_photo2;
 	private String store_review_photo3;
@@ -188,6 +190,18 @@ public class StoreReviewVO {
 				+ ", store_review_photo1=" + store_review_photo1 + ", store_review_photo2=" + store_review_photo2
 				+ ", store_review_photo3=" + store_review_photo3 + ", store_review_photo4=" + store_review_photo4
 				+ ", store_review_photo5=" + store_review_photo5 + "]";
+	}
+	public String getStore_review_option() {
+		return store_review_option;
+	}
+	public void setStore_review_option(String store_review_option) {
+		this.store_review_option = store_review_option;
+	}
+	public int getStore_order_idx() {
+		return store_order_idx;
+	}
+	public void setStore_order_idx(int store_order_idx) {
+		this.store_order_idx = store_order_idx;
 	}
 	
 	

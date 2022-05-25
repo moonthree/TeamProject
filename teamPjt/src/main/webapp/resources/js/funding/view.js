@@ -75,7 +75,8 @@ var zzimBtn = $("#zzimBtn");
 		var objParams = {
 			member_idx : $(this).data('id'),
 			funding_idx : $(this).data('id2'),
-			store_idx : 0
+			store_idx : 0,
+			zzim_category : 0
 		};
 		$.ajax({
 			url : "insertZzim",

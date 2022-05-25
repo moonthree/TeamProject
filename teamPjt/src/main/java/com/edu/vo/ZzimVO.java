@@ -6,6 +6,8 @@ public class ZzimVO {
 	private int member_idx;
 	private int funding_idx;
 	private int store_idx;
+	private int zzim_category;
+	
 	public int getZzim_idx() {
 		return zzim_idx;
 	}
@@ -34,6 +36,12 @@ public class ZzimVO {
 	public String toString() {
 		return "ZzimVO [zzim_idx=" + zzim_idx + ", member_idx=" + member_idx + ", funding_idx=" + funding_idx
 				+ ", store_idx=" + store_idx + "]";
+	}
+	public int getZzim_category() {
+		return zzim_category;
+	}
+	public void setZzim_category(int zzim_category) {
+		this.zzim_category = zzim_category;
 	}
 	
 	

@@ -1,0 +1,226 @@
+@charset "UTF-8";
+
+.wrapper{
+    min-width: 1200px;
+    padding-top: 100px;
+}
+/*
+옆에 내 정보 관련 부분
+01. my_top : 이미지, 닉네임
+02. my_middle : 쇼핑MY
+03. my_bottom : 고객센터, 공지사항
+*/ 
+.middlebar{
+    color: #eff0f2;
+}
+
+/* 01 my_top 시작*/
+.my_top{
+    text-align: center;
+    background-color: #525f78;
+    padding: 10px 0px 20px 0px;
+    border-radius: 20px;
+}
+.my_top > img{
+    margin: 20px 0px 20px 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.my_top > p{
+    color: #afb3ba;
+}
+/*my_top 끝*/
+
+/* 02 my_middle 시작*/
+.my_middle{
+    padding: 20px;
+    background-color: #e1e7ee;
+    border-radius: 20px;
+}
+.my_middle > h5{
+    font-weight: bold;
+}
+.my_middle > a > span {
+    float: right;
+}
+/*my_middle 끝*/
+
+/* 03 my_bottom 시작*/
+.my_bottom{
+    background-color: #f3f4f7;
+    padding: 20px 10px 10px 15px;
+    height: 52%;
+    border-radius: 20px;
+}
+.my_bottom > a > div {
+    float: right;
+}
+/*my_bottom 끝*/
+/*옆에 내 정보 관련 부분 끝*/
+
+
+/*
+주문 상세정보 시작
+001 order_datail_place : 전체
+002 order_detail_top : 주문상세정보, 주문 일자, 주문 상품 정보 등등
+002-1 order_detail_num: 주문일자, 주문 번호
+002-2 order_datail_product : 주문한 상품 정보
+003 order_detail_middle : 주문/결제 금액 정보
+004 order_datail_bottom : 배송지 정보
+*/
+.order_detail_place{
+    padding-left: 20px;
+}
+/*002 order_detail_top 시작*/
+.order_detail_top{
+    margin-bottom: 30px;
+}
+.order_detail_top>h5 {
+    font-weight: bold;
+}
+    /*002-1 order_detail_num 시작*/
+    .order_detail_num{
+        border: 5px solid #eff0f2;
+        border-radius: 20px;
+        padding: 20px;
+    }
+    .order_detail_num > span{
+        font-weight: bold;
+    }
+    .order_detail_num > span.color{
+        color: #fa6462;
+    }
+    /*order_detail_num 끝*/
+    /*002-1 order_datail_product 시작*/
+    .order_datail_product{
+        margin-top: 20px;
+        border: 5px solid #eff0f2;
+        border-radius: 20px;
+    }
+    .odp_table{
+        border-radius: 20px;
+        border-collapse: collapse;
+        border-style: hidden;
+    }
+    .odp_tr1{
+        height: 50px;
+        border-radius: 20px;
+    }
+    .odp_tr2{
+        height: 150px;
+        border-radius: 20px;
+    }
+    td{
+        border-top: 1px solid dddde1;
+        border-bottom: 1px solid #dddde1;
+        text-align: center;
+        font-size: 13px;
+    }
+    .odp_td{
+        background-color: #feffe5;
+        border: 1px solid #dddde1;
+    }
+    .odp_td_top{
+        border-radius: 0px 20px 0px 0px;
+    }
+    .odp_td_bot{
+        border-radius: 0px 0px 20px 0px;
+    }
+    .odp_td > button{
+    	border: 1px solid #fa6462;
+    	border-radius : 20px;
+    	background-color: white;
+    	margin-bottom: 20px;
+    	padding: 5px;
+    }
+    .odp_td_bot > button{
+    	border: 1px solid #fa6462;
+    	border-radius : 20px;
+    	background-color: #fa6462;
+    	color: white;
+    	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    	margin-bottom: 10px;
+    	padding: 5px;
+    }
+    .odp_table_a > img{
+        width: 100px;
+        height: 100px;
+    }
+    .odp_sub{
+        color: #adb1b8;
+    }
+    /*order_datail_product 끝*/
+/*order_detail_top 끝*/
+
+/*order_detail_middle 시작*/
+.order_detail_middle{
+    margin-bottom: 25px;
+    
+}
+.order_detail_middle > h5{
+    font-weight: bold;
+}
+.odm_talbe_div{
+    border: 5px solid #eff0f2;
+    border-radius: 20px;
+}
+.odm_table{
+    border-radius: 20px;
+}
+.odm_table > tr{
+    border-radius: 20px;
+}
+.odm_td{
+    height: 100px;
+    text-align: left;
+    padding: 20px 10px 20px 10px;
+    border-right: 1px solid #dddde1;
+    vertical-align: top;
+}
+.odm_td_last{
+    background-color: #feffe5;
+    color: black;
+    border-radius: 0px 20px 20px 0px;
+    border: none;
+}
+.odm_td > span.bold{
+    font-weight: bold;
+}
+.odm_td_div > span{
+    float: right;
+}
+/*order_detail_middle 끝*/
+
+
+/*order_detail_bottom 시작*/
+.order_detail_bottom > h5{
+    font-weight: bold;
+}
+.odb_table_div{
+    border: 5px solid #eff0f2;
+    border-radius: 20px;
+}
+.odb_td{
+    border: none;
+    text-align: left;
+    padding: 10px;
+}
+.odb_td1{
+    background-color: #feffe5;
+}
+.odb_td_line{
+    border-left: 1px solid #f1f1f1;
+}
+.odb_td_line2{
+    border-left: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;;
+}
+.odb_td1_top{
+    border-radius: 20px 0px 0px 0px;
+}
+.odb_td1_bot{
+    border-radius: 0px 0px 0px 20px;
+}
+/*order_detail_bottom 끝*/
+/*주문 상세정보 끝*/

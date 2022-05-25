@@ -642,15 +642,17 @@ public class StoreController {
 	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)
 	public String fileUpload(StoreReviewVO vo, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
 		
-		System.out.println(store_idx);
-		System.out.println(member_idx);
-		System.out.println(store_review_star);
-		System.out.println(store_review_content);
+		/*
+		 * System.out.println(store_idx); System.out.println(member_idx);
+		 * System.out.println(store_review_star);
+		 * System.out.println(store_review_content);
+		 */
 		
 		//파일 업로드 시작
 		String strResult = "{ \"result\":\"FAIL\" }";
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
 		String fileRoot;
+		System.out.println("multipartFile :" +multipartFile);
 		try {
 			// 파일이 있을때 탄다.
 			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
@@ -731,6 +733,12 @@ public class StoreController {
 		Map<String, Object> selectThumbsUp = new HashMap<String, Object>();
 		List<StoreReviewVO> result = sts.selectThumbsUp(paramMap);		
 		return result;		
+	}
+	//스토어 리뷰 관리자 삭제
+	@RequestMapping(value ="/reviewAdminDel", method= RequestMethod.POST)
+	@ResponseBody
+	public void storeReviewAdminDelete(StoreReviewVO vo) throws Exception {
+		sts.storeReviewAdminDelete(vo);
 	}
 //리뷰 끝		
 
