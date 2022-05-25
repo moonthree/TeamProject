@@ -77,12 +77,11 @@ $("window").load(scrollDown);
 <div class="row">
 		 <c:if test="${messages.size()>0}">
 			<c:forEach var="item" items="${messages}">
-			
 			<!-- 왼쪽  -->
 			<c:if test="${ item.from_member_idx ne member.member_idx }">
 				<table class="table" style="border: none; margin-top:30px; text-align:left;">		
 					    <tr>
-					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
+					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
 					    	<td width="300px">
 						    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
 						    		${ item.message_content }
@@ -133,10 +132,11 @@ $("window").load(scrollDown);
 
 <form id="messageFrm" action="sendMessage.do" method="post">
 	<!-- funding_idx를 가지고 보낼 사람의 member_idx를 찾아야함 -->
-	<input type="hidden" name="funding_idx" value="${ param.funding_idx }"/>
+	<input type="text" name="funding_idx" value="${ param.funding_idx }"/>
 	<!-- 메세지 사이즈가 0인경우 message_idx만드는 작업을 해야함 insert -->
-	<input type="hidden" name="countMessages" value="${ messages.size() }"/>
-	
+	<input type="text" name="countMessages" value="${ messages.size() }"/>
+	<input type="text" name="message_idx" value="${param.message_idx }"/>
+	<input type="text" name="to_member_idx" value="${ messages[0].from_member_idx }"/>
 	<table>
 		<tr>
 			<td><img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;"></td>

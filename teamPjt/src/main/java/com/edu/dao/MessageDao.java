@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.MessageVO;
 
 
@@ -60,12 +61,22 @@ public class MessageDao {
 	public int findMessageIdx(Map<String, Object> param) {
 		return sqlSession.selectOne("MessageMapper.findMessageIdx", param);
 	}
+	//마지막 message_idx가져오기
+	public int getLastMessageIdx() {
+		return sqlSession.selectOne("MessageMapper.getLastMessageIdx");
+	}
 	
 	//message_idx만들기
 	public void insertMessageIdx(int funding_idx) {
 		sqlSession.insert("MessageMapper.insertMessageIdx",funding_idx);
 	}
 	
+	public int getFromMemberIdx(Map<String, Object> param) {
+		return sqlSession.selectOne("MessageMapper.getFromMemberIdx",param);
+	}
+	public MemberVO getPhotoName(int member_idx) {
+		return sqlSession.selectOne("MessageMapper.getPhotoName", member_idx);
+	}
 	
 	
 	
