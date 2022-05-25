@@ -51,7 +51,12 @@ public class MessageServiceImpl implements MessageService{
 	public void sendMessage(Map<String, Object> param) {
 		dao.sendMessage(param);
 	}
-
+	
+	//messageIdx개수 카운트
+	@Override
+	public int countMessageIdx(Map<String, Object> param) {
+		return dao.countMessageIdx(param);
+	}
 	//messageIdx찾기
 	@Override
 	public int findMessageIdx(Map<String, Object> param) {
@@ -85,6 +90,8 @@ public class MessageServiceImpl implements MessageService{
 	public MessageVO getMessageDialogue(Map<String, Object> paramMap) {
 		return dao.getMessageDialogue(paramMap);
 	}
+
+	
 
 	
 	
