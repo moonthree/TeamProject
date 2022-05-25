@@ -411,10 +411,14 @@
 				s.store_funding,
 				s.store_category,
 				s.store_views,
-				s.store_express_fee
-		FROM 	store_order so, store s 
+				s.store_express_fee,
+				m.member_idx,
+				m.member_name,
+				m.member_phone
+		FROM 	store_order so, store s, member m
 		WHERE 	so.store_order_idx = #{store_order_idx}
-		AND 	so.store_idx = s.store_idx;
+		AND 	so.store_idx = s.store_idx
+		AND     s.member_idx = m.member_idx;
 	</select>
 	<!-- store_order_pay -->
 	<select id="storePayDetail" parameterType="int" resultType="storeOrderPayVO">

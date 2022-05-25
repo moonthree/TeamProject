@@ -21,7 +21,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_permit_state=1
+		WHERE funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_current_price desc limit 0, 6;
 	</select>
 	<select id="fundHomeDog" parameterType="FundingMainVO" resultType="FundingMainVO">
@@ -39,7 +39,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_category = 0 AND funding_permit_state=1
+		WHERE funding_category = 0 AND funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_current_price desc limit 0, 6;
 	</select>
 	<select id="fundHomeCat" parameterType="FundingMainVO" resultType="FundingMainVO">
@@ -57,7 +57,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_category = 1 AND funding_permit_state=1
+		WHERE funding_category = 1 AND funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_current_price desc limit 0, 6;
 	</select>
 	<select id="fundHomeOther" parameterType="FundingMainVO" resultType="FundingMainVO">
@@ -75,7 +75,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_category = 2 AND funding_permit_state=1
+		WHERE funding_category = 2 AND funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_current_price desc limit 0, 6;
 	</select>
 <!-- 취향 맞춤 펀딩 프로젝트 용도 끝 -->
@@ -95,7 +95,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_permit_state=1
+		WHERE funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_idx desc limit 0, 6;
 	</select>
 <!-- 새로 오픈한 프로젝트 용도 끝-->
@@ -115,7 +115,7 @@
 			funding_category,
 			funding_views
 		FROM funding
-		WHERE funding_permit_state=1
+		WHERE funding_permit_state=1 AND funding_current_state = 0
 		ORDER BY funding_views desc limit 0, 5;
 	</select>
 	<select id="storeHomeView" parameterType="StoreVO" resultType="StoreVO">

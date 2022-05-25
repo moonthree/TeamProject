@@ -4,6 +4,7 @@ package com.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,9 +17,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
 import com.edu.service.PaymentService;
+import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingCommunityVO;
@@ -39,6 +43,8 @@ import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
 
@@ -50,6 +56,9 @@ public class MypageController {
 
 	@Autowired
 	private fundingMainService fms;
+	
+	@Autowired
+	private StoreService sts;
 	
 	@Autowired 
 	private fundingMainService fundingMainServiece;
@@ -350,14 +359,16 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/info_store_detail.do", method = RequestMethod.GET)
-	public String info_store_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("store_order_idx") int store_order_idx) {
+	public String info_store_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("store_order_idx") int store_order_idx, @RequestParam("store_idx") int store_idx) {
 		
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-		
+		int member_idx = member.getMember_idx();
+		System.out.println("member_idx :" + member_idx);
+		System.out.println("store_idx : " + store_idx);
 		System.out.println("콘트롤러로 가져온 store_ORDER_IDX : "+store_order_idx);
 		
 		//store_order_idx로 store_orderVO를 가져오기
@@ -371,6 +382,8 @@ public class MypageController {
 		
 		//store_order_option은 따로 리스트형식으로 가져오기 - vo두개로 나눌것 첫번쨰껀 store_optionVO 두번째껀 store_order_optionVO
 		model.addAttribute("option",mypageService.storeOptionDetail(store_order_idx));
+		
+		model.addAttribute("review", sts.getReview(store_idx, member_idx, store_order_idx));
 		
 		return "mypage/info_store_detail";
 	}
@@ -830,4 +843,148 @@ public class MypageController {
 		
 		return result;
 	}
+	
+	
+
+	// 스토어 리뷰 작성 05
+	@ResponseBody
+	@RequestMapping(value = "/file-upload", method = RequestMethod.POST)
+	public String fileUpload(StoreReviewVO vo, @RequestParam("store_order_idx") int store_order_idx, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_option") String store_review_option, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
+		
+		/*
+		 * System.out.println(store_idx); System.out.println(member_idx);
+		 * System.out.println(store_review_star);
+		 * System.out.println(store_review_content);
+		 */
+		
+		
+		
+		//파일 업로드 시작
+		String strResult = "{ \"result\":\"FAIL\" }";
+		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+		String fileRoot;
+		try {
+			// 파일이 있을때 탄다.
+			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+				int idx = 1;
+				for(MultipartFile file:multipartFile) {
+					fileRoot = contextRoot + "resources/upload/";
+					System.out.println(fileRoot);
+					
+					String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+					String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+					
+					
+					File targetFile = new File(fileRoot + savedFileName);	
+					try {
+						InputStream fileStream = file.getInputStream();
+						FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+						if(idx == 1) {
+							vo.setStore_review_photo1(savedFileName);
+						}else if(idx == 2) {
+							vo.setStore_review_photo2(savedFileName);
+						}else if(idx == 3) {
+							vo.setStore_review_photo3(savedFileName);
+						}else if(idx == 4) {
+							vo.setStore_review_photo4(savedFileName);
+						}else if(idx == 5) {
+							vo.setStore_review_photo5(savedFileName);
+						}
+						idx++;
+						
+						
+					} catch (Exception e) {
+						//파일삭제
+						FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
+						e.printStackTrace();
+						break;
+					}
+				}
+				strResult = "{ \"result\":\"OK\" }";
+			}
+			// 파일 아무것도 첨부 안했을때 탄다.(게시판일때, 업로드 없이 글을 등록하는경우)
+			else
+				strResult = "{ \"result\":\"OK\" }";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		sts.storeReviewWrite(vo);
+		return strResult;
+	}
+	// 스토어 리뷰 수정 05
+	@ResponseBody
+	@RequestMapping(value = "/modify_review", method = RequestMethod.POST)
+	public String modify_review(StoreReviewVO vo, @RequestParam("store_order_idx") int store_order_idx, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_option") String store_review_option, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file2") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
+		
+		/*
+		 * System.out.println(store_idx); System.out.println(member_idx);
+		 * System.out.println(store_review_star);
+		 * System.out.println(store_review_content);
+		 */
+		
+		System.out.println("multipartFile : " + multipartFile);
+		//파일 업로드 시작
+		String strResult = "{ \"result\":\"FAIL\" }";
+		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+		String fileRoot;
+		
+		System.out.println(vo.getStore_review_photo1());
+		try {
+			// 파일이 있을때 탄다.
+			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+				int idx = 1;
+				for(MultipartFile file:multipartFile) {
+					fileRoot = contextRoot + "resources/upload/";
+					System.out.println(fileRoot);
+					
+					String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+					String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+					
+					
+					File targetFile = new File(fileRoot + savedFileName);	
+					try {
+						InputStream fileStream = file.getInputStream();
+						FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
+						if(idx == 1) {
+							System.out.println("savedFileName1 : " + savedFileName);
+							vo.setStore_review_photo1(savedFileName);
+						}else if(idx == 2) {
+							vo.setStore_review_photo2(savedFileName);
+						}else if(idx == 3) {
+							vo.setStore_review_photo3(savedFileName);
+						}else if(idx == 4) {
+							vo.setStore_review_photo4(savedFileName);
+						}else if(idx == 5) {
+							vo.setStore_review_photo5(savedFileName);
+						}
+						idx++;
+						
+						
+					} catch (Exception e) {
+						//파일삭제
+						FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
+						e.printStackTrace();
+						break;
+					}
+				}
+				strResult = "{ \"result\":\"OK\" }";
+			}
+			// 파일 아무것도 첨부 안했을때 탄다.(게시판일때, 업로드 없이 글을 등록하는경우)
+			else
+				strResult = "{ \"result\":\"OK\" }";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		sts.storeReviewModify(vo);
+		return strResult;
+	}
+	//스토어 리뷰 삭제
+	@RequestMapping(value ="/reviewDel", method= RequestMethod.POST)
+	@ResponseBody
+	public void reviewDel(StoreReviewVO vo) throws Exception {
+		sts.storeReviewDelete(vo);
+	}
+	
 }

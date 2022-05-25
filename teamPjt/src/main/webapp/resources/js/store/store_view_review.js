@@ -2,24 +2,32 @@
  * 
  */
  
-/*리뷰 등록 별점 클릭시 이벤트sssssss*/
-$('input[type=radio][name=store_review_star]').change(function() {
-    if (this.value == '5') {
-        $("#myformSpan").text("최고");;
-    }
-    else if (this.value == '4') {
-        $("#myformSpan").text("좋음");;
-    }
-    else if (this.value == '3') {
-        $("#myformSpan").text("보통");;
-    }
-    else if (this.value == '2') {
-        $("#myformSpan").text("별로");;
-    }
-    else if (this.value == '1') {
-        $("#myformSpan").text("나쁨");;
-    }
+var adminDoReviewDel = $("#adminDoReviewDel");
+adminDoReviewDel.on("click", function(){
+	store_review_idx = $(this).data('id');
+	$('input[name=store_review_idx]').attr('value',store_review_idx);
 });
+var reviewAdminBtn = $("#reviewAdminBtn");
+reviewAdminBtn.on("click", function(){
+	$.ajax({	
+        url: "reviewAdminDel",
+        type: "POST",
+        data: $("#reviewAdminForm").serialize(),
+   	   success: function(){
+              $('#reviewAdminModal').modal('hide')
+              window.alert('삭제에 성공했습니다!')
+              location.reload();
+          },
+          error: function(){
+              alert("삭제 에러");
+          }   
+    });	
+});
+var reviewAdminNo = $("#reviewAdminNo");
+reviewAdminNo.on("click", function(){
+	$('#reviewAdminModal').modal('hide')
+});
+
 
 $(".img").click(function(){
 	$("#photoBigModal").modal();

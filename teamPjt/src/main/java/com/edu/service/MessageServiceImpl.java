@@ -31,15 +31,19 @@ public class MessageServiceImpl implements MessageService{
 		dao.insertLog(paramMap);
 	}
 
-	//메세지 불러오기 - 판매자마다 단한개
+	//메세지 불러오기 - form_member_idx마다 단한개
 	@Override
-	public List<MessageVO> message_dialogue(Map<String,Object> param) {
-		return dao.message_dialogue(param);
+	public List<MessageVO> message_dialogue(int to_member_idx) {
+		return dao.message_dialogue(to_member_idx);
 	}
 	//메세지 로그 불러오기
 	@Override
 	public List<MessageVO> message_dialogue_detail(Map<String,Object> param) {
 		return dao.message_dialogue_detail(param);
+	}
+	@Override
+	public List<MessageVO> message_dialogue_detail2(int message_idx) {
+		return dao.message_dialogue_detail2(message_idx);
 	}
 
 	//메세지 보내기
@@ -48,6 +52,19 @@ public class MessageServiceImpl implements MessageService{
 		dao.sendMessage(param);
 	}
 
+	//messageIdx찾기
+	@Override
+	public int findMessageIdx(Map<String, Object> param) {
+		return dao.findMessageIdx(param);
+	}
+
+	//messageIdx생성
+	@Override
+	public void insertMessageIdx(int funding_idx) {
+		dao.insertMessageIdx(funding_idx);
+		
+	}
+	
 	@Override
 	public int findSellerIdx(int funding_idx) {
 		return dao.findSellerIdx(funding_idx);
@@ -62,6 +79,14 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> getFrom_member_idxs(int to_member_idx) {
 		return dao.getFrom_member_idxs(to_member_idx);
 	}
+	
+	//level에 따른 messageVO하나씩 불러옴
+	@Override
+	public MessageVO getMessageDialogue(Map<String, Object> paramMap) {
+		return dao.getMessageDialogue(paramMap);
+	}
+
+	
 	
 	
 }

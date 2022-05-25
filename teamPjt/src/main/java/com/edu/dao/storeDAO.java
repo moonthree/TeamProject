@@ -57,6 +57,11 @@ public class storeDAO {
 	public List<StoreReviewVO> storeReviewPhoto(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectList("StoreMapper.storeReviewPhoto", vo);
 	}
+	// 스토어 리뷰 수정에 가져가기
+	public StoreReviewVO getReview(HashMap<String, Integer> hm){
+		return sqlSession.selectOne("StoreMapper.getReview", hm);
+	}
+	
 	// 스토어 리뷰 평균
 	public Double starAvg(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectOne("StoreMapper.starAvg", vo);
@@ -81,6 +86,18 @@ public class storeDAO {
 	//스토어 리뷰 작성
 	public int storeReviewWrite(StoreReviewVO vo) throws Exception{
 		return sqlSession.insert("StoreMapper.storeReviewWrite", vo);
+	}
+	//스토어 리뷰 수정
+	public int storeReviewModify(StoreReviewVO vo) throws Exception{
+		return sqlSession.update("StoreMapper.storeReviewModify", vo);
+	}
+	// 스토어 리뷰 삭제
+	public void storeReviewDelete(StoreReviewVO vo){
+		sqlSession.delete("StoreMapper.storeReviewDelete", vo);
+	}
+	// 스토어 리뷰 관리자 삭제
+	public void storeReviewAdminDelete(StoreReviewVO vo){
+		sqlSession.delete("StoreMapper.storeReviewAdminDelete", vo);
 	}
 	//zzim select
 	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {

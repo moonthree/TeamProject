@@ -110,11 +110,11 @@ public class AdminController {
 	    System.out.println("f_idx : "+f_idx+"에 따른 member_idx : "+member_idx);
 	      
 	    // message 테이블에 로그 남기기 insert
-	    Map<String, Object> param = new HashMap<String, Object>();
-	    param.put("f_idx", f_idx);
-	    param.put("from_member_idx", 0);
-	    param.put("to_member_idx", member_idx);
-	    messageService.insertLog(param);
+//	    Map<String, Object> param = new HashMap<String, Object>();
+//	    param.put("f_idx", f_idx);
+//	    param.put("from_member_idx", 0);
+//	    param.put("to_member_idx", member_idx);
+//	    messageService.insertLog(param);
 		
 		return result;
 	}
