@@ -51,6 +51,11 @@ public class MessageDao {
 		sqlSession.insert("MessageMapper.sendMessage", param);
 	}
 	
+	//message_idx개수찾기
+	public int countMessageIdx(Map<String, Object> param) {
+		return sqlSession.selectOne("MessageMapper.countMessageIdx", param);
+	}
+	
 	//message_idx찾기
 	public int findMessageIdx(Map<String, Object> param) {
 		return sqlSession.selectOne("MessageMapper.findMessageIdx", param);

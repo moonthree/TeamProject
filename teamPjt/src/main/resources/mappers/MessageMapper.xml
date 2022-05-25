@@ -166,7 +166,15 @@
 				1)
 	</insert>
 	
-	<select id="findMessageIdx" parameterType="int" resultType="int">
+	<select id="countMessageIdx" parameterType="java.util.HashMap" resultType="int">
+		SELECT 	count(mn.message_idx)
+		FROM 	message_note mn, message ms
+		WHERE	mn.message_idx = ms.message_idx
+		AND		mn.from_member_idx = #{from_member_idx}
+		AND 	ms.funding_idx = #{funding_idx}
+	</select>
+	
+	<select id="findMessageIdx" parameterType="java.util.HashMap" resultType="int">
 		SELECT 	ifnull(mn.message_idx,0)
 		FROM 	message_note mn, message ms
 		WHERE	mn.message_idx = ms.message_idx

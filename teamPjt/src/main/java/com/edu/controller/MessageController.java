@@ -66,21 +66,25 @@ public class MessageController {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("funding_idx",funding_idx);
 			param.put("from_member_idx",login.getMember_idx());
-			int findMessageIdx = messageService.findMessageIdx(param);
-			System.out.println("funding_idx : "+funding_idx+" findMessageIdx : "+findMessageIdx);
 			
-			if(findMessageIdx != 0) { //기존 내역이 있는경우 -> message_idx가지고 경로이동
+			//찾아올 message가 존재하는지 count부터한다
+			int countMessageIdx = messageService.countMessageIdx(param);
+			if(countMessageIdx > 0) { //기존 내역이 있는경우 -> message_idx가지고 경로이동
+				int findMessageIdx = messageService.findMessageIdx(param);
+				System.out.println("funding_idx : "+funding_idx+" findMessageIdx : "+findMessageIdx);
+				
 				model.addAttribute("funding_idx",funding_idx);
 				model.addAttribute("message_idx",findMessageIdx);
 				
 				return "redirect:/mypage/note.do";
-			}else { //0이면 새로 만들어야함 그리고 리턴해 경로이동
+			}else { //0이면 message_idx 새로 만들어야함 그리고 리턴해 경로이동
 				
 				model.addAttribute("funding_idx",funding_idx);
 				model.addAttribute("message_idx",3);
 				
 				return "redirect:/mypage/note.do";
 			}
+			
 			
 		}
 		

@@ -24,6 +24,9 @@ public interface MessageService {
 	//쪽지 보내기
 	void sendMessage(Map<String, Object> param);
 	
+	//message_idx개수확인
+	int countMessageIdx(Map<String, Object> param);
+	
 	//message_idx찾기
 	int findMessageIdx(Map<String, Object> param);
 	
