@@ -40,7 +40,7 @@ import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
-
+/*version15*/
 @Controller
 @RequestMapping(value = "/mypage")
 public class MypageController {
