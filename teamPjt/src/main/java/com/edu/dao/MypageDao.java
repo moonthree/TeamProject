@@ -18,6 +18,7 @@ import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimInfoVO;
 import com.edu.vo.ZzimVO;
 
 //git 넘기기용
@@ -93,6 +94,13 @@ public class MypageDao {
 	public List<FundingMainVO> myZzimList(int member_idx){
 		return sqlSession.selectList("MypageMapper.myZzimList", member_idx);
 	}
+	//찜 카테고리 리스트
+	public List<ZzimInfoVO> getZzim_category(int member_idx){
+		return sqlSession.selectList("MypageMapper.getZzim_category", member_idx);
+	}
+	public ZzimInfoVO myZzimList2(Map<String,Object> param){
+		return sqlSession.selectOne("MypageMapper.myZzimList2", param);
+	}
 	
 	//판매자 펀딩 내역 MYPAGE2
 	public List<FundingMainVO> sellerFundingList(int member_idx){
@@ -144,6 +152,9 @@ public class MypageDao {
 	//찜 취소
 	public int deleteZzim(Map<String, Integer> paramMap) {
 		return sqlSession.update("MypageMapper.deleteZzim", paramMap);
+	}
+	public int deleteZzim2(Map<String, Integer> paramMap) {
+		return sqlSession.update("MypageMapper.deleteZzim2", paramMap);
 	}
 	
 	//비밀번호 변경-마이페이지

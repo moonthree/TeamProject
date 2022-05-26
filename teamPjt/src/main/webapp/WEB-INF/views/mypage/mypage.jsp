@@ -319,36 +319,69 @@
 				            <!-- 찜 -->
 				            <div id="zzim" role="tabpanel" aria-labelledby="zzim-tab" class="tab-pane fade px-4 py-5">
 				            	<div class="mydiv" id="mydiv">
-								<c:if test="${select3Zzim.size()>0}">
-									<c:forEach var="item" items="${select3Zzim}">
-			                    <div class="card mb-3"  onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-			                      <div class="row g-0">
-			                        <div class="col-lg-5 col-md-6">
-			                          <!--이미지-->
-				                      <div class="card img-container">
-			                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-			                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-			                            </div>
-				                      </div>
-			                        </div>
-			                        <div class="col-lg-7 col-md-6">
-			                          <div class="card-body" style="margin-left: -20px;">
-			                            <div class="row">
-				                          	<div class="col-md-6">
-				                          		<c:choose>
-				                            		<c:when test="${ item.funding_category eq 0 }">강아지 용품</c:when>
-				                            		<c:when test="${ item.funding_category eq 1 }">고양이 용품</c:when>
-				                            		<c:when test="${ item.funding_category eq 2 }">다른 동물 용품</c:when>
-				                            	</c:choose>
-				                          	</div>
-				                          	
-				                          </div>
-			                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
-			                            
-			                          </div>
-			                        </div> 
-			                      </div>
-			                    </div>
+								<c:if test="${myZzimList.size()>0 and myZzimList.size()<4}">
+									<c:forEach var="item" items="${myZzimList}">
+									<c:if test="${ item.zzim_category eq 0 }">
+										<div class="card mb-3"  onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
+					                      <div class="row g-0">
+					                        <div class="col-lg-5 col-md-6">
+					                          <!--이미지-->
+						                      <div class="card img-container">
+					                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+					                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+					                            </div>
+						                      </div>
+					                        </div>
+					                        <div class="col-lg-7 col-md-6">
+					                          <div class="card-body" style="margin-left: -20px;">
+					                            <div class="row">
+						                          	<div class="col-md-6">
+						                          		<c:choose>
+						                            		<c:when test="${ item.funding_category eq 0 }">펀딩 | 강아지 용품</c:when>
+						                            		<c:when test="${ item.funding_category eq 1 }">펀딩 | 고양이 용품</c:when>
+						                            		<c:when test="${ item.funding_category eq 2 }">펀딩 | 다른 동물 용품</c:when>
+						                            	</c:choose>
+						                          	</div>
+						                          	
+						                          </div>
+					                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
+					                            
+					                          </div>
+					                        </div> 
+					                      </div>
+					                    </div>
+									</c:if>
+									<c:if test="${ item.zzim_category eq 1 }">
+										<div class="card mb-3"  onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding }'" style="cursor:pointer;">
+					                      <div class="row g-0">
+					                        <div class="col-lg-5 col-md-6">
+					                          <!--이미지-->
+						                      <div class="card img-container">
+					                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
+					                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+					                            </div>
+						                      </div>
+					                        </div>
+					                        <div class="col-lg-7 col-md-6">
+					                          <div class="card-body" style="margin-left: -20px;">
+					                            <div class="row">
+						                          	<div class="col-md-6">
+						                          		<c:choose>
+						                            		<c:when test="${ item.store_category eq 0 }">스토어 | 강아지 용품</c:when>
+						                            		<c:when test="${ item.store_category eq 1 }">스토어 | 고양이 용품</c:when>
+						                            		<c:when test="${ item.store_category eq 2 }">스토어 | 다른 동물 용품</c:when>
+						                            	</c:choose>
+						                          	</div>
+						                          	
+						                          </div>
+					                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
+					                            
+					                          </div>
+					                        </div> 
+					                      </div>
+					                    </div>
+									</c:if>
+			                    
 			                    </c:forEach>
 			                    </c:if>
 			                    <div class="row" style="text-align: right">

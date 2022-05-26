@@ -17,7 +17,6 @@ import com.edu.dao.memberDao;
 import com.edu.vo.ChangePwVO;
 import com.edu.vo.EmailDTO;
 import com.edu.vo.FileUploadVO;
-import com.edu.vo.FundingInfoDetailParameterVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
@@ -27,6 +26,7 @@ import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimInfoVO;
 import com.edu.vo.ZzimVO;
 
 @Service
@@ -471,9 +471,18 @@ public class MypageServiceImp implements MypageService{
 		return mdao.myStoreList(member_idx);
 	}
 
+	//찜 내역
 	@Override
 	public List<FundingMainVO> myZzimList(int member_idx) {
 		return mdao.myZzimList(member_idx);
+	}
+	//찜 카테고리 리스트
+	public List<ZzimInfoVO> getZzim_category(int member_idx) {
+		return mdao.getZzim_category(member_idx);
+	}
+	@Override
+	public ZzimInfoVO myZzimList2(Map<String,Object> param) {
+		return mdao.myZzimList2(param);
 	}
 
 	//판매자 펀딩 내역 mypage2
@@ -531,10 +540,15 @@ public class MypageServiceImp implements MypageService{
 	
 	
 	
-	//찜 취소
+	// 찜 취소 - 펀딩
 	@Override
 	public int deleteZzim(Map<String, Integer> paramMap) {
 		return mdao.deleteZzim(paramMap);
+	}
+	// 찜 취소 - 스토어
+	@Override
+	public int deleteZzim2(Map<String, Integer> paramMap) {
+		return mdao.deleteZzim2(paramMap);
 	}
 
 	//비밀번호 변경-마이페이지

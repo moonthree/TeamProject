@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
-    
+
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,11 +131,19 @@ $("window").load(scrollDown);
 
 <form id="messageFrm" action="sendMessage.do" method="post">
 	<!-- funding_idx를 가지고 보낼 사람의 member_idx를 찾아야함 -->
-	<input type="text" name="funding_idx" value="${ param.funding_idx }"/>
+	<input type="hidden" name="funding_idx" value="${ param.funding_idx }"/>
 	<!-- 메세지 사이즈가 0인경우 message_idx만드는 작업을 해야함 insert -->
-	<input type="text" name="countMessages" value="${ messages.size() }"/>
-	<input type="text" name="message_idx" value="${param.message_idx }"/>
-	<input type="text" name="to_member_idx" value="${ messages[0].from_member_idx }"/>
+	<input type="hidden" name="countMessages" value="${ messages.size() }"/>
+	<input type="hidden" name="message_idx" value="${param.message_idx }"/>
+	<!-- 여기서 판매자인지 소비자인지 또 나눠줘야함  그러기 위해서는 funding_idx로 member_idx가져와 비교하는 작업이 필요-->
+		<!-- 소비자일때 -->
+		<c:if test="${ isSeller ne member.member_idx }">
+		<input type="hidden" name="to_member_idx" value="${ member.member_idx }"/>
+		</c:if>
+		<!-- 판매자일떄 -->
+		<c:if test="${ isSeller eq member.member_idx }">
+		<input type="hidden" name="to_member_idx" value="${ messages[0].from_member_idx }"/>
+		</c:if>
 	<table>
 		<tr>
 			<td><img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;"></td>

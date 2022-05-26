@@ -263,9 +263,18 @@
 		AND	 	z.member_idx = #{member_idx} 
 	</select>
 	
+	<!-- 찜 카테고리 리스트 가져오기  -->
+	<select id="getZzim_category" parameterType="int" resultType="com.edu.vo.ZzimInfoVO">
+		SELECT	zzim_category, zzim_idx
+		FROM 	zzim
+		WHERE 	member_idx = #{member_idx}
+		ORDER BY zzim_idx DESC	
+	</select>
 	<!-- 찜 내역 -->
-	<select id="myZzimList" parameterType="int" resultType="FundingMainVO">
-		SELECT	f.funding_idx,
+	<select id="myZzimList2" parameterType="java.util.HashMap" resultType="com.edu.vo.ZzimInfoVO">
+		SELECT	z.zzim_category,
+		<if test="zzim_category == 0">
+			  	f.funding_idx,
 				f.funding_title,
 				f.funding_thumbnail,
 				f.funding_target_price,
@@ -276,9 +285,30 @@
 				f.funding_current_state,
 				f.funding_category,
 				f.funding_views
-		FROM 	zzim z, funding f 
-		WHERE 	z.funding_idx = f.funding_idx 
-		AND 	z.member_idx = #{member_idx} 
+		FROM 	zzim z, funding f
+		WHERE 	f.funding_idx = z.funding_idx
+		</if>
+		<if test="zzim_category == 1">
+			  	s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_category,
+				s.store_funding,
+				s.store_express_fee,
+				s.store_views
+		FROM 	zzim z, store s
+		WHERE 	s.store_idx = z.store_idx
+		</if>
+		AND 	z.member_idx = #{member_idx}
+		AND		z.zzim_idx = #{zzim_idx}
 		ORDER BY z.zzim_idx DESC
 	</select>
 	
@@ -466,6 +496,10 @@
 	<delete id="deleteZzim" parameterType="java.util.HashMap">
 		DELETE FROM zzim
 		WHERE funding_idx = #{funding_idx} AND member_idx = #{member_idx};
+	</delete>
+	<delete id="deleteZzim2" parameterType="java.util.HashMap">
+		DELETE FROM zzim
+		WHERE store_idx = #{store_idx} AND member_idx = #{member_idx};
 	</delete>
 	
 	<!-- 펀딩 취소 -->

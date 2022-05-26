@@ -40,12 +40,11 @@ import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
-import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
-import com.edu.vo.StoreQnaVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimInfoVO;
 import com.edu.vo.ZzimVO;
 
 @Controller
@@ -95,9 +94,24 @@ public class MypageController {
 		model.addAttribute("countStore",mypageService.countStore(login.getMember_idx()));
 		
 		//찜리스트 3개씩 & 찜 개수
-		List<ZzimVO> s3z = mypageService.select3Zzim(login.getMember_idx());
-		model.addAttribute("select3Zzim",s3z);
+//		List<ZzimVO> s3z = mypageService.select3Zzim(login.getMember_idx());
+//		model.addAttribute("select3Zzim",s3z);
+		//찜리스트
+		List<ZzimInfoVO> zzim_category = mypageService.getZzim_category(login.getMember_idx());
+		List<ZzimInfoVO> allZzimInfo = new ArrayList<ZzimInfoVO>();
+		for(int i=0 ; i<zzim_category.size() ; i++) {
+			//찜 카테고리와 member_idx를 통해 뽑아와야함 그리고 다시 합치기
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("zzim_category", zzim_category.get(i).getZzim_category());
+			param.put("member_idx", login.getMember_idx());
+			param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
+			
+			ZzimInfoVO mzl2 = mypageService.myZzimList2(param);
+			allZzimInfo.add(mzl2);
+		}
+		model.addAttribute("myZzimList",allZzimInfo);
 		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
+		
 		
 		return "mypage/mypage";
 	}
@@ -396,9 +410,24 @@ public class MypageController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
+		
 		// 찜리스트
-		List<FundingMainVO> mzl = mypageService.myZzimList(login.getMember_idx());
-		model.addAttribute("myZzimList",mzl);
+		//List<FundingMainVO> mzl = mypageService.myZzimList(login.getMember_idx());
+		
+		//먼저 zzim_category 리스트를 가져와서 넣어줘야함..사이즈따라 for문돌림
+		List<ZzimInfoVO> zzim_category = mypageService.getZzim_category(login.getMember_idx());
+		List<ZzimInfoVO> allZzimInfo = new ArrayList<ZzimInfoVO>();
+		for(int i=0 ; i<zzim_category.size() ; i++) {
+			//찜 카테고리와 member_idx를 통해 뽑아와야함 그리고 다시 합치기
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("zzim_category", zzim_category.get(i).getZzim_category());
+			param.put("member_idx", login.getMember_idx());
+			param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
+			
+			ZzimInfoVO mzl2 = mypageService.myZzimList2(param);
+			allZzimInfo.add(mzl2);
+		}
+		model.addAttribute("myZzimList",allZzimInfo);
 		
 		return "mypage/info_zzim";
 	}
@@ -616,15 +645,22 @@ public class MypageController {
 	
 	// 찜 delete
 	@RequestMapping(value ="/deleteZzim.do", method= RequestMethod.GET)
-	public String deleteZzim(HttpServletRequest request, FundingMainVO vo, Model model){
+	public String deleteZzim(HttpServletRequest request, ZzimInfoVO vo, Model model){
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
-		
-		Map<String, Integer> deleteZzim = new HashMap<String, Integer>();
-		deleteZzim.put("member_idx", login.getMember_idx());
-		deleteZzim.put("funding_idx", vo.getFunding_idx());
-		
-		int result = mypageService.deleteZzim(deleteZzim);
+		int result = 0;
+		if(vo.getFunding_idx() != 0) { //펀딩 찜 취소
+			Map<String, Integer> deleteFundingZzim = new HashMap<String, Integer>();
+			deleteFundingZzim.put("member_idx", login.getMember_idx());
+			deleteFundingZzim.put("funding_idx", vo.getFunding_idx());
+			result = mypageService.deleteZzim(deleteFundingZzim);
+			
+		}else { //스토어 찜 취소
+			Map<String, Integer> deleteStoreZzim = new HashMap<String, Integer>();
+			deleteStoreZzim.put("member_idx", login.getMember_idx());
+			deleteStoreZzim.put("store_idx", vo.getStore_idx());
+			result = mypageService.deleteZzim2(deleteStoreZzim);
+		}
 		if(result > 0) { //찜성공
 			return "redirect:info_zzim.do";
 		}else { //찜실패

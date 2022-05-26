@@ -57,6 +57,8 @@ public class MessageController {
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
+		//판매자인지 소비자인지 추리는 작업
+		model.addAttribute("isSeller",messageService.getMemberIdx(funding_idx));
 		
 		if(message_idx != 0) {
 			//message_idx로 대화 내역 불러오기
