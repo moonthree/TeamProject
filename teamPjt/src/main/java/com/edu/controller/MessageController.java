@@ -48,18 +48,36 @@ public class MessageController {
 	
 	//쪽지 상세
 	@RequestMapping(value = "/mypage/note.do")
-	public String note(Model model, HttpServletRequest request, @RequestParam("funding_idx") int funding_idx, @RequestParam("message_idx") int message_idx) {
+	public String note(Model model, HttpServletRequest request, 
+						@RequestParam("funding_idx") int funding_idx, 
+						@RequestParam("message_idx") int message_idx) {
 		// 세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
 		
+		//판매자인지 소비자인지 추리는 작업
+		model.addAttribute("isSeller",messageService.getMemberIdx(funding_idx));
+		
 		if(message_idx != 0) {
 			//message_idx로 대화 내역 불러오기
 			model.addAttribute("messages", messageService.message_dialogue_detail2(message_idx));
 			//상대방의 사진, 이름 가져오는 작업은 따로 해야함
-
+			if(messageService.getMemberIdx(funding_idx)==login.getMember_idx()) {
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("funding_idx",funding_idx);
+				param.put("message_idx",message_idx);
+				param.put("to_member_idx",login.getMember_idx());
+				MemberVO member2 = messageService.getPhotoName(messageService.getFromMemberIdx(param));
+				model.addAttribute("photo", member2.getMember_photo());
+				model.addAttribute("name", member2.getMember_name());
+			}else {
+				MemberVO member2 = messageService.getPhotoName(messageService.getMemberIdx(funding_idx));
+				model.addAttribute("photo", member2.getMember_photo());
+				model.addAttribute("name", member2.getMember_name());
+			}
+			
 			return "note";
 		}else {
 			//만약 찾은 message_idx가 0아닌경우 대화 내역을 체크해서 있으면 원래의 대화내역으로 데려다주고
@@ -78,9 +96,10 @@ public class MessageController {
 				
 				return "redirect:/mypage/note.do";
 			}else { //0이면 message_idx 새로 만들어야함 그리고 리턴해 경로이동
-				
+				messageService.insertMessageIdx(funding_idx);
+				int newMessageIdx = messageService.getLastMessageIdx();
 				model.addAttribute("funding_idx",funding_idx);
-				model.addAttribute("message_idx",3);
+				model.addAttribute("message_idx",newMessageIdx);
 				
 				return "redirect:/mypage/note.do";
 			}
@@ -101,32 +120,40 @@ public class MessageController {
 	
 	//메시지 보내기
 	@RequestMapping(value="/mypage/sendMessage.do", method=RequestMethod.POST)
-	public String sendMessage(HttpServletRequest request, @RequestParam("message_content") String message_content, @RequestParam("funding_idx") int funding_idx, @RequestParam("countMessages") int countMessages) {
+	public String sendMessage(Model model, HttpServletRequest request, 
+			@RequestParam("message_content") String message_content, 
+			@RequestParam("funding_idx") int funding_idx,
+			@RequestParam("countMessages") int countMessages,
+			@RequestParam("message_idx") int message_idx,
+			@RequestParam("to_member_idx") int to_member_idx) {
 		// 세션에 있는 사용자의 정보 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 				
 		Map<String, Object> param = new HashMap<String, Object>();
-		//보내는 사람 idx 설정
-		param.put("from_member_idx", login.getMember_idx());
-		//받는 사람 idx 설정
-		param.put("to_member_idx", messageService.getMemberIdx(funding_idx));
+		
 		//메세지 내용 설정
 		param.put("message_content",message_content);
 		param.put("funding_idx",funding_idx);
-			
-		//1. countMessages의 갯수를 따져서 message테이블에 insert할지 정함
-		if(countMessages == 0) {
-			//2. message_idx생성
-			//messageService.insertMessageIdx(funding_idx);
-			//3. insert와 동시에 message_idx가져오기
+		param.put("message_idx",message_idx);
+		//보내는 사람 idx 설정
+		param.put("from_member_idx", login.getMember_idx());
+		//받는 사람 idx 설정 - funding_idx로부터 member_idx 가져왔는데 
+		//그게 login에서 가져온 member_idx랑 같은경우
+		if(messageService.getMemberIdx(funding_idx)==login.getMember_idx()) {
+			param.put("to_member_idx", to_member_idx);
+			System.out.println("from : "+login.getMember_idx());
+			System.out.println("to : "+to_member_idx);
 		}else {
-			//2. funding_idx member_idx를 통해 message_idx 가져오기
+			param.put("to_member_idx", messageService.getMemberIdx(funding_idx));
+			System.out.println("from : "+login.getMember_idx());
+			System.out.println("to : "+messageService.getMemberIdx(funding_idx));
 		}
-		
 		messageService.sendMessage(param);
 		
-		return "redirect:/mypage/note.do?funding_idx="+funding_idx;
+		model.addAttribute("funding_idx",funding_idx);
+		model.addAttribute("message_idx",message_idx);
+		return "redirect:/mypage/note.do";
 	}
 
 	

@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
-    
+
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,12 +76,11 @@ $("window").load(scrollDown);
 <div class="row">
 		 <c:if test="${messages.size()>0}">
 			<c:forEach var="item" items="${messages}">
-			
 			<!-- 왼쪽  -->
 			<c:if test="${ item.from_member_idx ne member.member_idx }">
 				<table class="table" style="border: none; margin-top:30px; text-align:left;">		
 					    <tr>
-					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
+					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
 					    	<td width="300px">
 						    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
 						    		${ item.message_content }
@@ -136,7 +134,16 @@ $("window").load(scrollDown);
 	<input type="hidden" name="funding_idx" value="${ param.funding_idx }"/>
 	<!-- 메세지 사이즈가 0인경우 message_idx만드는 작업을 해야함 insert -->
 	<input type="hidden" name="countMessages" value="${ messages.size() }"/>
-	
+	<input type="hidden" name="message_idx" value="${param.message_idx }"/>
+	<!-- 여기서 판매자인지 소비자인지 또 나눠줘야함  그러기 위해서는 funding_idx로 member_idx가져와 비교하는 작업이 필요-->
+		<!-- 소비자일때 -->
+		<c:if test="${ isSeller ne member.member_idx }">
+		<input type="hidden" name="to_member_idx" value="${ member.member_idx }"/>
+		</c:if>
+		<!-- 판매자일떄 -->
+		<c:if test="${ isSeller eq member.member_idx }">
+		<input type="hidden" name="to_member_idx" value="${ messages[0].from_member_idx }"/>
+		</c:if>
 	<table>
 		<tr>
 			<td><img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;"></td>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.MessageVO;
 
 public interface MessageService {
@@ -32,8 +33,8 @@ public interface MessageService {
 	
 	//message_idx만들기
 	void insertMessageIdx(int funding_idx);
-	
-	
+	//제일 마지막 message_idx가져오기
+	int getLastMessageIdx();
 	
 	
 	//funding_idx로 판매자의 member_idx를 찾기
@@ -46,4 +47,9 @@ public interface MessageService {
 	MessageVO getMessageDialogue(Map<String,Object> paramMap);
 	
 	List<MessageVO> getFrom_member_idxs(int to_member_idx);
+
+	int getFromMemberIdx(Map<String, Object> param);
+	MemberVO getPhotoName(int member_idx);
+	
+	
 }

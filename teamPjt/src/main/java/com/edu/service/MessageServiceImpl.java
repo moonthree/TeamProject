@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.edu.dao.MessageDao;
 import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.MessageVO;
 
 @Service
@@ -67,9 +68,11 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public void insertMessageIdx(int funding_idx) {
 		dao.insertMessageIdx(funding_idx);
-		
 	}
-	
+	//마지막 messageIdx가져오기
+	public int getLastMessageIdx() {
+		return dao.getLastMessageIdx();
+	}
 	@Override
 	public int findSellerIdx(int funding_idx) {
 		return dao.findSellerIdx(funding_idx);
@@ -89,6 +92,16 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public MessageVO getMessageDialogue(Map<String, Object> paramMap) {
 		return dao.getMessageDialogue(paramMap);
+	}
+
+	
+	@Override
+	public int getFromMemberIdx(Map<String, Object> param) {
+		return dao.getFromMemberIdx(param);
+	}
+	@Override
+	public MemberVO getPhotoName(int member_idx) {
+		return dao.getPhotoName(member_idx);
 	}
 
 	

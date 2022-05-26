@@ -15,6 +15,7 @@ import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimInfoVO;
 import com.edu.vo.ZzimVO;
 
 
@@ -74,6 +75,10 @@ public interface MypageService {
 	
 	//찜내역
 	List<FundingMainVO> myZzimList(int member_idx);
+	//찜 카테고리 리스트
+	List<ZzimInfoVO> getZzim_category(int member_idx);
+	//찜내역2
+	ZzimInfoVO myZzimList2(Map<String,Object> param);
 	
 	//판매자 펀딩목록 mypage2
 	List<FundingMainVO> sellerFundingList(int member_idx);
@@ -104,7 +109,7 @@ public interface MypageService {
 	
 	//찜 취소
 	int deleteZzim(Map<String, Integer> paramMap);
-	
+	int deleteZzim2(Map<String, Integer> paramMap);
 	//비밀번호 변경-마이페이지
 	int changePw(Map<String,Object> paramMap);
 	

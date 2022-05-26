@@ -146,24 +146,16 @@
 	</select>
 	
 	<insert id="sendMessage" parameterType="java.util.HashMap">
-		INSERT INTO message(from_member_idx, 
-							to_member_idx,
-							funding_idx,
-							message_content, 
-							message_send_person, 
-							message_state) 
-		VALUES(#{from_member_idx},
+		insert into message_note(message_idx, 
+								from_member_idx, 
+								to_member_idx, 
+								message_content,
+								c_or_p)
+		values(#{message_idx},
+				#{from_member_idx},
 				#{to_member_idx},
-				#{funding_idx},
 				#{message_content},
-				<if test="member_level == 0">
-					1
-				</if>
-				<if test="member_level == 1">
-					0
-				</if>
-				,
-				1)
+				'c')
 	</insert>
 	
 	<select id="countMessageIdx" parameterType="java.util.HashMap" resultType="int">
@@ -192,4 +184,25 @@
 				'f',
 				0)
 	</insert>
+	
+	<select id="getLastMessageIdx" resultType="int">
+		SELECT message_idx 
+		FROM message 
+		ORDER BY message_date DESC LIMIT 1
+	</select>
+	
+	<select id="getFromMemberIdx" parameterType="java.util.HashMap" resultType="int">
+		select from_member_idx 
+		from message_note mn, message ms 
+		where mn.message_idx=ms.message_idx 
+		and mn.message_idx=#{message_idx}
+		and ms.funding_idx=#{funding_idx}
+		and mn.to_member_idx=#{to_member_idx} limit 1;
+	</select>
+	
+	<select id="getPhotoName" parameterType="int" resultType="MemberVO">
+		SELECT 	member_photo, member_name 
+		FROM 	member 
+		WHERE 	member_idx=#{member_idx};
+	</select>
 </mapper>
