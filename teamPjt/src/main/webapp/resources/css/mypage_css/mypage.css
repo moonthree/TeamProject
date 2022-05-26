@@ -272,7 +272,7 @@ main {
 
 /* 리스트 */
 .card_container{
-	padding: 10px 0px 10px;
+	padding: 15px;
     border-top: 3px dashed #e4e9f0;
     display: flex;
     flex-direction: column;
@@ -292,6 +292,9 @@ main {
 .image_container{
 	width: 35%;
 }
+.image_container img{
+	border-radius: 20px;
+}
 .text_container{
 	width: 65%;
 	padding: 10px 0px 0px 20px;
@@ -305,6 +308,8 @@ main {
     font-size: 19px;
     font-weight: 800;
     letter-spacing: 1px;
+}
+.text_title_a{
     color: #414242;
 }
 .text_title_a:hover{
