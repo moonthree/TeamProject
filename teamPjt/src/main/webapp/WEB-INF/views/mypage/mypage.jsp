@@ -199,7 +199,7 @@
 					          		</c:if>
 					          	</div>
 					          	<!-- 펀딩 리스트 3개 출력 -->
-				            	<div class="mydiv" id="mydiv">
+				            	<div class="mydiv" id="mydiv" >
 			                        <c:if test="${select3Funding.size()>0}">
 			                        <c:forEach var="item" items="${select3Funding}">
 			                        	<!-- 1. 결제 예약 / 펀딩 진행 중 (funding_current_state : 0) -->
