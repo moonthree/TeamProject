@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 	// Accㄴㄴ
 	$(document).on("click", ".menu div", function() {
 	  var numberIndex = $(this).index();
@@ -31,7 +31,19 @@
 	$(document).ready(function() {
 	    $(".dropdown-toggle").dropdown();
 	});
-	</script>
+	
+	window.onload = function(){
+		var end_date = document.getElementById('end_date').value;
+		var date = end_date.split("-");
+		
+		// 결제 예정일
+		var pay_date = new Date(date.toLocaleString());
+		pay_date.setDate(pay_date.getDate() + 1);
+		var pay_date_text = pay_date.getFullYear() + ". " + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + ". " + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString());
+		pay_date = pay_date.getFullYear() + "-" + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + "-" + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString());
+		document.querySelector('#pay_date').textContent = pay_date_text;
+	}
+</script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage.css">
 
 <style>
@@ -167,30 +179,78 @@
 				            <li class="nav-item flex-sm-fill">
 				             	<a id="funding-tab" data-toggle="tab" href="#funding" role="tab" aria-controls="funding" aria-selected="true" class="nav-link text-uppercase font-weight-bold mr-sm-3 border active">
 				             		<div class="box_title">펀딩</div>
-<%-- 				             		<div class="box_num">${ countFunding }</div> --%>
 				             	</a>
 				            </li>
 				            <li class="nav-item flex-sm-fill">
 								<a id="store-tab" data-toggle="tab" href="#store" role="tab" aria-controls="store" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 border">
 									<div class="box_title">스토어</div>
-<%-- 				             		<div class="box_num">${ countStore }</div> --%>
 								</a>
 				            </li>
 				            <li class="nav-item flex-sm-fill">
 				              	<a id="zzim1-tab" data-toggle="tab" href="#zzim" role="tab" aria-controls="zzim" aria-selected="false" class="nav-link text-uppercase font-weight-bold border">
 				              		<div class="box_title">찜</div>
-<%-- 				             		<div class="box_num">${ countZzim }</div> --%>
 				              	</a>
 				            </li>
 				        </ul>
 				          
 				          <div id="myTab1Content" class="tab-content">
 				          	<!-- 펀딩 -->
-				            <div id="funding" role="tabpanel" aria-labelledby="funding-tab" class="tab-pane fade px-4 py-5 show active">
+				            <div id="funding" role="tabpanel" aria-labelledby="funding-tab" class="tab-pane fade show active three_list">
+					          	<div class="select_info">
+					          		<c:if test="${countFunding eq 0}">
+					          			<div class="no_list">펀딩 내역이 없습니다.</div>
+					          		</c:if>
+					          		<c:if test="${countFunding ne 0}">
+						          		<div class="box_num">
+						          			<span class="box_num_span">${countFunding}</span>건의 펀딩 내역이 있습니다.
+						          		</div>
+				                        <div>
+				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_funding.do'">펀딩 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
+				                        </div>
+					          		</c:if>
+					          	</div>
 				            	<div class="mydiv" id="mydiv">
 			                        <c:if test="${select3Funding.size()>0}">
 			                        <c:forEach var="item" items="${select3Funding}">
-			                            <div class="card mb-3">
+			                            <div class="card_container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+			                            	<div class="info_container1">
+			                            		<div><span class="text_bold">펀딩 후원 번호</span>${item.funding_order_idx}</div>
+			                            		<div><span class="text_bold">후원 날짜</span><fmt:formatDate value="${item.funding_order_date}" pattern="yyyy. MM. dd" /></div>
+			                            	</div>
+			                            	<div class="info_container2">
+				                            	<!-- 이미지 출력 -->
+				                            	<div class="image_container">
+				                            		<img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+				                            	</div>
+				                            	<!-- 내용 출력 -->
+				                            	<div class="text_container">
+				                            		<div class="text_category">
+				                            			<c:choose>
+	                                                        <c:when test="${item.funding_category eq 0}">강아지 용품</c:when>
+	                                                        <c:when test="${item.funding_category eq 1}">고양이 용품</c:when>
+	                                                        <c:when test="${item.funding_category eq 2}">다른 동물 용품</c:when>
+	                                                    </c:choose>
+				                            		</div>
+				                            		<div class="text_title">
+				                            			<a class="text_title_a" href="info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }">${item.funding_title}</a>
+				                            		</div>
+				                            		<div class="text_comnper">
+					                            		<div class="text_company">by. ${item.member_name}</div>
+				                            			<div>
+				                            				<fmt:parseDate var="end" value="${item.funding_end_date }" pattern="yyyy-MM-dd"/>
+<%-- 				                            				<span class="text_bold">펀딩 마감일</span><fmt:formatDate value="${end}" pattern="yyyy. MM. dd" />  --%>
+				                            			</div>
+					                            		<div class="text_percent">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>
+				                            		</div>
+					                            	<div class="text_pay">
+					                            		<input type="hidden" id="end_date" value="${item.funding_end_date}">
+					                            		<div class="text_pay_date"><span class="text_bold">결제 예정일</span><div id="pay_date" style="display: inline;">결제 날짜</div></div>
+					                            		<div class="text_pay_amount"><span class="text_bold"><fmt:formatNumber value="${item.funding_order_total_price}" type="number"/>원 결제 예약</span></div>
+					                            	</div>
+				                            	</div>
+			                            	</div>
+			                            		
+			                            	
 			                                <div class="row item" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
 			                                    <div class="col-lg-5 col-md-6">
 			                                        <!--이미지-->
@@ -240,15 +300,23 @@
 			                            </div>
 			                        </c:forEach>
 			                        </c:if>
-			                        <div class="row" style="text-align: right">
-			                          <div class="col">
-			                            <button type="button" class="button-6" onclick="location.href='info_funding.do'">펀딩내역 전체보기</button>
-			                          </div>
-			                        </div>
 			                    </div>
 				            </div>
 				            <!-- 스토어 -->
-				            <div id="store" role="tabpanel" aria-labelledby="store-tab" class="tab-pane fade px-4 py-5">
+				            <div id="store" role="tabpanel" aria-labelledby="store-tab" class="tab-pane fade three_list">
+				            	<div class="select_info">
+					          		<c:if test="${countStore eq 0}">
+					          			<div class="no_list">스토어 주문 내역이 없습니다.</div>
+					          		</c:if>
+					          		<c:if test="${countStore ne 0}">
+						          		<div class="box_num">
+						          			<span class="box_num_span">${countStore}</span>건의 스토어 주문 내역이 있습니다.
+						          		</div>
+				                        <div>
+				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_store.do'">스토어 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
+				                        </div>
+					          		</c:if>
+					          	</div>
 				            	<div class="mydiv" id="mydiv">
 								<c:if test="${select3Store.size()>0}">
 									<c:forEach var="item" items="${select3Store}">
@@ -309,15 +377,23 @@
 			                    </div>
 			                    </c:forEach>
 			                    </c:if>
-			                    <div class="row" style="text-align: right">
-				                    <div class="col">
-				                      <button type="button" class="button-6" onclick="location.href='info_store.do'">구매목록 전체보기</button>
-				                    </div>
-			                    </div>
 			            	</div>
 				            </div>
 				            <!-- 찜 -->
-				            <div id="zzim" role="tabpanel" aria-labelledby="zzim-tab" class="tab-pane fade px-4 py-5">
+				            <div id="zzim" role="tabpanel" aria-labelledby="zzim-tab" class="tab-pane fade three_list">
+				            	<div class="select_info">
+					          		<c:if test="${countZzim eq 0}">
+					          			<div class="no_list">찜 내역이 없습니다.</div>
+					          		</c:if>
+					          		<c:if test="${countZzim ne 0}">
+						          		<div class="box_num">
+						          			<span class="box_num_span">${countZzim}</span>건의 찜 내역이 있습니다.
+						          		</div>
+				                        <div>
+				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_zzim.do'">찜 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
+				                        </div>
+					          		</c:if>
+					          	</div>
 				            	<div class="mydiv" id="mydiv">
 								<c:if test="${select3Zzim.size()>0}">
 									<c:forEach var="item" items="${select3Zzim}">
@@ -351,11 +427,6 @@
 			                    </div>
 			                    </c:forEach>
 			                    </c:if>
-			                    <div class="row" style="text-align: right">
-				                    <div class="col">
-				                      <button type="button" class="button-6" onclick="location.href='info_zzim.do'">찜목록 전체보기</button>
-				                    </div>
-			                    </div>
 			            	</div>
 				            </div>
 				         </div>
