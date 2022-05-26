@@ -56,7 +56,7 @@
                     <thead class="thead">
                         <tr>
                             <th scope="col">펀딩 번호</th>
-                             <th scope="col" >썸네일</th>
+                           
                             <th class="tdtitle" scope="col" style="width : 50%">제목</th>
                             <th scope="col">카테고리</th>
                            <!--  <th scope="col">버튼</th> -->
@@ -67,7 +67,7 @@
                     	<c:forEach var="funList" items="${listFun}">
 	                        <tr>
 	                            <th>${funList.funding_idx}</th>
-	                            <td><img src="../resources/upload/funding/${funList.funding_thumbnail}"  class="rounded img-thumbnail "  alt="..."></td>
+	                            
 	                            <td class="tdtitle">
 		                            <a href="<%=request.getContextPath()%>/funding/view.do?funding_idx=${funList.funding_idx}">
 		                            		${funList.funding_title}

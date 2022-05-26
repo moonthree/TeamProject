@@ -36,8 +36,32 @@
 	</bean>
 		 -->
 		 
+	<!-- 실험용 localhost -->	 
+	<!-- <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url"
+            value="jdbc:mysql://localhost:3306/ezen_pjt?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;autoReconnection=true&amp;allowPublicKeyRetrieval=true">
+        </property>
+        <property name="username" value="root"></property>
+        <property name="password" value="1234"></property>
+    </bean>       
+        
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+	</bean>
+	
+	
+	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>  -->
+		 
+		 
 		 <!-- MySQL dataSource -->
-		 <!-- localhost 연결 -->
+		 <!-- 작업용 localhost 연결 -->
      <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>

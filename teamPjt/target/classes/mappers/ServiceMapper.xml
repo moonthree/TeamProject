@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0/EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+		
+<mapper namespace="ServiceMapper">
+	<select id="service_list" resultType="ServiceVO">
+		select sboard_title
+				,sboard_idx
+				,sboard_content
+				,sboard_regdate
+			from 
+				sboard
+			where 
+				status=0
+	</select>
+	
+	<select id="countBoard" resultType="int">
+	SELECT COUNT(*) FROM sBOARD
+</select>
+
+<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT count(sboard_idx)
+		  FROM sboard
+		 WHERE sboard_idx > 0
+	]]>
+</select>
+
+<select id="listPage" resultType="ServiceVO" parameterType="CriteriaVO">
+		SELECT  sboard_idx,
+		      sboard_title,
+		      sboard_content,
+		      sboard_regdate,
+		      member_name,
+      		  member_idx
+		 FROM ( 
+		        SELECT sboard_idx, 
+		               sboard_title, 
+		               sboard_content, 
+		           	 	sboard_regdate,
+		           	 	member_name,
+      					member_idx,
+		               ROW_NUMBER() OVER(ORDER BY sboard_idx DESC) AS RNUM
+		         FROM sboard 
+		         where status=0
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY sboard_idx DESC
+	</select>
+	
+	<select id="view" resultType="ServiceVO" parameterType="int">
+		select sboard_title
+				,sboard_idx
+				,sboard_content
+				,sboard_regdate
+				,member_name
+				,member_idx
+				from sboard
+				where sboard_idx = #{sboard_idx}
+	</select>
+	
+	<insert id="write" parameterType="ServiceVO">
+		insert into sboard(
+					sboard_title
+					,sboard_content
+					,member_idx
+					,member_name
+				)values(
+					#{sboard_title}
+					,#{sboard_content}
+					,#{member_idx}
+					,#{member_name}
+					)
+	</insert>
+	
+	<select id="modify" resultType="ServiceVO" parameterType="int">
+		select sboard_title
+				,sboard_idx
+				,sboard_content
+				,sboard_regdate
+				from sboard
+				where sboard_idx = #{sboard_idx} 
+	</select>
+	
+	<update id="update" parameterType="ServiceVO">
+		update sboard
+		set sboard_title=#{sboard_title}
+			,sboard_content=#{sboard_content}
+		where sboard_idx=#{sboard_idx}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		update sboard set status=1 where sboard_idx=#{sboard_idx}
+	</update>
+
+</mapper>

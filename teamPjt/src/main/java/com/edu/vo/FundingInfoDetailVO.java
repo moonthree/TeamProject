@@ -6,6 +6,7 @@ public class FundingInfoDetailVO {
 	private int funding_idx;
 	private int member_idx;
 	private String member_name; //판매자 이름
+	private String member_phone;
 	
 	private String funding_title;
 	private String funding_thumbnail;
@@ -220,6 +221,12 @@ public class FundingInfoDetailVO {
 	}
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
+	}
+	public String getMember_phone() {
+		return member_phone;
+	}
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
 	}
 	
 	

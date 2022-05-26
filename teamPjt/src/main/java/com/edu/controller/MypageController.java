@@ -445,6 +445,8 @@ public class MypageController {
 		List<FundingInfoDetailVO> s4f = mypageService.select4Funding(login.getMember_idx());
 		model.addAttribute("select4Funding",s4f);
 		
+		
+		
 		return "mypage/my_info";
 		
 	}

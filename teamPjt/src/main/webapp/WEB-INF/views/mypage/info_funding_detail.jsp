@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,460 +12,454 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_view.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/info_store_detail.css">
     <!-- 주소 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <title>펀딩 상세 내역</title>
-<style>
-    main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-    } 
-    .bg-text {
-        color: white;
-        font-weight: bold;
-        position: absolute;
-        top: 13%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        width: 80%;
-        padding: 30px;
-        text-align: center;
-    }
-    
-    /*빨간색 버튼*/
-    .w-btn-outline {
-	    position: relative;
-	    padding: 5px 30px;
-	    border-radius: 15px;
-	    font-family: "paybooc-Light", sans-serif;
-	    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-	    text-decoration: none;
-	    font-weight: 600;
-	    transition: 0.25s;
-	}
-	.w-btn-red-outline:hover {
-	    background-color: #ff5f2e;
-	    color: #e1eef6;
-	}
-	.w-btn-black-outline:hover{
-		background-color : black;
-		color : white;
-	}
-</style>
-<script>
-function autoHypenTel(str) {
-    str = str.replace(/[^0-9]/g, '');
-    var tmp = '';
 
-    if (str.substring(0, 2) == 02) {
-        // 서울 전화번호일 경우 10자리까지만 나타나고 그 이상의 자리수는 자동삭제
-        if (str.length < 3) {
-        return str;
-        } else if (str.length < 6) {
-        tmp += str.substr(0, 2);
-        tmp += '-';
-        tmp += str.substr(2);
-        return tmp;
-        } else if (str.length < 10) {
-        tmp += str.substr(0, 2);
-        tmp += '-';
-        tmp += str.substr(2, 3);
-        tmp += '-';
-        tmp += str.substr(5);
-        return tmp;
-        } else {
-        tmp += str.substr(0, 2);
-        tmp += '-';
-        tmp += str.substr(2, 4);
-        tmp += '-';
-        tmp += str.substr(6, 4);
-        return tmp;
-        }
-    } else {
-        // 핸드폰 및 다른 지역 전화번호 일 경우
-        if (str.length < 4) {
-        return str;
-        } else if (str.length < 7) {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3);
-        return tmp;
-        } else if (str.length < 11) {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 3);
-        tmp += '-';
-        tmp += str.substr(6);
-        return tmp;
-        } else {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 4);
-        tmp += '-';
-        tmp += str.substr(7);
-        return tmp;
-        }
-    }
-    return str;
+
+<script>
+//날짜 계산
+window.onload = function(){
+		var end_date = document.getElementById('end_date').value;
+		var date = end_date.split("-");
+		var end_date_text = new Date(date.toLocaleString());
+		end_date_text = end_date_text.getFullYear() + "년 " + ((end_date_text.getMonth() + 1) > 9 ? (end_date_text.getMonth() + 1).toString() : "0" + (end_date_text.getMonth() + 1)) + "월 " + (end_date_text.getDate() > 9 ? end_date_text.getDate().toString() : "0" + end_date_text.getDate().toString()) + "일";
+		//document.getElementById('end_date').textContent = end_date_text;
+		
+		// 결제 예정일
+		var pay_date = new Date(date.toLocaleString());
+		pay_date.setDate(pay_date.getDate() + 1);
+		var pay_date_text = pay_date.getFullYear() + "-" + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + "-" + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString());
+		pay_date = pay_date.getFullYear() + "-" + ((pay_date.getMonth() + 1) > 9 ? (pay_date.getMonth() + 1).toString() : "0" + (pay_date.getMonth() + 1)) + "-" + (pay_date.getDate() > 9 ? pay_date.getDate().toString() : "0" + pay_date.getDate().toString());
+		document.querySelector('#pay_date').textContent = pay_date_text;
+
+		// 배송 예정일 (+40~45일)
+		var express_date1 = new Date(pay_date.toLocaleString());
+		express_date1.setDate(express_date1.getDate() + 40);
+		express_date1 = express_date1.getFullYear() + "-" + ((express_date1.getMonth() + 1) > 9 ? (express_date1.getMonth() + 1).toString() : "0" + (express_date1.getMonth() + 1)) + "-" + (express_date1.getDate() > 9 ? express_date1.getDate().toString() : "0" + express_date1.getDate().toString());
+		var express_date2 = new Date(pay_date.toLocaleString());
+		express_date2.setDate(express_date2.getDate() + 45);
+		express_date2 = express_date2.getFullYear() + "-" + ((express_date2.getMonth() + 1) > 9 ? (express_date2.getMonth() + 1).toString() : "0" + (express_date2.getMonth() + 1)) + "-" + (express_date2.getDate() > 9 ? express_date2.getDate().toString() : "0" + express_date2.getDate().toString());
+		document.querySelector('#express_date').textContent = express_date1 + " ~ " + express_date2;
+		
+		
+		//카드 번호 가져오기
+		var card_num = $('#card_num').text()
+		var secret_card_num = card_num.split(' ');
+		console.log(secret_card_num);
+		var replace = '****'
+		var replace_card_num = secret_card_num[0] +" "+ secret_card_num[1] +" "+ replace +" "+ secret_card_num[3];
+		$('#card_num').text(replace_card_num)
+	}
+
+
+//주소 찾기
+function execPostCode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+           // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+           // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+           var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+           var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+           // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+           // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+               extraRoadAddr += data.bname;
+           }
+           // 건물명이 있고, 공동주택일 경우 추가한다.
+           if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+           }
+           // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+           if(extraRoadAddr !== ''){
+               extraRoadAddr = ' (' + extraRoadAddr + ')';
+           }
+           // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+           if(fullRoadAddr !== ''){
+               fullRoadAddr += extraRoadAddr;
+           }
+
+           // 우편번호와 주소 정보를 해당 필드에 넣는다.
+           
+           console.log(data.zonecode);
+           console.log(fullRoadAddr);
+           
+           
+           $("[name=funding_express_postnum]").val(data.zonecode);
+           $("[name=funding_express_addr1]").val(fullRoadAddr);
+           
+           /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+           document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+           document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+       }
+    }).open();
 }
-$(function(){
-    $(".telCheckSize").keyup(function (event) {
-        event = event || window.event;
-        var _val = this.value.trim();
-        this.value = autoHypenTel(_val);
-    });
-})
+//배송지 변경
+function changeExpress(){
+	console.log(1);
+	
+	//display:none; 속성 추가
+	$("#express").attr("style","display:none");
+	
+	//변경버튼 -> 취소버튼
+	$("#change").children("button").remove();
+	$("#change").append('<button onclick="notChange()">취소</button>');
+	
+	/* $("#express").after("<tr class='ex'><td>주소</td>"+
+			"<td>"+
+            "<div class='form-group'>"+ 
+            "<input class='form-control' style='width: 40%; display: inline;' placeholder='우편번호' name='funding_express_postnum' id='funding_express_postnum' type='text' readonly='readonly' value='${ express.funding_express_postnum }' >"+
+			    "<button type='button' class='btn btn-secondary' onclick='execPostCode();'><i class='fa fa-search'></i>주소 찾기</button>"+                               
+			"</div>"+
+			"<div class='form-group'>"+
+			    "<input name='funding_express_addr1' class='form-control' style='top: 5px;' placeholder='도로명 주소'  id='funding_express_addr1' type='text' readonly='readonly' value='${ express.funding_express_addr1 }'/>"+
+			"</div>"+
+			"<div class='input-group mb-3'>"+
+            	"<input type='text' class='form-control' name='funding_express_addr2' id='funding_express_addr2' value='${ express.funding_express_addr2 }'>"+
+        	"</div>"+
+        	"<div class='row'>"+ 
+            	"<div class='col-sm-12' style='text-align: right;'><button type='button' class='btn btn-dark' style='width: 250px;' onclick='changeExpress2()'>배송지 정보 변경 완료</button></div>"+
+        	"</div>"+
+        "</td></tr>");
+	$("#express").after("<tr class='ex'><td>전화번호</td><td><input  name='funding_express_phone' type='text' class='form-control m-input telCheckSize' placeholder='전화번호 입력' id='funding_express_phone' value='${ express.funding_express_phone }'</td></tr>");
+	$("#express").after("<tr class='ex'><td>이름</td><td><input  name='funding_express_name' type='text' class='form-control' placeholder='이름 입력' id='funding_express_name' value='${express.funding_express_name}'</td></tr>"); */
+	$("#express").after('<tr class="ex">'+
+							'<td class="odb_td odb_td1 odb_td1_top" style="width:10%">수령인</td>'+
+							'<td class="odb_td" odb_td_line2 style="width:60%"><input  name="funding_express_name" type="text" class="form-control" placeholder="이름 입력" id="funding_express_name" value="${express.funding_express_name}"></td>'+
+						'</tr>'+
+						'<tr class="ex">'+
+							'<td class="odb_td odb_td1 odb_td1_bot">연락처</td>'+
+							'<td class="odb_td odb_td_line">'+
+								'<input  name="funding_express_phone" type="text" class="form-control m-input telCheckSize" placeholder="전화번호 입력" id="funding_express_phone" value="${ express.funding_express_phone }">'+
+							'</td>'+
+						'</tr>'+
+						'<tr class="ex">'+
+							'<td class="odb_td odb_td1">배송지</td>'+
+							'<td class="odb_td odb_td_line">'+
+								'<div class="form-group">'+
+									'<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="funding_express_postnum" id="funding_express_postnum" type="text" readonly="readonly" value="${ express.funding_express_postnum }">'+
+									'<button type="button" class="btn btn-secondary" onclick="execPostCode();"><i class="fa fa-search"></i>주소 찾기</button>'+
+								'</div>'+
+								'<div class="form-group">'+
+									'<input name="funding_express_addr1" class="form-control" style="top: 5px;" placeholder="도로명 주소"  id="funding_express_addr1" type="text" readonly="readonly" value="${ express.funding_express_addr1 }"/>'+
+								'</div>'+
+								'<div class="input-group mb-3">'+
+									'<input type="text" class="form-control" name="funding_express_addr2" id="funding_express_addr2" value="${ express.funding_express_addr2 }">'+
+								'</div>'+
+								'<div class="row">'+
+									'<div class="col-sm-12" style="text-align: right;"><button type="button" class="btn btn-dark" style="width: 250px;" onclick="changeExpress2()">배송지 정보 변경 완료</button></div>'+
+									
+								'</div>'+
+							'</td>'+
+						'</tr>'
+						);
+
+}
+//배송지 변경2
+function changeExpress2(){
+	console.log("funding_express_name"+$("#funding_express_name").val());
+	console.log("funding_express_phone"+$("#funding_express_phone").val());
+	console.log("funding_express_addr1"+$("#funding_express_addr1").val());
+	console.log("funding_express_addr2"+$("#funding_express_addr2").val());
+	console.log("funding_express_postnum"+$("#funding_express_postnum").val());
+	console.log("funding_order_idx : "+${ express.funding_order_idx });
+	
+	//ajax로 넘겨서 funding_express 변경
+	$.ajax({
+		url : "changeExpress.do",
+		type : "post",
+		data : {"funding_express_name":$("#funding_express_name").val(),
+				"funding_express_phone":$("#funding_express_phone").val(),
+				"funding_express_postnum":$("#funding_express_postnum").val(),
+				"funding_express_addr1":$("#funding_express_addr1").val(),
+				"funding_express_addr2":$("#funding_express_addr2").val(),
+				"funding_order_idx":${ express.funding_order_idx }
+		},
+        success:function(data){
+        	if(data=="s"){
+        		alert("주소지 변경 완료");
+        		location.reload(true);
+        		location.href=location.href;
+        		
+        	}else{
+        		alert("주소지 변경 오류");
+        	}
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+        	alert('주소 변경 에이잭스 오류');
+        }
+	});
+	
+}
+//배송지 변경 취소
+function notChange(){
+	$("#express").removeAttr("style");
+	$(".ex").remove();
+	
+	//취소버튼 -> 변경버튼
+	$("#change").children("button").remove();
+	$("#change").append('<button onclick="changeExpress(this)">변경</button>');
+}
 </script>
 </head>
 <body>
-<main id="wrapper">
+<main>
 <c:import url="/header.do"></c:import>
-   <!-- 썸네일 -->
-    <div class="card bg-dark text-white topcard">
-        <img src="../resources/upload/funding/${detail.funding_thumbnail}" class="card-img FVtitleImg" alt="...">
-        <div class="card-img-overlay">
-            <br>
-            <h5 class="card-category">
-            	<c:choose>
-            		<c:when test="${ detail.funding_category eq 0 }">강아지 용품</c:when>
-            		<c:when test="${ detail.funding_category eq 1 }">고양이 용품</c:when>
-            		<c:when test="${ detail.funding_category eq 2 }">다른 동물 용품</c:when>
-            	</c:choose>
-            </h5>
-            <br>
-            <h3 class="card-title">${ detail.funding_title }</h3>
-        </div>
-    </div>
-    <!-- -->    
-    <div class="container" >
-        
-    <!--본문-->
-    <div class="row" style="margin-top:10px"> 
-        <div class="col-sm-9"></div>
-        <div class="col-sm-3">
-        <button type="button" class="btn btn-dark" style="width: 100%; height:50px; " onclick="window.open('note.do?funding_idx=${detail.funding_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자에게 문의하기</button>
-        </div>		
-    </div>
+
+<div class="mypage_background"></div>
+	<div class="container wrapper">
+		<div class="row">
+			<div class="col-3">
+                <div class="my_top">
+                    <c:choose>
+                       	<c:when test="${ empty member.member_photo }">
+                       		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                       	</c:when>
+                       	<c:otherwise>
+							<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                       	</c:otherwise>
+                    </c:choose>
+                    <p>${login.member_name}님</p>
+                </div>
+                <div class="my_middle">
+                    <h5>쇼핑MY</h5>
+                    <a href="info_funding.do">내가 펀딩한 상품<span>></span></a><br>
+                    <a href="info_store.do">내가 구매한 상품<span>></span></a><br>
+                    <a href="info_zzim.do">내가 찜한 상품<span>></span></a>
+                </div>
+                <div class="my_bottom">
+                    <p>
+                        <a href="mypage.do">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
+                                viewBox="0 0 16 20">
+                                <path
+                                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                            </svg>
+                            &nbsp;<span>내 정보</span>
+                        </a>
+                    </p>
+                    <p>
+                        <a href="../notice/notice_list.do">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-megaphone"
+                                viewBox="0 0 16 20">
+                                <path
+                                    d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z" />
+                            </svg>
+                            &nbsp;공지사항
+                        </a>
+                    </p>
+                    <p>
+                        <a href="../service/service_list.do">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-question-circle"
+                                viewBox="0 0 16 20">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                            </svg>
+                            &nbsp;고객센터
+                        </a>
+                    </p>
+                </div>
+            </div><!-- end of col-3 -->
+            <div class="col-9 order_detail_place">
+                <div class="order_detail_top">
+                    <h5>주문 상세정보</h5>
+                    
+                    <fmt:formatDate var="order_date" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
+                    <fmt:parseDate var="end_date_parse" value="${detail.funding_end_date}" pattern="yyyy-MM-dd" />
+                    <fmt:formatDate var="end_date" value="${end_date_parse}" pattern="yyyy-MM-dd" />
+                    
+                    <input type="hidden" id="end_date" value="${detail.funding_end_date}">
+                    
+                    <div class="order_detail_num">
+                        <span>펀딩 예약일</span>
+                        <span class="color">${order_date }</span>
+                        <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span>펀딩 종료일</span>
+                        <span class="color">${end_date }</span>
+                        <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span>주문번호</span>
+                        <span class="color">${detail.funding_order_idx }</span>
+                        <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <br>
+                        <span>결제 예정일</span>
+                        <span class="color" id="pay_date"></span>
+                        <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span>발송 예정일</span>
+                        <span class="color" id="express_date"></span>
+                    </div>
+                    <div class="order_datail_product">
+                        <table class="odp_table" style="width: 100%;">
+                            <tr class="odp_tr1">
+                                <td style="width: 10%; font-weight: bold;">상품주문번호</td>
+                                <td style="width: 50%;">상품정보</td>
+                                <td class="odp_td" style="width: 15%;">배송비/판매자</td>
+                                <td class="odp_td odp_td_top" style="width: 25%;" colspan="2">진행상태</td>
+                            </tr>
+                            <tr class="odp_tr2">
+                                <td>1</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <a href="../funding/view.do?funding_idx=${detail.funding_idx }" class="odp_table_a">
+                                           
+                                                <img src="../resources/upload/funding/${detail.funding_thumbnail}">
+                                            </a>
+                                        </div>
+                                        <div class="col-9 odp_title" style="text-align: left;">
+                                            <c:forEach var="item" items="${ option }">
+                                            	<span>${ item.funding_option_name }</span>
+                                            	<span>|</span>
+                                            	<span><fmt:formatNumber value="${ item.funding_option_price }" type="number" />원 (${ item.funding_order_option_select_count }개)</span>
+                                            	
+                                            	<br>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="odp_td">
+                                    <span><fmt:formatNumber value="${detail.funding_express_fee }" type="number" />원</span><br>
+                                    <span class="odp_sub">${detail.member_name }</span><br>
+                                    <span class="odp_sub">(${detail.member_phone })</span>
+                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=${detail.funding_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+                                </td>
+<!-- 0020 배송상태 -->
+                                <td class="odp_td" style="width: 10%">
+                                	<c:choose>
+                                		<c:when test="${ detail.funding_order_pay_state eq 2 }">
+											펀딩 취소
+							        	</c:when>
+						        		<c:otherwise>
+						        			<c:if test="${ detail.funding_current_state eq 0 }">
+	                                			펀딩 진행중
+	                                		</c:if>
+	                                		<c:if test="${ detail.funding_current_state eq 1 }">
+												펀딩 성공
+							        		</c:if>
+							        		<c:if test="${ detail.funding_current_state eq 2 }">
+												펀딩 실패
+							        		</c:if>
+						        		</c:otherwise>
+                                	</c:choose>
+                                </td>
+                                <td class="odp_td odp_td_bot">
+                                	<c:choose>
+                                		<c:when test="${ detail.funding_order_pay_state eq 0 }">
+											<button type="button" class="btn" onclick="fundingWithdrawal()">펀딩 취소</button>
+							        	</c:when>
+							        	<c:when test="${ detail.funding_order_pay_state eq 1 }">
+											결제 완료
+						        		</c:when>
+						        		<c:when test="${ detail.funding_order_pay_state eq 2 }">
+											결제 취소
+						        		</c:when>
+							        </c:choose>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="order_detail_middle">
+                    <h5>주문/결제 금액 정보</h5>
+                    <div class="odm_talbe_div">
+                        <table class="odm_table" style="width: 100%;">
+                            <tr>
+                                <td class="odm_td" style="width: 33%;">
+                                    <span class="bold">최초주문금액</span>
+                                    <div class="odm_td_div">
+                                        상품금액 <span><fmt:formatNumber value="${ detail.funding_order_total_price - detail.funding_express_fee - detail.funding_order_donation}" type="number" />원</span>
+                                        <br>
+                                        후원금 <span>+<fmt:formatNumber value="${ detail.funding_order_donation}" type="number" />원</span>
+                                        <br>
+                                        배송비 <span>+<fmt:formatNumber value="${ detail.funding_express_fee }" type="number" />원</span>
+                                    </div>
+                                </td>
+                                <td class="odm_td" style="width: 33%;">
+                                    <span class="bold">결제상세</span>
+                                    <div class="odm_td_div">
+                                        카드결제 <span><fmt:formatNumber value="${ detail.funding_order_total_price }" type="number" />원</span>
+                                        <br>
+                                        카드번호 <span id="card_num">${ pay.funding_order_pay_card_num }</span>
+                                    </div>
+                                </td>
+                                <td class="odm_td odm_td_last" style="width: 34%;">
+                                	<c:choose>
+                                		<c:when test="${ detail.funding_order_pay_state eq 0 }">
+											<span class="bold">결제예정</span>
+		                                    <div class="odm_td_div">
+		                                        주문금액 <span><fmt:formatNumber value="${ detail.funding_order_total_price }" type="number" />원</span>
+		                                    </div>
+		                                    <div class="odm_td_div">
+		                                        카드결제 <span><fmt:formatNumber value="${ detail.funding_order_total_price }" type="number" />원</span>
+		                                    </div>
+							        	</c:when>
+							        	<c:when test="${ detail.funding_order_pay_state eq 1 }">
+											<span class="bold">결제완료</span>
+		                                    <div class="odm_td_div">
+		                                        주문금액 <span><fmt:formatNumber value="${ detail.funding_order_total_price }" type="number" />원</span>
+		                                    </div>
+		                                    <div class="odm_td_div">
+		                                        카드결제 <span><fmt:formatNumber value="${ detail.funding_order_total_price }" type="number" />원</span>
+		                                    </div>
+						        		</c:when>
+						        		<c:when test="${ detail.funding_order_pay_state eq 2 }">
+											<span class="bold">결제취소</span>
+						        		</c:when>
+							        </c:choose>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+<!-- 0030 배송지 -->
+                <div class="order_detail_bottom">
+                	
+                    <h5 id="change">
+                    	배송지 정보 
+                    	<button onclick="changeExpress(this)">변경</button>
+                   	</h5>
+                    
+                    <div class="odb_table_div">
+                        <table class="odb_table" style="width: 100%;" id="express">
+                            <tr>
+                                <td class="odb_td odb_td1 odb_td1_top" style="width:10%">수령인</td>
+                                <td class="odb_td" odb_td_line2 style="width:60%">${ express.funding_express_name }</td>
+                            </tr>
+                            <tr>
+                                <td class="odb_td odb_td1">배송지</td>
+                                <td class="odb_td odb_td_line">
+                                    ${ express.funding_express_postnum }<br>
+                                    ${ express.funding_express_addr1 }<br>
+                                    ${ express.funding_express_addr2 }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="odb_td odb_td1 odb_td1_bot">연락처</td>
+                                <td class="odb_td odb_td_line">
+                                    ${ express.funding_express_phone }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- end-of-col-9 -->
+		</div><!-- end_of_row -->
+	</div>
+   
+<c:import url="/footer.do"></c:import>
+<script type="text/javascript">
 		
-        <div class="row">
-            <!--펀딩 내역-->
-            <div class="col-md-12 col-sm-12" style="margin-top: 10%;">
-                <table class="table">
-                    <thead class="table-light" style="border-bottom: 3px solid #06113C;">
-                        <tr>
-                            <th colspan="2">
-                                	펀딩 내역
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px">펀딩 번호</td>
-                            <td>${ detail.funding_idx }</td>
-                            <td width="200px">펀딩 상태</td>
-                            <td>
-                                <c:choose>
-                                	<c:when test="${ detail.funding_current_state eq 0 }">진행중</c:when>
-                                	<c:when test="${ detail.funding_current_state eq 1 }">성공</c:when>
-                                	<c:when test="${ detail.funding_current_state eq 2 }">실패</c:when>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>펀딩 예약 날짜</td>
-                            <td>
-                               
-                                <fmt:formatDate type="time" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
-                               
-                            </td>
-                            <td>발송 시작일</td>
-                            <td>
-                                ${ detail.funding_express_date }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>펀딩 종료일</td>
-                            <td width="300px">
-                                ${ detail.funding_end_date }
-                            </td>
-                            <td>펀딩 옵션</td>
-                            <td width="300px">
-                            
-                            <c:forEach var="item" items="${ option }">
-                            	<strong>구성</strong> ${ item.funding_option_name }(x${ item.funding_order_option_select_count })<br>
-                            	<strong>금액</strong> ${ item.funding_option_price }<br>
-                            	<br>
-                            </c:forEach>
-                           	
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
 		
-		
-        <div class="row">
-            <!--결제 내역-->
-            <div class="col-md-6 col-sm-12" style="margin-top: 10%;">
-                <table class="table">
-                    <thead class="table-light" style="border-bottom: 3px solid #06113C;">
-                        <tr>
-                            <th colspan="2">
-                                결제 내역
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px">결제 금액</td>
-                            <td>${ detail.funding_order_total_price - detail.funding_express_fee - detail.funding_order_donation }</td>
-                        </tr>
-                        <tr>
-                            <td>추가 후원금</td>
-                            <td>
-                                ${ detail.funding_order_donation }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>배송비</td>
-                            <td>
-                                ${ detail.funding_express_fee }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>최종 결제 금액</td>
-                            <td>
-                                ${ detail.funding_order_total_price }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!--결제 정보-->
-            <div class="col-md-6 col-sm-12" style="margin-top: 10%;">
-                <table class="table">
-                    <thead class="table-light" style="border-bottom: 3px solid #06113C;">
-                        <tr>
-                            <th colspan="2">
-                                	결제 정보
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px">결제 방법</td>
-                            <td>신용카드</td>
-                        </tr>
-                        <tr>
-                            <td>카드번호</td>
-                            <td>
-                                ${ pay.funding_order_pay_card_num }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>할부 기간</td>
-                            <td>
-                                	일시불
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-		<script type="text/javascript">
-		//주소 찾기
-	    function execPostCode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-	               // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-	               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	               var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-	               var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-	               // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	               // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	               if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                   extraRoadAddr += data.bname;
-	               }
-	               // 건물명이 있고, 공동주택일 경우 추가한다.
-	               if(data.buildingName !== '' && data.apartment === 'Y'){
-	                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	               }
-	               // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	               if(extraRoadAddr !== ''){
-	                   extraRoadAddr = ' (' + extraRoadAddr + ')';
-	               }
-	               // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-	               if(fullRoadAddr !== ''){
-	                   fullRoadAddr += extraRoadAddr;
-	               }
-
-	               // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	               
-	               console.log(data.zonecode);
-	               console.log(fullRoadAddr);
-	               
-	               
-	               $("[name=funding_express_postnum]").val(data.zonecode);
-	               $("[name=funding_express_addr1]").val(fullRoadAddr);
-	               
-	               /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-	               document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-	               document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
-	           }
-	        }).open();
-	    }
-		//배송지 변경
-	    function changeExpress(){
-	    	console.log(1);
-	    	
-	    	//display:none; 속성 추가
-	    	$("#express").attr("style","display:none");
-			
-	    	//변경버튼 -> 취소버튼
-	    	$("#change").children("div").remove();
-	    	$("#change").append("<div style='color:blue; cursor:pointer;' onclick='notChange()'>취소</div>");
-	    	
-			$("#express").after("<tr class='ex'><td>주소</td>"+
-	    			"<td>"+
-                    "<div class='form-group'>"+ 
-                    "<input class='form-control' style='width: 40%; display: inline;' placeholder='우편번호' name='funding_express_postnum' id='funding_express_postnum' type='text' readonly='readonly' value='${ express.funding_express_postnum }' >"+
-					    "<button type='button' class='btn btn-secondary' onclick='execPostCode();'><i class='fa fa-search'></i>주소 찾기</button>"+                               
-					"</div>"+
-					"<div class='form-group'>"+
-					    "<input name='funding_express_addr1' class='form-control' style='top: 5px;' placeholder='도로명 주소'  id='funding_express_addr1' type='text' readonly='readonly' value='${ express.funding_express_addr1 }'/>"+
-					"</div>"+
-					"<div class='input-group mb-3'>"+
-                    	"<input type='text' class='form-control' name='funding_express_addr2' id='funding_express_addr2' value='${ express.funding_express_addr2 }'>"+
-                	"</div>"+
-                	"<div class='row'>"+ 
-                    	"<div class='col-sm-12' style='text-align: right;'><button type='button' class='btn btn-dark' style='width: 250px;' onclick='changeExpress2()'>배송지 정보 변경 완료</button></div>"+
-                	"</div>"+
-                "</td></tr>");
-			$("#express").after("<tr class='ex'><td>전화번호</td><td><input  name='funding_express_phone' type='text' class='form-control m-input telCheckSize' placeholder='전화번호 입력' id='funding_express_phone' value='${ express.funding_express_phone }'</td></tr>");
-	    	$("#express").after("<tr class='ex'><td>이름</td><td><input  name='funding_express_name' type='text' class='form-control' placeholder='이름 입력' id='funding_express_name' value='${express.funding_express_name}'</td></tr>");
-
-		}
-		//배송지 변경2
-		function changeExpress2(){
-			console.log("funding_express_name"+$("#funding_express_name").val());
-			console.log("funding_express_phone"+$("#funding_express_phone").val());
-			console.log("funding_express_addr1"+$("#funding_express_addr1").val());
-			console.log("funding_express_addr2"+$("#funding_express_addr2").val());
-			console.log("funding_express_postnum"+$("#funding_express_postnum").val());
-			console.log("funding_order_idx : "+${ express.funding_order_idx });
-			
-			//ajax로 넘겨서 funding_express 변경
-			$.ajax({
-    			url : "changeExpress.do",
-    			type : "post",
-    			data : {"funding_express_name":$("#funding_express_name").val(),
-    					"funding_express_phone":$("#funding_express_phone").val(),
-    					"funding_express_postnum":$("#funding_express_postnum").val(),
-    					"funding_express_addr1":$("#funding_express_addr1").val(),
-    					"funding_express_addr2":$("#funding_express_addr2").val(),
-    					"funding_order_idx":${ express.funding_order_idx }
-    			},
-    	        success:function(data){
-    	        	if(data=="s"){
-    	        		alert("주소지 변경 완료");
-    	        		location.reload(true);
-    	        		location.href=location.href;
-    	        		
-    	        	}else{
-    	        		alert("주소지 변경 오류");
-    	        	}
-    	        },
-    	        error: function (XMLHttpRequest, textStatus, errorThrown){
-    	        	alert('주소 변경 에이잭스 오류');
-    	        }
-    		});
-			
-		}
-		//배송지 변경 취소
-		function notChange(){
-			$("#express").removeAttr("style");
-			$(".ex").remove();
-			
-			//취소버튼 -> 변경버튼
-	    	$("#change").children("div").remove();
-	    	$("#change").append("<div style='color:blue; cursor:pointer;' onclick='changeExpress()'>변경</div>");
-		}
-		</script>
-        <div class="row">
-            <!--배송지 정보-->
-            <div class="col-md-12 col-sm-12" style="margin-top: 10%;">
-                <table class="table">
-                    <thead class="table-light" style="border-bottom: 3px solid #06113C;">
-                        <tr>
-                            <th>
-                                	배송지 정보
-                            </th>
-                            <td style="text-align: right" id="change">
-                            	<div style="color:blue; cursor:pointer;" onclick="changeExpress(this)">변경</div>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody id="express">
-                        <tr>
-                            <td>이름</td>
-                            <td>${ express.funding_express_name }</td>
-                        </tr>
-                        <tr>
-                            <td>전화번호</td>
-                            <td>
-                                ${ express.funding_express_phone }
-                            </td>
-                        </tr>
-                        <tr id="funding_express">
-                            <td>주소</td>
-                            <td>
-                            	<div>(<span>${ express.funding_express_postnum }</span>)<span>${ express.funding_express_addr1 }</span></div>
-                                <div>${ express.funding_express_addr2 }</div> 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        
-        <div class="row" style="margin-top:100px">
-        	<div class="col-sm-12" style="text-align:right; font-size: large; color:#737373">
-        	<c:choose>
-        		<c:when test="${ detail.funding_order_pay_state eq 0 }">
-        			<button type="button" class="btn btn-outline-dark" style="width: 30%; height:50px;" onclick="fundingWithdrawal()">펀딩 취소</button>
-        		</c:when>
-        		<c:when test="${ detail.funding_order_pay_state eq 1 }">
-					결제 완료되었습니다.
-        		</c:when>
-        		<c:when test="${ detail.funding_order_pay_state eq 2 }">
-					결제 예약이 취소되었습니다.
-        		</c:when>
-        	</c:choose>
-        	
-        	</div>
-        </div>
-        <div class="row" style="margin-top:10px"> 
-            <div class="col-sm-12">
-            <button type="button" class="btn btn-dark" style="width: 100%; height:70px; " onclick="location.href='info_funding.do'">펀딩 목록 돌아가기</button>
-            </div>		
-        </div>
-    </div>
-    <script>
-    	function fundingWithdrawal(){
-    		$("#checkFdWithdrawalModal").modal("toggle");
-    		$("#orderIdx").val(${ express.funding_order_idx });
-    	}
-    </script>
+	function fundingWithdrawal(){
+		$("#checkFdWithdrawalModal").modal("toggle");
+		$("#orderIdx").val(${ express.funding_order_idx });
+	}
+</script>
     <!-- 모달 -->
 	<div class="modal fade" id="checkFdWithdrawalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -490,5 +485,4 @@ $(function(){
 	  </div>
 	</div>
 </main>
-<c:import url="/footer.do"></c:import>
 </body>
