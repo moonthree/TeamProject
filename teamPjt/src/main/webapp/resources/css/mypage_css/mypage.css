@@ -292,9 +292,6 @@ main {
 .image_container{
 	width: 35%;
 }
-.image_container img{
-	border-radius: 20px;
-}
 .text_container{
 	width: 65%;
 	padding: 10px 0px 0px 20px;
