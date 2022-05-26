@@ -1,191 +1,233 @@
-@charset "UTF-8";
-/* 소비자 마이패이지 css */
-@import url('https://fonts.googleapis.com/css?family=Oswald');
-
-main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-}
-
-:root {
-  --base-color: #303F9F;
-  --second-color: #3F51B5;
-  --third-color: #cf1414cc;
-  --green-color: #6aaa91;
-  --site: #303F9F;
-  --light: #fff;
-}
-
-
-body {
-  font-family: 'Oswald', sans-serif;
-  background: var(--light);
-}
-
-.grid {
-  list-style: none;
-  margin-left: -40px;
-}
-
-.gc {
-  box-sizing: border-box;
-  
-  margin-right: -.25em;
-  min-height: 1px;
-  padding-left: 40px;
-  vertical-align: top;
-}
-
-.gc--1-of-3 {
-  width: 33.33333%;
-}
-
-.gc--2-of-3 {
-  width: 66.66666%;
-}
-
-.naccs {
-  
-  max-width: 100%;
-}
-
-.menu div {
-  padding: 15px 20px 15px 40px;
-  margin-bottom: 10px;
-  color: var(--green-color);
-  background: --;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  vertical-align: middle;
-  font-weight: 700;
-  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.menu div span.light {
-  height: 10px;
-  width: 10px;
- 
-  top: 24px;
-  left: 15px;
-  background-color: var(--green-color);
-  border-radius: 100%;
-  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.menu div.active span.light {
-  background-color: --third-color;
-  left: 0;
-  height: 100%;
-  width: 3px;
-  top: 0;
-  border-radius: 0;
-}
-
-.menu div.active {
-  color: var(--third-color);
-  padding: 15px 20px 15px 20px;
-}
-
-ul.nacc {
-  position: relative;
-  height: 0px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  transition: .5s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-ul.nacc li {
-  opacity: 0;
-  transform: translateX(50px);
-  position: absolute;
-  list-style: none;
-  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-ul.nacc li.active {
-  transition-delay: .3s;
-  z-index: 2;
-  opacity: 1;
-  transform: translateX(0px);
-}
-
-ul.nacc li p {
-  margin: 0;
-}
-main {
+		main {
     height: auto;
     min-height: 100%;
-    padding-bottom: 800px;
 }
-/*이미지 콘테이너 1:1 비율*/
-    .img-container{
-        overflow: hidden;
-    }
-    .card_img{
-        width: 100px;
-        height:100px;
-        object-fit: cover;
-        transition: all 0.1s linear;
-    }
-    .card_img:hover{
-        transform: scale(1.05);
-    }
-    .setting_img:hover{
-        transform: scale(1.1);
-        cursor: pointer;
+/*
+옆에 내 정보 관련 부분
+01. my_top : 이미지, 닉네임
+02. my_middle : 쇼핑MY
+03. my_bottom : 고객센터, 공지사항
+*/
 
+.middlebar{
+    color: #eff0f2;
+}
+
+/* 01 my_top 시작*/
+.my_top{
+    text-align: center;
+    background-color: #A1887F;
+    padding: 10px 0px 20px 0px;
+    border-radius: 20px;
+}
+.my_top > img{
+    margin: 20px 0px 20px 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.my_top > p{
+    color: #black;
+}
+/*my_top 끝*/
+
+/* 02 my_middle 시작*/
+.my_middle{
+    padding: 20px;
+    background-color: #D7CCC8;
+    border-radius: 20px;
+}
+.my_middle > h5{
+    font-weight: bold;
+}
+.my_middle > a > span {
+    float: right;
+}
+/*my_middle 끝*/
+
+/* 03 my_bottom 시작*/
+.my_bottom{
+    background-color: #EFEBE9;
+    padding: 20px 10px 10px 15px;
+    height: 63%;
+    border-radius: 20px;
+    
+}
+.my_bottom > a > div {
+    float: right;
+}
+/*my_bottom 끝*/
+/*옆에 내 정보 관련 부분 끝*/
+
+
+/* tab */
+.tabs{
+    position: absolute;
+    top: 45px;
+    right: 60px;
+ }
+.tab_check{
+	background:#fffffff6;
+    color:#525f78;
+    border-top: 3px solid #525f78;
+    cursor: pointer;
+    padding: 17px 20px;
+    margin: 0px 10px;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+    width: 110px;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+.tab_check a{
+	color:#525f78;
+}
+.tab{
+    cursor: pointer;
+    padding: 17px 20px;
+    margin: 0px 10px;
+    background: #A1887F;
+    display: inline-block;
+    color: #fff;
+    border-top: 3px solid #aeb6bf;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+    width: 110px;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+.tab a{
+	 color:#fff;
+}
+.tab:hover{
+	background:#fffffff6;
+    color:#525f78;
+    border-top: 3px solid #525f78;
+}
+.mypage_header{
+	padding-top: 13px;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.mypage_background{
+	display: block;
+    position: absolute;
+    left: 0;
+    opacity: .9;
+    background-image: linear-gradient(263deg,#D7CCC8 100%,#00b2b2 0);
+    width: 100%;
+    height: 220px;
+	
+}
+
+.right_container{
+	padding: 40px;
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+	border-radius: 20px;
+	width: 100%;
+    margin: 0px auto;
+    min-height: 800px;
+    background-color: white; 
+}
+
+.right_container li{
+	width: 30%;
+	margin: 0px;
+}
+
+.right_container a{
+	width: 100%;
+}
+
+.box_title{
+	padding: 15px 0px 15px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+@media (min-width: 576px) {
+    .rounded-nav {
+      border-radius: 50rem !important;
     }
-    .card{
-        border: none; 
+  }
+  
+  @media (min-width: 576px) {
+    .rounded-nav .nav-link {
+      border-radius: 50rem !important;
     }
-@media screen and (max-width: 767px) { #outer { display: none; } }
+  }
+  
+  /* With arrow tabs */
+   
+  .with-arrow .nav-link.active {
+    position: relative;
+  }
+  
+  .with-arrow .nav-link.active::after {
+    content: '';
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 21px solid #D7CCC8;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+  }
+  
+  /* lined tabs */
+  
+  .lined .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .lined .nav-link:hover {
+    border: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .lined .nav-link.active {
+    background: none;
+    color: #555;
+    border-color: #525f78;
+  }
+  
+  /*
+  *
+  * ==========================================
+  * FOR DEMO PURPOSE
+  * ==========================================
+  *
+  */
 
-
-/* 소비자 마이페이지 css end */
-
-/* 판매자 마이페이지 css */
-	 .mydiv{
+  .nav-pills .nav-link {
+    color: #555;
+  }
+  .text-uppercase {
+    letter-spacing: 0.1em;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #A1887F;
+}
+.mydiv{
 	    height: 1000px;
 	    overflow: auto;
 	    overflow-x: hidden
   	}
-  .card{
-    border: none !important; 
-    }
-
-  card {
-    object-fit: cover;
-  }
-
-/*이미지 콘테이너 1:1 비율*/
-.img-container{
-        overflow: hidden;
-    }
-    .card-img-top{
-        
-        object-fit: cover;
-        transition: all 0.1s linear;
-    }
-    .card-img-top:hover{
-        transform: scale(1.05);
-    }
-    .card{
-        border: none;
-    }
-    
-
-	/* 내 펀딩 <-> 내 스토어 버튼 css */
-	.nav-link.active{
-      background-color: #6141245f !important;
-      color: white !important;
-  	}
-	.nav-link:hover{
-	  color:black;
-	}
-	
-	/* 버튼 */
+  
+		
+		
+		/* 버튼 */
         .button-6 {
             align-items : center;
             background-color : #FFFFFF;
@@ -301,28 +343,3 @@ main {
             color: rgba(249, 201, 10, 0.838);
             fill: rgba(249, 201, 10, 0.838);
           }
-          .hrTag {
-			    border: none;
-			    border-top: 2px solid #E3E7EB;
-			    overflow: visible;
-			    text-align: center;
-			    margin-top: 24px;
-			    height: 17px;
-			}
-          .hrTag:after{
-          	 	content: "End";
-			    position: relative;
-			    top: -15px;
-			    background: #F1F3F5; 
-			    padding: 0 10px;
-			    color: #868E96;
-			    font-size: 0.8em;
-         	 }
-          
-          @media (min-width: 767px) and (max-width: 992px){
-            .card-img-top{
-              height:200px;
-	         }
-	     }
-			
-/* 판매자 마이페이지 css end */
