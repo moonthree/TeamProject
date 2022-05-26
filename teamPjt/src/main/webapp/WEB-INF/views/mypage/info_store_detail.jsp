@@ -33,6 +33,7 @@ if(message != null){alert(message);}
 <main id="wrapper">
 <c:import url="/header.do"></c:import>
 
+<div class="mypage_background"></div>
    <div class="container wrapper">
         <div class="row">
             <div class="col-3">
@@ -65,7 +66,7 @@ if(message != null){alert(message);}
                         </a>
                     </p>
                     <p>
-                        <a href="#">
+                        <a href="../notice/notice_list.do">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-megaphone"
                                 viewBox="0 0 16 20">
                                 <path
@@ -75,7 +76,7 @@ if(message != null){alert(message);}
                         </a>
                     </p>
                     <p>
-                        <a href="#">
+                        <a href="../service/service_list.do">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-question-circle"
                                 viewBox="0 0 16 20">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -87,12 +88,13 @@ if(message != null){alert(message);}
                     </p>
                 </div>
             </div>
+            <fmt:formatDate var="order_date" value="${detail.store_order_date}" pattern="yyyy-MM-dd" />
             <div class="col-9 order_detail_place">
                 <div class="order_detail_top">
                     <h5>주문 상세정보</h5>
                     <div class="order_detail_num">
                         <span>주문일자</span>
-                        <span class="color">${detail.store_order_date }</span>
+                        <span class="color">${order_date }</span>
                         <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
                         <span>주문번호</span>
                         <span class="color">${detail.store_order_idx }</span>
@@ -189,7 +191,7 @@ if(message != null){alert(message);}
                                 <td class="odm_td" style="width: 33%;">
                                     <span class="bold">결제상세</span>
                                     <div class="odm_td_div">
-                                        카드결제 <span><fmt:formatNumber value="${ detail.store_order_total_price }" type="number" />원</span>
+                                        카드결제 <span>${pay.store_order_pay_card_name}</span>
                                         <br>
                                         카드번호 <span>${ pay.store_order_pay_card_number }</span>
                                     </div>
@@ -236,6 +238,7 @@ if(message != null){alert(message);}
             </div>
         </div>
     </div>
+    
     
 </main>
 <c:import url="/footer.do"></c:import>

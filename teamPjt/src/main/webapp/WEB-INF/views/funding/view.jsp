@@ -258,8 +258,8 @@
 	                            <br> 
 	                            펫딩이 안내드리겠습니다.
 	                            <span class="commuP2Btn">
-	                                <button class="btn btn-secondary commuP2Btn2" id="guideBtn">이용가이드</button>
-	                                <button class="btn btn-outline-secondary commuP2Btn2" id="csBtn">펫딩에 문의하기</button>
+	                                <a href="../question/question.do"><button class="btn btn-secondary commuP2Btn2" id="guideBtn">이용가이드</button></a>
+	                                <a href="../service/service_list.do"><button class="btn btn-outline-secondary commuP2Btn2" id="csBtn">펫딩에 문의하기</button></a>
 	                            </span>
 	                        </p>
                         </div>
@@ -313,16 +313,12 @@
                     		<tr>
                     			<th scope="row" style= "width: 10%; border-radius: 70%">
                     				<c:choose>
-			                        	<c:when test="${commentList.memberVO.member_photo eq 'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg,'}">
-			                        		<div class="profile_div">
-			                        			<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
-			                        		</div>
-			                        	</c:when>
-			                        	<c:otherwise>
-			                        		<div class="profile_div">
-												<img src="../resources/upload/${commentList.memberVO.member_photo }" alt="profile_img" class="profile_img">
-											</div>
-			                        	</c:otherwise>
+		                        		<c:when test="${ empty commentList.memberVO.member_photo }">
+				                     		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+				                     	</c:when>
+				                     	<c:otherwise>
+											<img src="../resources/upload/${commentList.memberVO.member_photo }" alt="profile_img" class="profile_img">
+				                     	</c:otherwise>
 			                        </c:choose>
                     			</th>
                     				
