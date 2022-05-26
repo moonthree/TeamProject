@@ -428,8 +428,8 @@
 					          		</c:if>
 					          	</div>
 				            	<div class="mydiv" id="mydiv">
-								<c:if test="${myZzimList.size()>0 and myZzimList.size()<4}">
-									<c:forEach var="item" items="${myZzimList}">
+								<c:if test="${myZzimList.size()>0}">
+									<c:forEach begin="0" end="2" var="item" items="${myZzimList}">
 									<c:if test="${ item.zzim_category eq 0 }">
 										<div class="card mb-3"  onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
 					                      <div class="row g-0">
