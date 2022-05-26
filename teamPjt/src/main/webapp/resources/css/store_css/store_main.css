@@ -14,7 +14,13 @@ a:link {
 a:visited {
     color: black;
 }
-
+.card:hover{
+	transform: scale(1.04);
+	box-shadow: 10px 10px 5px 1px #dadce0;
+}
+.rounded-circle:hover{
+	transform: scale(1.04);
+}
 /* 전체 설정 끝*/
 /* 카테고리 시작 */
 #category {

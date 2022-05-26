@@ -181,7 +181,7 @@ var zzimBtn = $("#zzimBtn");
 			async : false,
 			data : objParams2,
 			success : function(){
-				alert("찜 등록")
+				//alert("찜 등록")
 				document.getElementsByClassName("doZzim")[0].style.display = "none";
 				document.getElementsByClassName("notZzim")[0].style.display = "block";
 			},
@@ -209,7 +209,7 @@ var zzimBtn2 = $("#zzimBtn2");
 			async : false,
 			data : objParams2,
 			success : function(){
-				alert("찜 등록")
+				//alert("찜 등록")
 				document.getElementsByClassName("doZzim")[0].style.display = "none";
 				document.getElementsByClassName("notZzim")[0].style.display = "block";
 			},
@@ -238,7 +238,7 @@ var zzimDelBtn = $("#zzimDelBtn");
 			async : false,
 			data : objParams,
 			success : function(){
-				alert("찜 취소")
+				//alert("찜 취소")
 				document.getElementsByClassName("notZzim")[0].style.display = "none";
 				document.getElementsByClassName("doZzim")[0].style.display = "block";
 			},

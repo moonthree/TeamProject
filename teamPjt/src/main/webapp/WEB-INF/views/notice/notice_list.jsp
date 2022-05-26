@@ -15,8 +15,23 @@
         crossorigin="anonymous"></script>
     <title>공지사항</title>
     
+    <style type="text/css">
+	 
+	 .mm {
+	 list-style: none; /* float: left; */ padding: 6px;
+	 display:inline-block;
+	 }
+	 
+	 .nn {
+  /* width: 150px;
+  margin-left: auto;
+  margin-right: auto; */
+  text-align:center;
+	} 
+	</style>
+    
 
-<title>Insert title here</title>
+
 </head>
 <body>
 
@@ -31,7 +46,7 @@
 		
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead class="thead-light">
-					<tr>
+					<tr class="table-active">
 						<th scope="col">번호</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
@@ -39,70 +54,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td scope="row">1</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
+					<c:forEach var="item" items="${list}">
+					<tr class="table-active">
+						<td scope="row">${item.board_idx}</td>
+						<td><a href="notice_view.do?board_idx=${item.board_idx}" class="text-dark">${item.board_title}</a></td>
+						<td>펫띵주인</td>
+						<td>${item.board_regdate}</td>
 					</tr>
-					<tr>
-						<td scope="row">2</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">3</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">4</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">5</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">6</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">7</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">8</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">9</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					<tr>
-						<td scope="row">10</td>
-						<td><a href="view.html" class="text-dark">안녕하세요</a></td>
-						<td>김삿갓</td>
-						<td>2022-04-23</td>
-					</tr>
-					
+					</c:forEach>
 				</tbody>
 			</table>
-			<nav aria-label="...">
+			<!-- <nav aria-label="...">
 				<ul class="pagination justify-content-center">
 					<li class="page-item">
 						<a class="page-link">Previous</a>
@@ -121,9 +83,29 @@
 					<div class="float-md-right">
 						<a href="notice_write.do"><input type="button" class="btn btn-primary" value="글작성"></a>
 					</div>
-			</nav>
-			
-			
+			</nav> -->
+			<div>
+				  <ul class="nn">
+				    <c:if test="${pageMaker.prev}">
+				    	<li class="mm"><a href="notice_list.do${pageMaker.makeQuery(pageMaker.startPage - 1)}" class="list-group-item list-group-item-action list-group-item-secondary" aria-current="true">이전</a></li>
+				    </c:if> 
+				
+				    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				    	<li class="mm">
+				    	<a href="notice_list.do${pageMaker.makeQuery(idx)}" class="list-group-item list-group-item-action active" aria-current="true">${idx}</a></li>
+				    </c:forEach>
+				
+				    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				    	<li class="mm"><a href="notice_list.do${pageMaker.makeQuery(pageMaker.endPage + 1)}" class="list-group-item list-group-item-action list-group-item-secondary" aria-current="true">다음</a></li>
+				    </c:if> 
+				  </ul>
+			</div>
+			<br><br><br>
+			<c:if test="${login.member_level == 2 }"> 
+			<div class="float-md-right">
+						<a href="notice_write.do"><input type="button" class="btn btn-primary" value="글작성"></a>
+					</div>
+			 </c:if> 
 		</div>
 	
 

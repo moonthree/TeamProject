@@ -10,7 +10,16 @@ svg:hover{
 .d-block{
 	height: 450px;
 }
-
+a:link {
+    color: black;
+}
+a:visited {
+    color: black;
+}
+.hover_card:hover{
+	transform: scale(1.02);
+	box-shadow: 5px 5px 5px 1px #dadce0;
+}
 
 /*
     section01 (취향 맞춤 펀딩 프로젝트) css 시작 
@@ -319,11 +328,12 @@ svg:hover{
 
 .section04_title > a{
 	display:-webkit-box;
-	height: 90px;
+	height: 85px;
     -webkit-line-clamp:4 !important;
     -webkit-box-orient:vertical;
     text-overflow: ellipsis; 
 	overflow: hidden;
+	font-size: 14px;
 }
 
 

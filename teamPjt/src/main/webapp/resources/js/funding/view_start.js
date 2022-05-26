@@ -86,7 +86,7 @@ var zzimBtn = $("#zzimBtn");
 			async : false,
 			data : objParams,
 			success : function(){
-				alert("찜 등록")
+				//alert("찜 등록")
 				document.getElementsByClassName("doZzim")[0].style.display = "none";
 				document.getElementsByClassName("notZzim")[0].style.display = "block";
 			},
@@ -115,7 +115,7 @@ var zzimDelBtn = $("#zzimDelBtn");
 			async : false,
 			data : objParams,
 			success : function(){
-				alert("찜 취소")
+				//alert("찜 취소")
 				document.getElementsByClassName("notZzim")[0].style.display = "none";
 				document.getElementsByClassName("doZzim")[0].style.display = "block";
 			},
@@ -187,13 +187,7 @@ $(".commuFaq05").click(function(){
 })
 
 
-//faq 마지막 버튼들
-$("#guideBtn").click(function(){
-	alert('이용가이드 페이지로 이동할 예정')
-})
-$("#csBtn").click(function(){
-	alert('고객센터 페이지로 이동할 예정')
-})
+
 
 
 	

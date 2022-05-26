@@ -37,19 +37,22 @@
     margin: 10px 0px 10px 0px;
     padding: 10px 0px 10px 0px;
 }
-.clicked {
-    color: red;
- }
 
 .modalBodyDiv{
-    border-top: 1px solid black;
+    border-top: 1px solid#838383;
 }
 .modalBodyBtn{
     width: 49%;
     margin-top: 10px;
     background-color: white;
     padding: 10px 0px 10px 0px;
+    border: 1px solid #838383;
+    color: #838383;
 }
+.clicked {
+    color: #fa6462;
+    border: 1px solid #fa6462;
+ }
 
 /*중단 끝*/
 
@@ -57,7 +60,7 @@
 .footer{
     padding: 12px;
     margin: 10px 0px 10px 0px;
-    border-top: 1px solid brown;
+    border-top: 1px solid #838383;
 }
 #filterResetBtn{
     width: 49%;

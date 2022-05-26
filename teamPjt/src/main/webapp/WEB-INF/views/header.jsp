@@ -20,6 +20,7 @@
                $(this).toggleClass("is-active");
            });
        });
+
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
     
@@ -131,8 +132,9 @@
                             aria-expanded="false">더보기</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute;">
                                 <a class="dropdown-item" href="<%=request.getContextPath()%>/notice/notice_list.do">공지사항</a>
-                                <a class="dropdown-item" href="#">소개</a>
-                                <a class="dropdown-item" href="#">고객센터</a>
+                                <a class="dropdown-item" href="<%=request.getContextPath()%>/introduction/introduction.do">소개</a>
+                                <a class="dropdown-item" href="<%=request.getContextPath()%>/service/service_list.do">고객센터</a>
+                                <a class="dropdown-item" href="<%=request.getContextPath()%>/question/question.do">문의사항</a>
                             </div>
                        </div>
                     </li>
@@ -258,6 +260,7 @@
     	$(".a_slide").on("mouseout", function() {
     	  $("#nav-1 .slide").css({ opacity: 0 }).removeClass("squeeze");
     	});
+    	
 
 </script>
 </body>

@@ -100,7 +100,7 @@ section04 : 새로 오픈한 프로젝트
                        	   <c:if test="${login eq null}">
                        	   		<c:forEach var="item" items="${fundHomeAll}">
                        	   			<div class="col-sm-4">
-		                               <div class="card section01_card">
+		                               <div class="card section01_card hover_card">
 		                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
 		                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 		                                   </a>
@@ -134,7 +134,7 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 0}">
                        	   				<c:forEach var="item" items="${fundHomeDog}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card">
+				                               <div class="card section01_card hover_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
 				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 				                                   </a>
@@ -166,7 +166,7 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 1}">
                        	   				<c:forEach var="item" items="${fundHomeCat}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card">
+				                               <div class="card section01_card hover_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
 				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 				                                   </a>
@@ -198,7 +198,7 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 2}">
                        	   				<c:forEach var="item" items="${fundHomeOther}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card">
+				                               <div class="card section01_card hover_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
 				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 				                                   </a>
@@ -230,7 +230,7 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:otherwise>
                        	   				<c:forEach var="item" items="${fundHomeDog}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card">
+				                               <div class="card section01_card hover_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
 				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 				                                   </a>
@@ -384,7 +384,7 @@ section04 : 새로 오픈한 프로젝트
                <div class="row section03_carttop">
                	   <c:forEach var="item" items="${storeHomeFund}">
 	                   <div class="col-lg-2 col-sm-4 col-6">
-	                       <div class="card section03_card">
+	                       <div class="card section03_card hover_card">
 	                           <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
 		                            <img src="resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
 		                       </a>
@@ -430,7 +430,7 @@ section04 : 새로 오픈한 프로젝트
                <div class="row section04_row01">
                	   <c:forEach var="item" items="${fundHomeNew}">
                	   		<div class="col-lg-4">
-	                       <div class="row no-gutters section04_card">
+	                       <div class="row no-gutters section04_card hover_card">
 	                           <div class="col-6">
 	                               <a href="funding/view.do?funding_idx=${item.funding_idx}">
                                    		<img src="resources/upload/funding/${item.funding_thumbnail}" class="section04_img card-img-top" alt="...">

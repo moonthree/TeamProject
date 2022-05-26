@@ -42,28 +42,37 @@
   
     <div class="container">
      <h2>공지사항 작성</h2>
-    <form class="was-validated border">
+    <form class="was-validated border" action="notice_write.do" method="post">
         <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="validationServer03">제목</label>
-              <input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
+              <input name="board_title" type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
               
             </div>
         
         </div>
-        <label for="validationServer03">내용</label>
+        <!-- <label for="validationServer03">내용</label>
+        <textarea name="board_content" rows="10" cols="60"></textarea> -->
+        
         <!-- 본문의 summernote 부분 -->
-       <textarea id="summernote" name="content"></textarea>
+       <textarea id="summernote" name="board_content"></textarea>
        <script>
 	      $('#summernote').summernote({
 	        placeholder: '내용을 입력하세요',
 	        tabsize: 2,
 	        height: 500
 	      });
-    </script>
+	      
+	   /*    function checkFn(){
+	    	  
+	    	  console.log(document.getElementById("summernote").innerhtml);
+	    	 
+	    	  
+	      } */
+    </script> 
        
        <!-- 버튼 클릭시 글쓰기 기능 해야함 -> DB에 저장후 불러올땐 div태그 안에 해당 내용 붙여넣기 -->
-        <button type="button" class="btn btn-outline-success">Success</button>
+        <button class="btn btn-outline-success" onclick="checkFn()" >Success</button>
     </form>
     </div>
     </section>
