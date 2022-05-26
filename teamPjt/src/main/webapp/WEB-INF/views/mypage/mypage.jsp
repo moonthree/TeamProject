@@ -162,7 +162,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-9 cols-sm-12">
+                <div class="col-md-9 cols-sm-12" >
                 	<div class="right_container">
                 		<ul id="myTab1" role="tablist" class="nav nav-tabs nav-pills with-arrow flex-column flex-sm-row text-center">
 				            <li class="nav-item flex-sm-fill">
