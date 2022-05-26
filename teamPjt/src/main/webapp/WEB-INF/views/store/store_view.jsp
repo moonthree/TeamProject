@@ -44,7 +44,10 @@
     <!-- 이틀 후 -->
     <!-- 하루 후 -->
 	<c:set var="twoDayAfter" value="<%=new Date(new Date().getTime() + 60*60*24*1000*2)%>"/>
+	<c:set var="fourDayAfter" value="<%=new Date(new Date().getTime() + 60*60*24*1000*4)%>"/>
 	<fmt:formatDate value="${twoDayAfter}" pattern="MM/dd" var="twoDayAfterStr"/>
+	<fmt:formatDate value="${fourDayAfter}" pattern="MM/dd" var="fourDayAfterStr"/>
+	<fmt:formatDate value="${twoDayAfter}" pattern="E" var="twoDayAfterDay"/>
     <input type="number" id="zzim_member_idx" value="${login.member_idx }" style="display:none;"/>
     <input type="number" id="zzim_store_idx" value="${read.store_idx }" style="display:none;"/>
     
@@ -148,7 +151,14 @@
 					        	</c:if>
 	                    </span>
 	                    <br>
-	                    <span class="viewDate">${twoDayAfterStr} <span class="viewDateText">도착 예정</span></span>
+	                    <c:choose>
+	                    	<c:when test="${twoDayAfterDay eq '토' || twoDayAfterDay eq '일'}">
+	                    		 <span class="viewDate">${fourDayAfterStr} <span class="viewDateText">도착 예정</span></span>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<span class="viewDate">${twoDayAfterStr} <span class="viewDateText">도착 예정</span></span>
+	                    	</c:otherwise>
+	                    </c:choose>
 	                </div>
 	                
 	                <!-- 셀렉트 시작 0011 -->
@@ -570,8 +580,15 @@
 	                	<c:forEach items="${storeReviewList}" var="reviewList" varStatus="status">
 	                		<thead>
 		                        <tr>
-		                            <td style="width:5%" class="tdImg">
-		                                <img src="../resources/upload/${reviewList.member_photo }" alt="">
+		                            <td style="width:5%;  border-radius: 70%;" class="tdImg">
+		                            	<c:choose>
+			                        		<c:when test="${ empty reviewList.member_photo }">
+					                     		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+					                     	</c:when>
+					                     	<c:otherwise>
+												<img src="../resources/upload/${reviewList.member_photo }" alt="profile_img" class="profile_img">
+					                     	</c:otherwise>
+			                        	</c:choose>
 		                            </td>
 		                            <td style="width:100%" scope="row">
 		                                <!--별점-->
@@ -661,6 +678,11 @@
 		                                
 <!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 --><!-- 추천 버튼 끝 -->
 		                                <br>
+		                                <c:set var="review" value="${fn:replace(reviewList.store_review_content,CRLF, BR)}" />
+										<c:set var="review" value="${fn:replace(review,CR, BR)}" />
+										<c:set var="review" value="${fn:replace(review,CR, BR)}" />
+										<c:set var="review" value="${fn:replace(review,' ',SP)}" />
+		                                
 		                                <span class="reviewOption">${reviewList.store_review_option }</span>
 		                            <td>
 		                        </tr>
@@ -670,25 +692,25 @@
 		                            <td colspan="2">
 		                            	<c:choose>
 		                            		<c:when test="${reviewList.store_review_photo1 eq null }">
-		                            			${reviewList.store_review_content }
+		                            			<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo2 eq null }">
 		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
 		                            			<br>
-				                              	${reviewList.store_review_content }
+				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo3 eq null }">
 		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
-				                              	${reviewList.store_review_content }
+				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo4 eq null }">
 		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
-				                              	${reviewList.store_review_content }
+				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo5 eq null }">
 		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
@@ -696,7 +718,7 @@
 				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
-				                              	${reviewList.store_review_content }
+				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:otherwise>
 		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
@@ -705,7 +727,7 @@
 				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
-				                              	${reviewList.store_review_content }
+				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:otherwise>
 		                            	</c:choose>
 		                            </td>

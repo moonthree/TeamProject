@@ -345,10 +345,13 @@
 				f.funding_category,
 				f.funding_views,
 				f.funding_express_date,
-				f.funding_express_fee
-		FROM 	funding_order fo, funding f 
+				f.funding_express_fee,
+				m.member_name,
+				m.member_phone
+		FROM 	funding_order fo, funding f, member m
 		WHERE 	fo.funding_order_idx = #{ funding_order_idx }
-		AND 	fo.funding_idx = f.funding_idx;
+		AND 	fo.funding_idx = f.funding_idx
+		AND		f.member_idx = m.member_idx
 	</select>
 	<!-- funding_order_pay -->
 	<select id="fundingPayDetail" parameterType="int" resultType="funding_order_payVO">

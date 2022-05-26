@@ -40,5 +40,11 @@
 		<typeAlias type="com.edu.vo.ZzimVO" alias ="zzimVO"/>
 		<typeAlias type="com.edu.vo.EventVO" alias ="eventVO"/>
 		
+		<!-- 김호겸 -->
+		<typeAlias type="com.edu.vo.NoticeVO" alias ="NoticeVO"/>
+		<typeAlias type="com.edu.vo.CriteriaVO" alias ="CriteriaVO"/>
+		<typeAlias type="com.edu.vo.PageMakerVO" alias ="PageMakerVO"/>
+		<typeAlias type="com.edu.vo.ServiceVO" alias ="ServiceVO"/>
+		<typeAlias type="com.edu.vo.ReplyVO" alias ="ReplyVO"/>
 	</typeAliases>
 </configuration>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0/EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="NoticeMapper">
+	<select id="notice_list" resultType="NoticeVO">
+		SELECT board_title
+				,board_idx
+				,board_content
+				,board_regdate
+			from board
+	</select>
+				
+	
+	
+	<select id="view" resultType="NoticeVO" parameterType="int">
+		select board_title
+				,board_idx
+				,board_content
+				,board_regdate
+				from board
+				where board_idx = #{board_idx}
+	</select>
+				
+	
+	<insert id="write" parameterType="NoticeVO">
+		insert into board(
+					board_title
+					,board_content
+					,member_name
+					,member_level
+				)values(
+					#{board_title}
+					,#{board_content}
+					,#{member_name}
+					,#{member_level}
+					)
+	</insert>
+	
+	<select id="modify" resultType="NoticeVO" parameterType="int">
+		select board_title
+				,board_idx
+				,board_content
+				,board_regdate
+				,member_name
+				,member_level
+				from board
+				where board_idx = #{board_idx} 
+	</select>
+	
+	<update id="update" parameterType="NoticeVO">
+		update board
+		set board_title=#{board_title}
+			,board_content=#{board_content}
+		where board_idx=#{board_idx}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete 
+		from board
+		where board_idx = #{board_idx}
+	</delete>
+	
+	<!-- 총 게시글 갯수 출력 -->
+<select id="countBoard" resultType="int">
+	SELECT COUNT(*) FROM BOARD
+</select>
+
+<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT count(board_idx)
+		  FROM board
+		 WHERE board_idx > 0
+	]]>
+</select>
+
+<select id="listPage" resultType="NoticeVO" parameterType="CriteriaVO">
+		SELECT  board_idx,
+		      board_title,
+		      board_content,
+		      board_regdate
+		 FROM ( 
+		        SELECT board_idx, 
+		               board_title, 
+		               board_content, 
+		           	 	board_regdate, 
+		               ROW_NUMBER() OVER(ORDER BY board_idx DESC) AS RNUM
+		         FROM board 
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY board_idx DESC
+	</select>
+
+
+</mapper>

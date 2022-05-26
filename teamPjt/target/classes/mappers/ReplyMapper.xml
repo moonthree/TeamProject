@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0/EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+		
+<mapper namespace="ReplyMapper">
+	<select id="reply_list" resultType="ReplyVO" parameterType="ReplyVO">
+		select r.reply_content
+				,r.reply_idx
+				,r.reply_regdate
+				,r.member_idx
+				,m.member_name
+		from sboard_reply r 
+			inner join member m
+			on r.member_idx = m.member_idx
+		where r.sboard_idx = #{sboard_idx}
+		ORDER BY reply_idx DESC;
+	</select>
+	
+	
+	
+	
+
+	
+<select id="listPage" resultType="ReplyVO" parameterType="CriteriaVO">
+		SELECT  MP.reply_content
+				,MP.reply_idx
+				,MP.reply_regdate
+				,MP.member_idx
+				,MP.member_name
+		 FROM ( select r.reply_content
+						,r.reply_idx
+						,r.reply_regdate
+						,r.member_idx
+						,m.member_name
+				from sboard_reply r
+					inner join member m
+					on r.member_idx = m.member_idx
+				where r.sboard_idx = #{sboard_idx}
+		                       )
+	</select>
+	
+
+
+<insert id="write" parameterType="ReplyVO">
+		insert into sboard_reply(
+					sboard_idx,
+					member_idx,
+					reply_content
+				)values(
+					#{sboard_idx},
+					#{member_idx},
+					#{reply_content}
+					)
+	</insert>
+		
+<select id="modify" resultType="ReplyVO" parameterType="ReplyVO">
+		select 
+				reply_content
+				,reply_idx
+				,sboard_idx
+				,reply_regdate
+				from sboard_reply
+				where reply_idx = #{reply_idx}
+				AND sboard_idx = #{sboard_idx}
+</select>
+
+	
+
+<update id="update" parameterType="ReplyVO">
+		update sboard_reply
+		set 
+		reply_content=#{reply_content}
+		where reply_idx=#{reply_idx}
+		AND sboard_idx=#{sboard_idx}
+	</update>
+	
+	<delete id="delete" parameterType="ReplyVO">
+		delete from sboard_reply where reply_idx = #{reply_idx}
+	</delete>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+</mapper>
+		<!-- insert into sboard_reply
+		(
+			sboard_idx,
+			member_dix,
+			parent_id,
+            depth,
+            reply_secret,
+            reply_content,
+            reply_writer_idx
+        )
+        values
+        (
+            #{sboard_idx},
+            #{member_idx},
+            #{parent_id},
+            #{depth},
+            #{reply_secret},
+            #{reply_content},
+            #{reply_writer_idx}
+        )
+		)
+	</insert> -->
+	
+	
+	<!-- reply 댓글 리스트 -->
+	<!-- <select id="readReplyList" resultType="ReplyVO" parameterType="java.util.HashMap" >
+		select 
+			r.reply_idx,
+			r.sboard_idx,
+			r.member_idx,
+			r.parent_id,
+			r.depth,
+			r.reply_state,
+			r.reply_secret,
+			r.reply_content,
+			r.reply_writer_idx,
+			r.reply_regdate,
+			mem.member_name,
+			mem.member_business_name
+		FROM sboard_reply AS r
+		JOIN member AS mem 
+		ON r.sboard_idx = #{sboard_idx} and r.member_idx = mem.member_idx
+		order by reply_idx desc;
+	</select> -->
+	
+	
