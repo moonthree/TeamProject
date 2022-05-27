@@ -288,31 +288,60 @@
 	                	</c:if>
 	                	<!-- 로그인 했으면 -->
 	                	<c:if test="${login ne null}">
-	                		<c:if test="${read.store_funding eq 1 }">
-			                    <button type="button" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
-			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-			                            viewBox="0 0 16 16">
-			                            <path
-			                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-			                        </svg>
-			                        찜하기
-			                    </button>
+	                		<c:if test="${zzimResult eq 0}">
+	                			<c:if test="${read.store_funding eq 1 }">
+				                    <button type="button" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 16">
+				                            <path
+				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+				                        </svg>
+				                        찜하기
+				                    </button>
+		                		</c:if>
+		                		<c:if test="${read.store_funding eq 0 }">
+				                    <button type="button" id="zzimBtn2" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 16">
+				                            <path
+				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+				                        </svg>
+				                        찜하기
+				                    </button>
+		                		</c:if>
+			                    <button type="button"  style="display:none;" id="zzimDelBtn" class="viewZzimBtn notZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
+				                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+									</svg>
+				                </button> 
 	                		</c:if>
-	                		<c:if test="${read.store_funding eq 0 }">
-			                    <button type="button" id="zzimBtn2" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
-			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-			                            viewBox="0 0 16 16">
-			                            <path
-			                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-			                        </svg>
-			                        찜하기
-			                    </button>
+	                		<c:if test="${zzimResult eq 1}">
+	                			<c:if test="${read.store_funding eq 1 }">
+				                    <button type="button" style="display:none;" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 16">
+				                            <path
+				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+				                        </svg>
+				                        찜하기
+				                    </button>
+		                		</c:if>
+		                		<c:if test="${read.store_funding eq 0 }">
+				                    <button type="button" style="display:none;" id="zzimBtn2" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 16">
+				                            <path
+				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+				                        </svg>
+				                        찜하기
+				                    </button>
+		                		</c:if>
+			                    <button type="button"  id="zzimDelBtn" class="viewZzimBtn notZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
+				                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+									</svg>
+				                </button> 
 	                		</c:if>
-		                    <button type="button" id="zzimDelBtn" class="viewZzimBtn notZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
-			                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-								  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-								</svg>
-			                </button> 
 	                	</c:if>
 	                </div>
 	                <c:if test="${read.store_funding eq 0 }">
@@ -518,34 +547,36 @@
 	            <div class="reviewMiddlePhoto">
 	                <p>포토</p>
 	                <div id="reviewMiddlePhoto">
-	                	<c:forEach begin="0" end="20" items="${storeReviewPhoto}" var="reviewPhoto" varStatus="status">
+	                	<c:forEach begin="0" end="20" items="${storeReviewList}" var="reviewList" varStatus="status">
+	                		<fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
+                            <fmt:formatDate var="regdate2" value="${regdate}" pattern="yyyy-MM-dd" />
 			                <c:choose>
-	                           		<c:when test="${reviewPhoto.store_review_photo1 eq null }">
+	                           		<c:when test="${reviewList.store_review_photo1 eq null }">
 	                           		</c:when>
-	                           		<c:when test="${reviewPhoto.store_review_photo2 eq null }">
-	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		<c:when test="${reviewList.store_review_photo2 eq null }">
+	                           			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 	                           		</c:when>
-	                           		<c:when test="${reviewPhoto.store_review_photo3 eq null }">
-	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		<c:when test="${reviewList.store_review_photo3 eq null }">
+	                           			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 	                           		</c:when>
-	                           		<c:when test="${reviewPhoto.store_review_photo4 eq null }">
-	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		<c:when test="${reviewList.store_review_photo4 eq null }">
+	                           			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 	                           		</c:when>
-	                           		<c:when test="${reviewPhoto.store_review_photo5 eq null }">
-	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
+	                           		<c:when test="${reviewList.store_review_photo5 eq null }">
+	                           			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 	                           		</c:when>
 	                           		<c:otherwise>
-	                           			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;">
-		                                <img src="../resources/upload/${reviewPhoto.store_review_photo5 }" class="a${status.index } b imgs" alt="" style="height: 120px; width:120px;">
+	                           			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+		                                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="a${status.index } b img" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 	                           		</c:otherwise>
 	                           	</c:choose>
 		                </c:forEach>
@@ -640,6 +671,7 @@
 		                                <span class="reviewName">${reviewList.member_name }</span>
 		                                <span class="middleBar">|</span>
 		                                <fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
+		                                <fmt:formatDate var="regdate2" value="${regdate}" pattern="yyyy-MM-dd" />
 		                                <span class="reviewReg"><fmt:formatDate value="${regdate}" pattern="yyyy-MM-dd" /></span>
 <!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 0022 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 --><!-- 추천 버튼 시작 -->
 										<input type="number" id="storeReview_store_review_idx${status.index }" value="${reviewList.store_review_idx }" style="display:none;">
@@ -684,6 +716,7 @@
 										<c:set var="review" value="${fn:replace(review,' ',SP)}" />
 		                                
 		                                <span class="reviewOption">${reviewList.store_review_option }</span>
+		                                
 		                            <td>
 		                        </tr>
 		                    </thead>
@@ -695,37 +728,37 @@
 		                            			<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo2 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }"  class="img" alt="" style="height: 100px; width:100px;">
 		                            			<br>
 				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo3 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }" class="img" alt="" style="height: 100px; width:100px;">
 				                                <br>
 				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo4 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }" class="img" alt="" style="height: 100px; width:100px;">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 				                                <br>
 				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:when test="${reviewList.store_review_photo5 eq null }">
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 				                                <br>
 				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:when>
 		                            		<c:otherwise>
-		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;">
-				                                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="img" alt="" style="height: 100px; width:100px;">
+		                            			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+				                                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="img" alt="" style="height: 100px; width:100px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
 				                                <br>
 				                              	<c:out value="${review}" escapeXml="false"/>
 		                            		</c:otherwise>
@@ -892,7 +925,7 @@
 						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						                                </svg>
 				                    					비밀글입니다.
-				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/>/span> 
+				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> 
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                            			</c:if>
@@ -1127,37 +1160,39 @@
       </div>
       <div class="modal-body login_modal_body">
       	<h4>갤러리</h4>
-      	<c:forEach items="${storeReviewPhoto}" var="reviewPhoto" varStatus="status">
-          <c:choose>
-       		<c:when test="${reviewPhoto.store_review_photo1 eq null }">
-       		</c:when>
-        		<c:when test="${reviewPhoto.store_review_photo2 eq null }">
-        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-        		</c:when>
-        		<c:when test="${reviewPhoto.store_review_photo3 eq null }">
-        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px ; margin:10px 10px 10px 10px;">
-              		<img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-        		</c:when>
-        		<c:when test="${reviewPhoto.store_review_photo4 eq null }">
-        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-		            <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-		            <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-        		</c:when>
-        		<c:when test="${reviewPhoto.store_review_photo5 eq null }">
-        			<img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	                <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	                <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	                <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-        		</c:when>
-        		<c:otherwise>
-        		  <img src="../resources/upload/${reviewPhoto.store_review_photo1 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	              <img src="../resources/upload/${reviewPhoto.store_review_photo2 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	              <img src="../resources/upload/${reviewPhoto.store_review_photo3 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	              <img src="../resources/upload/${reviewPhoto.store_review_photo4 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-	              <img src="../resources/upload/${reviewPhoto.store_review_photo5 }" class="img" alt="" style="height: 200px; width:200px; margin:10px 10px 10px 10px;">
-        		</c:otherwise>
-        	</c:choose>
-         </c:forEach>
+      	<c:forEach items="${storeReviewList}" var="reviewList" varStatus="status">
+      		<fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
+            <fmt:formatDate var="regdate2" value="${regdate}" pattern="yyyy-MM-dd" />
+        	<c:choose>
+          		<c:when test="${reviewList.store_review_photo1 eq null }">
+          		</c:when>
+          		<c:when test="${reviewList.store_review_photo2 eq null }">
+          			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img gallery" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+          		</c:when>
+          		<c:when test="${reviewList.store_review_photo3 eq null }">
+          			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+                	<img src="../resources/upload/${reviewList.store_review_photo2 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+          		</c:when>
+          		<c:when test="${reviewList.store_review_photo4 eq null }">
+          			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+               		<img src="../resources/upload/${reviewList.store_review_photo2 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+               		 <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+          		</c:when>
+          		<c:when test="${reviewList.store_review_photo5 eq null }">
+          			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+          		</c:when>
+          		<c:otherwise>
+          			<img src="../resources/upload/${reviewList.store_review_photo1 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo2 }" class="img gallery" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo3 }" class="img gallery" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo4 }" class="img gallery" alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+	                <img src="../resources/upload/${reviewList.store_review_photo5 }" class="img gallery"  alt="" style="height: 120px; width:120px;" data-id1="${reviewList.store_review_star }" data-id2="${reviewList.store_review_content }" data-id3="${regdate2 }" data-id4="${reviewList.store_review_option }" data-id5="${reviewList.member_name }" data-id6="${reviewList.member_photo }">
+          		</c:otherwise>
+          	</c:choose>
+  		</c:forEach>
       </div>
       <div class="modal-footer">
       </div>
@@ -1170,17 +1205,76 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content login_modal_content">
       <div class="modal-header">
+      	
+            
         <button type="button" class="login_modal_close close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body login_modal_body">
+      	<div class="profile">
+      		<img class="rp_modal" src="" style="width: 50px; height: 50px; border-radius:20px;">
+      		<span class="reviewName rn_modal"></span>
+            <span class="middleBar">|</span>
+            <span class="reviewReg rg_modal"></span>
+            <span class="middleBar">|</span>
+            <span class="reviewOption ro_modal"></span>
+      		<!--별점-->
+            <div class="viewStar">
+                <svg style="display:none;">
+                    <defs>
+                        <symbol id="fivestars4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="currentColor" class="bi bi-star"
+                                viewBox="0 0 24 27">
+                                <path
+                                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                                    fill="white" fill-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" fill="currentColor" class="bi bi-star"
+                                viewBox="0 0 24 27">
+                                <path
+                                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                                    fill="white" fill-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="86" height="20" fill="currentColor" class="bi bi-star"
+                                viewBox="0 0 24 27">
+                                <path
+                                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                                    fill="white" fill-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="118" height="20" fill="currentColor" class="bi bi-star"
+                                viewBox="0 0 24 27">
+                                <path
+                                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                                    fill="white" fill-rule="evenodd" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="20" fill="currentColor" class="bi bi-star"
+                                viewBox="0 0 24 27">
+                                <path
+                                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24"
+                                    fill="white" fill-rule="evenodd" />
+                            </svg>
+                        </symbol>
+                    </defs>
+                </svg>
+                <div class="rating">
+                    <progress class="rating-bg rbmodal" value="" max="5"></progress>
+                    <svg>
+                        <use xlink:href="#fivestars4" />
+                    </svg>
+                </div>
+            </div>
+<!--별점 끝--> <!--별점 끝--> <!--별점 끝--> <!--별점 끝--> <!--별점 끝-->	
+      	</div>
       	<div class="modalBox">
-		<img src="" alt="">
+			<img src="" alt="" style="width:100%; height:100%;">
 			<p></p>
 		</div>
+		<div>
+      		<span class="reviewContent rc_modal"></span>
+      	</div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="text-align: left !important;">
       </div>
     </div>
   </div>

@@ -171,7 +171,7 @@
 		FROM 	message_note mn, message ms
 		WHERE	mn.message_idx = ms.message_idx
 		AND		mn.from_member_idx = #{from_member_idx}
-		AND 	ms.funding_idx = #{funding_idx}
+		AND 	ms.funding_idx = #{funding_idx} limit 1
 	</select>
 	
 	<insert id="insertMessageIdx" parameterType="int">

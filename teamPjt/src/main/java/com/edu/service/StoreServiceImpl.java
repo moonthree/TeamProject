@@ -115,8 +115,8 @@ public class StoreServiceImpl implements StoreService{
 	
 	//찜 select
 	@Override
-	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {
-		return dao.selectZzimStore(paramMap);
+	public ZzimVO selectZzimStore(Map<String, Integer> zzimMap) {
+		return dao.selectZzimStore(zzimMap);
 	}
 	//찜 delete
 	@Override
