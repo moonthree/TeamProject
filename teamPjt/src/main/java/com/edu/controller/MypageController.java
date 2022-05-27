@@ -447,6 +447,10 @@ public class MypageController {
 		model.addAttribute("select4Funding",s4f);
 		
 		
+		// 스토어 리스트4개씩
+		List<StoreInfoDetailVO> s4S = mypageService.select4Store(login.getMember_idx());
+		model.addAttribute("select4Store",s4S);
+		
 		
 		return "mypage/my_info";
 		
@@ -1044,6 +1048,27 @@ public class MypageController {
 	@ResponseBody
 	public void reviewDel(StoreReviewVO vo) throws Exception {
 		sts.storeReviewDelete(vo);
+	}
+	
+	//펀딩 제품 관리 페이지
+	@RequestMapping(value="/funding_admin.do",method = RequestMethod.GET)
+	public String funding_admin(int funding_idx, Model model, int check) {
+
+		// 펀딩 관리 페이지
+		List<HashMap<String, Object>> list = mypageService.fundingAdmin(funding_idx);
+		model.addAttribute("listMap", list);
+		model.addAttribute("check",check);
+		return "mypage/funding_admin";
+	}
+	
+	//펀딩 배송 메소드 ajax 통신
+	@RequestMapping(value = "/Success_update_FundingExpress.do",method = RequestMethod.POST)
+	@ResponseBody
+	public int FundingExpress(int funding_order_idx) {
+		
+		int reuslt = mypageService.update_FundingExpress(funding_order_idx);
+		
+		return reuslt;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -585,6 +586,26 @@ public class MypageServiceImp implements MypageService{
 	@Override
 	public int storeWithdraw(int store_order_idx) {
 		return mdao.storeWithdraw(store_order_idx);
+	}
+
+	@Override
+	public List<StoreInfoDetailVO> select4Store(int member_idx) {
+		
+		return mdao.select4Store(member_idx);
+				}
+	
+	//펀딩 판매자입장에서 주문 내역 가져오기
+	@Override
+	public List<HashMap<String, Object>> fundingAdmin(int funding_idx) {
+	
+		return mdao.fudningAdmin(funding_idx);
+	}
+	
+	//펀딩 배송 시작 메소드
+	@Override
+	public int update_FundingExpress(int fundung_order_idx) {
+		
+		return mdao.update_FundingExpress(fundung_order_idx);
 	}
 
 
