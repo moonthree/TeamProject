@@ -217,10 +217,41 @@ public class StoreController {
 	@RequestMapping(value = "/store_view.do", method = RequestMethod.GET)
 	public String store_view(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, HttpServletRequest request, StoreQnaVO sqvo, StoreReviewVO srvo, StoreOptionVO optionvo, StoreVO vo) throws Exception {
 		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member",member);
+		
+		
+	
 		//store_idx에 따른 뷰페이지 정보 가져오기
 		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
 		model.addAttribute("read", store );
 
+		int member_idx = 0;
+		if(login == null) {
+			member_idx = 0;
+		}else{
+			member_idx = login.getMember_idx();
+		}
+		Map<String, Integer> zzimMap = new HashMap<String, Integer>();
+		//찜
+		zzimMap.put("store_idx", vo.getStore_idx());
+		zzimMap.put("member_idx", member_idx);
+		
+		System.out.println(zzimMap);
+		
+		ZzimVO zzimResult = sts.selectZzimStore(zzimMap);
+		if(zzimResult == null) {
+			request.setAttribute("zzimResult", 0);
+		}else {
+			request.setAttribute("zzimResult", 1);
+		}
+		
+		
+		
+		
 		int store_fund = store.getStore_funding();
 		
 		if(store_fund == 0) {
@@ -382,11 +413,7 @@ public class StoreController {
 		request.setAttribute("startPageQna", startPageQna);
 		
 		
-		//세션사용자정보 가져옴
-		session = request.getSession();
-		MemberVO login = (MemberVO)session.getAttribute("login");
-		MemberVO member = ms.selectOne(login);
-		model.addAttribute("member",member);
+		
 
 		
 		// 옵션 출력
@@ -1009,13 +1036,13 @@ public class StoreController {
 		return retVal;
 	}
 	// 찜 select
-	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
-	@ResponseBody
-	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
-		Map<String, Object> selectZzim = new HashMap<String, Object>();
-		List<ZzimVO> result = sts.selectZzimStore(paramMap);		
-		return result;		
-	}
+	/*
+	 * @RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
+	 * 
+	 * @ResponseBody public Object selectZzim(@RequestParam Map<String, Object>
+	 * paramMap){ Map<String, Object> selectZzim = new HashMap<String, Object>();
+	 * List<ZzimVO> result = sts.selectZzimStore(paramMap); return result; }
+	 */
 	// 찜 delete
 	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)
 	@ResponseBody

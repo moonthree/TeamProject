@@ -119,7 +119,7 @@ public interface MypageService {
 	int changeExpress(Map<String,Object> paramMap);
 	
 	//펀딩 취소
-	int fundingWithdraw(int funding_order_idx);
+	int fundingWithdraw(Map<String,Object> paramMap);
 	
 	// 스토어 관리
 	List<StoreVO> store_admin(int store_idx);

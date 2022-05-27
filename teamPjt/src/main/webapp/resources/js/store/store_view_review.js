@@ -32,5 +32,27 @@ reviewAdminNo.on("click", function(){
 $(".img").click(function(){
 	$("#photoBigModal").modal();
 	var imgSrc = $(this).attr("src");
-		$(".modalBox img").attr("src", imgSrc);
+	var rating = $(this).data('id1');
+	var content = $(this).data('id2');
+	var date = $(this).data('id3');
+	var option = $(this).data('id4');
+	var name = $(this).data('id5');
+	var photo = $(this).data('id6');
+	var photo2 =""
+	if(photo == ""){
+		photo2 = "../resources/image/111.png"
+	}else{
+		photo2 = "../resources/upload/"+photo
+	}
+	
+	$(".modalBox img").attr("src", imgSrc);
+	$(".rbmodal").val(rating);
+	$(".rn_modal").text(name);
+	$(".rg_modal").text(date);
+	$(".ro_modal").text(option);
+	$(".rc_modal").text(content);
+	$(".rp_modal").attr("src", photo2);
+	
+	
+		
 });

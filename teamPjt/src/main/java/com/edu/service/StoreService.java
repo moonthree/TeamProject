@@ -53,7 +53,7 @@ public interface StoreService {
 	// 스토어 리뷰 관리자 삭제
 	public void storeReviewAdminDelete(StoreReviewVO vo);
 	//찜 select
-	List<ZzimVO> selectZzimStore(Map<String, Object> paramMap);
+	public ZzimVO selectZzimStore(Map<String, Integer> zzimMap);
 	//찜 delete
 	public int deleteZzimStore(Map<String, Object> paramMap);
 	//리뷰 추천 하기

@@ -109,9 +109,15 @@ public class fundingMainDAO {
 		return sqlSession.insert("FundingMainMapper.insertZzim", paramMap);
 	}
 	//zzim select
-	public List<ZzimVO> selectZzim(Map<String, Object> paramMap) {
-		return sqlSession.selectList("FundingMainMapper.selectZzim", paramMap);
+	/*
+	 * public List<ZzimVO> selectZzim(Map<String, Object> paramMap) { return
+	 * sqlSession.selectList("FundingMainMapper.selectZzim", paramMap); }
+	 */
+	public ZzimVO selectZzim2(Map<String, Integer> zzimMap) {
+		return sqlSession.selectOne("FundingMainMapper.selectZzim2", zzimMap);
 	}
+	
+	
 	//zzim 삭제
 	public int deleteZzim(Map<String, Object> paramMap) {
 		return sqlSession.delete("FundingMainMapper.deleteZzim", paramMap);
@@ -160,7 +166,11 @@ public class fundingMainDAO {
 		
 		return sqlSession.update("FundingMainMapper.update_option", opderOptionvo);
 	}
-	
+	//펀딩 취소 시 옵션 수량 증가
+	public int update_option_plus(Funding_order_optionVO opderOptionvo) {
+		
+		return sqlSession.update("FundingMainMapper.update_option_plus", opderOptionvo);
+	}
 	//펀딩 내용 가져오기 (modify.do 사용)
 	public FundingMainVO select_fundingOne(int funding_idx) {
 		return sqlSession.selectOne("FundingMainMapper.funding_one", funding_idx);

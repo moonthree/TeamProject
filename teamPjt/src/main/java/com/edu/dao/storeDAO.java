@@ -100,8 +100,8 @@ public class storeDAO {
 		sqlSession.delete("StoreMapper.storeReviewAdminDelete", vo);
 	}
 	//zzim select
-	public List<ZzimVO> selectZzimStore(Map<String, Object> paramMap) {
-		return sqlSession.selectList("StoreMapper.selectZzimStore", paramMap);
+	public ZzimVO selectZzimStore(Map<String, Integer> zzimMap) {
+		return sqlSession.selectOne("StoreMapper.selectZzimStore", zzimMap);
 	}
 	//zzim 삭제
 	public int deleteZzimStore(Map<String, Object> paramMap) {
