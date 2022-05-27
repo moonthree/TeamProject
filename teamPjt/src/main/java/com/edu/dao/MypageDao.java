@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,10 @@ public class MypageDao {
 	
 	public List<FundingInfoDetailVO> select4Funding(int member_idx){
 		return sqlSession.selectList("MypageMapper.select4Funding", member_idx);
+	}
+	
+	public List<StoreInfoDetailVO> select4Store(int member_idx){
+		return sqlSession.selectList("MypageMapper.select4Store", member_idx);
 	}
 	
 	public List<StoreInfoDetailVO> select3Store(int member_idx){
@@ -186,4 +191,15 @@ public class MypageDao {
 		return sqlSession.update("MypageMapper.update_Express", store_order_idx);
 	}
 	
+	//펀딩 관리 페이지 해당 펀딩 상품에 대한 주문자 내역 가져오기
+	public List<HashMap<String, Object>> fudningAdmin(int funding_idx){
+		
+		return sqlSession.selectList("MypageMapper.fundingAdmin", funding_idx);
+	}
+	public int update_FundingExpress(int funding_order_idx) {
+		
+		return sqlSession.update("MypageMapper.update_FundingExpress",funding_order_idx );
+		
+	}
+
 }

@@ -204,24 +204,12 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
                     </div>
                     <div class="my_middle">
                         <h5>판매 MY</h5>
-                        <!-- <a href="info_funding.do">내가 펀딩한 상품<span></span></a><br>
-                        <a href="info_store.do">내가 구매한 상품<span></span></a><br> -->
-                        
 		                <button type="button" class="button-59" onclick="location.href='funding_register.do'"><span style="display : block;">새 펀딩 오픈</span></button>
 		               	 <button type="button" class="button-59" onclick="location.href='<%=request.getContextPath()%>/store/store_register.do'"><span style="display : block;">새 스토어 오픈</span></button>
 		              
                     </div>
                     <div class="my_bottom">
-                        <p>
-                            <a href="my_info.do">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
-                                    viewBox="0 0 16 20">
-                                    <path
-                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                                </svg>
-                                &nbsp;<span>내 정보</span>
-                            </a>
-                        </p>
+                        
                         <p>
                             <a href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-megaphone"
@@ -251,7 +239,7 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 				            <li class="nav-item flex-sm-fill">
 				             	<a id="funding-tab" data-toggle="tab" href="#funding" role="tab" aria-controls="funding" aria-selected="true" class="nav-link text-uppercase font-weight-bold mr-sm-3 border active">
 				             		<div class="box_title">펀딩 제품 관리</div>
-<%-- 				             		<div class="box_num">${ countFunding }</div> --%>
+
 				             	</a>
 				            </li>
 				            <li class="nav-item flex-sm-fill">
@@ -312,18 +300,35 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 					                      	<c:when test="${item.funding_current_state == 0}">
 					                      	  <div class="row">
 					                      	  <!-- 펀딩 진행중 -->
-											    <div class="col" align="right">
-											    	<button class="btn button-6" onclick="Fnalert1(${item.funding_idx})">수량 추가</button>
+										<div class="col" align="right">
+											    	<%-- <button class="btn button-6" onclick="Fnalert1(${item.funding_idx})">수량 추가</button>
 											     	<button class="btn button-6" onclick="Fnalert2(${item.funding_idx})">제품 설명 변경</button>
-											     	<button class="btn button-6" onclick="Fnalert3(${item.funding_idx})" style="margin-right: 10px">공지사항 변경</button> 
-											    </div>
+											     	<button class="btn button-6" onclick="Fnalert3(${item.funding_idx})" style="margin-right: 10px">공지사항 변경</button> --%>
+										<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+											 <button type="button" class="button-6" onclick="location.href='<%= request.getContextPath()%>/mypage/funding_admin.do?funding_idx=${item.funding_idx}&check=0'">관리</button>
+											
+											  <div class="btn-group" role="group">
+											    <button id="btnGroupDrop2" type="button" class="btn button-6 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											      Dropdown
+											    </button>
+											    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+											      <a class="dropdown-item"  href='javascript:void(0);' onclick="Fnalert1(${item.funding_idx})">수량 추가</a>
+											      <a class="dropdown-item"  href='javascript:void(0);' onclick="Fnalert2(${item.funding_idx})">제품 설명 변경</a>
+											       <a class="dropdown-item"  href='javascript:void(0);' onclick="Fnalert3(${item.funding_idx})">공지 사항 변경</a>
+											    </div> 
+		
+											  </div>
+											</div>
+											   
+											  </div>
 											 </div>
 					                      	</c:when>
 					                      	<c:when test="${item.funding_current_state == 1}">
 					                      		<div class="row">
 					                      			<!-- 펀딩 성공 시 -> 스토어 신청 가능버튼 나오게 -->
 											    <div class="col" align="right">
-											    	 <button class="btn btn-outline-info" onclick="StoreSubmit(${item.funding_idx})" style="margin-right: 10px">스토어로 제품 신청</button>
+											     	<button type="button" class="btn btn-outline-primary" onclick="location.href='<%= request.getContextPath()%>/mypage/funding_admin.do?funding_idx=${item.funding_idx}&check=1'">관리</button>
+											    	<button class="btn btn-outline-info" onclick="StoreSubmit(${item.funding_idx})" style="margin-right: 10px">스토어로 제품 신청</button>
 											    </div>
 											    </div>
 					                      	</c:when>
@@ -413,224 +418,6 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
     <div id="messageModal" data-toggle="modal" data-target="#sidebar-right"><img src="../resources/image/message/message.png" width="70px"/></div>     
 </main>
 
-
-
- <%-- div class="container">
-        <div class="row" style="margin-top: 10%;">
-          <div class="col-md-4 col-sm-12" >
-            <div style="box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05); border-radius: 10px;">
-                <div class="row"> 
-                    <div class="col-sm-12">
-                     
-                    </div>
-                </div>
-              
-              <table class="table">
-              	<thead>
-              	<tr style="cursor:pointer;" onclick="location.href='my_info.do'">
-              		<th colspan="3">
-              			<h5>${login.member_name}님 > </h5>
-              			${login.member_email}
-                    </th>
-              	</tr>
-              		
-              	</thead>
-                <tbody>
-                  <tr>
-                      <td>이름</td>
-                      <td>${member.member_name}</td>
-                  </tr>
-<%--                   <tr> --%>
-<%--                       <td>전화번호</td>
-                      <td>${member.member_phone}</td>
-                  </tr>
-                  <tr>
-                      <td>이메일</td>
-                      <td>${member.member_email}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              </div>
-            
-            <!--소비자 & 메이커 전환-->
-            <div class="row mt-3">
-              <div class="col">
-                <button type="button" class="button-13" onclick="location.href='mypage.do'">서포터 페이지</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <button type="button" class="button-13" onclick="location.href='mypage2.do'">메이커 페이지</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <button type="button" class="button-59" onclick="location.href='funding_register.do'"><span style="display : block;">새 펀딩 오픈</span></button>
-              </div>
-              <div class="col">
-                <button type="button" class="button-59" onclick="location.href='<%=request.getContextPath()%>/store/store_register.do'"><span style="display : block;">새 스토어 오픈</span></button>
-              </div>
-            </div>
-          </div>
-            <div class="col-md-8 col-sm-12 scroll_item">
-              
-
-              <!--펀딩&스토어 전환버튼-->
-              <ul class="nav nav-tabs nav-justified" style="padding:10px 0px;">
-                <li class="nav-item" >
-                  <a class="nav-link active" data-toggle="tab" href="#my_funding" style="font-weight: 600; padding:10px">내 펀딩</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#my_store" style="font-weight: 600; padding:10px">내 스토어</a>
-                </li>
-              </ul>
-
-              <!--내비게이션 탭 내용-->
-              <div class="tab-content" >
-                <div class="tab-pane fade show active" id="my_funding">
-                  <!--펀딩 스크롤-->
-                  <div class="mydiv" id="mydiv">
-					<c:if test="${sellerFundingList.size()>0}">
-					<c:forEach var="item" items="${sellerFundingList}">
-					
-	                    <div class="card mb-3">
-	                      <div class="row item" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-	                        <div class="col-lg-5 col-md-6">
-		                          <!--이미지-->
-		                      <div class="card img-container">
-	                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-	                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-	                            </div>
-		                      </div>
-	                        </div>
-	                        <div class="col-lg-7 col-md-6">
-	                          <div class="card-body" style="margin-left: -20px;">
-	                            <div style="font-weight:100">
-	                            <div>
-	                            	<c:choose>
-	                            		<c:when test="${ item.funding_category eq 0 }"><span style="font-weight: bold; color: grey;">강아지 용품</span></c:when>
-	                            		<c:when test="${ item.funding_category eq 1 }"><span style="font-weight: bold; color: grey;">고양이 용품</span></c:when>
-	                            		<c:when test="${ item.funding_category eq 2 }"><span style="font-weight: bold; color: grey;">다른 동물 용품</span></c:when>
-	                            	</c:choose>
-	                            </div>
-	                            <div style="text-align: right;">
-	                            	<c:choose>
-	                            		<c:when test="${ item.funding_current_state eq 0 }"><span style="font-weight: bold">펀딩 진행중</span></c:when>
-	                            		<c:when test="${ item.funding_current_state eq 1 }"><span style="font-weight: bold; color: blue">펀딩 성공</span></c:when>
-	                            		<c:when test="${ item.funding_current_state eq 2 }"><span style="font-weight: bold; color: #4E342E">펀딩 실패</span></c:when>
-	                            	</c:choose>
-	                            </div>
-	                            </div>
-	                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
-	                            <p class="card-text" >
-	                                          
-	                              <div class="row" style="position: absolute; bottom: 10px; right:50px">
-	                                <div class="col" style=" font-weight: 600; color:red;">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>              	
-	                              </div>
-	                            </p>
-	                       	 </div>
-	                        </div> 
-	                      </div>
-	                      <c:choose>
-	                      	<c:when test="${item.funding_current_state == 0}">
-	                      	  <div class="row">
-	                      	  <!-- 펀딩 진행중 -->
-							    <div class="col" align="right">
-							    	<button class="btn button-6" onclick="Fnalert1(${item.funding_idx})">수량 추가</button>
-							     	<button class="btn button-6" onclick="Fnalert2(${item.funding_idx})">제품 설명 변경</button>
-							     	<button class="btn button-6" onclick="Fnalert3(${item.funding_idx})" style="margin-right: 10px">공지사항 변경</button> 
-							    </div>
-							 </div>
-	                      	</c:when>
-	                      	<c:when test="${item.funding_current_state == 1}">
-	                      		<div class="row">
-	                      			<!-- 펀딩 성공 시 -> 스토어 신청 가능버튼 나오게 -->
-							    <div class="col" align="right">
-							    	 <button class="btn btn-outline-info" onclick="StoreSubmit(${item.funding_idx})" style="margin-right: 10px">스토어로 제품 신청</button>
-							    </div>
-							    </div>
-	                      	</c:when>
-	                     	<c:otherwise>
-	                     		<div class="row">
-	                     			<div class="col">
-							    	 	<span style="font-weight: bold; color: grey;">해당 제품은 펀딩에 실패하였습니다.</span>
-							    	</div>
-	                     		</div>
-	                     	</c:otherwise>
-	                      </c:choose>
-	                    </div>
-	                     <hr class="hrTag">
-                    	<br>
-                    </c:forEach>
-                    </c:if>
-                  </div>
-                </div>
-                
-                <!--스토어 내용-->
-                <div class="tab-pane fade" id="my_store">
-                  <!--스토어 스크롤-->
-                  <div class="mydiv" id="mydiv">
-					<c:if test="${sellerStoreList.size()>0}">
-					<c:forEach var="item" items="${sellerStoreList}">
-                    <div class="card mb-3">
-                      <div class="row g-0">
-                        <div class="col-lg-5 col-md-6">
-                          <!--이미지-->
-	                      <div class="card img-container">
-                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/image/funding_main/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-                            </div>
-	                      </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6">
-                          <div class="card-body" style="margin-left: -20px;">
-                            <div style="font-weight:100">
-                            	<c:choose>
-                            		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
-                            		<c:when test="${ item.store_category eq 1 }">고양이 용품</c:when>
-                            		<c:when test="${ item.store_category eq 2 }">다른 동물 용품</c:when>
-                            	</c:choose>
-                            </div>
-                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
-                            <p class="card-text" >
-                              <div class="row">
-                                <div class="col">${ item.store_content }</div>
-                              </div>                             
-                              <div class="row" >
-                                <div class="col">
-                                 
-                                 	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-									 <button type="button" class="button-6" onclick="location.href='<%= request.getContextPath()%>/mypage/store_admin.do?store_idx=${item.store_idx}'">관리</button>
-									
-									  <div class="btn-group" role="group">
-									    <button id="btnGroupDrop1" type="button" class="btn button-6 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									      Dropdown
-									    </button>
-									    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-									      <a class="dropdown-item"  href='javascript:void(0);' onclick="Storealert1(${item.store_idx})">수량 추가</a>
-									      <a class="dropdown-item"  href='javascript:void(0);' onclick="Storealert2(${item.store_idx})">제품 설명 변경</a>
-									       <a class="dropdown-item"  href='javascript:void(0);' onclick="Storealert3(${item.store_idx})">공지 사항 변경</a>
-									    </div> 
-
-									  </div>
-									</div>
-                                </div>
-                              </div>
-                            </p>
-                          </div>
-                        </div> 
-                      </div>
-                    </div>
-                    </c:forEach>
-                    </c:if>
-            </div>
-            </div>
-            </div>
-            </div>
-        </div>
-    </div> 
-</main> --%>
 <c:import url="/footer.do"></c:import>
 </body>
 </html>

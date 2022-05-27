@@ -139,22 +139,22 @@
     
             </div>
             <!--펀딩 내역-->
-            <div class="row mt-5" style="width: 100%;">
+           	<div class="row" style="width: 100%;">
                 <div class="col-xs-12">
-                    <div><h5 style="margin-bottom: 30px; font-weight: 600; text-align: center;" >펀딩 내역 ▷</h5></div>
+                    <div><h5 style="margin-bottom: 30px; font-weight: 600; text-align: center;" >펀딩 내역 ▷
+                     <span style="margin-bottom: 30px; font-weight: 300; text-align: center;">상위4개의 펀딩 내역만 가져옵니다.</span>
+                     </h5>
+                    
+                    </div>
                 </div>
-            </div>
-            <div class="row" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
-                
-                <div class="col-md-12">
-                    <div class="row g-3">
-                    <c:if test="${select4Funding.size()>0}">
-						<c:forEach var="item" items="${select4Funding}">
-                        
-                        <div class="col-lg-3 col-md-4 col-sm-12" <c:if test="${select4Funding.size() eq 1}"> class="outer" </c:if>>
-                            <div class="card">
-                                <div class="img-container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
-                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
+                </div>
+               <div class="row g-3">
+                <c:if test="${select4Funding.size()>0}">
+                 <c:forEach var="item" items="${select4Funding}">
+               	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
+                           	<div class="card-img-top">
+                                <div class="" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                                    <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
                                     <div style="font-weight:100">
@@ -164,87 +164,53 @@
                                     		<c:when test="${ item.funding_category eq 2 }">다른동물 용품</c:when>
                                     	</c:choose>
                                     </div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
-                                   
+                                    <div>
+                                    	 <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5> 
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        </c:forEach>
-                        </c:if>
-                        
-                        
-                    </div>
-                </div>
-            </div>
+							</div>
+					
+                 </div>
+                 </c:forEach>
+                  </c:if>
+         	 </div>
+           	
+               
             
 
             <!--스토어 내역-->
-            <div class="row mt-5" style="width: 100%;">
+           	<div class="row" style="width: 100%;">
                 <div class="col-xs-12">
-                    <div><h5 style="margin-bottom: 30px; font-weight: 600; text-align: center;" >스토어 내역 ▷</h5></div>
+                    <div><h5 style="margin-bottom: 30px; font-weight: 600; text-align: center;" >스토어 내역 ▷
+                    <span style="margin-bottom: 30px; font-weight: 100; text-align: center;">상위4개의 스토어 주문 내역만 가져옵니다.</span></h5></div>
                 </div>
-            </div>
-            <div class="row" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
-                
-                <div class="col-md-12">
-                    <div class="row g-3">
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12" id="outer">
-                            <div class="card">
-                                <div class="img-container">
-                                    <img src="../resources/image/cat5.png" class="card-img-top card_img" alt="funding_img">
-                                </div>
-                                <div class="card-body" style="margin-left: -20px;">
-                                    <div style="font-weight:100">고양이 용품</div>
-                                    <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">먼지없는 에이스</h5>
-                                    <p class="card-text" >먼지없는 에이스 고양이모래 아직도 안 써보셨어요?</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            
-
-        </div>
-
-            
+               <div class="row g-3">
+                <c:if test="${select4Store.size()>0}">
+                 <c:forEach var="item" items="${select4Store}">
+               	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
+                           	<div class="card-img-top">
+                                <div class="" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
+                                    <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
+                                </div>
+                                <div class="card-body" style="margin-left: -20px;">
+                                    <div style="font-weight:100">
+                                    	<c:choose>
+                                    		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
+                                    		<c:when test="${ item.store_category eq 1 }">고양이 용품</c:when>
+                                    		<c:when test="${ item.store_category eq 2 }">다른동물 용품</c:when>
+                                    	</c:choose>
+                                    </div>
+                                    <div>
+                                    	 <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5> 
+                                    </div>
+                                </div>
+							</div>
+					
+                 </div>
+                 </c:forEach>
+                  </c:if>
+         	 </div>            
         </div>
         </div>
     </main>

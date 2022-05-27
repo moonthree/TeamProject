@@ -116,6 +116,38 @@
 		ORDER BY fo.funding_order_date DESC limit 4;
 	</select>
 	
+	<!--  my_info 펀딩 리스트 출력 4개 -->
+	<select id="select4Store" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
+		SELECT  m.member_name,
+			  	so.store_order_idx,
+				so.store_order_total_price,
+				so.store_order_pay_state,
+				so.store_order_date,
+				s.store_idx,
+				s.member_idx,
+				s.funding_idx,
+				s.store_price,
+				s.store_title,
+				s.store_thumbnail,
+				s.store_content,
+				s.store_notice,
+				s.store_write_date,
+				s.store_permit_state,
+				s.store_current_state,
+				s.store_category,
+				s.store_funding,
+				s.store_express_fee,
+				s.store_views,
+				se.store_express_state
+		FROM	store s, store_order so, member m, store_express se
+		WHERE	s.store_idx = so.store_idx
+		AND		s.member_idx = m.member_idx
+		AND		se.store_order_idx = so.store_order_idx
+		AND		so.member_idx = #{member_idx}
+		ORDER BY so.store_order_date DESC limit 4
+	</select>
+	
+	
 	<!-- mypage1 펀딩 개수 -->
 	<select id="countFunding" parameterType="int" resultType="int">
 		SELECT	count(f.funding_idx)
@@ -527,6 +559,34 @@
 		AND    so.store_order_idx = se.store_order_idx
 		ORDER BY so.store_order_idx DESC
 	</select>
+	
+		<!-- 펀딩 관리 페이지 -->
+	<select id="fundingAdmin" parameterType="int" resultType="java.util.HashMap">
+		SELECT 
+		fod.funding_order_idx,
+		fod.member_idx, 
+		fod.funding_order_total_price,
+		fod.funding_order_pay_state, 
+		mem.member_email,
+		mem.member_name, 
+		CONCAT(fex.funding_express_addr1,fex.funding_express_addr2) as 'addr'
+		,fex.funding_express_phone 'phone'
+		,fex.funding_express_name 'name'
+		,fex.funding_express_state
+		FROM member mem, funding_order fod, funding fn, funding_express fex
+		where fn.funding_idx = #{funding_idx}
+		AND mem.member_idx = fod.member_idx
+		AND fod.funding_idx = fn.funding_idx
+		AND fex.funding_order_idx = fod.funding_order_idx;
+	</select>
+	<!-- 펀딩 배송 상태 변경 -->
+	<update id="update_FundingExpress" parameterType="int">
+		UPDATE funding_express
+		SET	   funding_express_state = 1
+		WHERE  funding_order_idx = #{funding_order_idx}
+	</update>
+	
+
 	<!-- 구매 취소 / 배송 상태 2로 변경 -->
 	<update id="storeWithdraw" parameterType="int">
 		UPDATE store_order so, store_express se
@@ -543,4 +603,6 @@
 		SET	   store_express_state = 1
 		WHERE  store_order_idx = #{store_order_idx}
 	</update>
+	
+	
 </mapper>
