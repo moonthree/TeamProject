@@ -18,6 +18,9 @@
 	font-weight: 200;
 	font-size: 12px;
 }
+.gallery{
+	margin: 5px 5px 0px 0px;
+}
 /*상단 어두운 썸네일*/
 .topcard{
     margin-bottom: 30px;
@@ -415,6 +418,12 @@ select::-ms-expand {
 }
 .reviewMiddlePhoto > p {
     font-weight: bold;
+}
+.img{
+	cursor: pointer;
+}
+.img:hover{
+	opacity: 0.7;
 }
 .reviewMiddlePhoto > img{
     height: 100px;

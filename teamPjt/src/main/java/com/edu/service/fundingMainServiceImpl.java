@@ -179,9 +179,13 @@ public class fundingMainServiceImpl implements fundingMainService{
 		return dao.insertZzim(paramMap);
 	}
 	//select찜
+	/*
+	 * @Override public List<ZzimVO> selectZzim(Map<String, Object> paramMap) {
+	 * return dao.selectZzim(paramMap); }
+	 */
 	@Override
-	public List<ZzimVO> selectZzim(Map<String, Object> paramMap) {
-		return dao.selectZzim(paramMap);
+	public ZzimVO selectZzim2(Map<String, Integer> zzimMap) {
+		return dao.selectZzim2(zzimMap);
 	}
 	// delete 찜
 
@@ -248,8 +252,12 @@ public class fundingMainServiceImpl implements fundingMainService{
 	//펀딩 옵션 수량 감소 메소드
 	@Override
 	public int update_option(Funding_order_optionVO orderOptionvo) {
-		
 		return dao.update_option(orderOptionvo);
+	}
+	//펀딩 취소 시 옵션 수량 증가 메소드
+	@Override
+	public int update_option_plus(Funding_order_optionVO orderOptionvo) {
+		return dao.update_option_plus(orderOptionvo);
 	}
 
 	//펀딩 내용 가져오기 (modify.do 사용)

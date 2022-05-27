@@ -168,8 +168,8 @@ public class MypageDao {
 	}
 	
 	//펀딩 취소
-	public int fundingWithdraw(int funding_order_idx) {
-		return sqlSession.delete("MypageMapper.fundingWithdraw", funding_order_idx); //funding_order
+	public int fundingWithdraw(Map<String, Object> paramMap) {
+		return sqlSession.update("MypageMapper.fundingWithdraw", paramMap); //funding_order
 	}
 	//구매취소
 	public int storeWithdraw(int store_order_idx) {

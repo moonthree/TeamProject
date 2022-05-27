@@ -146,7 +146,7 @@
 	<select id="orderCount" resultType = "int">
 		SELECT COUNT(funding_order_idx)
 		FROM funding_order
-		WHERE funding_idx= #{funding_idx}
+		WHERE funding_idx= #{funding_idx} AND funding_order_pay_state=0 OR funding_order_pay_state=1
 	</select>
 	<!-- 조회수 증가 -->
 	<update id="fundingViews" parameterType="int">
@@ -328,7 +328,12 @@
         )
 	</insert>
 	<!-- 찜 가져오기 -->
-	<select id="selectZzim" resultType="ZzimVO" parameterType="java.util.HashMap">
+	<!-- <select id="selectZzim" resultType="ZzimVO" parameterType="java.util.HashMap">
+		SELECT member_idx
+		FROM zzim
+		WHERE funding_idx = #{funding_idx} AND member_idx = #{member_idx};
+	</select> -->
+	<select id="selectZzim2" resultType="ZzimVO" parameterType="java.util.HashMap">
 		SELECT member_idx
 		FROM zzim
 		WHERE funding_idx = #{funding_idx} AND member_idx = #{member_idx};
@@ -495,6 +500,12 @@
 	<update id="update_option" parameterType="Funding_order_optionVO">
 		UPDATE funding_option 
 		SET funding_option_stock = funding_option_stock - #{funding_order_option_select_count}
+		where funding_option_idx = #{funding_order_option_select_idx}
+	</update>
+	<!-- 결제 취소 시 펀딩 옵션 수량 더하기 -->
+	<update id="update_option_plus" parameterType="Funding_order_optionVO">
+		UPDATE funding_option 
+		SET funding_option_stock = funding_option_stock + #{funding_order_option_select_count}
 		where funding_option_idx = #{funding_order_option_select_idx}
 	</update>
 	
