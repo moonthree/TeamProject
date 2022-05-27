@@ -62,11 +62,13 @@ footer {
         position: relative;
         transform: translateY(100%);
     }
+.box {
+	width: 50px;
+    height: 50px; 
+    border-radius: 70%;
+    overflow: hidden;
+}
 </style>
-<script>
-$("window").load(scrollDown);
-</script>
-
 </head>
 <body>
 
@@ -79,22 +81,33 @@ $("window").load(scrollDown);
 			<!-- 왼쪽  -->
 			<c:if test="${ item.from_member_idx ne member.member_idx }">
 				<table class="table" style="border: none; margin-top:30px; text-align:left;">		
-					    <tr>
-					    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
-					    	<td width="300px">
-						    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
-						    		${ item.message_content }
-						    	</div>
-					    	</td>
-					    </tr>
-					    <tr>
-					      	<th>
-		                    </th>
-		                    <td style="text-align:right;">
-								<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
-						    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-					    	</td>
-					    </tr>
+				    <tr>
+				    	<th width="60px">
+				    	<div class="box">
+				    		<img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+				    	</div>	
+				    	</th>
+				    	
+				    	<td width="300px">
+					    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
+					    		
+					    		<c:if test="${ item.c_or_p eq 'c'}">${ item.message_content }</c:if>
+					    		<c:if test="${ item.c_or_p eq 'p'}">
+					    			<img src="../resources/upload/message/${item.message_idx}/${item.message_content}" alt="message_img" class="message_img" width="200px"
+					    			onclick="window.open('photoCloseUp.do?message_idx=${item.message_idx}&message_content=${item.message_content}','Popup', 'width=1280,height=720');">
+					    		</c:if>
+					    		
+					    	</div>
+				    	</td>
+				    </tr>
+				    <tr>
+				      	<th>
+	                    </th>
+	                    <td style="text-align:right;">
+							<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
+				    	</td>
+				    </tr>
 				</table>
 			</c:if>	    
 		
@@ -105,10 +118,19 @@ $("window").load(scrollDown);
 				    	<th width="130px"></th>
 				    	<td width="300px">
 					    	<div style="background-color: #f5f5f5; border-radius: 20px; padding:10px" >
-					    		${ item.message_content }
+					    		
+					    		<c:if test="${ item.c_or_p eq 'c'}">${ item.message_content }</c:if>
+						    	<c:if test="${ item.c_or_p eq 'p'}">
+						    		<img src="../resources/upload/message/${item.message_idx}/${item.message_content}" alt="message_img" class="message_img" width="200px">
+						    	</c:if>
+						    		
 					    	</div>
 				    	</td>
-				    	<th width="60px"><img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;"></th>
+				    	<th width="60px">
+				    		<div class="box">
+				    			<img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+				  			</div>
+				  		</th>
 				    </tr>
 				    <tr>
 				    	<td></td>	
@@ -129,9 +151,11 @@ $("window").load(scrollDown);
 <!-- 메세지 보내기  -->
 <div class="row sticky">
 
-<form id="messageFrm" action="sendMessage.do" method="post">
+<form id="messageFrm" name="aaa" action="sendMessage.do" method="post" enctype="multipart/form-data">
 	<!-- funding_idx를 가지고 보낼 사람의 member_idx를 찾아야함 -->
 	<input type="hidden" name="funding_idx" value="${ param.funding_idx }"/>
+	<input type="hidden" name="store_idx" value="${ param.store_idx }"/>
+	
 	<!-- 메세지 사이즈가 0인경우 message_idx만드는 작업을 해야함 insert -->
 	<input type="hidden" name="countMessages" value="${ messages.size() }"/>
 	<input type="hidden" name="message_idx" value="${param.message_idx }"/>
@@ -146,13 +170,25 @@ $("window").load(scrollDown);
 		</c:if>
 	<table>
 		<tr>
-			<td><img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;"></td>
+			<td>
+				<label for="ex_file">
+					<img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;">
+				</label>
+				<input type="file" accept="image/*" id="ex_file" name="fff" onchange=aa(); style="display:none;">
+			</td>
 			<td width="40px"><textarea rows='1' placeholder='메세지를 입력하세요' name="message_content"></textarea></td>
 			<td><img src="<%=request.getContextPath()%>/resources/image/message/send.png" width="20px" onclick="document.getElementById('messageFrm').submit();" style="cursor:pointer;"></td>
 		</tr>
 	</table>
 </form>
-
+<script> 
+	function aa(){ 
+		if(document.aaa.fff.value != ""){ 
+			document.aaa.action = "sendMessage.do"; 
+			document.aaa.submit(); 
+		} 
+	}
+</script> 
 </div>
 <script>
 	var textarea = document.querySelector('textarea');

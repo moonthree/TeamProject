@@ -1,28 +1,20 @@
 package com.edu.vo;
 
-import java.util.Date;
-
-public class MessageVO {
+public class MessageNoticeVO {
 	//상대방의 정보 from_member
 	private int member_idx;
 	private String member_name;
 	private String member_photo;
 	
-	//message
-	private int message_idx;
-	private int funding_idx;
-	private int store_idx;
-	private char f_or_s;
-	private int message_category;
-	private String message_date;
-	
 	//message_note
 	private int message_note_idx;
 	private int from_member_idx;
 	private int to_member_idx;
+	private int funding_idx;
+	private int store_idx;
+	private String f_or_s;
 	private String message_content;
 	private String message_photo;
-	private String c_or_p;
 	private String message_note_date;
 	
 	//message_notice
@@ -47,12 +39,6 @@ public class MessageVO {
 	public void setMember_photo(String member_photo) {
 		this.member_photo = member_photo;
 	}
-	public int getMessage_idx() {
-		return message_idx;
-	}
-	public void setMessage_idx(int message_idx) {
-		this.message_idx = message_idx;
-	}
 	public int getFunding_idx() {
 		return funding_idx;
 	}
@@ -65,23 +51,11 @@ public class MessageVO {
 	public void setStore_idx(int store_idx) {
 		this.store_idx = store_idx;
 	}
-	public char getF_or_s() {
+	public String getF_or_s() {
 		return f_or_s;
 	}
-	public void setF_or_s(char f_or_s) {
+	public void setF_or_s(String f_or_s) {
 		this.f_or_s = f_or_s;
-	}
-	public int getMessage_category() {
-		return message_category;
-	}
-	public void setMessage_category(int message_category) {
-		this.message_category = message_category;
-	}
-	public String getMessage_date() {
-		return message_date;
-	}
-	public void setMessage_date(String message_date) {
-		this.message_date = message_date;
 	}
 	public int getMessage_note_idx() {
 		return message_note_idx;
@@ -112,12 +86,6 @@ public class MessageVO {
 	}
 	public void setMessage_photo(String message_photo) {
 		this.message_photo = message_photo;
-	}
-	public String getC_or_p() {
-		return c_or_p;
-	}
-	public void setC_or_p(String c_or_p) {
-		this.c_or_p = c_or_p;
 	}
 	public String getMessage_note_date() {
 		return message_note_date;
