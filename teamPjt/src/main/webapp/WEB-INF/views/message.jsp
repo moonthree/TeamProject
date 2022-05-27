@@ -118,8 +118,10 @@ $(document).ready (function () {
                 	<table class="table" style="border: none">
 						 <c:if test="${dialogue.size()>0}">
 							<c:forEach var="item" items="${dialogue}">
-							<!-- 보낸사람 & 시각  -->
-							    <tr>
+							<!-- 펀딩 메세지  -->
+							<c:if test="${0 ne item.funding_idx }">
+							<!-- 보낸사람 & 시각  -->	
+								<tr>
 							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
 							    	<th style="text-align:right;">
 							    		소비자 : ${ item.to_member_idx }<br>
@@ -130,21 +132,41 @@ $(document).ready (function () {
 							    	</th>
 							    </tr>
 							<!-- 메세지 내용 -->
-							    <tr onclick="window.open('note.do?funding_idx=${item.funding_idx}&message_idx=${item.message_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
+							    <tr onclick="window.open('note.do?funding_idx=${item.funding_idx}&store_idx=0&message_idx=${item.message_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
 							      	<th>
 								      	${item.funding_idx }
 			                        </th>
 			                        <th>${ item.message_content }</th>
 							    </tr>
-						  	</c:forEach>
+								
+							</c:if>
+							<!-- 스토어 메세지 -->
+							<c:if test="${0 ne item.store_idx }">
+								<!-- 보낸사람 & 시각  -->
+								<tr>
+							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
+							    	<th style="text-align:right;">
+							    		소비자 : ${ item.to_member_idx }<br>
+										판매자 : ${ item.from_member_idx }<br>
+										<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
+				    	
+							    	</th>
+							    </tr>
+							<!-- 메세지 내용 -->
+							    <tr onclick="window.open('note.do?funding_idx=0&store_idx=${item.store_idx}&message_idx=${item.message_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
+							      	<th>
+								      	${item.store_idx }
+			                        </th>
+			                        <th>${ item.message_content }</th>
+							    </tr>
+							</c:if>
+					  	</c:forEach>
 						</c:if>
 					</table>
                 	
                 </div>
               </div>
-	        <!-- 들어가야하는 것 : 일단 회사측에서 보내는것 , 쪽지  -->
-	         
-	        
 				
 
 			<hr>

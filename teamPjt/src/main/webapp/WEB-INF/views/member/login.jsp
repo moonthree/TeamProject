@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
  <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/member_css/login.css">
 <!-- 부트스트랩 드랍다운 작동하게 해주는 자바스크립트 -->
     <script type="text/javascript">
@@ -80,115 +81,66 @@
     		loginForm.submit();
     	}
     }
+    
+    // 비밀번호 확인
+    $(document).ready(function(){
+        $('.login_input i').on('click',function(){
+            $('input').toggleClass('active');
+            if($('input').hasClass('active')){
+                $(this).attr('class',"bi bi-eye-slash").prev().prev('input').attr('type',"text");
+            }else{
+                $(this).attr('class',"bi bi-eye").prev().prev('input').attr('type','password');
+            }
+        });
+    });
 </script>
     
 <title>로그인</title>
-<style>
-	main {
-        height: auto;
-        min-height: 100%;
-        padding-bottom: 300px;
-    }
-</style>
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
-	
 	<main>
-    <div class="container" style="text-align: center; margin-top: 10%;">
-	    <div class="row">
-	        <div class="col-sm-12">
-	        <form action="login.do" method="post" id="login" name="loginform">
-	        	<div class="card">
-	        		<h1 class="title">SNS 로그인</h1>
-	        		<div class="input-container" style="margin_bottom: 60px">
-	        			<button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" style="width: 70%; height: 50px;">카카오</button>
-<!-- 		        		<button type="button" onclick="Fnkakao()" class="btn_img"> -->
-<%-- 		        			<img src="<%=request.getContextPath()%>/resources/image/member/kakao_login_medium_narrow.png" style="height: 48px"> --%>
-<!-- 		        		</button> -->
-	        		</div>
-					<h1 class="title">로그인</h1>
-					<div class="input-container">
-						<input type="text" class="login-input" name="member_email" id="memEmail" required="required"/>
-						<label for="memId">이메일</label>
-						<div class="bar"></div>
+    <div class="container" style="margin: 170px auto;">
+		<div class="inner">
+			<div class="col-md-8 col-lg-6">
+				<form action="login.do" method="post" id="login" name="loginform">
+					<div class="wrap">
+						<div class="login_container">
+							<div class="login_header">
+								<div class="login_header_in">
+									<div class="login_text">로그인</div>
+								</div>
+								<div class="login_header_in">
+									<p class="login_header_p">
+										<button type="button" onclick="Fnkakao()" class="btn btn-outline-warning" >
+											<i class="bi bi-chat"></i>
+											카카오
+										</button>
+									</p>
+								</div>
+							</div>
+							<div class="login_input">
+								<input type="text" class="login_input_box" name="member_email" id="memEmail" required>
+								<label class="login_input_box_placeholder" for="memEmail">이메일</label>
+							</div>
+							<div class="login_input">
+								<input type="password" class="login_input_box" name="member_password" id="memPw"  required>
+								<label class="login_input_box_placeholder" for="memPw">비밀번호</label>
+								<i class="bi bi-eye"></i>
+							</div>
+							<div>
+								<button class="login_btn" id="login" onclick="loginCheck();">로그인</button>
+							</div>
+							<div class="find_loca">
+								<a href="emailpw_find.do" class="login_find">아이디 · 비밀번호 찾기 ></a>
+							</div>
+							<div style="text-align: center;">아직 회원이 아니신가요? <a href="join_select.do" class="login_join">회원 가입</a></div>
+						</div>
 					</div>
-					<div class="input-container">
-						<input type="password" class="login-input" name="member_password" id="memPw" autocomplete="off" required="required">
-						<label for="memPw">비밀번호</label>
-						<div class="bar"></div>
-					</div>
-					<div class="button-container">
-						<button id="login" onclick="loginCheck();"><span>로그인</span></button>
-					</div>
-					<div class="footer-join">
-						<a href="emailpw_find.do">이메일, 비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;
-						<a href="join_select.do">회원가입</a>
-					</div>
-				</div>
-			</form>
-	        </div>
-	    </div>
-    </div>
-<!--     <div class="content"> -->
-<!--         Nav pills -->
-<!--         <ul class="nav nav-pills" role="tablist"> -->
-<!--           <li class="nav-item"> -->
-<!--             <a class="nav-link active" data-toggle="pill" href="#login">Login</a> -->
-<!--           </li> -->
-<!--           <li class="nav-item"> -->
-<!--             <a class="nav-link" data-toggle="pill" href="#regis">Register</a> -->
-<!--           </li> -->
-<!--         </ul> -->
-    
-<!--         Tab panes -->
-<!--         <div class="tab-content"> -->
-<!--           <div id="login" class="container tab-pane active"> -->
-<!--             <form> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="exampleFormControlInput1">Email address</label> -->
-<!--                 <input type="email" class="form-control is-valid" id="exampleFormControlInput1" placeholder="name@example.com"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-<!--               </div> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="exampleInputPassword1">Password</label> -->
-<!--                 <input type="password" class="form-control is-invalid" id="exampleInputPassword1" placeholder="Password"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">Password incorrect.</small> -->
-<!--               </div> -->
-<!--               <button type="submit" class="btn btn-primary">Submit</button> -->
-<!--             </form> -->
-<!--           </div> -->
-<!--           <div id="regis" class="container tab-pane fade"> -->
-<!--             <form> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="InputName">Full Name</label> -->
-<!--                 <input type="text" class="form-control is-valid" id="InputName" placeholder="Full Name"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-<!--               </div> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="InputUsername">Username</label> -->
-<!--                 <input type="text" class="form-control is-valid" id="InputUsername" placeholder="Username"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-<!--               </div> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="exampleFormControlInput2">Email address</label> -->
-<!--                 <input type="email" class="form-control is-valid" id="exampleFormControlInput2" placeholder="name@example.com"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-<!--               </div> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="exampleInputPassword2">Password</label> -->
-<!--                 <input type="password" class="form-control is-invalid" id="exampleInputPassword2" placeholder="Password"> -->
-<!--                 <small id="emailHelp" class="form-text text-muted">Password incorrect.</small> -->
-<!--               </div> -->
-<!--               <div class="form-group"> -->
-<!--                 <label for="exampleInputPasswordVer">Verify Password</label> -->
-<!--                 <input type="password" class="form-control is-invalid" id="exampleInputPasswordVer" placeholder="Password"> -->
-<!--               </div> -->
-<!--               <button type="submit" class="btn btn-primary">Submit</button> -->
-<!--             </form> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
+				</form>
+			</div>
+		</div>
+	</div>
     </main>
      <form id="form-kakao-login" method="post" action="join_kakao.do">
 		    			<input type="hidden" name="member_email"/>

@@ -256,6 +256,9 @@ a.navtext:active {
     	top:10px;
     	right:10px;
     }
+    .search_input{
+    	width: 70px;
+    }
 }
 
 

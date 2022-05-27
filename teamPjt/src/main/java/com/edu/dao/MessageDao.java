@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.MessageNoticeVO;
 import com.edu.vo.MessageVO;
 
 
@@ -23,16 +24,27 @@ public class MessageDao {
 		return sqlSession.selectList("MessageMapper.checkFundingPermit",member_idx);
 	}
 	
+	//Admincontroller
 	//f_idx에 따른 member_idx를 구함
 	public int getMemberIdx(int f_idx) {
 		return sqlSession.selectOne("MessageMapper.getMemberIdx",f_idx);
 	}
-	
+	//store_idx에 따른 member_idx를 구함
+		public int getMemberIdxStore(int store_idx) {
+			return sqlSession.selectOne("MessageMapper.getMemberIdxStore",store_idx);
+		}
 	//메세지로그남김
 	public void insertLog(Map<String,Object> paramMap) {
 		sqlSession.insert("MessageMapper.insertLog", paramMap);
 	}
 	
+	//공지
+	public List<MessageNoticeVO> message_notice(int to_member_idx){
+		return sqlSession.selectList("MessageMapper.message_notice",to_member_idx);
+	}
+	
+	
+	//쪽지
 	//메세지불러오기 - from_member_idx마다 최신순 하나
 	public List<MessageVO> message_dialogue(int to_member_idx) {
 		return sqlSession.selectList("MessageMapper.message_dialogue",to_member_idx);
@@ -67,8 +79,8 @@ public class MessageDao {
 	}
 	
 	//message_idx만들기
-	public void insertMessageIdx(int funding_idx) {
-		sqlSession.insert("MessageMapper.insertMessageIdx",funding_idx);
+	public void insertMessageIdx(Map<String, Object> param) {
+		sqlSession.insert("MessageMapper.insertMessageIdx", param);
 	}
 	
 	public int getFromMemberIdx(Map<String, Object> param) {

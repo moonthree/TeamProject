@@ -34,6 +34,11 @@
 		FROM	funding
 		WHERE	funding_idx = #{ f_idx }
 	</select>
+	<select id="getMemberIdxStore" parameterType="int" resultType="int">
+		SELECT  member_idx
+		FROM	store
+		WHERE	store_idx = #{ store_idx }
+	</select>
 	
 	<select id="findSellerIdx" parameterType="int" resultType="int">
 		SELECT  member_idx
@@ -49,15 +54,33 @@
 	
 	<insert id="insertLog" parameterType="java.util.HashMap">
 		INSERT 
-		INTO	message (from_member_idx, to_member_idx, funding_idx, message_content, message_photo)
-		values	(
+		INTO	message_notice (from_member_idx, to_member_idx, funding_idx, f_or_s, message_content)
+		VALUES	(
 				#{ from_member_idx },
 				#{ to_member_idx }, 
-				#{ f_idx },
-				'펀딩이 승인되었습니다',
-				null 
+				#{ funding_idx },
+				#{ f_or_s },
+				#{ message_content }
 				)
 	</insert>
+	
+	
+	<select id="message_notice" parameterType="java.util.HashMap" resultType="MessageNoticeVO">
+		select 	f.funding_title,
+				f.funding_thumbnail,
+			  	mn.message_notice_idx, 
+				mn.from_member_idx, 
+				mn.to_member_idx, 
+				mn.funding_idx, 
+				mn.store_idx, 
+				mn.f_or_s, 
+				message_content, 
+				message_notice_date 
+		from 	message_notice mn, funding f, store s
+		where 	mn.to_member_idx=#{to_member_idx}
+		and		mn.funding_idx=f.funding_idx
+	</select>
+	
 	
 	<select id="getFrom_member_idxs" parameterType="int" resultType="MessageVO">
 		select 	msd.from_member_idx 
@@ -91,6 +114,7 @@
 	<select id="message_dialogue" parameterType="int" resultType="MessageVO">
 		SELECT 	msd.*
 		FROM	(SELECT ms.funding_idx,
+						ms.store_idx,
 		  		  		m.member_idx,
 						m.member_name,
 						m.member_photo, 
@@ -146,6 +170,7 @@
 	</select>
 	
 	<insert id="sendMessage" parameterType="java.util.HashMap">
+		<if test="c_or_p == 0">
 		insert into message_note(message_idx, 
 								from_member_idx, 
 								to_member_idx, 
@@ -156,6 +181,19 @@
 				#{to_member_idx},
 				#{message_content},
 				'c')
+		</if>
+		<if test="c_or_p == 1">
+		insert into message_note(message_idx, 
+								from_member_idx, 
+								to_member_idx, 
+								message_content,
+								c_or_p)
+		values(#{message_idx},
+				#{from_member_idx},
+				#{to_member_idx},
+				#{message_photo},
+				'p')
+		</if>
 	</insert>
 	
 	<select id="countMessageIdx" parameterType="java.util.HashMap" resultType="int">
@@ -163,7 +201,12 @@
 		FROM 	message_note mn, message ms
 		WHERE	mn.message_idx = ms.message_idx
 		AND		mn.from_member_idx = #{from_member_idx}
+	<if test="funding_idx != 0">	
 		AND 	ms.funding_idx = #{funding_idx}
+	</if>
+	<if test="store_idx != 0">	
+		AND 	ms.store_idx = #{store_idx}
+	</if>
 	</select>
 	
 	<select id="findMessageIdx" parameterType="java.util.HashMap" resultType="int">
@@ -171,10 +214,16 @@
 		FROM 	message_note mn, message ms
 		WHERE	mn.message_idx = ms.message_idx
 		AND		mn.from_member_idx = #{from_member_idx}
-		AND 	ms.funding_idx = #{funding_idx}
+		<if test="funding_idx!=0">
+		AND 	ms.funding_idx = #{funding_idx} limit 1
+		</if>
+		<if test="store_idx!=0">
+		AND 	ms.store_idx = #{store_idx} limit 1
+		</if>
 	</select>
 	
-	<insert id="insertMessageIdx" parameterType="int">
+	<insert id="insertMessageIdx" parameterType="java.util.HashMap">
+		<if test="funding_idx != 0">
 		insert into message(message_idx,
 							funding_idx,
 							f_or_s,
@@ -183,6 +232,17 @@
 				#{funding_idx},
 				'f',
 				0)
+		</if>
+		<if test="store_idx != 0">
+		insert into message(message_idx,
+							store_idx,
+							f_or_s,
+							message_category)
+		values(default,
+				#{store_idx},
+				's',
+				0)
+		</if>
 	</insert>
 	
 	<select id="getLastMessageIdx" resultType="int">
@@ -192,11 +252,17 @@
 	</select>
 	
 	<select id="getFromMemberIdx" parameterType="java.util.HashMap" resultType="int">
+		
 		select from_member_idx 
 		from message_note mn, message ms 
 		where mn.message_idx=ms.message_idx 
 		and mn.message_idx=#{message_idx}
+		<if test="funding_idx != 0">
 		and ms.funding_idx=#{funding_idx}
+		</if>
+		<if test="funding_idx == 0">
+		and ms.store_idx=#{store_idx}
+		</if>
 		and mn.to_member_idx=#{to_member_idx} limit 1;
 	</select>
 	

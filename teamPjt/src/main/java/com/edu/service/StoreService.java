@@ -53,7 +53,7 @@ public interface StoreService {
 	// 스토어 리뷰 관리자 삭제
 	public void storeReviewAdminDelete(StoreReviewVO vo);
 	//찜 select
-	List<ZzimVO> selectZzimStore(Map<String, Object> paramMap);
+	public ZzimVO selectZzimStore(Map<String, Integer> zzimMap);
 	//찜 delete
 	public int deleteZzimStore(Map<String, Object> paramMap);
 	//리뷰 추천 하기
@@ -118,6 +118,9 @@ public interface StoreService {
 	
 	//스토어 옵션 수량 감소 메소드
 	int update_option(StoreOrderOptionVO orderoptionvo);
+	
+	//스토어 옵션 수량 복구 메소드 (주문 취소 시)
+	int update_option_cancel(StoreOrderOptionVO orderoptionvo);
 	
 	//스토어 옵션 수량 증가 메소드
 	int addStock(StoreOptionVO optionvo);

@@ -33,7 +33,7 @@ if(message != null){alert(message);}
 <main id="wrapper">
 <c:import url="/header.do"></c:import>
 
-<div class="mypage_background"></div>
+<div class="mypage_background mypage_background_detail">${detail.store_title }</div>
    <div class="container wrapper">
         <div class="row">
             <div class="col-3">
@@ -108,7 +108,7 @@ if(message != null){alert(message);}
                                 <td class="odp_td odp_td_top" style="width: 25%;" colspan="2">진행상태</td>
                             </tr>
                             <tr class="odp_tr2">
-                                <td>1</td>
+                                <td>${detail.store_order_idx }</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-3">
@@ -118,8 +118,8 @@ if(message != null){alert(message);}
                                             </a>
                                         </div>
                                         <div class="col-9 odp_title" style="text-align: left;">
-                                            <c:forEach var="item" items="${ option }">
-                                            	<span>${ item.store_option_name }</span>
+                                            <c:forEach var="item" items="${ option }" varStatus="status">
+                                            	<span>선택${status.index+1}: ${ item.store_option_name }</span>
                                             	<span>|</span>
                                             	<span><fmt:formatNumber value="${ item.store_option_price }" type="number" />원 (${ item.store_order_option_select_count }개)</span>
                                             	
@@ -132,7 +132,7 @@ if(message != null){alert(message);}
                                     <span><fmt:formatNumber value="${detail.store_express_fee }" type="number" />원</span><br>
                                     <span class="odp_sub">${detail.member_name }</span><br>
                                     <span class="odp_sub">(${detail.member_phone })</span>
-                                    <button type="button" class="" onclick="window.open('note.do?seller=${detail.member_idx}&consumer=${member.member_idx}&store_idx=${detail.store_idx }','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
                                 </td>
 <!-- 0020 배송상태 -->
                                 <td class="odp_td" style="width: 10%">
@@ -263,6 +263,10 @@ if(message != null){alert(message);}
 	      		<input type="hidden" name="amount" value="${pay.store_order_pay_amount}">
 	      		<input type="hidden" name="imp_uid" value="${pay.store_order_pay_imp_uid}">
 	      		<input type="hidden" name="store_order_idx" id="orderIdx" value="${ express.store_order_idx }"/>
+	      		<c:forEach var="item" items="${ option }">
+	                <input type="hidden" name="store_order_option_select_idx" value="${item.store_order_option_select_idx}">
+	                <input type="hidden" name="store_order_option_select_count" value="${item.store_order_option_select_count}">
+				</c:forEach>
 	      		<div style="text-align:right; margin-top:50px">
 		      		<button class="w-btn-outline w-btn-red-outline">확인</button>
 		      		<button type="button"  class="w-btn-outline w-btn-black-outline"  data-dismiss="modal" aria-label="Close">취소</button>
@@ -297,8 +301,8 @@ if(message != null){alert(message);}
                                   <div class="rr_option">
                                   		<input type="hidden" id="optionSize" value="${option.size() }">
 										<c:forEach var="item" items="${option}" varStatus ="status">
-	                                       	<span>${ item.store_option_name } </span>
-	                                       	<input type="hidden" id="rwm_option${status.index}" value="${item.store_option_name} ">
+											<span>선택${status.index+1 }: ${ item.store_option_name } </span>
+	                                       	<input type="hidden" id="rwm_option${status.index}" value="선택${status.index+1 }: ${item.store_option_name} ">
                                        </c:forEach>
 								  </div>
                                   <div id="myform">
@@ -386,8 +390,8 @@ if(message != null){alert(message);}
                                   <div class="rr_option">
                                   		<input type="hidden" id="optionSize" value="${option.size() }">
 										<c:forEach var="item" items="${option}" varStatus ="status">
-	                                       	<span>${ item.store_option_name } </span>
-	                                       	<input type="hidden" id="rwm_option${status.index}" value="${item.store_option_name} ">
+	                                       	<span>선택${status.index+1 }: ${ item.store_option_name } </span>
+	                                       	<input type="hidden" id="rwm_option${status.index}" value="선택${status.index+1 }: ${item.store_option_name} ">
                                        </c:forEach>
 								  </div>
                                   <div id="myform2">

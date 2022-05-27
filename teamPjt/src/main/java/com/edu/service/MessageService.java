@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.MessageNoticeVO;
 import com.edu.vo.MessageVO;
 
 public interface MessageService {
@@ -13,8 +14,13 @@ public interface MessageService {
 	List<FundingMainVO> checkFundingPermit(int member_idx);
 	
 	//admincontroller
-	int getMemberIdx(int f_idx); //funding_idx를 가지고 member_idx를 구할거임
+	int getMemberIdx(int f_idx); //funding_idx를 가지고 member_idx를 구함
+	int getMemberIdxStore(int store_idx); //store_idx를 가지고 member_idx를 구함
 	void insertLog(Map<String,Object> paramMap); //message 로그남김
+	
+	//공지 불러오기
+	List<MessageNoticeVO> message_notice(int to_member_idx);
+	
 	
 	//쪽지 불러오기 - from_member_idx마다 단 한개씩
 	List<MessageVO> message_dialogue(int to_member_idx);
@@ -32,7 +38,7 @@ public interface MessageService {
 	int findMessageIdx(Map<String, Object> param);
 	
 	//message_idx만들기
-	void insertMessageIdx(int funding_idx);
+	void insertMessageIdx(Map<String, Object> param);
 	//제일 마지막 message_idx가져오기
 	int getLastMessageIdx();
 	

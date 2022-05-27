@@ -1,5 +1,6 @@
 package com.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public interface MypageService {
 	//4개의 최신 펀딩목록
 	List<FundingInfoDetailVO> select4Funding(int member_idx);
 	
+	List<StoreInfoDetailVO> select4Store(int member_idx);
 	//3개의 최신 구매목록 
 	List<StoreInfoDetailVO> select3Store(int member_idx);
 	
@@ -117,7 +119,7 @@ public interface MypageService {
 	int changeExpress(Map<String,Object> paramMap);
 	
 	//펀딩 취소
-	int fundingWithdraw(int funding_order_idx);
+	int fundingWithdraw(Map<String,Object> paramMap);
 	
 	// 스토어 관리
 	List<StoreVO> store_admin(int store_idx);
@@ -126,4 +128,10 @@ public interface MypageService {
 	int update_Express(int store_order_idx);
 	//구매 취소
 	int storeWithdraw(int store_order_idx);
+	
+	//펀딩 판매자입장에서 주문 내역 가져오기
+	List<HashMap<String,Object>>fundingAdmin(int funding_idx);
+	
+	//펀딩 배송 시작 메소드
+	int update_FundingExpress(int fundung_order_idx);
 }

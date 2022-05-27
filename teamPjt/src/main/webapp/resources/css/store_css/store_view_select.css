@@ -93,7 +93,6 @@ ul, li{
 .select_menu_item_container{
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    background-color: #f9fafb;
     border-top: 1px solid #dde2e6;
     cursor: pointer;
     padding: 16px;

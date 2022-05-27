@@ -36,13 +36,13 @@
 	    	    },	    
 	        });
 	        
-	        var objParams = {
+	        /*var objParams = {
 			member_idx : $('#member_idx').val(),
 			funding_idx : $('#funding_idx').val()
-			};
+			};*/
 			//console.log(objParams)
 	        
-	        $.ajax({
+	        /*$.ajax({
 				url : "selectZzim",
 				dataType : "json",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -61,7 +61,7 @@
 				error : function(){
 	                alert("자바스크립트 SELECT 찜 에러");
 	            }   
-			});
+			});*/
 			
 			
 	    });
