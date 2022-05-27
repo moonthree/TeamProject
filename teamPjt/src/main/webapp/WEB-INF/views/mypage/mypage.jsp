@@ -183,7 +183,7 @@
 				        </ul>
 				          
 				          <div id="myTab1Content" class="tab-content">
-				          	<!-- 펀딩 -->
+				          	<!-- 01 펀딩 -->
 				            <div id="funding" role="tabpanel" aria-labelledby="funding-tab" class="tab-pane fade show active three_list">
 					          	<div class="select_info">
 					          		<c:if test="${countFunding eq 0}">
@@ -235,14 +235,19 @@
 					                            		<div class="text_percent">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>
 				                            		</div>
 					                            	<div class="text_pay">
-					                            		<div class="text_pay_date">
-					                            			<span class="text_bold">결제 예정일</span>
-						                            		<fmt:parseDate type="both" value ="${item.funding_end_date}" var="var" pattern="yyyy-MM-dd" />
-															<c:set var="pay_date" value="${var}" />
-															<c:set target="${pay_date}" property="time" value="${pay_date.time + 86400000}" />
-															<fmt:formatDate value="${pay_date}" pattern="yyyy. MM. dd" />
-					                            		</div>
-					                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.funding_order_total_price}" type="number"/>원 결제 예약</span></div>
+					                            		<c:if test="${item.funding_order_pay_state ne 2}">
+						                            		<div class="text_pay_date">
+						                            			<span class="text_bold">결제 예정일</span>
+							                            		<fmt:parseDate type="both" value ="${item.funding_end_date}" var="var" pattern="yyyy-MM-dd" />
+																<c:set var="pay_date" value="${var}" />
+																<c:set target="${pay_date}" property="time" value="${pay_date.time + 86400000}" />
+																<fmt:formatDate value="${pay_date}" pattern="yyyy. MM. dd" />
+						                            		</div>
+						                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.funding_order_total_price}" type="number"/>원 결제 예약</span></div>
+					                            		</c:if>
+					                            		<c:if test="${item.funding_order_pay_state eq 2}">
+						                            		<div class="text_pay_date"><span class="text_bold" style="color: gray;">펀딩 취소</span></div>
+					                            		</c:if>
 					                            	</div>
 				                            	</div>
 			                            	</div>
@@ -339,7 +344,7 @@
 			                    </div>
 				            </div>
 				            
-				            <!-- 스토어 -->
+				            <!-- 02 스토어 -->
 				            <div id="store" role="tabpanel" aria-labelledby="store-tab" class="tab-pane fade three_list">
 				            	<div class="select_info">
 					          		<c:if test="${countStore eq 0}">
@@ -355,64 +360,65 @@
 					          		</c:if>
 					          	</div>
 				            	<div class="mydiv" id="mydiv">
-								<c:if test="${select3Store.size()>0}">
-									<c:forEach var="item" items="${select3Store}">
-			                            <div class="card_container" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}'" style="cursor:pointer;">
-			                            	<div class="info_container1">
-			                            		<div><span class="text_bold">스토어 주문 번호</span>${item.store_order_idx}</div>
-			                            		<div><span class="text_bold">주문 날짜</span><fmt:formatDate value="${item.store_order_date}" pattern="yyyy. MM. dd" /></div>
-			                            	</div>
-			                            	<div class="info_container2">
-				                            	<!-- 이미지 출력 -->
-				                            	<div class="image_container">
-				                            		<img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+									<c:if test="${select3Store.size()>0}">
+										<c:forEach var="item" items="${select3Store}">
+				                            <div class="card_container" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}'" style="cursor:pointer;">
+				                            	<div class="info_container1">
+				                            		<div><span class="text_bold">스토어 주문 번호</span>${item.store_order_idx}</div>
+				                            		<div><span class="text_bold">주문 날짜</span><fmt:formatDate value="${item.store_order_date}" pattern="yyyy. MM. dd" /></div>
 				                            	</div>
-				                            	<!-- 내용 출력 -->
-				                            	<div class="text_container">
-				                            		<div class="text_category">
-				                            			<c:choose>
-						                            		<c:when test="${item.store_category eq 0}">강아지 용품</c:when>
-						                            		<c:when test="${item.store_category eq 1}">고양이 용품</c:when>
-						                            		<c:when test="${item.store_category eq 2}">다른 동물 용품</c:when>
-						                            	</c:choose>
-				                            		</div>
-				                            		<div class="text_title">
-				                            			<a class="text_title_a" href="info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}">${item.store_title}</a>
-				                            		</div>
-				                            		<div class="text_comnper">
-					                            		<div class="text_company">by. ${item.member_name}</div>
-				                            		</div>
-					                            	<div class="text_pay">
-					                            		<!-- 1. 주문 확인 중 / 결제 성공  (store_express_state : 0) -->
-			                        					<c:if test="${item.store_express_state eq 0}">
-					                            		<div class="text_pay_date">
-					                            			<span class="text_bold">주문 확인 중</span>
+				                            	<div class="info_container2">
+					                            	<!-- 이미지 출력 -->
+					                            	<div class="image_container">
+					                            		<img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+					                            	</div>
+					                            	<!-- 내용 출력 -->
+					                            	<div class="text_container">
+					                            		<div class="text_category">
+					                            			<c:choose>
+							                            		<c:when test="${item.store_category eq 0}">강아지 용품</c:when>
+							                            		<c:when test="${item.store_category eq 1}">고양이 용품</c:when>
+							                            		<c:when test="${item.store_category eq 2}">다른 동물 용품</c:when>
+							                            	</c:choose>
 					                            		</div>
-					                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.store_order_total_price}" type="number"/>원 결제</span></div>
-			                        					</c:if>
-					                            		<!-- 2. 배송 중 / 판매자 확인 (store_express_state : 1) -->
-			                        					<c:if test="${item.store_express_state eq 1}">
-					                            		<div class="text_pay_date">
-					                            			<span class="text_bold">배송 중</span>
+					                            		<div class="text_title">
+					                            			<a class="text_title_a" href="info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}">${item.store_title}</a>
 					                            		</div>
-					                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.store_order_total_price}" type="number"/>원 결제</span></div>
-			                        					</c:if>
-					                            		<!-- 3. 주문 취소 / 결제 환불 (store_express_state : 2) -->
-			                        					<c:if test="${item.store_express_state eq 2}">
-					                            		<div class="text_pay_date">
-					                            			<span class="text_bold">주문 취소</span>
+					                            		<div class="text_comnper">
+						                            		<div class="text_company">by. ${item.member_name}</div>
 					                            		</div>
-					                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;">결제가 취소되었습니다.</span></div>
-			                        					</c:if>
+						                            	<div class="text_pay">
+						                            		<!-- 1. 주문 확인 중 / 결제 성공  (store_express_state : 0) -->
+				                        					<c:if test="${item.store_express_state eq 0}">
+						                            		<div class="text_pay_date">
+						                            			<span class="text_bold">주문 확인 중</span>
+						                            		</div>
+						                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.store_order_total_price}" type="number"/>원 결제</span></div>
+				                        					</c:if>
+						                            		<!-- 2. 배송 중 / 판매자 확인 (store_express_state : 1) -->
+				                        					<c:if test="${item.store_express_state eq 1}">
+						                            		<div class="text_pay_date">
+						                            			<span class="text_bold">배송 중</span>
+						                            		</div>
+						                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.store_order_total_price}" type="number"/>원 결제</span></div>
+				                        					</c:if>
+						                            		<!-- 3. 주문 취소 / 결제 환불 (store_express_state : 2) -->
+				                        					<c:if test="${item.store_express_state eq 2}">
+						                            		<div class="text_pay_date">
+						                            			<span class="text_bold">주문 취소</span>
+						                            		</div>
+						                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;">결제가 취소되었습니다.</span></div>
+				                        					</c:if>
+						                            	</div>
 					                            	</div>
 				                            	</div>
-			                            	</div>
-			                            </div>
-			                    </c:forEach>
-			                    </c:if>
-			            	</div>
+				                            </div>
+				                    	</c:forEach>
+				                    </c:if>
+			            		</div>
 				            </div>
-				            <!-- 찜 -->
+				            
+				            <!-- 03 찜 -->
 				            <div id="zzim" role="tabpanel" aria-labelledby="zzim-tab" class="tab-pane fade three_list">
 				            	<div class="select_info">
 					          		<c:if test="${countZzim eq 0}">
@@ -422,78 +428,83 @@
 						          		<div class="box_num">
 						          			<span class="box_num_span">${countZzim}</span>건의 찜 내역이 있습니다.
 						          		</div>
-				                        <div>
-				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_zzim.do'">찜 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
-				                        </div>
 					          		</c:if>
 					          	</div>
 				            	<div class="mydiv" id="mydiv">
-								<c:if test="${myZzimList.size()>0}">
-									<c:forEach begin="0" end="2" var="item" items="${myZzimList}">
-									<c:if test="${ item.zzim_category eq 0 }">
-										<div class="card mb-3"  onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
-					                      <div class="row g-0">
-					                        <div class="col-lg-5 col-md-6">
-					                          <!--이미지-->
-						                      <div class="card img-container">
-					                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-					                              <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-					                            </div>
-						                      </div>
-					                        </div>
-					                        <div class="col-lg-7 col-md-6">
-					                          <div class="card-body" style="margin-left: -20px;">
-					                            <div class="row">
-						                          	<div class="col-md-6">
-						                          		<c:choose>
-						                            		<c:when test="${ item.funding_category eq 0 }">펀딩 | 강아지 용품</c:when>
-						                            		<c:when test="${ item.funding_category eq 1 }">펀딩 | 고양이 용품</c:when>
-						                            		<c:when test="${ item.funding_category eq 2 }">펀딩 | 다른 동물 용품</c:when>
-						                            	</c:choose>
-						                          	</div>
-						                          	
-						                          </div>
-					                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.funding_title }</h5>
-					                            
-					                          </div>
-					                        </div> 
-					                      </div>
-					                    </div>
-									</c:if>
-									<c:if test="${ item.zzim_category eq 1 }">
-										<div class="card mb-3"  onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding }'" style="cursor:pointer;">
-					                      <div class="row g-0">
-					                        <div class="col-lg-5 col-md-6">
-					                          <!--이미지-->
-						                      <div class="card img-container">
-					                            <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-					                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
-					                            </div>
-						                      </div>
-					                        </div>
-					                        <div class="col-lg-7 col-md-6">
-					                          <div class="card-body" style="margin-left: -20px;">
-					                            <div class="row">
-						                          	<div class="col-md-6">
-						                          		<c:choose>
-						                            		<c:when test="${ item.store_category eq 0 }">스토어 | 강아지 용품</c:when>
-						                            		<c:when test="${ item.store_category eq 1 }">스토어 | 고양이 용품</c:when>
-						                            		<c:when test="${ item.store_category eq 2 }">스토어 | 다른 동물 용품</c:when>
-						                            	</c:choose>
-						                          	</div>
-						                          	
-						                          </div>
-					                            <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
-					                            
-					                          </div>
-					                        </div> 
-					                      </div>
-					                    </div>
-									</c:if>
-			                    
-			                    </c:forEach>
-			                    </c:if>
-			            	</div>
+									<div class="zzim_cotainer">
+					            		<c:if test="${myZzimList.size()>0}">
+											<c:forEach var="item" items="${myZzimList}">
+												<!-- 펀딩 -->
+												<c:if test="${ item.zzim_category eq 0 }">
+										            <div class="zzim_inner">
+										                <div class="zzim_card">
+										                    <div class="zzim_image" style="background-image: url(../resources/upload/funding/${item.funding_thumbnail})">
+										                        <div class="zzim_cate" style="background: #fa6462;">펀딩</div>
+										                        <div class="zzim_cancel">
+						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" onclick="alert('찜목록에서 삭제되었습니다'); location.href='deleteZzim.do?funding_idx=${item.funding_idx}'">
+										                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+																	  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+																	</svg>
+																	</button>
+										                        </div>
+										                    </div>
+										                    <div class="zzim_text" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'">
+										                        <div class="zzim_title">${item.funding_title}</div>
+										                        <div class="progress">
+									                                <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: ${Math.round(item.funding_current_price/item.funding_target_price*100)}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+									                            </div>
+																<div class="zzim_about">
+																	<div class="fund_per">
+																		${Math.round(item.funding_current_price/item.funding_target_price*100)}%
+																		<span style="margin: 0px 6px; color: gray;">|</span>
+																		<fmt:formatNumber value="${item.funding_current_price}" type="number"/>원 달성
+																	</div>
+																	<div class="fund_result">
+																		<c:if test="${item.funding_current_state eq 0}">
+																			진행 중
+																		</c:if>
+																		<c:if test="${item.funding_current_state eq 1}">
+																			성공
+																		</c:if>
+																		<c:if test="${item.funding_current_state eq 2}">
+																			종료
+																		</c:if>
+																	</div>
+																</div>
+										                    </div>
+										                </div>
+										            </div>
+												</c:if>
+												<!-- 스토어 -->
+												<c:if test="${ item.zzim_category eq 1 }">
+										            <div class="zzim_inner">
+										                <div class="zzim_card">
+										                    <div class="zzim_image" style="background-image: url(../resources/upload/store/${item.store_thumbnail})">
+										                        <div class="zzim_cate" style="background: #edc64f;">스토어</div>
+										                        <div class="zzim_cancel">
+						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" onclick="alert('찜목록에서 삭제되었습니다'); location.href='deleteZzim.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}'">
+										                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+																	  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+																	</svg>
+																	</button>
+										                        </div>
+										                    </div>
+										                    <div class="zzim_text" onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding }'">
+										                        <div class="zzim_title">${item.store_title}</div>
+																<div class="zzim_about2">
+																	<div class="zzim_price">
+																		<fmt:formatNumber value="${item.store_price}" type="number"/>원
+																	</div>
+																	<div>별점</div>
+																</div>
+										                    </div>
+										                </div>
+										            </div>
+												</c:if>
+                							</c:forEach>
+                						</c:if>
+                					</div>		
+			            		</div>
 				            </div>
 				         </div>
                 	</div>

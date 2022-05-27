@@ -43,6 +43,7 @@ import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimInfoVO;
@@ -112,7 +113,6 @@ public class MypageController {
 		}
 		model.addAttribute("myZzimList",allZzimInfo);
 		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
-		
 		
 		return "mypage/mypage";
 	}
@@ -615,10 +615,14 @@ public class MypageController {
 	}
 	//구매 취소
 	@RequestMapping(value = "/storeWithdraw.do", method = RequestMethod.POST)
-	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, 
+	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, StoreOrderOptionVO orderoptionvo,
 			@RequestParam("imp_uid") String imp_uid, @RequestParam("amount") int amount,
 			HttpServletRequest request) throws IOException {
 		int result = mypageService.storeWithdraw(store_order_idx);
+		
+		// 구매 취소 시 수량 복구
+		sts.update_option_cancel(orderoptionvo);
+		
 		if(result > 0 ) {
 			String token = paymentService.getToken();
 //			System.out.println("토큰 : " + token);
@@ -689,10 +693,10 @@ public class MypageController {
 			result = mypageService.deleteZzim2(deleteStoreZzim);
 		}
 		if(result > 0) { //찜성공
-			return "redirect:info_zzim.do";
+			return "redirect:mypage.do";
 		}else { //찜실패
 			System.out.println("찜실패");
-			return "redirect:info_zzim.do";
+			return "redirect:mypage.do";
 		}
 	}
 	

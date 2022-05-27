@@ -286,7 +286,7 @@
 	    var $option = $(this).parent().parent();            
 	 
 	    if(checked)
-	        $option.css('background-color', '#ffedf1');
+	        $option.css('background-color', '#fa646221');
 	    else
 	        $option.css('background-color', '#f6f6f6');
 	});
