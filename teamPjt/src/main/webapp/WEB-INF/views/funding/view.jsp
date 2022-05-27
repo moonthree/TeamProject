@@ -92,6 +92,9 @@
 		                	<h3>${endDate - nowDate}일 남음</h3>
 		            	</c:if>
                 	</c:when>
+                	<c:when test="${read.funding_current_state eq 1 }">
+                		<h3>펀딩 성공</h3>
+                	</c:when>
                 	<c:otherwise>
                 		<h3>펀딩이 종료된 프로젝트입니다.</h3>
                 	</c:otherwise>
@@ -121,6 +124,51 @@
 			                	</button>
 		                    	</c:if>
 		                    	<c:if test="${login ne null}">
+		                    		<c:if test="${zzimResult eq 0}">
+                						<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+						                        viewBox="0 0 16 16">
+						                        <path
+						                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+						                    </svg>
+						                    찜하기
+						                </button>
+						                
+						                <button type="button" style="display:none;" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+											  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+											</svg>
+						                </button> 
+		               				</c:if>
+		               				<c:if test="${zzimResult eq 1}">
+		               					<button type="button" style="display:none;" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+						                        viewBox="0 0 16 16">
+						                        <path
+						                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+						                    </svg>
+						                    찜하기
+						                </button>
+						                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+											  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+											</svg>
+						                </button> 
+		               				</c:if>
+		                    	</c:if>
+                		</c:when>
+                		<c:otherwise>
+                				<c:if test="${login eq null}">
+				        			<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal">
+				                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+				                        viewBox="0 0 16 16">
+				                        <path
+				                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+				                    </svg>
+				                    	찜하기
+				                	</button>
+		                    	</c:if>
+		                    	<c:if test="${login ne null}">
 			                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
 					                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
 					                        viewBox="0 0 16 16">
@@ -136,20 +184,32 @@
 										</svg>
 					                </button> 
 		                    	</c:if>
-                		</c:when>
-                		<c:otherwise>
-                			
                 		</c:otherwise>
                 	</c:choose>
 	                
 	                          
 <%--                 </c:if> --%>
                 <!-- 로그인 처리 끝 -->
-                <div class="fundingGoal">
-                    목표금액 : <fmt:formatNumber value="${read.funding_target_price}" type="number" />원<br>
-                    펀딩기간 : ${read.funding_start_date }~${read.funding_end_date }<br>
-                    <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
-                </div>
+                <c:choose>
+                	<c:when test="${read.funding_current_state eq 0 }">
+                		<div class="fundingGoal">
+		                    목표금액 : <fmt:formatNumber value="${read.funding_target_price}" type="number" />원<br>
+		                    펀딩기간 : ${read.funding_start_date }~${read.funding_end_date }<br>
+		                    <span class="fundingGoalText">*100% 이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제가 진행되지 않습니다.</span>
+		                </div>
+                	</c:when>
+                	<c:when test="${read.funding_current_state eq 1 }">
+                		<div class="fundingGoal">
+							${read.funding_title }은(는) 소중한 서포터들의 펀딩과 응원으로 ${read.funding_end_date}에 성공적으로 종료되었습니다.         		
+                		</div>
+                	</c:when>
+                	<c:otherwise>
+                		<div class="fundingGoal">
+                			${read.funding_title }은(는) 아쉽게도 목표금액을 달성하지 못한채 ${read.funding_end_date}에 종료되었습니다.
+                		</div>
+                	</c:otherwise>
+                </c:choose>
+                
             </div>
         </div>
 
@@ -196,7 +256,7 @@
                         </p>
                     </div>
                     <div class="commuDiv2 col-md-5 col-sm-12">
-                        <p class="commuP3">
+                        <div class="commuP3">
                             리워드, 배송 등 펀딩에 대해 궁금한 사항이 있다면?<br>
                             <span class="commuP3Span"><span class="bold">Q&A 탭</span>을 통해 메이커에게 문의할 수 있어요!</span>
                             <br>
@@ -215,9 +275,11 @@
 		                        	</c:otherwise>
 		                        </c:choose>
 		                        </div>
-		                       	<span class="commuP3Span2">${read.memberVO.member_business_name }  /////메세지 되면 버튼/////</span>
+		                       	<span class="commuP3Span2">${read.memberVO.member_business_name }
+		                       		<button type="button" class="" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                       	</span>
 	                        </div> 
-                        </p>
+                        </div>
                     </div>
                     <br>
                     <hr>

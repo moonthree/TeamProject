@@ -210,7 +210,7 @@ function notChange(){
 <main>
 <c:import url="/header.do"></c:import>
 
-<div class="mypage_background"></div>
+<div class="mypage_background mypage_background_detail">${detail.funding_title }</div>
 	<div class="container wrapper">
 		<div class="row">
 			<div class="col-3">
@@ -267,7 +267,7 @@ function notChange(){
             </div><!-- end of col-3 -->
             <div class="col-9 order_detail_place">
                 <div class="order_detail_top">
-                    <h5>주문 상세정보</h5>
+                    <h5>펀딩 상세정보</h5>
                     
                     <fmt:formatDate var="order_date" value="${detail.funding_order_date}" pattern="yyyy-MM-dd" />
                     <fmt:parseDate var="end_date_parse" value="${detail.funding_end_date}" pattern="yyyy-MM-dd" />
@@ -282,7 +282,7 @@ function notChange(){
                         <span>펀딩 종료일</span>
                         <span class="color">${end_date }</span>
                         <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-                        <span>주문번호</span>
+                        <span>펀딩번호</span>
                         <span class="color">${detail.funding_order_idx }</span>
                         <span class="middlebar">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
                         <br>
@@ -295,13 +295,13 @@ function notChange(){
                     <div class="order_datail_product">
                         <table class="odp_table" style="width: 100%;">
                             <tr class="odp_tr1">
-                                <td style="width: 10%; font-weight: bold;">상품주문번호</td>
+                                <td style="width: 10%; font-weight: bold;">펀딩번호</td>
                                 <td style="width: 50%;">상품정보</td>
                                 <td class="odp_td" style="width: 15%;">배송비/판매자</td>
                                 <td class="odp_td odp_td_top" style="width: 25%;" colspan="2">진행상태</td>
                             </tr>
                             <tr class="odp_tr2">
-                                <td>1</td>
+                                <td>${detail.funding_order_idx }</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-3">
@@ -364,12 +364,12 @@ function notChange(){
                     </div>
                 </div>
                 <div class="order_detail_middle">
-                    <h5>주문/결제 금액 정보</h5>
+                    <h5>펀딩/결제 금액 정보</h5>
                     <div class="odm_talbe_div">
                         <table class="odm_table" style="width: 100%;">
                             <tr>
                                 <td class="odm_td" style="width: 33%;">
-                                    <span class="bold">최초주문금액</span>
+                                    <span class="bold">최초펀딩금액</span>
                                     <div class="odm_td_div">
                                         상품금액 <span><fmt:formatNumber value="${ detail.funding_order_total_price - detail.funding_express_fee - detail.funding_order_donation}" type="number" />원</span>
                                         <br>
@@ -457,7 +457,6 @@ function notChange(){
 		
 	function fundingWithdrawal(){
 		$("#checkFdWithdrawalModal").modal("toggle");
-		$("#orderIdx").val(${ express.funding_order_idx });
 	}
 </script>
     <!-- 모달 -->
@@ -473,6 +472,12 @@ function notChange(){
 	      	<div style="text-align:center;"><h4> 정말 펀딩을 취소하시겠습니까? </h4></div>
 	      	<form action="fundingWithdraw.do" method="post">
 	      		<input type="hidden" name="funding_order_idx" id="orderIdx" value="${ express.funding_order_idx }"/>
+	      		<input type="hidden" name="funding_order_total_price" value="${ detail.funding_order_total_price }"/>
+	      		<input type="hidden" name="funding_idx" value="${ detail.funding_idx }"/>
+	      		<c:forEach var="item" items="${ option }">
+	      			<input type="hidden" name="funding_order_option_select_count" value="${ item.funding_order_option_select_count }"/>
+	      			<input type="hidden" name="funding_order_option_select_idx" value="${ item.funding_order_option_select_idx }"/>
+	      		</c:forEach>
 	      		<div style="text-align:right; margin-top:50px">
 		      		<button class="w-btn-outline w-btn-red-outline">확인</button>
 		      		<button type="button"  class="w-btn-outline w-btn-black-outline"  data-dismiss="modal" aria-label="Close">취소</button>

@@ -40,6 +40,7 @@ import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreReviewVO;
@@ -572,9 +573,29 @@ public class MypageController {
 	
 	//펀딩 취소
 	@RequestMapping(value = "/fundingWithdraw.do", method = RequestMethod.POST)
-	public String fundingWithdraw(@RequestParam("funding_order_idx") int funding_order_idx, HttpServletRequest request) {
-
-		int result = mypageService.fundingWithdraw(funding_order_idx);
+	public String fundingWithdraw(Funding_order_optionVO orderOptionvo, @RequestParam("funding_order_option_select_count") int funding_order_option_select_count, @RequestParam("funding_order_option_select_idx") int funding_order_option_select_idx, @RequestParam("funding_order_idx") int funding_order_idx, @RequestParam("funding_order_total_price") int funding_order_total_price, @RequestParam("funding_idx") int funding_idx, HttpServletRequest request) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("funding_order_idx", funding_order_idx);
+		paramMap.put("funding_order_total_price", funding_order_total_price);
+		paramMap.put("funding_idx", funding_idx);
+		String[] select_idx = request.getParameterValues("funding_order_option_select_idx");
+		String[] select_count = request.getParameterValues("funding_order_option_select_count");
+		for(int i=0; i<select_idx.length; i++) {
+			int si = Integer.parseInt(select_idx[i]);
+			int sc = Integer.parseInt(select_count[i]);
+			orderOptionvo.setFunding_order_option_select_idx(si);
+			orderOptionvo.setFunding_order_option_select_count(sc);
+			//fms.insertOrderOption(orderOptionvo);
+			
+			//옵션 수량에 따른 펀딩 상품 옵션 수량 증가하게 함 -> update 수량sss
+			System.out.println("선택한 옵션 idx :" +orderOptionvo.getFunding_order_option_select_idx());
+			System.out.println("선택한 옵션 수량 : " +orderOptionvo.getFunding_order_option_select_count());
+			fms.update_option_plus(orderOptionvo);
+			
+		}
+		System.out.println("select_count: "+select_count);
+		int result = mypageService.fundingWithdraw(paramMap);
 		if(result > 0 ) {
 			System.out.println("펀딩 취소 성공");
 			//이젠 페이지로 돌아간다

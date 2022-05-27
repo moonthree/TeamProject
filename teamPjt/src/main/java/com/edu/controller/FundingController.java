@@ -158,24 +158,54 @@ public class FundingController {
 		return "funding/main";
 	}
 
-	
+	// 찜 select
+	/*
+	 * @RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
+	 * 
+	 * @ResponseBody public Object selectZzim(@RequestParam Map<String, Object>
+	 * paramMap){ Map<String, Object> selectZzim = new HashMap<String, Object>();
+	 * List<ZzimVO> result = fms.selectZzim(paramMap); return result; }
+	 */
 	
 	//펀딩 뷰
 	@RequestMapping(value = "/view.do", method = RequestMethod.GET)
 	public String read(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,Funding_optionVO optionvo, FundingCommunityVO fcvo, FundingQnaVO qvo, FundingMainVO vo, Model model, HttpSession session) throws Exception{
 		
 		//funding_idx에 따른 뷰페이지 정보 가져오기
-		
 		model.addAttribute("read", fms.read(vo.getFunding_idx()));		
 		
-		System.out.println(fms.read(vo.getFunding_idx()).getFunding_thumbnail());
-		System.out.println(fms.read(vo.getFunding_idx()).getFunding_notice());
-		System.out.println(fms.read(vo.getFunding_idx()).getFunding_content());
+		/*
+		 * System.out.println(fms.read(vo.getFunding_idx()).getFunding_thumbnail());
+		 * System.out.println(fms.read(vo.getFunding_idx()).getFunding_notice());
+		 * System.out.println(fms.read(vo.getFunding_idx()).getFunding_content());
+		 */
 		//세션사용자정보 가져옴
 		session = request.getSession();
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member",member);
+		
+		int member_idx = 0;
+		if(login == null) {
+			member_idx = 0;
+		}else{
+			member_idx = login.getMember_idx();
+		}
+		Map<String, Integer> zzimMap = new HashMap<String, Integer>();
+		//찜
+		zzimMap.put("funding_idx", vo.getFunding_idx());
+		zzimMap.put("member_idx", member_idx);
+		
+		System.out.println(zzimMap);
+		
+		ZzimVO zzimResult = fms.selectZzim2(zzimMap);
+		if(zzimResult == null) {
+			request.setAttribute("zzimResult", 0);
+		}else {
+			request.setAttribute("zzimResult", 1);
+		}
+		
+		
 		
 		//펀딩 커뮤니티 댓글 리스트
 		//List<FundingCommunityVO> fundingCommunityCommentList =fms.readFundingCommunityComent(vo.getFunding_idx());
@@ -415,14 +445,6 @@ public class FundingController {
 		return retVal;
 	}
 	
-	// 찜 select
-	@RequestMapping(value ="/selectZzim", method= RequestMethod.POST)
-	@ResponseBody
-	public Object selectZzim(@RequestParam Map<String, Object> paramMap){
-		Map<String, Object> selectZzim = new HashMap<String, Object>();
-		List<ZzimVO> result = fms.selectZzim(paramMap);		
-		return result;		
-	}
 	
 	// 찜 delete
 	@RequestMapping(value ="/deleteZzim", method= RequestMethod.POST)

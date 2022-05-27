@@ -71,7 +71,8 @@ public interface fundingMainService {
 	//찜 insert
 	public int insertZzim(Map<String, Object> paramMap);
 	//찜 select
-	List<ZzimVO> selectZzim(Map<String, Object> paramMap);
+	/* List<ZzimVO> selectZzim(Map<String, Object> paramMap); */
+	public ZzimVO selectZzim2(Map<String, Integer> zzimMap);
 	//찜 delete
 	public int deleteZzim(Map<String, Object> paramMap);
 	
@@ -100,6 +101,8 @@ public interface fundingMainService {
 	
 	//펀딩 옵션 수량 감소 메소드
 	int update_option(Funding_order_optionVO orderOptionvo);
+	//펀딩 취소 시 옵션 수량 증가
+	int update_option_plus(Funding_order_optionVO orderOptionvo);
 	
 	//펀딩 내용 가져오기 (modify.do 사용)
 	FundingMainVO select_fundingOne(int funding_idx);
