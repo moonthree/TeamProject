@@ -258,9 +258,8 @@
 	<!-- mypage1 찜 갯수 -->
 	<select id="countZzim" parameterType="int" resultType="int">
 		SELECT  count(z.zzim_idx)
-		FROM    zzim z, funding f 
-		WHERE 	z.funding_idx = f.funding_idx 
-		AND	 	z.member_idx = #{member_idx} 
+		FROM    zzim z
+		WHERE	z.member_idx = #{member_idx}
 	</select>
 	
 	<!-- 찜 카테고리 리스트 가져오기  -->

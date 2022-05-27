@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.edu.dao.MessageDao;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
+import com.edu.vo.MessageNoticeVO;
 import com.edu.vo.MessageVO;
 
 @Service
@@ -28,10 +29,20 @@ public class MessageServiceImpl implements MessageService{
 		return dao.getMemberIdx(f_idx);
 	}
 	@Override
+	public int getMemberIdxStore(int store_idx) {
+		return dao.getMemberIdxStore(store_idx);
+	}
+	@Override
 	public void insertLog(Map<String,Object> paramMap) {
 		dao.insertLog(paramMap);
 	}
-
+	
+	//공지 불러오기
+	@Override
+	public List<MessageNoticeVO> message_notice(int to_member_idx) {
+		return dao.message_notice(to_member_idx);
+	}
+	
 	//메세지 불러오기 - form_member_idx마다 단한개
 	@Override
 	public List<MessageVO> message_dialogue(int to_member_idx) {
@@ -66,8 +77,8 @@ public class MessageServiceImpl implements MessageService{
 
 	//messageIdx생성
 	@Override
-	public void insertMessageIdx(int funding_idx) {
-		dao.insertMessageIdx(funding_idx);
+	public void insertMessageIdx(Map<String, Object> param) {
+		dao.insertMessageIdx(param);
 	}
 	//마지막 messageIdx가져오기
 	public int getLastMessageIdx() {

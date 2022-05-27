@@ -106,15 +106,16 @@ public class AdminController {
 		int result = adminService.update_funding(f_idx);
 		
 		// funding 신청한 사람의  member_idx를 가져오기
-	    int member_idx = messageService.getMemberIdx(f_idx);
-	    System.out.println("f_idx : "+f_idx+"에 따른 member_idx : "+member_idx);
-	      
+	    int member_idx = messageService.getMemberIdx(f_idx);  
 	    // message 테이블에 로그 남기기 insert
-//	    Map<String, Object> param = new HashMap<String, Object>();
-//	    param.put("f_idx", f_idx);
-//	    param.put("from_member_idx", 0);
-//	    param.put("to_member_idx", member_idx);
-//	    messageService.insertLog(param);
+	    Map<String, Object> param = new HashMap<String, Object>();
+	    
+	    param.put("from_member_idx", 0);
+	    param.put("to_member_idx", member_idx);
+	    param.put("funding_idx", f_idx);
+	    param.put("f_or_s", 'f');
+	    param.put("message_content", "펀딩이 승인되었습니다.<br> 지금 확인해보세요");
+	    messageService.insertLog(param);
 		
 		return result;
 	}
