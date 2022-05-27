@@ -635,6 +635,13 @@
 		where store_option_idx = #{store_order_option_select_idx}
 	</update>
 	
+	<!-- 스토어 옵션 수량 복구 메소드 (주문 취소 시) -->
+	<update id="update_option_cancel" parameterType="StoreOrderOptionVO">
+		UPDATE store_option 
+		SET store_option_stock = store_option_stock + #{store_order_option_select_count}
+		where store_option_idx = #{store_order_option_select_idx}
+	</update>
+	
 	<!-- 스토어 옵션 수량 추가 -->
 	<update id="storeOption_plus" parameterType="StoreOptionVO">
 		UPDATE store_option 

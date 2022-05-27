@@ -284,6 +284,12 @@ public class StoreServiceImpl implements StoreService{
 		return dao.update_option(orderoptionvo);
 	}
 	
+	// 스토어 옵션 수량 복구 메소드 (주문 취소 시)
+	@Override
+	public int update_option_cancel(StoreOrderOptionVO orderoptionvo) {
+		return dao.update_option_cancel(orderoptionvo);
+	}
+	
 	//스토어 제품 ajax 검색
 	@Override
 	public int store_Check(int funding_idx) {
@@ -308,6 +314,7 @@ public class StoreServiceImpl implements StoreService{
 		
 		return dao.store_updateFile(map);
 	}
+	
 	
 	//여기까지 2022-05-25.김주현
 

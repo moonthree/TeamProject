@@ -43,6 +43,7 @@ import com.edu.vo.Funding_optionVO;
 import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
+import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimInfoVO;
@@ -112,7 +113,6 @@ public class MypageController {
 		}
 		model.addAttribute("myZzimList",allZzimInfo);
 		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
-		
 		
 		return "mypage/mypage";
 	}
@@ -447,6 +447,10 @@ public class MypageController {
 		model.addAttribute("select4Funding",s4f);
 		
 		
+		// 스토어 리스트4개씩
+		List<StoreInfoDetailVO> s4S = mypageService.select4Store(login.getMember_idx());
+		model.addAttribute("select4Store",s4S);
+		
 		
 		return "mypage/my_info";
 		
@@ -611,10 +615,14 @@ public class MypageController {
 	}
 	//구매 취소
 	@RequestMapping(value = "/storeWithdraw.do", method = RequestMethod.POST)
-	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, 
+	public String storeWithdraw(Model model, @RequestParam("store_order_idx") int store_order_idx, StoreOrderOptionVO orderoptionvo,
 			@RequestParam("imp_uid") String imp_uid, @RequestParam("amount") int amount,
 			HttpServletRequest request) throws IOException {
 		int result = mypageService.storeWithdraw(store_order_idx);
+		
+		// 구매 취소 시 수량 복구
+		sts.update_option_cancel(orderoptionvo);
+		
 		if(result > 0 ) {
 			String token = paymentService.getToken();
 //			System.out.println("토큰 : " + token);
@@ -685,10 +693,10 @@ public class MypageController {
 			result = mypageService.deleteZzim2(deleteStoreZzim);
 		}
 		if(result > 0) { //찜성공
-			return "redirect:info_zzim.do";
+			return "redirect:mypage.do";
 		}else { //찜실패
 			System.out.println("찜실패");
-			return "redirect:info_zzim.do";
+			return "redirect:mypage.do";
 		}
 	}
 	
@@ -1044,6 +1052,27 @@ public class MypageController {
 	@ResponseBody
 	public void reviewDel(StoreReviewVO vo) throws Exception {
 		sts.storeReviewDelete(vo);
+	}
+	
+	//펀딩 제품 관리 페이지
+	@RequestMapping(value="/funding_admin.do",method = RequestMethod.GET)
+	public String funding_admin(int funding_idx, Model model, int check) {
+
+		// 펀딩 관리 페이지
+		List<HashMap<String, Object>> list = mypageService.fundingAdmin(funding_idx);
+		model.addAttribute("listMap", list);
+		model.addAttribute("check",check);
+		return "mypage/funding_admin";
+	}
+	
+	//펀딩 배송 메소드 ajax 통신
+	@RequestMapping(value = "/Success_update_FundingExpress.do",method = RequestMethod.POST)
+	@ResponseBody
+	public int FundingExpress(int funding_order_idx) {
+		
+		int reuslt = mypageService.update_FundingExpress(funding_order_idx);
+		
+		return reuslt;
 	}
 	
 }
