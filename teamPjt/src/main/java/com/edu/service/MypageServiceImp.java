@@ -566,8 +566,8 @@ public class MypageServiceImp implements MypageService{
 	
 	//펀딩 취소
 	@Override
-	public int fundingWithdraw(int funding_order_idx) {
-		return mdao.fundingWithdraw(funding_order_idx);
+	public int fundingWithdraw(Map<String, Object> paramMap) {
+		return mdao.fundingWithdraw(paramMap);
 	}
 	
 	// 스토어 관리

@@ -504,11 +504,13 @@
 		WHERE store_idx = #{store_idx} AND member_idx = #{member_idx};
 	</delete>
 	
-	<!-- 펀딩 취소 -->
-	<update id="fundingWithdraw" parameterType="int">
-		UPDATE 	funding_order 
-		SET		funding_order_pay_state=2 
-		WHERE 	funding_order_idx = #{ funding_order_idx }
+	<!-- 펀딩 취소sss -->
+	<update id="fundingWithdraw" parameterType="java.util.HashMap">
+		UPDATE 	funding_order AS fo, funding AS f, funding_option AS foo
+		SET		fo.funding_order_pay_state=2,
+				f.funding_current_price= (funding_current_price - #{funding_order_total_price})
+		WHERE 	fo.funding_order_idx = #{ funding_order_idx }
+		AND		f.funding_idx = #{funding_idx}
 	</update>
 	
 	<!-- 스토어 관리 페이지 -->

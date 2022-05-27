@@ -13,6 +13,16 @@
     width: 100%;
     height: 220px;	
 }
+.mypage_background_detail{
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding-top: 25px;
+	color: black;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 #change > button{
 	border: 1px solid #fa6462;
    	border-radius : 10px;
@@ -21,6 +31,25 @@
    	font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
    	padding: 5px;
    	font-size: 14px;
+}
+/*취소 모달의 빨간색 버튼*/
+.w-btn-outline {
+    position: relative;
+    padding: 5px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+.w-btn-red-outline:hover {
+    background-color: #ff5f2e;
+    color: #e1eef6;
+}
+.w-btn-black-outline:hover{
+	background-color : black;
+	color : white;
 }
 /*
 옆에 내 정보 관련 부분
