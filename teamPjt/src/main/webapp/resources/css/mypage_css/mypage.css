@@ -48,7 +48,7 @@ main {
 .my_bottom{
     background-color: #f3f4f7;
     padding: 20px 10px 10px 15px;
-    height: 100%;
+    height: 65%;
     border-radius: 20px;
 }
 .my_bottom > a > div {
@@ -145,7 +145,8 @@ main {
 	width: 100%;
     margin: 0px auto;
     min-height: 800px;
-    background-color: white; 
+    background-color: white;
+    height: 1000px;
 }
 
 .right_container li{
@@ -292,6 +293,9 @@ main {
 .image_container{
 	width: 35%;
 }
+.image_container img{
+	max-height: 190px;
+}
 .text_container{
 	width: 65%;
 	padding: 10px 0px 0px 20px;
@@ -330,4 +334,102 @@ main {
 .text_pay{
 	display: flex;
     justify-content: space-between;
+}
+
+
+/*찜*/
+.zzim_cotainer{
+	display: flex;
+    flex-flow: row wrap;
+    overflow: auto;
+    height: 790px
+}
+.zzim_inner{
+    padding: 18px 15px;
+    width: 50%;
+}
+.zzim_card{
+    overflow: hidden; 
+	background-color: #ffffff; 
+	border-radius: 10px; 
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+	height: 350px;
+}
+.zzim_image{
+    backbackground-position: center;
+    background-size: cover;
+    height: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+.zzim_cate{
+	background: #fa6462;
+    color: white;
+    padding: 9px;
+    border-radius: 0px 0px 10px;
+    width: 72px;
+    height: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+.zzim_cancel svg{
+	width: 25px;
+    height: 25px;
+    color: white;
+    margin: 10px;
+}
+.zzim_cancel_btn{
+	background: transparent;
+    border: none;
+}
+.zzim_cancel svg{
+	width: 25px;
+    height: 25px;
+    color: white;
+    margin: 10px;
+}
+.zzim_text{
+    padding: 1rem; 
+    cursor: pointer;
+}
+.zzim_category{
+	font-size: 16px;
+    font-weight: 700;
+    margin: 8px auto;
+}
+.zzim_title{
+	font-size: 17px;
+	font-weight: bold;
+    margin: 5px auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 50px;
+}
+.progress{
+	height: 8px;
+    margin: 10px 0px 6px;
+    display: flex;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+}
+.progress-bar{
+	background-color: #fa6462 !important;
+}
+.zzim_about{
+	display: flex;
+	justify-content: space-between;
+	font-size: 15px;
+}
+.zzim_about2{
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+    margin: 10px auto;
+    letter-spacing: 1px;
+}
+.zzim_price{
+	font-weight: 600;
 }

@@ -224,9 +224,9 @@
 	       			</c:forEach>
 			    </c:forEach>
 			    <!-- 배송 안내사항 -->
-			    <div style="margin-top: 24px;">
+			    <div style="margin-top: 24px; color: gray">
 			    	<div class="delivery">배송 안내사항</div>
-			    	<div class="delivery_notice">코로나로 인한 택배 배송(간선하차) 불가로 일부 지역은 배송이 제한될 수 있습니다. 자세한 내용은 공지사항을 참고 부탁드립니다.</div>
+			    	<div class="delivery_notice">코로나로 인한 택배 배송(간선하차) 불가로 일부 지역은 배송이 제한될 수 있습니다.<br> 자세한 내용은 공지사항을 참고 부탁드립니다.</div>
 			    </div>
         	</div>
         
@@ -295,9 +295,9 @@
                             <div id="my_modal" style="text-align: left">
 							 	<div style="font-weight: bold; font-size: 22px;">개인정보 제3자 제공 동의</div>
 							    <hr>
-								'펀딩하기'를 통한 결제 및 리워드 전달 서비스를 제공하기 위해, 이용자의 사전 동의 아래 제3자(프로젝트 판매자)에게 제공합니다.<br>
-								판매자에게 전달되는 개인 정보는 기재된 목적 달성 후 파기에 대한 책임이 판매자에게 있으며, 파기하지 않아 생기는 문제에 대한 법적 책임은 판매자에게 있습니다.<br>
-								아래 내용에 대하여 동의를 거부하실 수 있으며, 거부 시 서비스 이용이 제한됩니다.
+							    ‘스토어’를 통한 결제 및 상품 전달 서비스를 제공하기 위해, 이용자의 사전 동의 아래 제3자(판매자)에게 제공합니다.<br>
+								 판매자에게 전달되는 개인 정보는 기재된 목적 달성 후 파기에 대한 책임이 판매자에게 있으며, 파기하지 않아 생기는 문제에 대한 법적 책임은 판매자에게 있습니다.<br>
+								 아래 내용에 대하여 동의를 거부할 수 있으며, 거부 시 서비스 이용이 제한됩니다.
 								<hr>
 							    <a class="modal_close_btn">확인</a>
 							</div>
@@ -305,49 +305,12 @@
                         </td>
                       </tr>
                       <tr>
-                        <td scope="row" style="text-align: left;">
+                        <td scope="row" style="text-align: left;" colspan="2">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="chk2" name="checkbox" required="required">
-                                <label class="custom-control-label" for="chk2"><span style="font-weight: bold">(필수)</span> 후원 유의사항 확인</label>
+                                <label class="custom-control-label" for="chk2"><span style="font-weight: bold">(필수)</span>결제 진행 및 결제 대행 서비스 동의</label>
                             </div>
                         </td>
-                        <td style="text-align: right;">
-                        	<div class="accordion" id="accordionExample">
-							  <div>
-							    <div>
-							      <h5 class="mb-0">
-							        <button class="btn btn-link" id="accordionbtn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							          	확인
-							        </button>
-							      </h5>
-							    </div>
-							  </div>
-							</div>
-                        </td>
-                      </tr>
-                      <tr>
-                      	<td colspan="2" style="padding-top: 0px;">
-                      		<div class="accordion" id="accordionExample">
-							  <div>
-							    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-							      <div style="text-align: left;">
-									<ul>
-										<li style="font-size: 13px;line-height: 2;">
-											후원은 구매가 아닌 창의적인 계획에 자금을 지원하는 일입니다.<br>
-											텀블벅에서의 후원은 아직 실현되지 않은 프로젝트가 실현될 수 있도록 제작비를 후원하는 과정으로, 기존의 상품 또는 용역을 거래의 대상으로 하는 매매와는 차이가 있습니다. 
-											따라서 전자상거래법상 청약철회 등의 규정이 적용되지 않습니다.
-										</li>
-										<li style="font-size: 13px;line-height: 2;">
-											프로젝트는 계획과 달리 진행될 수 있습니다.<br>
-											예상을 뛰어넘는 멋진 결과가 나올 수 있지만 진행 과정에서 계획이 지연, 변경되거나 무산될 수도 있습니다. 
-											본 프로젝트를 완수할 책임과 권리는 창작자에게 있습니다.	
-										</li>
-									</ul>
-							      </div>
-							    </div>
-							  </div>
-							</div>
-                      	</td>
                       </tr>
                     </tbody>
                   </table>
@@ -488,13 +451,13 @@
         	// 필수 동의 안했을 때
             if($("#chk1").is(":checked")){
             } else {
-                alert("개인정보 제3자 제공 동의를 하셔야 결제예약이 가능합니다.")
+                alert("개인정보 제3자 제공 동의를 하셔야 결제가 가능합니다.")
                 return false;
             }
             
             if($("#chk2").is(":checked")){
             } else { 
-                alert("후원 유의사항을 확인하셔야 합니다.");
+                alert("결제 진행 및 결제 대행 서비스를 동의하셔야 합니다.");
                 return false;
             }
             
@@ -626,26 +589,6 @@
         	}
         	}, 0);
         });
-	
-	// 체크되면 아코디언 닫기
-		$("#checkAll").click(function(){
-			if($("#checkAll").is(":checked")){
-				var class_name = $('#collapseOne').attr('class');
-				if(class_name == 'collapse show'){
-		           	$('#accordionbtn').on('click', function(){});
-		           	$('#accordionbtn').trigger('click');
-				}
-	        }
-		});
-		$("#chk2").click(function(){
-			if($("#chk2").is(":checked")){
-				var class_name = $('#collapseOne').attr('class');
-				if(class_name == 'collapse show'){
-		           	$('#accordionbtn').on('click', function(){});
-		           	$('#accordionbtn').trigger('click');
-				}
-	        }
-		});
 	
 	// 모달창
 		function modal(id) {

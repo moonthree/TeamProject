@@ -263,6 +263,10 @@ if(message != null){alert(message);}
 	      		<input type="hidden" name="amount" value="${pay.store_order_pay_amount}">
 	      		<input type="hidden" name="imp_uid" value="${pay.store_order_pay_imp_uid}">
 	      		<input type="hidden" name="store_order_idx" id="orderIdx" value="${ express.store_order_idx }"/>
+	      		<c:forEach var="item" items="${ option }">
+	                <input type="hidden" name="store_order_option_select_idx" value="${item.store_order_option_select_idx}">
+	                <input type="hidden" name="store_order_option_select_count" value="${item.store_order_option_select_count}">
+				</c:forEach>
 	      		<div style="text-align:right; margin-top:50px">
 		      		<button class="w-btn-outline w-btn-red-outline">확인</button>
 		      		<button type="button"  class="w-btn-outline w-btn-black-outline"  data-dismiss="modal" aria-label="Close">취소</button>

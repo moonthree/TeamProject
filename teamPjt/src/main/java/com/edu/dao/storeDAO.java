@@ -219,6 +219,10 @@ public class storeDAO {
 	public int update_option(StoreOrderOptionVO orderoptionvo) {
 		return sqlSession.update("StoreMapper.update_option", orderoptionvo);
 	}
+	// 스토어 옵션 수량 복구 메소드 (주문 취소 시)
+	public int update_option_cancel(StoreOrderOptionVO orderoptionvo) {
+		return sqlSession.update("StoreMapper.update_option_cancel", orderoptionvo);
+	}
 	//옵션 수량 추가 메소드
 	public int  addStock(StoreOptionVO vo) {
 		return sqlSession.update("StoreMapper.storeOption_plus", vo);

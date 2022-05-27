@@ -86,7 +86,8 @@
 				f.funding_current_state,
 				f.funding_category,
 				f.funding_views,
-				fo.funding_order_idx
+				fo.funding_order_idx,
+				fo.funding_order_pay_state
 		FROM  	funding_order fo, funding f, member mem
 		WHERE 	fo.funding_idx = f.funding_idx 
 		AND		mem.member_idx = f.member_idx 
