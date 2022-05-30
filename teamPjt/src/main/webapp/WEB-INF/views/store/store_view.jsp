@@ -1637,8 +1637,9 @@ let option = {
 	    //개별 수량 변경
 	    changePNum: function (pos) {
 	        var item = document.querySelector('input[name=p_num'+pos+']');
-	        var p_num = parseInt(item.getAttribute('value'));
-	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : event.target.value;
+	        var p_num = Number($("input[name=p_num"+pos+"]").val());
+	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : p_num;
+
 	        var stock = item.previousElementSibling.value;
 	        if(parseInt(newval) > stock){
 	        	alert('잔여수량 내에서 수량을 선택해주세요.');
@@ -1652,10 +1653,10 @@ let option = {
 	        	newval = 1;
 	        }else if(parseInt(newval) < 1 || parseInt(newval) > stock){
 	        	return false;
-	        }else{
-	        	item.setAttribute('value', newval);
-	        	item.value = newval;
 	        }
+	        
+	        item.setAttribute('value', newval);
+	        item.value = newval;
 	        
             var price = item.previousElementSibling.previousElementSibling.value;
 	        //sum

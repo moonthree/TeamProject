@@ -39,8 +39,9 @@
 	                    <thead>
 	                        <tr>
 	                            <th>주문 번호</th>
-	                            <th>배송 번호</th>
-	                            <th>고객 번호</th>
+	                            <th>구매자 정보</th>
+	                            <th>받는 분 정보</th>
+	                            <th width="25%">배송지 주소</th>
 	                            <th>결제 상태</th>
 	                            <th>배송 상태</th>
 	                            <th>발송 처리</th>
@@ -49,14 +50,24 @@
 	                    <tbody>
 	                    	<c:if test="${empty admin}">
 	                    		<tr>
-		                    		<td colspan="6" style="text-align: center; height: 150px;">주문이 존재하지 않습니다.</td>
+		                    		<td colspan="7" style="text-align: center; height: 150px;">주문이 존재하지 않습니다.</td>
 		                    	</tr>
 	                    	</c:if>
 	                    	<c:forEach var="admin" items="${admin}">
 	                        <tr>
 	                            <td>${admin.store_order_idx}</td>
-	                            <td>${admin.store_express_idx}</td>
-	                            <td>${admin.member_idx}</td>
+	                            <td style="text-align: left">
+	                            	${admin.member_name}<br>
+	                            	${admin.member_phone}
+	                            </td>
+	                            <td style="text-align: left">
+	                            	${admin.store_express_name}<br>
+	                            	${admin.store_express_phone}
+	                            </td>
+	                            <td style="text-align: left">
+	                            	[${admin.store_express_postnum}]<br>
+	                            	${admin.store_express_addr1} ${admin.store_express_addr2}
+	                            </td>
 	                            <td>
 	                            	<c:if test="${admin.store_order_pay_state eq 0}">
 	                            		결제 완료

@@ -54,26 +54,28 @@ tr{
 th{
     letter-spacing: 1px;
     color: #718096;
-    padding-left: 25px;;
-    padding-right: 25px;;
+    padding-left: 15px;;
+    padding-right: 15px;;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     border-bottom-width: 1px;
     border-color: #edf2f7;
     border-bottom: 1px solid #edf2f7;
+    text-align: center;
 }
 td{
-    padding-left: 25px;
-    padding-right: 25px;;
+    padding-left: 15px;
+    padding-right: 15px;;
     padding-top: 10px;
     padding-bottom: 10px;
     border-top-width: 1px;
     border-bottom: 1px dashed #edf2f7;
     color: #4a5568;
     align-items: center;
-    font-size: 15px;
+    font-size: 14px;
+    text-align: center;
 }
 @font-face {
     font-family: 'TmonMonsori';

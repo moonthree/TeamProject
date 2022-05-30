@@ -549,14 +549,23 @@
 	
 	<!-- 스토어 관리 페이지 -->
 	<select id="storeAdmin" parameterType="int" resultType="com.edu.vo.StoreAdminVO">
-		SELECT so.store_order_idx, 
+		SELECT so.store_order_idx,
 			   se.store_express_idx, 
-			   so.member_idx, 
+			   so.member_idx,
+			   m.member_name,
+			   m.member_email,
+			   m.member_phone,
+			   se.store_express_postnum,
+			   se.store_express_addr1,
+			   se.store_express_addr2,
+			   se.store_express_name,
+			   se.store_express_phone,
 			   so.store_order_pay_state, 
 			   se.store_express_state
-		FROM   store_order so, store_express se
+		FROM   store_order so, store_express se, member m
 		WHERE  store_idx = #{store_idx}
 		AND    so.store_order_idx = se.store_order_idx
+		AND	   so.member_idx = m.member_idx
 		ORDER BY so.store_order_idx DESC
 	</select>
 	

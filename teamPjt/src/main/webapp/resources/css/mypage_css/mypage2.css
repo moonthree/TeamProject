@@ -68,8 +68,8 @@
  }
 .tab_check{
 	background:#fffffff6;
-    color:#525f78;
-    border-top: 3px solid #525f78;
+    color:#a1887f;
+    border-top: 3px solid #a1887f;
     cursor: pointer;
     padding: 17px 20px;
     margin: 0px 10px;
@@ -83,7 +83,10 @@
     font-weight: bold;
 }
 .tab_check a{
-	color:#525f78;
+	color:#a1887f;
+}
+.tab_check a:hover{
+	color:#73625c;
 }
 .tab{
     cursor: pointer;
@@ -106,8 +109,8 @@
 }
 .tab:hover{
 	background:#fffffff6;
-    color:#525f78;
-    border-top: 3px solid #525f78;
+    color:#a1887f;
+    border-top: 3px solid #a1887f;
 }
 .mypage_header{
 	padding-top: 13px;
@@ -175,7 +178,7 @@
     content: '';
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-top: 21px solid #D7CCC8;
+    border-top: 21px solid #a1887f;
     position: absolute;
     bottom: -12px;
     left: 50%;
@@ -201,14 +204,6 @@
     border-color: #525f78;
   }
   
-  /*
-  *
-  * ==========================================
-  * FOR DEMO PURPOSE
-  * ==========================================
-  *
-  */
-
   .nav-pills .nav-link {
     color: #555;
   }

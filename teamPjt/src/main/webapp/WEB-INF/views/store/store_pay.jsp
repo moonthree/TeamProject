@@ -65,10 +65,10 @@
         <input type="hidden" name="store_order_pay_card_name" value="">
         <input type="hidden" name="store_order_pay_card_number" value="">
         <input type="hidden" name="store_order_pay_amount" value="">
-        <c:if test="${param.store_event_price eq null }">
-        	<input type="hidden" name="store_event_price" value="0">
+        <c:if test="${param.store_event_price eq null}">
+	        <input type="hidden" name="store_event_price" value="0">
         </c:if>
-        <c:if test="${param.store_event_price ne null }">
+        <c:if test="${param.store_event_price ne null}">
         	<input type="hidden" name="store_event_price" value="${param.store_event_price}">
         </c:if>
         <div class="row" style="margin-top: 30px;">
@@ -521,8 +521,7 @@
                     				'phone':휴대폰소액결제
                     			*/
                     			merchant_uid: 'merchant_' + new Date().getTime(),
-                    			name: '${param.store_title}', //결제창에서 보여질 이름
-                    			
+                    			name: 'petdding', //결제창에서 보여질 이름  name: '${param.store_title}'
                     			// 가격은 1000원으로 설정
                     			amount: 1000,
 //                     			amount: '${param.total_price+param.express_fee}',
@@ -565,7 +564,7 @@
               			pg: 'html5_inicis',
               			pay_method: 'card',
               			merchant_uid: 'merchant_' + new Date().getTime(),
-              			name: '${param.store_title}', //결제창에서 보여질 이름
+              			name: 'petdding',
               			amount: 1000,
               			buyer_email: '${member.member_email}',
               			buyer_name: '${member.member_name}',
