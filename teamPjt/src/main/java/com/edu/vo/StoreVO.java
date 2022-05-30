@@ -21,6 +21,15 @@ public class StoreVO {
 	
 	private MemberVO memberVO;
 	private String member_business_name;
+	private String member_addr;
+	private String member_addr2;
+	private String member_postnum;
+	private String member_phone;
+	private String member_business_num;
+	private String member_email;
+	private String member_name;
+	
+	
 	private int funding_current_price;
 	private String fund;
 	private String dog;
@@ -60,6 +69,42 @@ public class StoreVO {
 	
 	
 	
+	public String getMember_addr() {
+		return member_addr;
+	}
+	public void setMember_addr(String member_addr) {
+		this.member_addr = member_addr;
+	}
+	public String getMember_addr2() {
+		return member_addr2;
+	}
+	public void setMember_addr2(String member_addr2) {
+		this.member_addr2 = member_addr2;
+	}
+	public String getMember_postnum() {
+		return member_postnum;
+	}
+	public void setMember_postnum(String member_postnum) {
+		this.member_postnum = member_postnum;
+	}
+	public String getMember_phone() {
+		return member_phone;
+	}
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
+	}
+	public String getMember_business_num() {
+		return member_business_num;
+	}
+	public void setMember_business_num(String member_business_num) {
+		this.member_business_num = member_business_num;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
 	public String getAll() {
 		return all;
 	}
@@ -344,6 +389,12 @@ public class StoreVO {
 	}
 	public void setSortLowPrice(String sortLowPrice) {
 		this.sortLowPrice = sortLowPrice;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	
 	

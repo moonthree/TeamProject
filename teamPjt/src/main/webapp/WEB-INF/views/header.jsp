@@ -20,7 +20,6 @@
                $(this).toggleClass("is-active");
            });
        });
-
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
     

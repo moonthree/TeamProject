@@ -93,7 +93,7 @@
 	                            </div>
 	                            <div class="starNumSearch">
 	                            	<c:if test="${item.avg_star > 0}">
-	                            		<span class="starAverage">${item.avg_star }</span>
+	                            		<span class="starAverage"><fmt:formatNumber value="${item.avg_star }" pattern=".0"/></span>
 	                            	</c:if>
 	                                <c:if test="${item.avg_star eq null}">
 	                            		<span class="starAverage">0</span>

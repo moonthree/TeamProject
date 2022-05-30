@@ -923,7 +923,7 @@ public class MypageController {
 		 * System.out.println(store_review_star);
 		 * System.out.println(store_review_content);
 		 */
-		
+		System.out.println("multipartFile : "+ multipartFile);
 		
 		
 		//파일 업로드 시작
@@ -982,28 +982,61 @@ public class MypageController {
 	// 스토어 리뷰 수정 05
 	@ResponseBody
 	@RequestMapping(value = "/modify_review", method = RequestMethod.POST)
-	public String modify_review(StoreReviewVO vo, @RequestParam("store_order_idx") int store_order_idx, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_option") String store_review_option, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file2") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
+	public String modify_review(StoreReviewVO vo, @RequestParam("exist_photo") List<String> exist , @RequestParam("store_order_idx") int store_order_idx, @RequestParam("store_idx") int store_idx, @RequestParam("member_idx") int member_idx, @RequestParam("store_review_star") int store_review_star, @RequestParam("store_review_option") String store_review_option, @RequestParam("store_review_content") String store_review_content, @RequestParam("article_file2") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
 		
 		/*
 		 * System.out.println(store_idx); System.out.println(member_idx);
 		 * System.out.println(store_review_star);
 		 * System.out.println(store_review_content);
 		 */
+		//System.out.println("exist :" + exist);
 		
-		System.out.println("multipartFile : " + multipartFile);
+		//System.out.println("exist.size:" + exist.size());
+		
+		//System.out.println("multipartFile.size : " + multipartFile.size());
+		
+		//System.out.println("multipartFile : " + multipartFile);
 		//파일 업로드 시작
 		String strResult = "{ \"result\":\"FAIL\" }";
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
 		String fileRoot;
+		int existSize = exist.size();
 		
-		System.out.println(vo.getStore_review_photo1());
+		//System.out.println(vo.getStore_review_photo1());
 		try {
+			int idx = 1;
+			if(exist.size() == 0 && multipartFile.size() == 0) {
+				vo.setStore_review_photo1(null);
+				vo.setStore_review_photo2(null);
+				vo.setStore_review_photo3(null);
+				vo.setStore_review_photo4(null);
+				vo.setStore_review_photo5(null);
+			}
+			System.out.println("exist.size : " + existSize);
+			if(exist.size() > 0) {
+				//System.out.println("exist.get : " + exist.get(0));
+				for(int i=0; i < existSize; i++) {
+					//System.out.println("idx : " + idx);
+					if(idx == 1) {
+						vo.setStore_review_photo1(exist.get(0));
+					}else if(idx == 2) {
+						vo.setStore_review_photo2(exist.get(1));
+					}else if(idx == 3) {
+						vo.setStore_review_photo3(exist.get(2));
+					}else if(idx == 4) {
+						vo.setStore_review_photo4(exist.get(3));
+					}else if(idx == 5) {
+						vo.setStore_review_photo5(exist.get(4));
+					}
+					idx++;
+				}
+			}
 			// 파일이 있을때 탄다.
 			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
-				int idx = 1;
+				
 				for(MultipartFile file:multipartFile) {
 					fileRoot = contextRoot + "resources/upload/";
-					System.out.println(fileRoot);
+					//System.out.println(fileRoot);
 					
 					String originalFileName = file.getOriginalFilename();	//오리지날 파일명
 					String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자

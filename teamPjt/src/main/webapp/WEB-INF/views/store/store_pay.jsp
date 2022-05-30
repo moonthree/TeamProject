@@ -65,6 +65,12 @@
         <input type="hidden" name="store_order_pay_card_name" value="">
         <input type="hidden" name="store_order_pay_card_number" value="">
         <input type="hidden" name="store_order_pay_amount" value="">
+        <c:if test="${param.store_event_price eq null }">
+        	<input type="hidden" name="store_event_price" value="0">
+        </c:if>
+        <c:if test="${param.store_event_price ne null }">
+        	<input type="hidden" name="store_event_price" value="${param.store_event_price}">
+        </c:if>
         <div class="row" style="margin-top: 30px;">
 	        <!-- 구매자 정보 -->
             <div class="col-md-6">
