@@ -137,6 +137,7 @@ public class MypageController {
 		return "mypage/mypage2";
 	}
 
+	
 	/* 펀딩 등록 메소드 */
 	@RequestMapping(value = "/funding_register.do", method = RequestMethod.GET)
 	public String funding_register() {
@@ -178,7 +179,8 @@ public class MypageController {
 	 		 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
 	 		 String savedConName = UUID.randomUUID() + extension2; //저장될 파일 명
 	 		 String savedNotName = UUID.randomUUID() + extension3; //저장될 파일 명
-	         
+
+	 		 
 	 		 File newdir4 = new File(path+"/"+savedThumName);
 	         File newdir5 = new File(path+"/"+savedConName);
 	         File newdir6 = new File(path+"/"+savedNotName);
@@ -192,7 +194,7 @@ public class MypageController {
 	         vo.setFunding_thumbnail(savedThumName);
 	         vo.setFunding_content(savedConName);
 	         vo.setFunding_notice(savedNotName);
-	         
+	         //펀딩 등록
 	         int result = fundingMainServiece.fun_reg(vo);
 	         
 	         
@@ -200,7 +202,7 @@ public class MypageController {
 	         PrintWriter pw = response.getWriter();
 	      
 
-	      if (result > 0) { // 회원가입 성공 -> home으로 이동
+	      if (result > 0) { 
 	         
 	         //마지막 증가된 funding_idx 가져옴
 	         int fid = vo.getFunding_idx();
@@ -455,6 +457,9 @@ public class MypageController {
 		return "mypage/my_info";
 		
 	}
+	
+
+	
 
 	@RequestMapping(value = "/my_info_modify.do")
 	public String my_info_modify(Model model, HttpServletRequest request) {
