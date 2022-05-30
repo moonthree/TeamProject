@@ -77,6 +77,13 @@
 @media screen and (min-width: 991px) { .smaller { width:575px; } }
 @media screen and (max-width: 991px) { .smaller { width:415px; } }
 @media screen and (max-width: 767px) { .smaller { width:455px; } }
+
+@font-face {
+    font-family: 'TmonMonsori';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 </style>
 <title>마이페이지</title>
 </head>
@@ -88,25 +95,23 @@
 
 <main>
 	<div class="container">
+	  
 		<div style="text-align:center;">
-			<table style="border:1px solid black; text-align : center; font-size : 20px;">
-				<thead>		
-					<tr>
-						<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do?check=3">회원 관리 페이지(관리자)</a></td>
-					</tr>
-				</thead>
-			</table>
+			 <span style="font-weight: 600; font-size: 24px; font-family: TmonMonsori;">관리자 Page 입니다. </span>
+				<span style="font-family: TmonMonsori;" >${member.member_name}님의 <span style="color: red;">소비자</span> 정보 page 입니다.</span>
+
 		</div>
+		
+		
 		<div class="mypage_background"></div>
+		
             <div class="row">
+            
             	<div class="col-md-12 mypage_header">
             		<c:if test="${member.member_level eq 1}">
 	            		<div class="tabs">
-		            		<a href="mypage.do" class="tab_check" style="text-decoration: none;">소비자</a>
-		            		<a href="mypage2.do" class="tab" style="text-decoration: none;">판매자</a>
+		            		<a href="mypage.do?member_idx=${member.member_idx}" class="tab_check" style="text-decoration: none;">소비자</a>
+		            		<a href="mypage2.do?member_idx=${member.member_idx }" class="tab" style="text-decoration: none;">판매자</a>
 	            		</div>
             		</c:if>
             	</div>
@@ -130,23 +135,18 @@
                             	</c:choose>
                                </c:otherwise>
                         </c:choose>
-                        <p>${login.member_name}님</p>
+                        <p>${member.member_name}님</p>
                     </div>
-                    <div class="my_middle">
-                        <h5>쇼핑MY</h5>
-                        <a href="info_funding.do">내가 펀딩한 상품<span>></span></a><br>
-                        <a href="info_store.do">내가 구매한 상품<span>></span></a><br>
-                        <a href="info_zzim.do">내가 찜한 상품<span>></span></a>
-                    </div>
+     
                     <div class="my_bottom">
                         <p>
-                            <a href="my_info.do">
+                            <a href="<%=request.getContextPath()%>/admin/my_info.do?curridx=${member.member_idx}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
                                     viewBox="0 0 16 20">
                                     <path
                                         d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                 </svg>
-                                &nbsp;<span>내 정보</span>
+                                &nbsp;<span>유저 정보</span>
                             </a>
                         </p>
                         <p>
@@ -204,7 +204,7 @@
 						          			<span class="box_num_span">${countFunding}</span>건의 펀딩 내역이 있습니다.
 						          		</div>
 				                        <div>
-				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_funding.do'">펀딩 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
+				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_funding.do?curridx=${member.member_idx}'">펀딩 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
 				                        </div>
 					          		</c:if>
 					          	</div>
@@ -214,7 +214,7 @@
 			                        <c:forEach var="item" items="${select3Funding}">
 			                        	<!-- 1. 결제 예약 / 펀딩 진행 중 (funding_current_state : 0) -->
 			                        	<c:if test="${item.funding_current_state eq 0}">
-			                            <div class="card_container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+			                            <div class="card_container"  style="cursor:pointer;">
 			                            	<div class="info_container1">
 			                            		<div><span class="text_bold">펀딩 후원 번호</span>${item.funding_order_idx}</div>
 			                            		<div><span class="text_bold">후원 날짜</span><fmt:formatDate value="${item.funding_order_date}" pattern="yyyy. MM. dd" /></div>
@@ -234,7 +234,7 @@
 	                                                    </c:choose>
 				                            		</div>
 				                            		<div class="text_title">
-				                            			<a class="text_title_a" href="info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }">${item.funding_title}</a>
+				                            			<a class="text_title_a" href="#">${item.funding_title}</a>
 				                            		</div>
 				                            		<div class="text_comnper">
 					                            		<div class="text_company">by. ${item.member_name}</div>
@@ -264,9 +264,11 @@
 			                            </div>
 			                            </c:if>
 			                            
+			                            
+			                            
 			                            <!-- 2. 결제 성공 / 펀딩 성공 (funding_current_state : 1) -->
 			                        	<c:if test="${item.funding_current_state eq 1}">
-			                            <div class="card_container" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+			                            <div class="card_container" style="cursor:pointer;">
 			                            	<div class="info_container1">
 			                            		<div><span class="text_bold">펀딩 후원 번호</span>${item.funding_order_idx}</div>
 			                            		<div><span class="text_bold">후원 날짜</span><fmt:formatDate value="${item.funding_order_date}" pattern="yyyy. MM. dd" /></div>
@@ -286,7 +288,7 @@
 	                                                    </c:choose>
 				                            		</div>
 				                            		<div class="text_title">
-				                            			<a class="text_title_a" href="info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }">${item.funding_title}</a>
+				                            			<a class="text_title_a" href="#">${item.funding_title}</a>
 				                            		</div>
 				                            		<div class="text_comnper">
 					                            		<div class="text_company">by. ${item.member_name}</div>
@@ -310,7 +312,7 @@
 			                            
 			                            <!-- 3. 펀딩 실패 (funding_current_state : 2) -->
 			                        	<c:if test="${item.funding_current_state eq 2}">
-			                            <div class="card_container" style="background-color: #f3f4f7;" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+			                            <div class="card_container" style="background-color: #f3f4f7;" style="cursor:pointer;">
 			                            	<div class="info_container1">
 			                            		<div><span class="text_bold">펀딩 후원 번호</span>${item.funding_order_idx}</div>
 			                            		<div><span class="text_bold">후원 날짜</span><fmt:formatDate value="${item.funding_order_date}" pattern="yyyy. MM. dd" /></div>
@@ -330,7 +332,7 @@
 	                                                    </c:choose>
 				                            		</div>
 				                            		<div class="text_title">
-				                            			<a class="text_title_a" style="color: gray;" href="info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }">${item.funding_title}</a>
+				                            			<a class="text_title_a" style="color: gray;" href="#">${item.funding_title}</a>
 				                            		</div>
 				                            		<div class="text_comnper">
 					                            		<div class="text_company">by. ${item.member_name}</div>
@@ -365,14 +367,15 @@
 						          			<span class="box_num_span">${countStore}</span>건의 스토어 주문 내역이 있습니다.
 						          		</div>
 				                        <div>
-				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_store.do'">스토어 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
+				                        	
+				                        	<button type="button" class="btn_info_detail" onclick="location.href='info_store.do?curridx=${member.member_idx}'">스토어 내역 보기 ><i class="icon-effect ion-ios-arrow-round-forward"></i></button>
 				                        </div>
 					          		</c:if>
 					          	</div>
 				            	<div class="mydiv" id="mydiv">
 									<c:if test="${select3Store.size()>0}">
 										<c:forEach var="item" items="${select3Store}">
-				                            <div class="card_container" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}'" style="cursor:pointer;">
+				                            <div class="card_container"  style="cursor:pointer;">
 				                            	<div class="info_container1">
 				                            		<div><span class="text_bold">스토어 주문 번호</span>${item.store_order_idx}</div>
 				                            		<div><span class="text_bold">주문 날짜</span><fmt:formatDate value="${item.store_order_date}" pattern="yyyy. MM. dd" /></div>
@@ -392,7 +395,7 @@
 							                            	</c:choose>
 					                            		</div>
 					                            		<div class="text_title">
-					                            			<a class="text_title_a" href="info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx}">${item.store_title}</a>
+					                            			<a class="text_title_a" href="#">${item.store_title}</a>
 					                            		</div>
 					                            		<div class="text_comnper">
 						                            		<div class="text_company">by. ${item.member_name}</div>
@@ -451,14 +454,14 @@
 										                    <div class="zzim_image" style="background-image: url(../resources/upload/funding/${item.funding_thumbnail})">
 										                        <div class="zzim_cate" style="background: #fa6462;">펀딩</div>
 										                        <div class="zzim_cancel">
-						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" onclick="alert('찜목록에서 삭제되었습니다'); location.href='deleteZzim.do?funding_idx=${item.funding_idx}'">
+						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" >
 										                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
 																	  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 																	</svg>
 																	</button>
 										                        </div>
 										                    </div>
-										                    <div class="zzim_text" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'">
+										                    <div class="zzim_text" onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" >
 										                        <div class="zzim_title">${item.funding_title}</div>
 										                        <div class="progress">
 									                                <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: ${Math.round(item.funding_current_price/item.funding_target_price*100)}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -492,7 +495,7 @@
 										                    <div class="zzim_image" style="background-image: url(../resources/upload/store/${item.store_thumbnail})">
 										                        <div class="zzim_cate" style="background: #edc64f;">스토어</div>
 										                        <div class="zzim_cancel">
-						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" onclick="alert('찜목록에서 삭제되었습니다'); location.href='deleteZzim.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}'">
+						                							<button type="button" id="zzimDelBtn" class="zzim_cancel_btn" >
 										                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
 																	  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 																	</svg>
@@ -522,7 +525,7 @@
             </div>
         </div>
 <!--메세지 모탈 팝업 버튼 -->
-    <div id="messageModal" data-toggle="modal" data-target="#sidebar-right"><img src="../resources/image/message/message.png" width="70px"/></div>     
+   
 </main>
 <c:import url="/footer.do"></c:import>
 <script>

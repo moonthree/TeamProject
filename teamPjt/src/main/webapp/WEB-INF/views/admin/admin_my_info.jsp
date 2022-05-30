@@ -77,7 +77,7 @@
 								</c:choose>
                         	</c:otherwise>
                         </c:choose>
-                        <img src="../resources/image/mypage/setting.png" alt="설정" class="setting_img"  onclick="location.href='my_info_modify.do'" style="cursor:pointer;">
+                        
                     </div>
                     <div class="profile-user-settings">
                         <h1 class="profile-user-name">${ member.member_name }</h1>
@@ -154,7 +154,7 @@
                  <c:forEach var="item" items="${select4Funding}">
                	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
                            	<div class="card-img-top">
-                                <div class="" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                                <div class="" style="cursor:pointer;">
                                     <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
@@ -188,7 +188,7 @@
                  <c:forEach var="item" items="${select4Store}">
                	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
                            	<div class="card-img-top">
-                                <div class="" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
+                                <div class=""  style="cursor:pointer;">
                                     <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">

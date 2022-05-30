@@ -89,7 +89,14 @@
 	                            </td>
 	                            <td>
 	                            	<c:if test="${admin.store_express_state eq 0}">
-		                            	<button type="button" onclick="updateExpress(this)" class="btn btn-outline-info" style="font-size: 15px;">배송 시작</button>
+		                            	<c:choose>
+	                            				<c:when test="${login.member_level eq 2}">
+	                            					<span>배송 준비 중</span>
+	                            				</c:when>
+	                            				<c:otherwise>
+	                            					<button type="button" onclick="updateExpress(this)" class="btn btn-outline-info" style="font-size: 15px;">배송 시작</button>
+	                            				</c:otherwise>
+	                            			</c:choose>
 	                            	</c:if>
 	                            	<c:if test="${admin.store_express_state eq 1}">
 	                            		발송 완료
