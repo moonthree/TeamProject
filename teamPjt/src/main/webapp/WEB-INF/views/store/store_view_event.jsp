@@ -156,6 +156,7 @@
 	                <form id="selectform" method="get" action="store_pay.do">
 	                <input type="hidden" name="store_idx" value="${read.store_idx}">
 	                <input type="hidden" name="store_title" value="${read.store_title}">
+	                <input type="hidden" name="store_event_price" value="${param.event}">
 	                <input type="hidden" name="select" id="select" value="">
 	                <div class="select_menu_container">
 				        <div class="select_container">
@@ -1427,7 +1428,7 @@ let option = {
 	    changePNum: function (pos) {
 	        var item = document.querySelector('input[name=p_num'+pos+']');
 	        var p_num = parseInt(item.getAttribute('value'));
-	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : event.target.value;
+	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : p_num;
 	        var stock = item.previousElementSibling.value;
 	        if(parseInt(newval) > stock){
 	        	alert('잔여수량 내에서 수량을 선택해주세요.');

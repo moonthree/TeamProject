@@ -565,12 +565,14 @@
 		  , store_order_total_price
 		  , store_order_pay_state
 		  , store_order_date
+		  , store_event_price
 		)VALUES(
 			#{member_idx}
 		  , #{store_idx}
 		  , #{store_order_total_price}
 		  , #{store_order_pay_state}
 		  , now()
+		  , #{store_event_price}
 		)
 	</insert>
 	<!-- 주문 옵션 번호 -->

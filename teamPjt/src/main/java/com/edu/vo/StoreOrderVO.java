@@ -9,7 +9,15 @@ public class StoreOrderVO {
 	private Date store_order_date;		
 	private int member_idx;		
 	private int store_idx;
-			
+	private int store_event_price;
+	
+	
+	public int getStore_event_price() {
+		return store_event_price;
+	}
+	public void setStore_event_price(int store_event_price) {
+		this.store_event_price = store_event_price;
+	}
 	public Date getstore_order_date() {		
 		return store_order_date;	
 	}		
