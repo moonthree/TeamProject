@@ -134,6 +134,13 @@
 			s.store_funding,
 			s.store_express_fee,
 			s.store_views,
+			m.member_addr,
+			m.member_addr2,
+			m.member_postnum,
+			m.member_phone,
+			m.member_business_num,
+			m.member_email,
+			m.member_name,
 			<choose>
 				<when test="store_funding > 0">
 					m.member_business_name,
@@ -565,12 +572,14 @@
 		  , store_order_total_price
 		  , store_order_pay_state
 		  , store_order_date
+		  , store_event_price
 		)VALUES(
 			#{member_idx}
 		  , #{store_idx}
 		  , #{store_order_total_price}
 		  , #{store_order_pay_state}
 		  , now()
+		  , #{store_event_price}
 		)
 	</insert>
 	<!-- 주문 옵션 번호 -->

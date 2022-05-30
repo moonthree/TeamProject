@@ -21,6 +21,9 @@ a:visited {
 .rounded-circle:hover{
 	transform: scale(1.04);
 }
+.pageDiv{
+	margin-top :20px;
+}
 /* 전체 설정 끝*/
 /* 카테고리 시작 */
 #category {

@@ -99,7 +99,7 @@
 		                        <a href="store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
 		                            <div class="card-title">${item.store_title}</div>
 		                        </a>
-		                        <p class="card-price"><fmt:formatNumber value="${item.store_price }" type="number" />원</p><span>idxtest : ${item.store_idx}   viewTest : ${item.store_views}</span>
+		                        <p class="card-price"><fmt:formatNumber value="${item.store_price }" type="number" />원</p>
 		                        <input type="number" id="idx${status.index}" value="${item.store_idx}" style="display:none;">
 		                        <!--별점-->
 		                        <div>
@@ -157,7 +157,7 @@
         	</div>
         </c:if>
         <!-- 페이징 --><!-- 페이징 --><!-- 페이징 --><!-- 페이징 -->
-        <div>
+        <div class="pageDiv">
         	<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">
 				    <c:if test="${prev }">

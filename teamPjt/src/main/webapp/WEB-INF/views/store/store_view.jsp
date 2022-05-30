@@ -62,7 +62,6 @@
 	        <div class="card-img-overlay">
 	            <br>
 	            <h5 class="card-category">
-	                store_idx test : ${read.store_idx} aaa
 	            	<c:if test="${read.store_category == 0 }">
 	           			강아지 용품
 		           	</c:if>
@@ -276,10 +275,11 @@
 	                	<button type="button" class="viewPurchaseBtn">구매하기</button>
 	                	<!-- 구매, 찜 로그인 처리 0012 -->
 	                	<!-- 로그인 안 했으면 -->
+	                	
 	                	<c:if test="${login eq null}">
 		                    <button type="button" class="viewZzimBtn" data-toggle="modal" data-target="#loginModal">
-		                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-		                            viewBox="0 0 16 16">
+		                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-heart"
+		                            viewBox="0 0 16 22">
 		                            <path
 		                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 		                        </svg>
@@ -291,8 +291,8 @@
 	                		<c:if test="${zzimResult eq 0}">
 	                			<c:if test="${read.store_funding eq 1 }">
 				                    <button type="button" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
-				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-				                            viewBox="0 0 16 16">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 22">
 				                            <path
 				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 				                        </svg>
@@ -301,8 +301,8 @@
 		                		</c:if>
 		                		<c:if test="${read.store_funding eq 0 }">
 				                    <button type="button" id="zzimBtn2" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
-				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-				                            viewBox="0 0 16 16">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 22">
 				                            <path
 				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 				                        </svg>
@@ -318,8 +318,8 @@
 	                		<c:if test="${zzimResult eq 1}">
 	                			<c:if test="${read.store_funding eq 1 }">
 				                    <button type="button" style="display:none;" id="zzimBtn" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }" data-id3="${read.funding_idx }">
-				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-				                            viewBox="0 0 16 16">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 22">
 				                            <path
 				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 				                        </svg>
@@ -328,8 +328,8 @@
 		                		</c:if>
 		                		<c:if test="${read.store_funding eq 0 }">
 				                    <button type="button" style="display:none;" id="zzimBtn2" class="viewZzimBtn doZzim" data-id="${login.member_idx }" data-id2="${read.store_idx }">
-				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-				                            viewBox="0 0 16 16">
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-heart"
+				                            viewBox="0 0 16 22">
 				                            <path
 				                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 				                        </svg>
@@ -341,6 +341,35 @@
 									  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
 									</svg>
 				                </button> 
+	                		</c:if>
+	                	</c:if>
+	                	<c:if test="${login eq null}">
+	                		<button type="button" class="chatBtn" data-toggle="modal" data-target="#loginModal">
+		                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+								  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+								  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+								</svg>
+		                		판매자 문의
+		                	</button>
+	                	</c:if>
+	                	<c:if test="${login ne null}">
+	                		<c:if test="${read.member_idx eq login.member_idx }">
+	                			<button type="button" class="chatBtn" onclick="alert('판매자 본인 입니다.')">
+			                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+									  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+									  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+									</svg>
+			                		판매자 문의
+		                		</button>
+	                		</c:if>
+	                		<c:if test="${read.member_idx ne login.member_idx }">
+	                			<button type="button" class="chatBtn" onclick="window.open('../mypage/note.do?store_idx=${read.store_idx}&funding_idx=0&isSeller=${read.member_idx }&message_idx=0','PopupWin', 'width=500,height=700');">
+			                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+									  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+									  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+									</svg>
+			                		판매자 문의
+		                		</button>
 	                		</c:if>
 	                	</c:if>
 	                </div>
@@ -398,7 +427,7 @@
 	            </li>
 	            <li class="nav-item nav-pills viewtab" role="presentation">
 	                <a class="nav-link storeViewTab" data-toggle="tab" href="#FVnotice" role="tab" aria-controls="FVnotice"
-	                    aria-selected="false"><span>공지</span></a>
+	                    aria-selected="false"><span>공지/반품/교환</span></a>
 	            </li>
 	            <li class="nav-item nav-pills viewtab" role="presentation">
 	                <a class="nav-link storeViewTab" data-toggle="tab" href="#FVcommu" role="tab" aria-controls="FVcommu"
@@ -417,7 +446,30 @@
 	            </div>
             <!--공지-->
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
+	            	<h4>판매자 공지</h4>
 	                <img src="../resources/upload/store/${read.store_notice}" class="card-img-top img2" alt="...">
+	                <h4>교환 및 환불 안내</h4>
+	                <div class="notice">교환 및 환불 문의는 '판매자에게 문의하기'로 신청해 주세요.</div>
+	                <h4>반품 보내실 주소</h4>
+	                <div class="notice">(${read.member_postnum }) ${read.member_addr } ${read.member_addr2 }</div>
+	                <h4>교환/환불 정책</h4>
+	                <div class="notice">
+						<ul class="hyphen">
+							<li>서포터 단순 변심에 의한 교환/반품은 상품 수령 후 7일 이내에 신청할 수 있습니다.(반품 배송비 서포터 부담)</li>
+							<li>상품의 내용이 표시∙광고 내용과 다르거나 계약내용과 다르게 이행된 경우에는 해당 상품 등을 수령한 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환/반품을 신청할 수 있습니다.(반품 배송비 메이커 부담)</li>
+							<li>다음의 경우에는 교환/반품을 신청할 수 없습니다.
+								<ul  class="hyphen">
+									<li>서포터의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우(다만, 상품 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외함)</li>
+									<li>서포터의 사용 또는 일부 소비로 인하여 상품 등의 가치가 현저히 감소한 경우</li>
+									<li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
+									<li>복제 가능한 상품 등의 포장을 훼손한 경우</li>
+									<li>용역 또는 “문화산업진흥 기본법” 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우(다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우에는 제공이 개시되지 아니한 부분에 대하여는 제외함)</li>
+									<li>주문에 따라 개별적으로 생산되는 상품 등 그에 대하여 청약철회 등을 인정할 경우 메이커에게 회복할 수 없는 중대한 피해가 예상되는 경우로서, 사전에 해당 거래에 대하여 별도로 그 사실을 고지하고 서포터의 서면(전자문서를 포함)에 의한 동의를 받은 경우</li>
+									<li>그 밖에 관련 법령에 따른 반품 제한 사유에 해당되는 경우</li>
+								</ul>
+							</li>
+						</ul>
+	                </div>
 	            </div>
             <!--리뷰 시작 0020-->
             <!--리뷰 시작-->
@@ -835,6 +887,7 @@
                     				<c:if test="${qnaList.depth eq 0}">
                     					<td style="width: 15%;">답변 대기</td>
                     					<div class="answer" style="display:none;"></div>
+                    					${qnaSecret}
                     				</c:if>
                     				<c:if test="${qnaList.depth eq 1}">
                     					<td style="width: 15%;">&nbsp;&nbsp;&nbsp;ㄴ<span class="reply">답변</span></td>
