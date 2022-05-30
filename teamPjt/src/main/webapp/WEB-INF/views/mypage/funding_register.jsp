@@ -297,7 +297,14 @@
 			var not_path = file_pathReader(notice_path);
 			var det_path = file_pathReader(detail_path);
 			
-
+			if(thum_path == not_path || thum_path == det_path || not_path == det_path){
+				alert('파일들의 이름이 같습니다. 다른 이름으로 업로드 해주세요!');
+				
+				
+			}
+			
+			else{
+			
 			$("#funding_thumbnail").val(thum_path);
 			$("#funding_notice").val(not_path);
 			$("#funding_content").val(det_path);
@@ -310,6 +317,8 @@
 			theForm.action = url;
 			theForm.submit();
 			}
+			}
+			
 		}
 		
 	}
