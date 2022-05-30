@@ -159,30 +159,47 @@
                 		</c:when>
                 		<c:otherwise>
                 				<c:if test="${login eq null}">
-				        			<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal">
-				                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-				                        viewBox="0 0 16 16">
-				                        <path
-				                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-				                    </svg>
-				                    	찜하기
-				                	</button>
+			        			<button type="button" class="FVbtn2" data-toggle="modal" data-target="#loginModal">
+			                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+			                        viewBox="0 0 16 16">
+			                        <path
+			                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+			                    </svg>
+			                    	찜하기
+			                	</button>
 		                    	</c:if>
 		                    	<c:if test="${login ne null}">
-			                		<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
-					                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-					                        viewBox="0 0 16 16">
-					                        <path
-					                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-					                    </svg>
-					                    	찜하기
-					                </button>
-					                
-					                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
-					                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-										  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-										</svg>
-					                </button> 
+		                    		<c:if test="${zzimResult eq 0}">
+                						<button type="button" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+						                        viewBox="0 0 16 16">
+						                        <path
+						                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+						                    </svg>
+						                    찜하기
+						                </button>
+						                
+						                <button type="button" style="display:none;" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+											  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+											</svg>
+						                </button> 
+		               				</c:if>
+		               				<c:if test="${zzimResult eq 1}">
+		               					<button type="button" style="display:none;" id="zzimBtn" class="FVbtn2 doZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+						                        viewBox="0 0 16 16">
+						                        <path
+						                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+						                    </svg>
+						                    찜하기
+						                </button>
+						                <button type="button" id="zzimDelBtn" class="FVbtn2 notZzim" data-id="${loginPerson }" data-id2="${read.funding_idx }">
+						                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+											  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+											</svg>
+						                </button> 
+		               				</c:if>
 		                    	</c:if>
                 		</c:otherwise>
                 	</c:choose>
@@ -263,9 +280,9 @@
                             <div>
                             	<div style= "width: 50px; height: 40px; border-radius: 70%; display:inline-block;">
 	                            <c:choose>
-		                        	<c:when test="${read.memberVO.member_photo eq 'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg,'}">
+		                        	<c:when test="${empty read.memberVO.member_photo}">
 		                        		<div class="profile_div">
-		                        			<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
+		                        			<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
 		                        		</div>
 		                        	</c:when>
 		                        	<c:otherwise>
@@ -276,7 +293,7 @@
 		                        </c:choose>
 		                        </div>
 		                       	<span class="commuP3Span2">${read.memberVO.member_business_name }
-		                       		<button type="button" class="" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                       		<button type="button" class="messageQnaBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
 		                       	</span>
 	                        </div> 
                         </div>

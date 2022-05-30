@@ -134,6 +134,13 @@
 			s.store_funding,
 			s.store_express_fee,
 			s.store_views,
+			m.member_addr,
+			m.member_addr2,
+			m.member_postnum,
+			m.member_phone,
+			m.member_business_num,
+			m.member_email,
+			m.member_name,
 			<choose>
 				<when test="store_funding > 0">
 					m.member_business_name,

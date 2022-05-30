@@ -16,7 +16,12 @@ thead{
 .table td{
 	border: none;
 }
-
+.messageQnaBtn{
+	border: 1px solid #fa6462;
+	background-color: white;
+	border-radius : 20px;
+	color: #fa6462;
+}
 /*
 .viewtab = 펀딩/스토어/커뮤니티/Q&Assssssss
 */
@@ -39,6 +44,10 @@ thead{
 .ulviewTab{
     text-align: center;
     margin-top: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
 }
 
 .FVtitleImg{

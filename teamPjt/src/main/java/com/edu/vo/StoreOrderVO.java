@@ -11,7 +11,7 @@ public class StoreOrderVO {
 	private int store_idx;
 	private int store_event_price;
 	
-	
+			
 	public int getStore_event_price() {
 		return store_event_price;
 	}

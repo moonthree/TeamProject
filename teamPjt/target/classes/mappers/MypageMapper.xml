@@ -462,6 +462,7 @@
 				so.store_order_date,
 				so.store_order_total_price,
 				so.store_order_pay_state,
+				so.store_event_price,
 				s.store_idx,
 				s.member_idx,
 				s.funding_idx,
