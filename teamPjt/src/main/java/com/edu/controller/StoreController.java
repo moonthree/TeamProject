@@ -44,6 +44,7 @@ import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewLikeVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -896,6 +897,11 @@ public class StoreController {
 		return result;		
 	}
 	//스토어 리뷰 관리자 삭제
+	@RequestMapping(value ="/reviewLikeAdminDel", method= RequestMethod.POST)
+	@ResponseBody
+	public void storeReviewLikeAdminDelete(StoreReviewLikeVO vo) throws Exception {
+		sts.storeReviewLikeAdminDelete(vo);
+	}
 	@RequestMapping(value ="/reviewAdminDel", method= RequestMethod.POST)
 	@ResponseBody
 	public void storeReviewAdminDelete(StoreReviewVO vo) throws Exception {

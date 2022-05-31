@@ -6,11 +6,25 @@ $(document).ready(function() {
 	$("#input_file").on("change", fileCheck);
 	$("#input_file_modify").on("change", fileCheck2);
 	
+	
+	
 });
 
 //리뷰 삭제 시작
 var reviewDelBtn = $("#reviewDelBtn");
 	reviewDelBtn.on("click", function(){
+		$.ajax({	
+        url: "reviewLikeDel",
+        type: "POST",
+        data: $("#reviewDelForm").serialize(),
+   	   success: function(){
+	
+          },
+          error: function(){
+              alert("추천 에러");
+          }   
+    	});	
+		
 		
 		$.ajax({	
             url: "reviewDel",
@@ -78,6 +92,7 @@ $(function () {
     $('#btn-upload').click(function (e) {
         e.preventDefault();
         $('#input_file').click();
+        
     });
     $('#btn-upload-modify').click(function (m) {
 		m.preventDefault();
@@ -93,10 +108,40 @@ var fileNum = 0;
 // 첨부파일 배열
 var content_files = new Array();
 
+
+var regex = new RegExp("(.*?)\.(png|jpg)$");
+var maxSize = 5242880; //5MB
+        
+    function checkExtension(fileName, fileSize) {
+        if(fileSize >= maxSize) {
+            alert("파일 사이즈 초과");
+            return false;
+        }
+        
+        if(regex.test(fileName)) {
+            
+            return false;
+        }else{
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		}
+        return true;
+    }
+
+
 function fileCheck(e) {
     var files = e.target.files;   
+    
+    for(var i=0; i<files.length; i++) {
+        if(checkExtension(files[i].name, files[i].size)) {
+            return false;
+        }
+        var filesArr = Array.prototype.slice.call(files);
+    }
     // 파일 배열 담기
-    var filesArr = Array.prototype.slice.call(files);
+    
+    
+    
+    
     console.log(filesArr)
     // 파일 개수 확인 및 제한
     if (fileCount >= totalCount) {
@@ -256,8 +301,15 @@ function fileDeleteAjax(exist_photo){
 
   function fileCheck2(m) {
     var filesModify = m.target.files;
-    // 파일 배열 담기
-    var filesArrModify = Array.prototype.slice.call(filesModify);
+    
+    for(var i=0; i<filesModify.length; i++) {
+        if(checkExtension(filesModify[i].name, filesModify[i].size)) {
+            return false;
+        }
+        // 파일 배열 담기
+        var filesArrModify = Array.prototype.slice.call(filesModify);
+    }
+    
     console.log("filesArrModify:" + filesArrModify)
     // 파일 개수 확인 및 제한
     if (fileCountModify >= totalCountModify) {
@@ -281,8 +333,8 @@ function fileDeleteAjax(exist_photo){
 			img.setAttribute("src", event.target.result);
 			img.setAttribute('height', '135px');
 			img.setAttribute('width', '135px');
-			img.setAttribute('id', 'file2'+fileNumModify)
-			img.setAttribute('onclick', 'fileDeleteModify(\'file2' + fileNumModify + '\')');
+			img.setAttribute('id', 'file'+fileNumModify)
+			img.setAttribute('onclick', 'fileDeleteModify(\'file' + fileNumModify + '\')');
 			img.setAttribute('style', 'margin:0px 12px 10px 0px')
 			document.querySelector("#articlefileChangeModify").appendChild(img); 
     }; 
@@ -296,6 +348,7 @@ function fileDeleteAjax(exist_photo){
   }
 function fileDeleteModify(fileNumModify){
     var no = fileNumModify.replace(/[^0-9]/g, "");
+    console.log(no)
     content_files_Modify[no-1].is_delete = true;
 	$('#' + fileNumModify).remove();
 	fileCountModify --;

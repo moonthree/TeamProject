@@ -308,6 +308,10 @@
 		WHERE store_idx = #{store_idx} AND member_idx = #{member_idx} AND store_order_idx = #{store_order_idx};
 	</delete>
 	<!-- 스토어 리뷰 관리자 삭제 -->
+	<delete id="storeReviewLikeAdminDelete" parameterType="StoreReviewLikeVO">
+		DELETE FROM store_review_like
+		WHERE store_review_idx = #{store_review_idx};
+	</delete>
 	<delete id="storeReviewAdminDelete" parameterType="StoreReviewVO">
 		DELETE FROM store_review
 		WHERE store_review_idx = #{store_review_idx};

@@ -61,8 +61,8 @@ section04 : 새로 오픈한 프로젝트
                    </div>
                </div>
                <div class="carousel-item">
-               	   <a href="event/event_view.do?member_idx=2">
-                   <img src="resources/image/home/dogbob2.png" class="d-block w-100" alt="...">
+               	   <a href="event/event_view.do?member_idx=7">
+                   <img src="resources/image/event/01_main.png" class="d-block w-100" alt="...">
                    </a>
                    <div class="carousel-caption d-none d-md-block">
                        <h3 class="main_image"></h3>

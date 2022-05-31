@@ -180,8 +180,8 @@ $('.doAnswer').click(function(){
         //비밀글 적용 여부e=store_qna_secret]').attr('value', 1);
 		$('input[name=store_qna_secret]').attr('value', 0);
 		
-		var a = $(".qna_store_idx").val()
-		alert(a)
+		//var a = $(".qna_store_idx").val()
+		//alert(a)
 		
 		//본문 작성 여부
 		if(qnaAnswerValue == ""){

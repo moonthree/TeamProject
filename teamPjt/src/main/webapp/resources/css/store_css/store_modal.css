@@ -57,6 +57,10 @@
     font-weight: 400;
     font-size: 13px;
 }
+.thin{
+	font-size: 12px;
+	font-weight: 200;
+}
 table{
     border: none;
 }

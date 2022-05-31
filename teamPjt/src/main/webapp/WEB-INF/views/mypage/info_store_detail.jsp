@@ -363,7 +363,7 @@ if(message != null){alert(message);}
                       </div>
                  
                       <div class="div2">
-                          <span class="bold">사진첨부</span><span class="thin">&nbsp;*올라온 사진을 클릭하면 삭제할 수 있어요</span><br>
+                          <span class="bold">사진첨부</span><span class="thin"><br>*5MB 이하의 png, jpg  형식의 파일만 첨부할 수 있어요.<br>*올라온 사진을 클릭하면 삭제할 수 있어요.</span><br>
                           	<button id="btn-upload" type="button" class="btn btn-outline-primary photoBtn">
                           		사진 첨부하기
                           	</button>
@@ -480,7 +480,7 @@ if(message != null){alert(message);}
                       </div>
                  
                       <div class="div2">
-                          <span class="bold">사진첨부</span><span class="thin">&nbsp;*올라온 사진을 클릭하면 삭제할 수 있어요</span><br>
+                          <span class="bold">사진첨부</span><span class="thin"><br>*5MB 이하의 png, jpg  형식의 파일만 첨부할 수 있어요.<br>*올라온 사진을 클릭하면 삭제할 수 있어요.</span><br>
                           	<button id="btn-upload-modify" type="button" class="btn btn-outline-primary photoBtn">
                           		사진 첨부하기
                           	</button>
@@ -535,6 +535,7 @@ if(message != null){alert(message);}
                     <input type=hidden value="${detail.store_idx }" name="store_idx">
                     <input type=hidden value="${login.member_idx }" name="member_idx">
                     <input type=hidden value="${detail.store_order_idx }" name="store_order_idx">
+                    <input type=hidden value="${review.store_review_idx }" name="store_review_idx">
                 </div>
                 <div class="modal-footer write_modal_footer">
                     <button type="button" id="reviewDelBtn" class="qnaDeleteBtn qnaBtn btn btn-outline-danger">예</button>
