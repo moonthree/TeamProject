@@ -314,14 +314,14 @@
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
           <%--      <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=1" style="width:100%; height:150vh;"></iframe>  --%>
-          		<img src="../resources/upload/funding/${read.funding_content}" class="card-img-top img2" alt="...">
+          		<img src="../resources/upload/funding/${read.funding_content}" class="img2" alt="...">
                <%-- <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> --%> 
             <%--    <embed src="../resources/upload/funding/${read.funding_content}#toolbar=0" type="application/pdf" width="100%" height="1000px">  --%>
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
             	<h4>판매자 공지</h4>
-                <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
+                <img src="../resources/upload/funding/${read.funding_notice}" class="img2" alt="...">
                 <h4>펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h4>
                 <div class="notice">
                 	펀딩 결제는 예약 상태로 유지되다가, 펀딩이 성공할 시 펀딩 마감일(<span class="bold">${read.funding_end_date }</span>) 다음 영업일에 모두 함께 진행되며, 펀딩 실패시 결제는 진행되지 않습니다.

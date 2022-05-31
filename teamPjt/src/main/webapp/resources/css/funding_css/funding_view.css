@@ -6,7 +6,9 @@ main {
     min-height: 100%;
     padding-bottom: 300px;
 }
-
+.img2{
+	width : 100%;
+}
 .topcard{
     margin-bottom: 30px;
 }
