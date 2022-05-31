@@ -105,8 +105,8 @@
                     <tr height="50px">
                         <th style="border-top: 1px dashed gray;">배송비</th>
                         <td style="border-top: 1px dashed gray;" colspan="2">
-                        	<input type="hidden" id="expressFee" name="expressFee" value="0">
-                        	<fmt:formatNumber value="0" type="number" />원
+                        	<input type="hidden" id="expressFee" name="expressFee" value="${read.funding_express_fee}">
+                        	<fmt:formatNumber value="${read.funding_express_fee}" type="number" />원
                         	<div></div>
                         </td>
                     </tr>
@@ -199,7 +199,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="number" class="form-control address1_input" name="funding_express_postnum1" placeholder="우편번호">
+                        	    <input type="number" class="form-control address1_input" name="funding_express_postnum1" placeholder="우편번호" readonly="readonly">
                             </div>
                             <div class="col-sm-5">
                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #fa6462; border: none;">주소 찾기</button>
@@ -208,7 +208,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="funding_express_addr1_1" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" name="funding_express_addr1_1" placeholder="기본 주소" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -223,19 +223,20 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}">
+                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_phone2" value="${member.member_phone}">
+                          		<input type="tel" onkeyup="mobile_keyup(this)" class="form-control m-input telCheckSize" name="funding_express_phone2" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+                                    aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${member.member_phone}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}">
+                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}" readonly="readonly">
                             </div>
                             <div class="col-sm-5">
 <!--                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button> -->
@@ -244,13 +245,13 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}">
+                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}">
+                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}" readonly="readonly">
                             </div>
                         </div>
                 	</div>
@@ -572,25 +573,31 @@
             	// 배송지 - 새로 입력 확인
                 if($('input:radio[id=inlineRadio1]').is(':checked')){
                 	if (funding_express_name1 == '') {
-                        alert('신규 배송지에 받을사람을 입력하세요.'); 
+                        alert('신규 배송지에 받을사람을 입력해주세요.'); 
                         setTimeout(function(){
                           $('input[name=funding_express_name1]').focus();
                         }, 0);
                         return false;
                       } else if (funding_express_phone1 == '') {
-                        alert('신규 배송지에 휴대폰 번호를 입력하세요.');
+                        alert('신규 배송지에 휴대폰 번호를 입력해주세요.');
                         setTimeout(function(){
                         	$('input[name=funding_express_phone1]').focus();
                         }, 0);
                         return false;
+                      } else if (funding_express_phone1.length != 13) {
+                          alert('휴대폰 번호를 정확히 입력해주세요.');
+                          setTimeout(function(){
+                          	$('input[name=funding_express_phone1]').focus();
+                          }, 0);
+                          return false;
                       } else if (funding_express_postnum1 == '') {
-                        alert('우편번호를 검색해서 주소를 입력하세요.');
+                        alert('우편번호를 검색해서 주소를 입력해주세요.');
                         setTimeout(function(){
                         	$('input[name=funding_express_postnum1]').focus();
                         }, 0);
                         return false;
                       } else if (funding_express_addr2_1 == '') {
-                        alert('상세 주소를 입력하세요.');
+                        alert('상세 주소를 입력해주세요.');
                         setTimeout(function(){
                         	$('input[name=funding_express_addr2_1]').focus();
                         }, 0);

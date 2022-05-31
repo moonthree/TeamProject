@@ -137,14 +137,36 @@
  
         <!-- 비밀번호 확인 스크립트-->
 	$(function (){
+		$("#alert-warning").hide(); 
 		$("#alert-success").hide(); 
     	$("#alert-danger").hide(); 
     	$("#alert-dangerPhone").hide(); 
     	
+    	$("input[name=member_password]").keyup(function(){
+	    	var pw = $("input[name=member_password]").val();
+	    	var num = pw.search(/[0-9]/g);
+	    	var eng = pw.search(/[a-z]/ig);
+	    	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+	
+	    	if(pw.length < 8 || pw.length > 16){
+		    	$("#alert-warning").show();
+		    	$("#join_bnt").removeAttr("disabled");
+	    	}else if(pw.search(/\s/) != -1){
+		    	$("#alert-warning").show(); 
+		    	$("#join_bnt").removeAttr("disabled");
+	    	}else if(num < 0 || eng < 0 || spe < 0 ){
+		    	$("#alert-warning").show(); 
+		    	$("#join_bnt").removeAttr("disabled");
+	    	}else {
+	    		$("#alert-warning").hide();
+		    	return true;
+	    	}
+    	});
+    	
     	$("input[name=member_password2]").keyup(function(){ 
     		
     		
-    		var pwd1=$("input[name=member_password2]").prev().val(); 
+    		var pwd1=$("input[name=member_password]").val(); 
     		var pwd2=$("input[name=member_password2]").val();
     		if(pwd1 != "" || pwd2 != ""){ 
     			if(pwd1 == pwd2){ 
@@ -270,6 +292,12 @@
         }).open();
     }
 
+	function handleOnInput(el, maxlength) {
+        if(el.value.length > maxlength)  {
+            el.value 
+            = el.value.substr(0, maxlength);
+        }
+    }
 	
     </script>
     
@@ -369,6 +397,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">비밀번호</label>
                         <input  name="member_password"  type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" style="margin-bottom: 10px;">
+                        <div class="alert alert-warning" id="alert-warning">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</div>
                         <input  name="member_password2" type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호 확인">
                     </div>
                     <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
@@ -400,8 +429,8 @@
                                 <option value="011">011</option>
                                 <option value="017">017</option>
                             </select> 
-                            &nbsp;-&nbsp;<input  name="phone1" type="number" max="9999" class="form-control" id="exampleFormControlInput3" style="width: 30%;">
-                            &nbsp;-&nbsp;<input  name="phone1" type="number" max="9999" class="form-control" id="exampleFormControlInput4" style="width: 30%;">
+                            &nbsp;-&nbsp;<input  name="phone1" type="number" oninput='handleOnInput(this, 4)' class="form-control" id="exampleFormControlInput3" style="width: 30%;">
+                            &nbsp;-&nbsp;<input  name="phone1" type="number" oninput='handleOnInput(this, 4)' class="form-control" id="exampleFormControlInput4" style="width: 30%;">
 
                         </div>
                     </div>

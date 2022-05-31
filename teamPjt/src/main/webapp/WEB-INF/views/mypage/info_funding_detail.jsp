@@ -134,7 +134,7 @@ function changeExpress(){
 						'<tr class="ex">'+
 							'<td class="odb_td odb_td1 odb_td1_bot">연락처</td>'+
 							'<td class="odb_td odb_td_line">'+
-								'<input  name="funding_express_phone" type="text" class="form-control m-input telCheckSize" placeholder="전화번호 입력" id="funding_express_phone" value="${ express.funding_express_phone }">'+
+								'<input  name="funding_express_phone" onkeyup="mobile_keyup(this)" type="text" class="form-control m-input telCheckSize" placeholder="전화번호 입력" id="funding_express_phone" value="${ express.funding_express_phone }" required pattern="[0-1]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13">'+
 							'</td>'+
 						'</tr>'+
 						'<tr class="ex">'+
@@ -458,6 +458,18 @@ function notChange(){
 	function fundingWithdrawal(){
 		$("#checkFdWithdrawalModal").modal("toggle");
 	}
+	
+//  연락처
+	function mobile_keyup(obj){
+	    let mobile_len=obj.value.length;
+	    if(event.keyCode==8){
+	        obj.value=obj.value.slice(0,mobile_len); 
+	        return 0; 
+	    }else if (mobile_len==3 || mobile_len==8){
+	        obj.value += '-';
+	    }
+	}
+	
 </script>
     <!-- 모달 -->
 	<div class="modal fade" id="checkFdWithdrawalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

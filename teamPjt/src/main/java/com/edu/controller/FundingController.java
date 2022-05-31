@@ -481,7 +481,7 @@ public class FundingController {
 	}
 	
 	@RequestMapping(value = "/reserve.do", method = RequestMethod.GET)
-	public String option(Model model, Funding_optionVO optionvo, HttpServletRequest request) throws Exception {
+	public String option(Model model, Funding_optionVO optionvo, FundingMainVO mainvo, HttpServletRequest request) throws Exception {
 		// 옵션 리스트 출력
 		List<Funding_optionVO> optionlist = fms.list(optionvo);
 		model.addAttribute("optionlist", optionlist);
@@ -491,6 +491,8 @@ public class FundingController {
 		MemberVO login = (MemberVO)session.getAttribute("login");
 		MemberVO member = fms.selectOne(login);
 		model.addAttribute("member", member);
+		
+		model.addAttribute("read", fms.read(mainvo.getFunding_idx()));
 		
 		return "funding/reserve";
 	}
