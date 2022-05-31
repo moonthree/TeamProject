@@ -38,9 +38,12 @@ public class MessageServiceImpl implements MessageService{
 	}
 	
 	//공지 불러오기
+	public List<MessageNoticeVO> notice_timeline(int to_member_idx) {
+		return dao.notice_timeline(to_member_idx);
+	}
 	@Override
-	public List<MessageNoticeVO> message_notice(int to_member_idx) {
-		return dao.message_notice(to_member_idx);
+	public MessageNoticeVO message_notice(Map<String,Object> param) {
+		return dao.message_notice(param);
 	}
 	
 	//메세지 불러오기 - form_member_idx마다 단한개

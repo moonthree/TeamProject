@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.AdminService;
 import com.edu.service.MessageService;
+import com.edu.service.StoreService;
+import com.edu.service.fundingMainService;
 import com.edu.vo.PageMaker;
 import com.edu.vo.PageMaker2;
 import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
+import com.edu.vo.StoreVO;
 
 // 주석 version13 
 
@@ -27,6 +30,11 @@ public class AdminController {
 	
 	@Autowired
 	private MessageService messageService;
+	
+	@Autowired
+	private fundingMainService fundingMainService;
+	@Autowired
+	private StoreService storeService;
 	
 	@RequestMapping(value = "/approval.do")
 	public String approval(Model model,Pagination page1, Pagination2 page2) {
@@ -113,8 +121,11 @@ public class AdminController {
 	    param.put("from_member_idx", 0);
 	    param.put("to_member_idx", member_idx);
 	    param.put("funding_idx", f_idx);
-	    param.put("f_or_s", 'f');
-	    param.put("message_content", "펀딩이 승인되었습니다.<br> 지금 확인해보세요");
+	    param.put("f_or_s", 0);
+	    
+	    //펀딩 제목 가져오기
+	    String fundingTitle = fundingMainService.select_fundingOne(f_idx).getFunding_title();
+	    param.put("message_content", "<span style=\"color:#fa6463\" >"+fundingTitle+"</span> 펀딩이 승인되었습니다.<br> 지금 확인해보세요");
 	    messageService.insertLog(param);
 		
 		return result;
@@ -134,23 +145,25 @@ public class AdminController {
 		//스토어 제품 상태 변경하기 위한 ajax 컨트롤러 -> 승인 허용
 		@RequestMapping(value = "/update_StoreState.do")
 		@ResponseBody
-		public int updateStoreState(int store_idx) {
+		public int updateStoreState(int store_idx) throws Exception {
 			
 			// update 쿼리문
 			int result = adminService.update_store(store_idx);
 			
-			/*
-			// funding 신청한 사람의  member_idx를 가져오기
-		    int member_idx = messageService.getMemberIdx(store_idx);
-		    System.out.println("f_idx : "+store_idx+"에 따른 member_idx : "+member_idx);
-		      
+			// store 신청한 사람의  member_idx와 title가져오기
+			StoreVO storeVO = storeService.read(store_idx,0);
+		    int member_idx = storeVO.getMember_idx();
+		    String store_title = storeVO.getStore_title();
+		    
 		    // message 테이블에 로그 남기기 insert
 		    Map<String, Object> param = new HashMap<String, Object>();
-		    param.put("f_idx", store_idx);
+		    
 		    param.put("from_member_idx", 0);
 		    param.put("to_member_idx", member_idx);
+		    param.put("store_idx", store_idx);
+		    param.put("f_or_s", 1);
+		    param.put("message_content", "<span style=\"color:#fa6463\" >"+store_title+"</span> 스토어가 승인되었습니다.<br> 지금 확인해보세요");
 		    messageService.insertLog(param);
-		    */
 			
 			return result;
 		}

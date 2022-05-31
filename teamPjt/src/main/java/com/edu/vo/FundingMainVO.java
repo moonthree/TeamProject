@@ -47,7 +47,9 @@ public class FundingMainVO {
 	private boolean prev;
 	private boolean next;
 	
-	
+	//메세지
+	private int from_member_idx;
+	private int to_member_idx;
 	
 	public String getSortdeadline() {
 		return sortdeadline;
@@ -260,6 +262,19 @@ public class FundingMainVO {
 				+ ", funding_current_state=" + funding_current_state + ", funding_write_date=" + funding_write_date
 				+ ", funding_category=" + funding_category + ", funding_express_date=" + funding_express_date
 				+ ", funding_express_fee=" + funding_express_fee + ", funding_views="  + "]";
+	}
+	
+	public int getFrom_member_idx() {
+		return from_member_idx;
+	}
+	public void setFrom_member_idx(int from_member_idx) {
+		this.from_member_idx = from_member_idx;
+	}
+	public int getTo_member_idx() {
+		return to_member_idx;
+	}
+	public void setTo_member_idx(int to_member_idx) {
+		this.to_member_idx = to_member_idx;
 	}
 	
 	

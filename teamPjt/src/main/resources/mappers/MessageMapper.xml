@@ -52,7 +52,9 @@
 		where 	member_idx=#{member_idx}
 	</select>
 	
+	<!-- 공지 로그 남김  -->
 	<insert id="insertLog" parameterType="java.util.HashMap">
+		<if test="f_or_s == 0">
 		INSERT 
 		INTO	message_notice (from_member_idx, to_member_idx, funding_idx, f_or_s, message_content)
 		VALUES	(
@@ -62,23 +64,50 @@
 				#{ f_or_s },
 				#{ message_content }
 				)
+		</if>
+		<if test="f_or_s == 1">
+		INSERT 
+		INTO	message_notice (from_member_idx, to_member_idx, store_idx, f_or_s, message_content)
+		VALUES	(
+				#{ from_member_idx },
+				#{ to_member_idx }, 
+				#{ store_idx },
+				#{ f_or_s },
+				#{ message_content }
+				)
+		</if>
 	</insert>
 	
 	
+	<select id="notice_timeline" parameterType="int" resultType="MessageNoticeVO">
+		select  mn.message_notice_idx, mn.f_or_s
+		from 	message_notice mn
+		where 	mn.to_member_idx=#{to_member_idx}
+		order by mn.message_notice_date desc	
+	</select>
 	<select id="message_notice" parameterType="java.util.HashMap" resultType="MessageNoticeVO">
-		select 	f.funding_title,
-				f.funding_thumbnail,
-			  	mn.message_notice_idx, 
+		select 	mn.message_notice_idx, 
 				mn.from_member_idx, 
 				mn.to_member_idx, 
-				mn.funding_idx, 
-				mn.store_idx, 
 				mn.f_or_s, 
-				message_content, 
-				message_notice_date 
-		from 	message_notice mn, funding f, store s
-		where 	mn.to_member_idx=#{to_member_idx}
-		and		mn.funding_idx=f.funding_idx
+				mn.message_content, 
+				mn.message_notice_date,
+		<if test="f_or_s == 0">
+				mn.funding_idx, 
+				f.funding_title,
+				f.funding_thumbnail
+		from 	message_notice mn, funding f
+		where 	mn.funding_idx=f.funding_idx
+		</if>		
+		<if test="f_or_s == 1">
+				mn.store_idx, 
+				s.store_title,
+				s.store_thumbnail
+		from 	message_notice mn, store s
+		where 	mn.store_idx=s.store_idx
+		</if>
+		and		mn.to_member_idx=#{to_member_idx}
+		and 	mn.message_notice_idx=#{message_notice_idx}
 	</select>
 	
 	
@@ -266,9 +295,29 @@
 		and mn.to_member_idx=#{to_member_idx} limit 1;
 	</select>
 	
+	<!-- 주어진 member_idx로 사진과 이름을 가져옴  -->
 	<select id="getPhotoName" parameterType="int" resultType="MemberVO">
 		SELECT 	member_photo, member_name 
 		FROM 	member 
 		WHERE 	member_idx=#{member_idx};
 	</select>
+	
+	<!-- 스케쥴러  -->
+	<!-- 펀딩 성공한 리스트 가져오기 FROM, TO, funding_idx -->
+	<select id="messageFundingList" resultType="FundingMainVO">
+		SELECT 	f.member_idx as from_member_idx, fo.member_idx as to_member_idx, f.funding_idx, f.funding_title
+		FROM 	funding_order fo, funding f 
+		WHERE 	f.funding_idx = fo.funding_idx
+		AND 	f.funding_current_state=1 and fo.funding_order_pay_state=0
+	</select>
+	<!-- 같은 행이 있는지 체크  -->
+	<select id="messageNoticeSameRow" parameterType="java.util.HashMap" resultType="int">
+		SELECT 	count(*) 
+		FROM 	message_notice 
+		WHERE 	from_member_idx = #{from_member_idx}
+		AND 	to_member_idx = #{to_member_idx}
+		AND 	funding_idx = #{funding_idx}
+		AND 	message_content = #{message_content}
+	</select>
+	<!-- 펀딩 성공 알림 to소비자  -->
 </mapper>

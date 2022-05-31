@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +40,16 @@ public class MessageDao {
 	}
 	
 	//공지
-	public List<MessageNoticeVO> message_notice(int to_member_idx){
-		return sqlSession.selectList("MessageMapper.message_notice",to_member_idx);
+	public List<MessageNoticeVO> notice_timeline(int to_member_idx){
+		return sqlSession.selectList("MessageMapper.notice_timeline",to_member_idx);
 	}
+	public MessageNoticeVO message_notice(Map<String,Object> param){
+		return sqlSession.selectOne("MessageMapper.message_notice",param);
+	}
+	//펀딩 성공시 소비자에게 알림로그남기기
+//	public void FundingSuccess() {
+//		sqlSession.insert("MessageMapper.FundingSuccess");
+//	}
 	
 	
 	//쪽지
@@ -109,6 +117,34 @@ public class MessageDao {
 	//level에 따른 messageVO하나씩 가져옴
 	public MessageVO getMessageDialogue(Map<String, Object> param) {
 		return sqlSession.selectOne("MessageMapper.getMessageDialogue", param);
+	}
+	
+	//스케쥴러
+	//소비자에게 펀딩 성공 공지 로그
+	public void FundingSuccess() {
+		System.out.println("펀딩 성공 공지");
+		//1. 조건에 해당하는 펀딩 idx가져오기
+		List<FundingMainVO> fmv = sqlSession.selectList("MessageMapper.messageFundingList");
+		
+		for(int i=0 ; i<fmv.size() ; i++) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("from_member_idx",fmv.get(i).getFrom_member_idx());
+			param.put("to_member_idx",fmv.get(i).getTo_member_idx());
+			param.put("funding_idx",fmv.get(i).getFunding_idx());
+			param.put("message_content", "<span style=\"color:#fa6463\" >"+fmv.get(i).getFunding_title()+"</span> 펀딩이 100%를 달성했습니다.");
+			param.put("f_or_s",0);
+			//같은 행 있는지 카운트 부터 하고 없으면 넣기로..
+			int sameRow = sqlSession.selectOne("MessageMapper.messageNoticeSameRow",param);
+			System.out.println("sameRow? : "+sameRow);
+			if(sameRow == 0) { //같은 행이 없는 경우 로그를 넣는 작업
+				sqlSession.insert("MessageMapper.insertLog",param);
+			}else {
+				System.out.println("같은 행 존재");
+			}
+			
+			
+		}
+		
 	}
 
 }

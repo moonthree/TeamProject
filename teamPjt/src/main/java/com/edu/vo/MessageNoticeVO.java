@@ -6,20 +6,34 @@ public class MessageNoticeVO {
 	private String member_name;
 	private String member_photo;
 	
-	//message_note
-	private int message_note_idx;
+	//message_notice
+	private int message_notice_idx;
 	private int from_member_idx;
 	private int to_member_idx;
 	private int funding_idx;
 	private int store_idx;
 	private String f_or_s;
 	private String message_content;
-	private String message_photo;
-	private String message_note_date;
-	
-	//message_notice
-	private int message_notice_idx;
 	private String message_notice_date;
+	
+	private String funding_thumbnail;
+	private String store_thumbnail;
+	
+	
+	
+	
+	public String getFunding_thumbnail() {
+		return funding_thumbnail;
+	}
+	public void setFunding_thumbnail(String funding_thumbnail) {
+		this.funding_thumbnail = funding_thumbnail;
+	}
+	public String getStore_thumbnail() {
+		return store_thumbnail;
+	}
+	public void setStore_thumbnail(String store_thumbnail) {
+		this.store_thumbnail = store_thumbnail;
+	}
 	
 	public int getMember_idx() {
 		return member_idx;
@@ -57,12 +71,6 @@ public class MessageNoticeVO {
 	public void setF_or_s(String f_or_s) {
 		this.f_or_s = f_or_s;
 	}
-	public int getMessage_note_idx() {
-		return message_note_idx;
-	}
-	public void setMessage_note_idx(int message_note_idx) {
-		this.message_note_idx = message_note_idx;
-	}
 	public int getFrom_member_idx() {
 		return from_member_idx;
 	}
@@ -81,18 +89,7 @@ public class MessageNoticeVO {
 	public void setMessage_content(String message_content) {
 		this.message_content = message_content;
 	}
-	public String getMessage_photo() {
-		return message_photo;
-	}
-	public void setMessage_photo(String message_photo) {
-		this.message_photo = message_photo;
-	}
-	public String getMessage_note_date() {
-		return message_note_date;
-	}
-	public void setMessage_note_date(String message_note_date) {
-		this.message_note_date = message_note_date;
-	}
+	
 	public int getMessage_notice_idx() {
 		return message_notice_idx;
 	}
