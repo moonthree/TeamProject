@@ -26,12 +26,12 @@
 <main id="wrapper">    
     <div class="container">
     <c:if test="${check eq 0}">
-        <h2 class="rftitle">스토어 제품 pdf 변경</h2>
+        <h2 class="rftitle">스토어 제품 사진 변경</h2>
     </c:if>
     <c:if test="${check eq 1}">
         <h2 class="rftitle">스토어 공지사항 사진 파일 변경</h2>
     </c:if>
-        <form name="store_file" id="store_file" method="post" enctype="multipart/form-data">
+        <form name="store_file" id="store_file" accept=".jpg, .png" method="post" enctype="multipart/form-data">
         
         <input type="hidden" name="member_idx" id="member_idx" value="${login.member_idx}">
         <input type="hidden" name="store_content" id="store_content" value="" >
@@ -64,10 +64,10 @@
                         <input type="hidden" name="flag" value="0">
 			              <div class="form-group">
 			                <label>스토어 프로젝트 계획</label>
-			                <div class="input_description">PDF 파일로 등록하세요.</div>
+			                <div class="input_description">JPG, PNG 파일로 등록하세요.</div>
 			                <div class="form-inline">
 			                	<div class="filebox" style="width: 100%;">
-			                        <input name="store_Detail_temp" type="file" class="form-control" id="store_Detail_temp">
+			                        <input name="store_Detail_temp" type="file" accept=".jpg, .png" class="form-control" id="store_Detail_temp">
 			                        <label for="store_Detail_temp">등록하기</label> 
 			                        <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
 			                        <input type="text" class="upload-detail-name" value="프로젝트 계획" placeholder="첨부파일" readonly style="display: inline-block;
@@ -85,10 +85,10 @@
    				<!--공지사항 변경  -->
 	   			<div class="form-group">
 		                <label>공지 등록</label>
-		                <div class="input_description">__MB 이하의 JPG, JPEG, PNG 파일로 등록하세요.</div>
+		                <div class="input_description">JPG, PNG 파일로 등록하세요.</div>
 		                <div class="form-inline">
 		                	<div class="filebox" style="width: 100%;">
-		                        <input name="store_Notice_temp" type="file" class="form-control" id="store_Notice_temp">
+		                        <input name="store_Notice_temp" type="file" accept=".jpg, .png" class="form-control" id="store_Notice_temp">
 		                        <label for="store_Notice_temp">등록하기</label> 
 		                        <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
 		                        <input type="text" class="upload-notice-name" value="공지 " placeholder="첨부파일" readonly style="display: inline-block;

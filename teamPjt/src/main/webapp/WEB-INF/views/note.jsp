@@ -40,10 +40,10 @@ table, tr, td{
 
 /* textarea */
 textarea{  
+  width:90%;
   overflow:hidden;
   padding:10px;
   margin: 10px 0px;
-  width:410px;
   font-size:14px;
   display:block;
   border-radius:20px;
@@ -54,19 +54,32 @@ textarea{
     position: fixed;
     bottom: 0px;
     background: white;
+    width:100%;
 }
-@media screen and (min-height: 690px) { textarea { width:400px; } }
 
 footer {
         height: 100px;
         position: relative;
         transform: translateY(100%);
     }
+/* 이미지 동그랗게 */
 .box {
 	width: 50px;
     height: 50px; 
     border-radius: 70%;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+td textarea{
+	margin-left: auto;
+    margin-right: auto;
 }
 </style>
 </head>
@@ -80,15 +93,15 @@ footer {
 			<c:forEach var="item" items="${messages}">
 			<!-- 왼쪽  -->
 			<c:if test="${ item.from_member_idx ne member.member_idx }">
-				<table class="table" style="border: none; margin-top:30px; text-align:left;">		
+				<table class="table" style="border: none; margin-top:30px; text-align:left; width:100%">		
 				    <tr>
-				    	<th width="60px">
+				    	<th width="12%">
 				    	<div class="box">
 				    		<img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
 				    	</div>	
 				    	</th>
 				    	
-				    	<td width="300px">
+				    	<td width="60%">
 					    	<div style="background-color: #dcd6f2; border-radius: 20px; padding:10px" >
 					    		
 					    		<c:if test="${ item.c_or_p eq 'c'}">${ item.message_content }</c:if>
@@ -99,6 +112,7 @@ footer {
 					    		
 					    	</div>
 				    	</td>
+				    	<td width="28%"></td>
 				    </tr>
 				    <tr>
 				      	<th>
@@ -107,16 +121,17 @@ footer {
 							<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
 				    	</td>
+				    	<td></td>
 				    </tr>
 				</table>
 			</c:if>	    
 		
 			<!-- 오른쪽 -->
 			<c:if test="${ item.from_member_idx eq member.member_idx }">
-			    <table class="table" style="border: none; margin-top:30px; text-align:left;">
+			    <table class="table" style="border: none; margin-top:30px; text-align:left; width:100%">
 				    <tr>
-				    	<th width="130px"></th>
-				    	<td width="300px">
+				    	<th width="28%"></th>
+				    	<td width="60%">
 					    	<div style="background-color: #f5f5f5; border-radius: 20px; padding:10px" >
 					    		
 					    		<c:if test="${ item.c_or_p eq 'c'}">${ item.message_content }</c:if>
@@ -126,15 +141,15 @@ footer {
 						    		
 					    	</div>
 				    	</td>
-				    	<th width="60px">
-				    		<div class="box">
-				    			<img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+				    	<td width="12%" style="text-align:right">
+				    		<div class="box" style="text-align:right">
+				    			<img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:100%; height:100%; object-fit:cover;">
 				  			</div>
-				  		</th>
+				  		</td>
 				    </tr>
 				    <tr>
 				    	<td></td>	
-		                   <td style="text-align:right;">
+		                <td style="text-align:right;">
 							<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 					    	<fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
 				    	</td>
@@ -168,41 +183,53 @@ footer {
 		<c:if test="${ isSeller eq member.member_idx }">
 		<input type="hidden" name="to_member_idx" value="${ messages[0].from_member_idx }"/>
 		</c:if>
-	<table>
+	<table style="width:100%; text-align: center;">
 		<tr>
-			<td>
+			<td width="5%">
 				<label for="ex_file">
 					<img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;">
 				</label>
 				<input type="file" accept="image/*" id="ex_file" name="fff" onchange=aa(); style="display:none;">
 			</td>
-			<td width="40px"><textarea rows='1' placeholder='메세지를 입력하세요' name="message_content"></textarea></td>
-			<td><img src="<%=request.getContextPath()%>/resources/image/message/send.png" width="20px" onclick="document.getElementById('messageFrm').submit();" style="cursor:pointer;"></td>
+			<td width="87%"><textarea rows='1' placeholder='메세지를 입력하세요' name="message_content"></textarea></td>
+			<td width="8%"><img src="<%=request.getContextPath()%>/resources/image/message/send.png" width="20px" alt="메세지 보내기 버튼" onclick="checkMessageSize()" style="cursor:pointer;"></td>
 		</tr>
 	</table>
 </form>
-<script> 
+<script>
+	//메시지 길이 체크
+	function checkMessageSize(){
+		console.log(textarea.value);
+		var str = textarea.value.replaceAll("\n","");
+		console.log(str);
+		if(str=="" || str==null){
+			alert("메세지를 입력해주세요.");
+		}else{
+			document.getElementById('messageFrm').submit();
+		}
+	}
+	//사진 선택하면 바로 보내짐
 	function aa(){ 
 		if(document.aaa.fff.value != ""){ 
 			document.aaa.action = "sendMessage.do"; 
 			document.aaa.submit(); 
 		} 
 	}
-</script> 
-</div>
-<script>
+	
+	//키보드 엔터 누를시 줄 변경
 	var textarea = document.querySelector('textarea');
 	textarea.addEventListener('keydown', autosize);       
 	function autosize(){
 	  var el = this;
 	  setTimeout(function(){
-	    el.style.cssText = 'height:auto; padding:0';
+	    el.style.cssText = 'padding:0';
 	    // for box-sizing other than "content-box" use:
 	    // el.style.cssText = '-moz-box-sizing:content-box';
 	    el.style.cssText = 'height:' + el.scrollHeight + 'px';
 	  },0);
 	}
-</script>
+</script> 
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
 </body>
 </html>

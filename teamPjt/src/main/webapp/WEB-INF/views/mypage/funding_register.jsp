@@ -37,6 +37,12 @@
         }    
       }
     
+    function handleOnInput(el, maxlength) {
+        if(el.value.length > maxlength)  {
+            el.value 
+            = el.value.substr(0, maxlength);
+        }
+    }
 </script>
 <body>
 
@@ -63,18 +69,18 @@
             <!-- 펀딩 목표금액 필드 -->
             <div class="form-group">
                 <label>펀딩 목표 금액</label>
-                <div class="input_description">최소 __만 원 ~ 최대 __ 원으로 설정하세요.</div>
-                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="목표 금액 입력" min="0" style="width: calc(100% - 37px); display: inline;">
+                <div class="input_description">최대 99,999,999 원으로 설정하세요.</div>
+                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="목표 금액 입력" min="10000" oninput='handleOnInput(this, 8)' max="100000000" style="width: calc(100% - 37px); display: inline;">
                
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
             <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
             <div class="form-group">
                 <label>대표 이미지</label>
-                <div class="input_description">__MB 이하의 JPG, JPEG, PNG 파일로 등록하세요.</div>
+                <div class="input_description">JPG, PNG 파일로 등록하세요.</div>
                 <div class="form-inline">
                     <div class="filebox" style="width: 100%;">
-                        <input name="funding_thumbnail_temp" type="file" class="form-control" id="funding_thumbnail_temp">
+                        <input name="funding_thumbnail_temp" type="file" accept=".jpg, .png" class="form-control" id="funding_thumbnail_temp">
                         <label for="funding_thumbnail_temp">등록하기</label> 
                         <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                         <input type="text" class="upload-thumbnail-name" value="대표 이미지" placeholder="첨부파일" readonly style="display: inline-block;
@@ -194,7 +200,7 @@
                 <div class="input_description">jpg파일,png파일로 (사진 파일) 등록하세요.</div>
                 <div class="form-inline">
                 	<div class="filebox" style="width: 100%;">
-                        <input name="funding_Detail_temp" type="file" class="form-control" id="funding_Detail_temp">
+                        <input name="funding_Detail_temp" type="file" accept=".jpg, .png" class="form-control" id="funding_Detail_temp">
                         <label for="funding_Detail_temp">등록하기</label> 
                         <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                         <input type="text" class="upload-detail-name" value="프로젝트 계획" placeholder="첨부파일" readonly style="display: inline-block;
@@ -204,10 +210,10 @@
             </div>
             <div class="form-group">
                 <label>공지 등록</label>
-                <div class="input_description">__MB 이하의 JPG, JPEG, PNG 파일로 등록하세요.</div>
+                <div class="input_description">JPG, PNG 파일로 등록하세요.</div>
                 <div class="form-inline">
                 	<div class="filebox" style="width: 100%;">
-                        <input name="funding_Notice_temp" type="file" class="form-control" id="funding_Notice_temp">
+                        <input name="funding_Notice_temp" type="file" accept=".jpg, .png" class="form-control" id="funding_Notice_temp">
                         <label for="funding_Notice_temp">등록하기</label> 
                         <!-- <input type="button" class="btn btn-outline-secondary" value="업로드" style="width: 30%;" onclick="FnThum(this)"> -->
                         <input type="text" class="upload-notice-name" value="공지 " placeholder="첨부파일" readonly style="display: inline-block;

@@ -78,7 +78,7 @@
 		</if>
 	</insert>
 	
-	
+	<!-- 공지 타임라인 : 최신순으로 온 메세지 나열  -->
 	<select id="notice_timeline" parameterType="int" resultType="MessageNoticeVO">
 		select  mn.message_notice_idx, mn.f_or_s
 		from 	message_notice mn
@@ -86,7 +86,9 @@
 		order by mn.message_notice_date desc	
 	</select>
 	<select id="message_notice" parameterType="java.util.HashMap" resultType="MessageNoticeVO">
-		select 	mn.message_notice_idx, 
+		SELECT 	m.member_name,
+				m.member_photo,
+				mn.message_notice_idx, 
 				mn.from_member_idx, 
 				mn.to_member_idx, 
 				mn.f_or_s, 
@@ -96,18 +98,20 @@
 				mn.funding_idx, 
 				f.funding_title,
 				f.funding_thumbnail
-		from 	message_notice mn, funding f
-		where 	mn.funding_idx=f.funding_idx
+		FROM 	message_notice mn, funding f, member m
+		WHERE 	mn.funding_idx = f.funding_idx
+		AND		m.member_idx = f.member_idx
 		</if>		
 		<if test="f_or_s == 1">
 				mn.store_idx, 
 				s.store_title,
 				s.store_thumbnail
-		from 	message_notice mn, store s
-		where 	mn.store_idx=s.store_idx
+		FROM 	message_notice mn, store s, member m
+		WHERE 	mn.store_idx=s.store_idx
+		AND		m.member_idx = s.member_idx
 		</if>
-		and		mn.to_member_idx=#{to_member_idx}
-		and 	mn.message_notice_idx=#{message_notice_idx}
+		AND		mn.to_member_idx=#{to_member_idx}
+		AND 	mn.message_notice_idx=#{message_notice_idx}
 	</select>
 	
 	

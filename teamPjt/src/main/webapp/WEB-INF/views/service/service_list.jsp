@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <title>고객센터</title>
     
     <style type="text/css">
@@ -20,6 +22,11 @@
 	 .nn {
   text-align:center;
 	} 
+	hr {
+    
+    border-color: black;
+    border-width: 3px;
+  }
 	</style>
     
 
@@ -31,14 +38,15 @@
 
 <div style="text-align: center; border: 1px solid #dddddd">
 <br>
-	<img src="<%=request.getContextPath()%>/resources/image/고객센터.png" class="img-fluid" alt="고객센터" height="300" width="200">
+	<img src="<%=request.getContextPath()%>/resources/image/111.png" class="img-fluid" alt="고객센터" height="300" width="200">
 </div>
 <br><br>
 	<div class="container">
-		
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead class="thead-light">
-					<tr class="table-active">
+		<h2>고객센터</h2>
+		<hr style="border:4px color= black;">
+			<table class="table table-striped table-hover" style="text-align: center;">
+				<thead>
+					<tr>
 						
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
@@ -47,11 +55,14 @@
 				</thead>
 				<tbody>
 					<c:forEach var="item" items="${list}">
-					<tr class="table-active">
+					<tr onmouseover="this.style.background='silver'" onmouseout="this.style.background='white'"  onClick="location.href='service_view.do?sboard_idx=${item.sboard_idx}'" style="cursor:pointer;" >
 						
-						<td><a href="service_view.do?sboard_idx=${item.sboard_idx}" class="text-dark">${item.sboard_title}</a></td>
-						<td>${item.member_name}</td>
-						<td>${item.sboard_regdate}</td>
+						<td style="width: 800px"><a href="service_view.do?sboard_idx=${item.sboard_idx}" class="text-dark">${item.sboard_title}</a></td>
+						<td ><a href="service_view.do?sboard_idx=${item.sboard_idx}" class="text-dark">${item.member_name}</a></td>
+						
+						<fmt:parseDate var="RegDate" value="${item.sboard_regdate }" pattern="yyyy-MM-dd"/>
+                        <fmt:formatDate var="RegDate2" value="${RegDate }" pattern="yyyy-MM-dd"/>
+						<td>${RegDate2}</td>
 					</tr>
 					</c:forEach>
 				</tbody>

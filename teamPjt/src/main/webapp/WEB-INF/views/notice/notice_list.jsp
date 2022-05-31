@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <title>공지사항</title>
     
     <style type="text/css">
@@ -28,6 +30,14 @@
   margin-right: auto; */
   text-align:center;
 	} 
+	hr {
+    
+    border-color: black;
+    border-width: 3px;
+  }
+  
+
+  
 	</style>
     
 
@@ -43,10 +53,11 @@
 </div>
 <br><br>
 	<div class="container">
-		
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead class="thead-light">
-					<tr class="table-active">
+		<h2>공지사항</h2>
+		<hr style="border:4px color= black;">
+			<table class="table table-striped table-hover" style="text-align: center;">
+				<thead>
+					<tr>
 						<th scope="col">번호</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
@@ -55,11 +66,14 @@
 				</thead>
 				<tbody>
 					<c:forEach var="item" items="${list}">
-					<tr class="table-active">
+					<tr onmouseover="this.style.background='silver'" onmouseout="this.style.background='white'" onclick="location.href='notice_view.do?board_idx=${item.board_idx}'" style="cursor:pointer;">
 						<td scope="row">${item.board_idx}</td>
-						<td><a href="notice_view.do?board_idx=${item.board_idx}" class="text-dark">${item.board_title}</a></td>
-						<td>펫띵주인</td>
-						<td>${item.board_regdate}</td>
+						<td style="width:800px"><a href="notice_view.do?board_idx=${item.board_idx}" class="text-dark">${item.board_title}</a></td>
+						<td ><a href="notice_view.do?board_idx=${item.board_idx}" class="text-dark">펫띵주인</a></td>
+						
+						<fmt:parseDate var="RegDate" value="${item.board_regdate }" pattern="yyyy-MM-dd"/>
+                        <fmt:formatDate var="RegDate2" value="${RegDate }" pattern="yyyy-MM-dd"/>
+						<td >${RegDate2}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -107,7 +121,6 @@
 					</div>
 			 </c:if> 
 		</div>
-	
 
  <c:import url="/footer.do"></c:import>
 </body>

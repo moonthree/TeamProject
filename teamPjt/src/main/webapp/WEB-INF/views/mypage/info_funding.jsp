@@ -118,7 +118,13 @@
 							                <fmt:parseNumber var="endDate" value="${end.time / (1000*60*60*24)}" integerOnly="true" />
 							                <fmt:parseNumber var="nowDate" value="${now3.time / (1000*60*60*24)}" integerOnly="true" />
 							              <!-- 남은 날짜 계산 끝 -->    
-			                                <div class="col-md-6">${endDate - nowDate} 일 남음</div>
+							              	
+							              	<c:if test="${endDate - nowDate < 0}">
+							              		<div class="col-md-6">펀딩 마감</div>
+							              	</c:if>
+							              	<c:if test="${endDate - nowDate >= 0}">
+							              		<div class="col-md-6">${endDate - nowDate} 일 남음</div>
+							              	</c:if>
 			                                <div class="col-md-6" style="text-align: right; color:red;">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>
 			                              </div>
 			                              <div class="progress" style="height: 7px;">
@@ -132,8 +138,8 @@
 				                            <div class="row">
 					                            <div class="col-md-4 col-sm-3">
 					                            	<c:choose>
-					                            		<c:when test="${ item.funding_current_state == 0}">펀딩 진행중</c:when>
-					                            		<c:when test="${ item.funding_current_state == 1}">펀딩 성공</c:when>
+					                            		<c:when test="${ item.funding_current_state eq 0}">펀딩 진행중</c:when>
+					                            		<c:when test="${ item.funding_current_state eq 1}">펀딩 성공</c:when>
 					                            		<c:otherwise>펀딩 종료</c:otherwise>
 					                            	</c:choose>
 					                            </div>

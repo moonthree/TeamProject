@@ -39,8 +39,8 @@
         overflow: hidden;
     }
     .card_img{
-        width: 150px;
-        height:150px;
+        width: 100px;
+        height:100px;
         object-fit: cover;
         transition: all 0.1s linear;
     }
@@ -99,7 +99,16 @@ $(document).ready (function () {
 							<c:if test="${ item.f_or_s eq 0 }">
 								<!-- 보낸사람 & 시각  -->
 							    <tr>
-							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+							    	<th width="150px" style="border-bottom:2px solid black">
+							    		<!-- 관리자가 보낸 경우 -->
+								    	<c:if test="${ item.from_member_idx eq 0 }">
+								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자
+								    	</c:if>
+								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
+								    	<c:if test="${ item.from_member_idx ne 0 }">
+								    		<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }
+								    	</c:if>
+							    	</th>
 							    	<th style="text-align:right;">
 							    		<fmt:parseDate var="time" value="${item.message_notice_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " />
@@ -118,7 +127,16 @@ $(document).ready (function () {
 							<c:if test="${ item.f_or_s eq 1 }">
 								<!-- 보낸사람 & 시각  -->
 							    <tr>
-							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+							    	<th width="150px" style="border-bottom:2px solid black">
+								    	<!-- 관리자가 보낸 경우 -->
+								    	<c:if test="${ item.from_member_idx eq 0 }">
+								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자
+								    	</c:if>
+								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
+								    	<c:if test="${ item.from_member_idx ne 0 }">
+								    		<img src="<%=request.getContextPath()%>/resources/upload/"+${ item.member_photo } class="login_profile_img"> ${ item.member_name }
+								    	</c:if>
+							    	</th>
 							    	<th style="text-align:right;">
 							    		<fmt:parseDate var="time" value="${item.message_notice_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " />
@@ -128,7 +146,7 @@ $(document).ready (function () {
 							    <tr onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}'" style="cursor:pointer;">
 							      	<th>
 								      	<div class="img-container">
-				                        	<img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top card_img" alt="funding_img">
+				                        	<img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top card_img" alt="store_img">
 				                        </div>
 			                        </th>
 			                        <th>${ item.message_content }</th>

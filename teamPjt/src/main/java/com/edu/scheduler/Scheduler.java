@@ -31,11 +31,12 @@ public class Scheduler {
 		scdao.FundingFail();
 	}
 	
+	//임시보류 -> 하루단위로 current_state가 바뀌는데 일분마다 체크할 필요가 없음
 	//메세지 dao에서 1분마다 current_state를 확인하고 
 	//1이 되면 100%가 되었다고 소비자에게 공지해줌
 	@Scheduled(cron = "0 * * * * *")
 	public void messageNotice() {
-		messageDao.FundingSuccess();
+		//messageDao.FundingSuccess();
 	}
 
 }

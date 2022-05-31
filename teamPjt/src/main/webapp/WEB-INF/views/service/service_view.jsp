@@ -15,6 +15,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="../resources/css/user_css/user.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/user_css/user.css">
 <meta charset="UTF-8">
 <title>고객센터</title>
 <style>
@@ -23,6 +25,8 @@
 </style>
 </head>
 <body>
+
+<c:import url="/header.do"></c:import>
 
 <div style="text-align: center; border: 1px solid #dddddd">
 <br>
@@ -53,7 +57,9 @@
 					</tr>
 					<tr class="table-active">
 						<td>작성일자</td>
-						<td colspan="2">${vo.sboard_regdate}</td>
+						<fmt:parseDate var="RegDate" value="${vo.sboard_regdate }" pattern="yyyy-MM-dd"/>
+                        <fmt:formatDate var="RegDate2" value="${RegDate }" pattern="yyyy-MM-dd"/>
+						<td colspan="2">${RegDate2}</td>
 					</tr>
 					 
 				</tbody>
@@ -74,10 +80,33 @@
 			
 			<c:if test="${login.member_idx eq vo.member_idx}">
 			<a href="service_modify.do?sboard_idx=${vo.sboard_idx}" class="btn btn-primary">수정</a>
-			<button onclick="document.delfrm.submit();" class="btn btn-primary">삭제</button>
+			<button class="btn btn-primary" id="popup_open_btn">삭제</button>
+			<div id="my_modal">
+            삭제하시겠습니까?<br>
+            <div class="container">
+            <button onclick="document.delfrm.submit();" class="btn btn-primary">네</button>
 			<form action="service_delete.do" method="post" name="delfrm">
 				<input type="hidden" name="sboard_idx" value="${vo.sboard_idx}">
 			</form>
+            <a href="service_view.do?sboard_idx=${vo.sboard_idx}"><input type="button" class="btn btn-primary" value="아니요"></a>
+            </div>
+            <a class="modal_close_btn" style="cursor:pointer;">X</a>
+        </div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<%-- <button onclick="document.delfrm.submit();" class="btn btn-primary">삭제</button>
+			<form action="service_delete.do" method="post" name="delfrm">
+				<input type="hidden" name="sboard_idx" value="${vo.sboard_idx}">
+			</form> --%>
 			</c:if>
 			</div>
 			</div>
@@ -150,7 +179,7 @@
 						<a href="service_list.do"><input type="button" class="btn btn-primary" value="목록"></a>
 					</div>
 	</div>
-	
+	<c:import url="/footer.do"></c:import>
 </body>
 <script>
 	function joinMember(idx) {
@@ -162,6 +191,7 @@
 		window.open(request+"/reply/reply_modify.do?sboard_idx="+${sboard_idx}+"&reply_idx="+idx, "_parent","member", "width=500px","height=20px")
 	}
 </script>
+<script src="../resources/js/user/user.js"></script>
 </html>
 					
 						
