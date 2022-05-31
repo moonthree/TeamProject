@@ -31,82 +31,80 @@
 <body>
 <c:import url="/header.do"></c:import>
 	<main>
-		<div class="container" style="margin-top: 6%;">
-			<div class="containerbox">
-				<h1>스토어 관리</h1>
-				<div class="table_container">
-					<table>
-	                    <thead>
-	                        <tr>
-	                            <th>주문 번호</th>
-	                            <th>구매자 정보</th>
-	                            <th>받는 분 정보</th>
-	                            <th width="25%">배송지 주소</th>
-	                            <th>결제 상태</th>
-	                            <th>배송 상태</th>
-	                            <th>발송 처리</th>
-	                        </tr>
-	                    </thead>
-	                    <tbody>
-	                    	<c:if test="${empty admin}">
-	                    		<tr>
-		                    		<td colspan="7" style="text-align: center; height: 150px;">주문이 존재하지 않습니다.</td>
-		                    	</tr>
-	                    	</c:if>
-	                    	<c:forEach var="admin" items="${admin}">
-	                        <tr>
-	                            <td>${admin.store_order_idx}</td>
-	                            <td style="text-align: left">
-	                            	${admin.member_name}<br>
-	                            	${admin.member_phone}
-	                            </td>
-	                            <td style="text-align: left">
-	                            	${admin.store_express_name}<br>
-	                            	${admin.store_express_phone}
-	                            </td>
-	                            <td style="text-align: left">
-	                            	[${admin.store_express_postnum}]<br>
-	                            	${admin.store_express_addr1} ${admin.store_express_addr2}
-	                            </td>
-	                            <td>
-	                            	<c:if test="${admin.store_order_pay_state eq 0}">
-	                            		결제 완료
-	                            	</c:if>
-	                            	<c:if test="${admin.store_order_pay_state eq 1}">
-	                            		결제 취소
-	                            	</c:if>
-	                            </td>
-	                            <td>
-	                            	<c:if test="${admin.store_express_state eq 0}">
-	                            		상품 준비 중
-	                            	</c:if>
-	                            	<c:if test="${admin.store_express_state eq 1}">
-	                            		배송 시작
-	                            	</c:if>
-	                            	<c:if test="${admin.store_express_state eq 2}">
-	                            		취소
-	                            	</c:if>
-	                            </td>
-	                            <td>
-	                            	<c:if test="${admin.store_express_state eq 0}">
-		                            	<c:choose>
-	                            				<c:when test="${login.member_level eq 2}">
-	                            					<span>배송 준비 중</span>
-	                            				</c:when>
-	                            				<c:otherwise>
-	                            					<button type="button" onclick="updateExpress(this)" class="btn btn-outline-info" style="font-size: 15px;">배송 시작</button>
-	                            				</c:otherwise>
-	                            			</c:choose>
-	                            	</c:if>
-	                            	<c:if test="${admin.store_express_state eq 1}">
-	                            		발송 완료
-	                            	</c:if>
-	                            </td>
-	                        </tr>
-	                    	</c:forEach>
-	                    </tbody>
-	                </table>
-				</div>
+		<div class="containerbox">
+			<h1>스토어 관리</h1>
+			<div class="table_container">
+				<table>
+                    <thead>
+                        <tr>
+                            <th>주문 번호</th>
+                            <th>구매자 정보</th>
+                            <th>받는 분 정보</th>
+                            <th width="35%">배송지 주소</th>
+                            <th>결제 상태</th>
+                            <th>배송 상태</th>
+                            <th>발송 처리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<c:if test="${empty admin}">
+                    		<tr>
+	                    		<td colspan="7" style="text-align: center; height: 150px;">주문이 존재하지 않습니다.</td>
+	                    	</tr>
+                    	</c:if>
+                    	<c:forEach var="admin" items="${admin}">
+                        <tr>
+                            <td>${admin.store_order_idx}</td>
+                            <td style="text-align: left">
+                            	${admin.member_name}<br>
+                            	${admin.member_phone}
+                            </td>
+                            <td style="text-align: left">
+                            	${admin.store_express_name}<br>
+                            	${admin.store_express_phone}
+                            </td>
+                            <td style="text-align: left">
+                            	[${admin.store_express_postnum}]<br>
+                            	${admin.store_express_addr1} ${admin.store_express_addr2}
+                            </td>
+                            <td>
+                            	<c:if test="${admin.store_order_pay_state eq 0}">
+                            		결제 완료
+                            	</c:if>
+                            	<c:if test="${admin.store_order_pay_state eq 1}">
+                            		<span style="color: red">결제 취소</span>
+                            	</c:if>
+                            </td>
+                            <td>
+                            	<c:if test="${admin.store_express_state eq 0}">
+                            		상품 준비 중
+                            	</c:if>
+                            	<c:if test="${admin.store_express_state eq 1}">
+                            		배송 완료
+                            	</c:if>
+                            	<c:if test="${admin.store_express_state eq 2}">
+                            		취소
+                            	</c:if>
+                            </td>
+                            <td>
+                            	<c:if test="${admin.store_express_state eq 0}">
+	                            	<c:choose>
+                            				<c:when test="${login.member_level eq 2}">
+                            					<span>배송 준비 중</span>
+                            				</c:when>
+                            				<c:otherwise>
+                            					<button type="button" onclick="updateExpress(this)" class="btn btn-outline-warning" style="font-size: 15px;">배송 시작</button>
+                            				</c:otherwise>
+                            			</c:choose>
+                            	</c:if>
+                            	<c:if test="${admin.store_express_state eq 1}">
+                            		발송 완료
+                            	</c:if>
+                            </td>
+                        </tr>
+                    	</c:forEach>
+                    </tbody>
+                </table>
 			</div>
 		</div>
 	</main>

@@ -411,7 +411,7 @@
 						                            		<!-- 2. 배송 중 / 판매자 확인 (store_express_state : 1) -->
 				                        					<c:if test="${item.store_express_state eq 1}">
 						                            		<div class="text_pay_date">
-						                            			<span class="text_bold">배송 중</span>
+						                            			<span class="text_bold">배송 완료</span>
 						                            		</div>
 						                            		<div class="text_pay_amount"><span class="text_bold" style="margin-right: 0px;"><fmt:formatNumber value="${item.store_order_total_price}" type="number"/>원 결제</span></div>
 				                        					</c:if>
