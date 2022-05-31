@@ -84,7 +84,7 @@
                         <h5>
                         	<c:choose>
                            		<c:when test="${ member.member_level eq 0 }">
-                           			일반 회원
+                           			소비자
                            		</c:when>
                            		<c:when test="${ member.member_level eq 1 }">
                            			판매자
@@ -126,7 +126,7 @@
                                 			고양이
                                 		</c:when>
                                 		<c:otherwise>
-                                			다른 동물
+                                			다른 반려동물
                                 		</c:otherwise>
                                 	</c:choose>
                                     
@@ -162,7 +162,7 @@
                                     	<c:choose>
                                     		<c:when test="${ item.funding_category eq 0 }">강아지 용품</c:when>
                                     		<c:when test="${ item.funding_category eq 1 }">고양이 용품</c:when>
-                                    		<c:when test="${ item.funding_category eq 2 }">다른동물 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 2 }">반려동물 용품</c:when>
                                     	</c:choose>
                                     </div>
                                     <div>
@@ -196,7 +196,7 @@
                                     	<c:choose>
                                     		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
                                     		<c:when test="${ item.store_category eq 1 }">고양이 용품</c:when>
-                                    		<c:when test="${ item.store_category eq 2 }">다른동물 용품</c:when>
+                                    		<c:when test="${ item.store_category eq 2 }">반려동물 용품</c:when>
                                     	</c:choose>
                                     </div>
                                     <div>

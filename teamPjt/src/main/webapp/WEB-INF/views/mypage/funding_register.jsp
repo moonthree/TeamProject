@@ -95,7 +95,7 @@
             <div class="form-group">
                 <label>펀딩 기간</label>
                 <div class="input_description">요건・콘텐츠 확인 및 프로젝트 진행 일정과 리워드 발송 일정을 함께 고려하여 종료일을 설정해 주세요.</div>
-                <div class="input_description">* 최소 15일 ~ 최대 6개월까지 설정 가능합니다.</div>
+                <div class="input_description">* 최소 15일 ~ 최대 2개월까지 설정 가능합니다.</div>
                 <!-- 펀딩 시작 기간 필드 -->
                 펀딩 오픈 :
                 <input name="funding_start_date" type="date" id="start">
@@ -229,7 +229,7 @@
     date.setDate(date.getDate() + 15);
     document.getElementById('end').value = date.toISOString().substring(0, 10);
     document.getElementById('end').min = date.toISOString().substring(0, 10);
-    date.setMonth(date.getMonth() + 6)
+    date.setMonth(date.getMonth() + 2)
     document.getElementById('end').max = date.toISOString().substring(0, 10);
     console.log(date)
 

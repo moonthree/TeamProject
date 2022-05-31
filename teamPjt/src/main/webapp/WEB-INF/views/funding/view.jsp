@@ -62,7 +62,7 @@
         </div>
     </div>
     <!-- -->
-    <div class="container">
+    <div class="container wrapper">
         <div class="row">
             <div class="col-md-8 col-sm-12">
                <img src="../resources/upload/funding/${read.funding_thumbnail}" class="card-img-top" alt="...">
@@ -106,7 +106,7 @@
                 </div>
                 <h3>${Math.round(read.funding_current_price/read.funding_target_price*100)}<span class="smalltext"> %달성</span></h3>
                 <h3><fmt:formatNumber value="${read.funding_current_price}" type="number" /><span class="smalltext"> 원 펀딩</span></h3>
-                <h3><span id="supportNum"></span><span class="smalltext"> 명의 서포터</span></h3>
+                <h3><span id="supportNum"></span><span class="smalltext"> 명의 소비자</span></h3>
                 
 
                 	<!-- funding_idx 값 포함해서 option 페이지로 이동 -->
@@ -156,6 +156,35 @@
 						                </button> 
 		               				</c:if>
 		                    	</c:if>
+		                    	<c:if test="${login eq null}">
+			                		<button type="button" class="chatBtn" data-toggle="modal" data-target="#loginModal">
+				                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+										  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+										  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+										</svg>
+				                		판매자 문의
+				                	</button>
+			                	</c:if>
+			                	<c:if test="${login ne null}">
+			                		<c:if test="${read.member_idx eq login.member_idx }">
+			                			<button type="button" class="chatBtn" onclick="alert('판매자 본인 입니다.')">
+					                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+											  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+											  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+											</svg>
+					                		판매자 문의
+				                		</button>
+			                		</c:if>
+			                		<c:if test="${read.member_idx ne login.member_idx }">
+			                			<button type="button" class="chatBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >
+					                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+											  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+											  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+											</svg>
+					                		판매자 문의
+				                		</button>
+			                		</c:if>
+			                	</c:if>
                 		</c:when>
                 		<c:otherwise>
                 				<c:if test="${login eq null}">
@@ -201,6 +230,35 @@
 						                </button> 
 		               				</c:if>
 		                    	</c:if>
+		                    	<c:if test="${login eq null}">
+			                		<button type="button" class="chatBtn" data-toggle="modal" data-target="#loginModal">
+				                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+										  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+										  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+										</svg>
+				                		판매자 문의
+				                	</button>
+			                	</c:if>
+			                	<c:if test="${login ne null}">
+			                		<c:if test="${read.member_idx eq login.member_idx }">
+			                			<button type="button" class="chatBtn" onclick="alert('판매자 본인 입니다.')">
+					                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+											  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+											  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+											</svg>
+					                		판매자 문의
+				                		</button>
+			                		</c:if>
+			                		<c:if test="${read.member_idx ne login.member_idx }">
+			                			<button type="button" class="chatBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >
+					                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 22">
+											  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+											  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+											</svg>
+					                		판매자 문의
+				                		</button>
+			                		</c:if>
+			                	</c:if>
                 		</c:otherwise>
                 	</c:choose>
 	                
@@ -217,7 +275,7 @@
                 	</c:when>
                 	<c:when test="${read.funding_current_state eq 1 }">
                 		<div class="fundingGoal">
-							${read.funding_title }은(는) 소중한 서포터들의 펀딩과 응원으로 ${read.funding_end_date}에 성공적으로 종료되었습니다.         		
+							${read.funding_title }은(는) 소중한 소비자들의 펀딩과 응원으로 ${read.funding_end_date}에 성공적으로 종료되었습니다.         		
                 		</div>
                 	</c:when>
                 	<c:otherwise>
@@ -240,7 +298,7 @@
             </li>
             <li class="nav-item nav-pills viewtab" role="presentation">
                 <a class="nav-link" data-toggle="tab" href="#FVnotice" role="tab" aria-controls="FVnotice"
-                    aria-selected="false"><span>공지</span></a>
+                    aria-selected="false"><span>공지/반환/정책</span></a>
             </li>
             <li class="nav-item nav-pills viewtab" role="presentation">
                 <a class="nav-link" data-toggle="tab" href="#FVcommu" role="tab" aria-controls="FVcommu"
@@ -256,26 +314,52 @@
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
           <%--      <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=1" style="width:100%; height:150vh;"></iframe>  --%>
-          
-               <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
+          		<img src="../resources/upload/funding/${read.funding_content}" class="card-img-top img2" alt="...">
+               <%-- <iframe class="iframe" src="../resources/upload/funding/${read.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> --%> 
             <%--    <embed src="../resources/upload/funding/${read.funding_content}#toolbar=0" type="application/pdf" width="100%" height="1000px">  --%>
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-                 <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
+            	<h4>판매자 공지</h4>
+                <img src="../resources/upload/funding/${read.funding_notice}" class="card-img-top img2" alt="...">
+                <h4>펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h4>
+                <div class="notice">
+                	펀딩 결제는 예약 상태로 유지되다가, 펀딩이 성공할 시 펀딩 마감일(<span class="bold">${read.funding_end_date }</span>) 다음 영업일에 모두 함께 진행되며, 펀딩 실패시 결제는 진행되지 않습니다.
+                	결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 <span class="bold"><a href="../mypage/info_funding.do" style="color:#fa6462">펀딩 내역</a></span>의 <span class="bold">펀딩 상세 내역</span>에서 진행해주세요.
+                	마감일 이후에는 펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 펀딩 마감일(<span class="bold">${read.funding_end_date }</span>) 이후로는 불가합니다.
+                	그 외 여타 문의는 '판매자 문의'로 신청해 주세요.
+                </div>
+                <h4>교환 및 환불 안내</h4>
+                <div class="notice">
+					<ul class="hyphen">
+						<li>소비자 단순 변심에 의한 교환/반품은 상품 수령 후 7일 이내에 신청할 수 있습니다.(반품 배송비 소비자 부담)</li>
+						<li>상품의 내용이 표시∙광고 내용과 다르거나 계약내용과 다르게 이행된 경우에는 해당 상품 등을 수령한 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환/반품을 신청할 수 있습니다.(반품 배송비 판매자 부담)</li>
+						<li>다음의 경우에는 교환/반품을 신청할 수 없습니다.
+							<ul  class="hyphen">
+								<li>소비자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우(다만, 상품 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외함)</li>
+								<li>소비자의 사용 또는 일부 소비로 인하여 상품 등의 가치가 현저히 감소한 경우</li>
+								<li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
+								<li>복제 가능한 상품 등의 포장을 훼손한 경우</li>
+								<li>용역 또는 “문화산업진흥 기본법” 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우(다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우에는 제공이 개시되지 아니한 부분에 대하여는 제외함)</li>
+								<li>주문에 따라 개별적으로 생산되는 상품 등 그에 대하여 청약철회 등을 인정할 경우 판매자에게 회복할 수 없는 중대한 피해가 예상되는 경우로서, 사전에 해당 거래에 대하여 별도로 그 사실을 고지하고 소비자의 서면(전자문서를 포함)에 의한 동의를 받은 경우</li>
+								<li>그 밖에 관련 법령에 따른 반품 제한 사유에 해당되는 경우</li>
+							</ul>
+						</li>
+					</ul>
+                </div>
             </div>
             <!--커뮤니티-->
             <div class="tab-pane fade" id="FVcommu" role="tabpanel" aria-labelledby="FVcommu-tab">
             	<div class="row">
                     <div class="commuDiv1 col-md-7 col-sm-12">
                         <p class="commuP1">
-                            서포터님!<br>처음 <span class="bold">메이커의 열정과 가치에 공감</span>해주셨듯, 마지막까지 <span class="bold">메이커를 응원</span>해주세요!
+                            소비자님!<br>처음 <span class="bold">판매자의 열정과 가치에 공감</span>해주셨듯, 마지막까지 <span class="bold">판매자를 응원</span>해주세요!
                         </p>
                     </div>
                     <div class="commuDiv2 col-md-5 col-sm-12">
                         <div class="commuP3">
                             리워드, 배송 등 펀딩에 대해 궁금한 사항이 있다면?<br>
-                            <span class="commuP3Span"><span class="bold">Q&A 탭</span>을 통해 메이커에게 문의할 수 있어요!</span>
+                            <span class="commuP3Span"><span class="bold">Q&A 탭</span>을 통해 판매자에게 문의할 수 있어요!</span>
                             <br>
                             <div>
                             	<div style= "width: 50px; height: 40px; border-radius: 70%; display:inline-block;">
@@ -328,7 +412,7 @@
 		                        </div>
 	                        <div class="commuP2Faq commuFaq05">펀딩 취소는 어떻게 하나요? 부분 취소도 가능한가요? <span class="commuP2FaqSpan">∨</span></div>
 	                        	<div class="commuP2FaqDetail commuFaq05D">
-		                        	프로젝트 종료 후에는 메이커가 서포터를 위해 리워드 제작을 시작한 상태입니다. 따라서 프로젝트 종료 이후에는 펀딩 취소가 불가하니, 종료 이전에 취소해주세요.
+		                        	프로젝트 종료 후에는 판매자가 소비자를 위해 리워드 제작을 시작한 상태입니다. 따라서 프로젝트 종료 이후에는 펀딩 취소가 불가하니, 종료 이전에 취소해주세요.
 									프로젝트가 종료되기 이전에는 [나의 리워드]에서 펀딩 취소가 가능합니다.
 									부분 취소는 여러 개의 리워드를 결제 예약한 경우 불가능합니다. 전체 취소 후 재펀딩해주세요.
 		                        </div>
@@ -770,16 +854,16 @@
                         <textarea name="funding_detail_community_content" id="funding_detail_community_content" cols="60" rows="10" placeholder="판매자에게 응원 의견 체험 리뷰를 남겨주세요"></textarea>
                          
                         <p class="commuWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">글 남기기 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 리워드 관련 문의 및 배송 문의는 'Q&A탭'을 통해 정확한 답변을 받을 수 있습니다.
-                            <br>4.4. 서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
+                            <br>4.4. 소비자님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
                             <br>5.5. 체험 리뷰는 반드시 펀딩을 위해 진행된 오프라인 전시(체험)에 참여한 후 작성하세요.
                         </p>
                     </div>
@@ -825,16 +909,16 @@
                         <textarea name="funding_detail_community_content" id="modifyText" cols="60" rows="10"></textarea>
                         
                         <p class="commuWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">글 남기기 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 리워드 관련 문의 및 배송 문의는 'Q&A탭'을 통해 정확한 답변을 받을 수 있습니다.
-                            <br>4.4. 서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
+                            <br>4.4. 소비자님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
                             <br>5.5. 체험 리뷰는 반드시 펀딩을 위해 진행된 오프라인 전시(체험)에 참여한 후 작성하세요.
                         </p>
                     </div>
@@ -879,14 +963,14 @@
                         <p class="cbp">비공개</p>
                         
                         <p class="qnaWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">Q&A 작성 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
                             <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
                         </p>
@@ -927,14 +1011,14 @@
                         <p class="cbp">비공개</p>
                         
                         <p class="qnaWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">Q&A 작성 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
                             <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
                         </p>

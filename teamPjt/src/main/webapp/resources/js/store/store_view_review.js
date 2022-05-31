@@ -9,7 +9,19 @@ adminDoReviewDel.on("click", function(){
 });
 var reviewAdminBtn = $("#reviewAdminBtn");
 reviewAdminBtn.on("click", function(){
+	
 	$.ajax({	
+        url: "reviewLikeAdminDel",
+        type: "POST",
+        data: $("#reviewAdminForm").serialize(),
+   	   success: function(){
+          },
+          error: function(){
+              alert("추천 에러");
+          }   
+    });	
+    
+    $.ajax({	
         url: "reviewAdminDel",
         type: "POST",
         data: $("#reviewAdminForm").serialize(),
@@ -22,6 +34,8 @@ reviewAdminBtn.on("click", function(){
               alert("삭제 에러");
           }   
     });	
+	
+	
 });
 var reviewAdminNo = $("#reviewAdminNo");
 reviewAdminNo.on("click", function(){

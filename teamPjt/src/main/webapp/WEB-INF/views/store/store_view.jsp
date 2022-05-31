@@ -77,7 +77,7 @@
 	        </div>
 	    </div>
 	    <!-- -->
-	    <div class="container">
+	    <div class="container wrapper">
 	        <div class="row">
 	            <div class="col-md-7 col-sm-12">
 	                <img src="../resources/upload/store/${read.store_thumbnail }" class="mainIMG" alt="...">
@@ -401,13 +401,13 @@
 		                                <path
 		                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
 		                            </svg>
-		                            서포터 수
+		                            소비자 수
 		                        </div>
 		                        <div class="col rightCol">
 		                            <span id="supportNum">${orderCount}</span>명
 		                        </div>
 		                    </div>
-		                    <div class="viewPastFundingLast">더 많은 서포터 님을 만나기 위해 상시 판매를 진행합니다.</div>
+		                    <div class="viewPastFundingLast">더 많은 소비자 님을 만나기 위해 상시 판매를 진행합니다.</div>
 		                </div>
 	                </c:if>
 	            </div>
@@ -442,29 +442,30 @@
 	        <div class="tab-content" id="myTabContent">
             <!--프로젝트-->
 	            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-	                <iframe class="iframe" src="../resources/upload/store/${read.store_content}#toolbar=0" style="width:100%; height:150vh;"></iframe>
+	                <%-- <iframe class="iframe" src="../resources/upload/store/${read.store_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> --%>
+	                 <img src="../resources/upload/store/${read.store_content}" class="card-img-top img2" alt="...">
 	            </div>
             <!--공지-->
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
 	            	<h4>판매자 공지</h4>
 	                <img src="../resources/upload/store/${read.store_notice}" class="card-img-top img2" alt="...">
 	                <h4>교환 및 환불 안내</h4>
-	                <div class="notice">교환 및 환불 문의는 '판매자에게 문의하기'로 신청해 주세요.</div>
+	                <div class="notice">교환 및 환불 문의는 '판매자 문의'로 신청해 주세요.</div>
 	                <h4>반품 보내실 주소</h4>
 	                <div class="notice">(${read.member_postnum }) ${read.member_addr } ${read.member_addr2 }</div>
 	                <h4>교환/환불 정책</h4>
 	                <div class="notice">
 						<ul class="hyphen">
-							<li>서포터 단순 변심에 의한 교환/반품은 상품 수령 후 7일 이내에 신청할 수 있습니다.(반품 배송비 서포터 부담)</li>
-							<li>상품의 내용이 표시∙광고 내용과 다르거나 계약내용과 다르게 이행된 경우에는 해당 상품 등을 수령한 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환/반품을 신청할 수 있습니다.(반품 배송비 메이커 부담)</li>
+							<li>소비자 단순 변심에 의한 교환/반품은 상품 수령 후 7일 이내에 신청할 수 있습니다.(반품 배송비 소비자 부담)</li>
+							<li>상품의 내용이 표시∙광고 내용과 다르거나 계약내용과 다르게 이행된 경우에는 해당 상품 등을 수령한 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 교환/반품을 신청할 수 있습니다.(반품 배송비 판매자 부담)</li>
 							<li>다음의 경우에는 교환/반품을 신청할 수 없습니다.
 								<ul  class="hyphen">
-									<li>서포터의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우(다만, 상품 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외함)</li>
-									<li>서포터의 사용 또는 일부 소비로 인하여 상품 등의 가치가 현저히 감소한 경우</li>
+									<li>소비자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우(다만, 상품 등의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외함)</li>
+									<li>소비자의 사용 또는 일부 소비로 인하여 상품 등의 가치가 현저히 감소한 경우</li>
 									<li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
 									<li>복제 가능한 상품 등의 포장을 훼손한 경우</li>
 									<li>용역 또는 “문화산업진흥 기본법” 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우(다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우에는 제공이 개시되지 아니한 부분에 대하여는 제외함)</li>
-									<li>주문에 따라 개별적으로 생산되는 상품 등 그에 대하여 청약철회 등을 인정할 경우 메이커에게 회복할 수 없는 중대한 피해가 예상되는 경우로서, 사전에 해당 거래에 대하여 별도로 그 사실을 고지하고 서포터의 서면(전자문서를 포함)에 의한 동의를 받은 경우</li>
+									<li>주문에 따라 개별적으로 생산되는 상품 등 그에 대하여 청약철회 등을 인정할 경우 판매자에게 회복할 수 없는 중대한 피해가 예상되는 경우로서, 사전에 해당 거래에 대하여 별도로 그 사실을 고지하고 소비자의 서면(전자문서를 포함)에 의한 동의를 받은 경우</li>
 									<li>그 밖에 관련 법령에 따른 반품 제한 사유에 해당되는 경우</li>
 								</ul>
 							</li>
@@ -663,7 +664,7 @@
 	                	<c:forEach items="${storeReviewList}" var="reviewList" varStatus="status">
 	                		<thead>
 		                        <tr>
-		                            <td style="width:5%;  border-radius: 70%;" class="tdImg">
+		                            <td style="width:10%; padding:10px 0px 0px 0px;" class="tdImg">
 		                            	<c:choose>
 			                        		<c:when test="${ empty reviewList.member_photo }">
 					                     		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
@@ -887,7 +888,6 @@
                     				<c:if test="${qnaList.depth eq 0}">
                     					<td style="width: 15%;">답변 대기</td>
                     					<div class="answer" style="display:none;"></div>
-                    					${qnaSecret}
                     				</c:if>
                     				<c:if test="${qnaList.depth eq 1}">
                     					<td style="width: 15%;">&nbsp;&nbsp;&nbsp;ㄴ<span class="reply">답변</span></td>
@@ -916,6 +916,7 @@
 		                    							<c:out value="${qna}" escapeXml="false"/>
 		                    							<input type="text" name="store_qna_idx" class="store_qna_idx" value="" style="display:none;"/>
 		                    							<input type="text" name="store_idx" class="store_idx" value="" style="display:none;"/>
+		                    							
 		                    						</span>
 	                    						</a>
 	                    						<a class="hideQna">
@@ -977,15 +978,15 @@
 						                                    <path
 						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						                                </svg>
-				                    					비밀글입니다.
-				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> 
+				                    					<span>비밀글입니다.</span>
+				                    					<%-- <span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> --%> 
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                            			</c:if>
 	                            			<!-- 답변대기면 -->
 	                            			<c:if test="${qnaState eq 0}">
 	                            				<c:choose>
-		                    						<c:when test="${qnaList.member_idx eq loginPerson || seller eq loginPerson || qnaList.store_qna_writer_idx eq loginPerson || login.member_level eq 2}">
+		                    						<c:when test="${qnaList.member_idx eq login.member_idx || read.member_idx eq login.member_idx || qnaList.store_qna_writer_idx eq login.member_idx || login.member_level eq 2}">
 		                    							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
 						                                    viewBox="0 0 16 16">
 						                                    <path
@@ -1012,7 +1013,7 @@
 						                                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						                                </svg>
 				                    					비밀글입니다.
-				                    					<span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> 
+				                    					<%-- <span class="qnaContent" style="display:none;"><c:out value="${qna}" escapeXml="false"/></span> --%> 
 		                    						</c:otherwise>
 		                    					</c:choose>
 	                            			</c:if>
@@ -1179,16 +1180,16 @@
                     <br>
                     <h3>게시물 이용안내</h3>
                     <p class="storeWriteWarning">
-                        최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는
+                        최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는
                         점을
                         유의하여 주시기 바랍니다.
                     </p>
                     
                     <p class="storeWriteNotice">
                         1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다.
-                        <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                        <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                         <br>3.3. 제품 관련 문의 및 기타 문의는 'Q&A탭'을 통해 정확한 답변을 받을 수 있습니다.
-                        <br>4.4. 서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
+                        <br>4.4. 소비자님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.
                         <br>5.5. 상품 품질에 대한 고객님의 솔직한 리뷰를 남겨주세요.
                     </p>
                 </div>
@@ -1366,14 +1367,14 @@
                         <p class="cbp">비공개</p>
                         
                         <p class="qnaWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">Q&A 작성 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
                             <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
                         </p>
@@ -1414,14 +1415,14 @@
                         <p class="cbp">비공개</p>
                         
                         <p class="qnaWriteWarning">
-                            최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
+                            최근 판매자 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을
                             유의하여 주시기 바랍니다.
                         </p>
 
                         <h4 class="bold">Q&A 작성 유의사항</h4>
                         <p class="commuWriteNotice">
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
-                            <br>2.2. 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
+                            <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
                             <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
                         </p>

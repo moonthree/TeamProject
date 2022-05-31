@@ -13,6 +13,7 @@ import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewLikeVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -51,6 +52,7 @@ public interface StoreService {
 	// 스토어 리뷰 삭제
 	public void storeReviewDelete(StoreReviewVO vo);
 	// 스토어 리뷰 관리자 삭제
+	public void storeReviewLikeAdminDelete(StoreReviewLikeVO vo);
 	public void storeReviewAdminDelete(StoreReviewVO vo);
 	//찜 select
 	public ZzimVO selectZzimStore(Map<String, Integer> zzimMap);
