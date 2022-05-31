@@ -2,7 +2,9 @@ package com.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,10 +43,25 @@ public class MessageController {
 		model.addAttribute("member", member);
 		
 		//공지
-//		MessageNoticeVO noticeVO = messageService.message_notice(login.getMember_idx());
-//		noticeVO.setMessage_photo(//펀딩이나 스토어 idx에서 가져온 photo);
-//		model.addAttribute("notice",noticeVO);
-//		
+		List<MessageNoticeVO> notices = new ArrayList<MessageNoticeVO>();
+		List<MessageNoticeVO> notice_timeline = messageService.notice_timeline(login.getMember_idx());
+		for(int i=0 ; i<notice_timeline.size() ; i++) {
+			//이걸 파라미터로 funding과 store을 구분해서 넣어줘야함
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("to_member_idx", login.getMember_idx());
+			param.put("message_notice_idx",notice_timeline.get(i).getMessage_notice_idx());
+			System.out.println("getF_or_s : "+notice_timeline.get(i).getF_or_s());
+			if(notice_timeline.get(i).getF_or_s()=="f") {
+				param.put("f_or_s",0);
+			}else{
+				param.put("f_or_s",1);
+			}
+			
+			notices.add(messageService.message_notice(param));
+		}
+		
+		model.addAttribute("notice",notices);
+		
 		//쪽지 - 최신의 메세지를 가져오기 group by from_member_idx
 		model.addAttribute("dialogue",messageService.message_dialogue(login.getMember_idx()));
 		

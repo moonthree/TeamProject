@@ -19,8 +19,8 @@ public interface MessageService {
 	void insertLog(Map<String,Object> paramMap); //message 로그남김
 	
 	//공지 불러오기
-	List<MessageNoticeVO> message_notice(int to_member_idx);
-	
+	List<MessageNoticeVO> notice_timeline(int to_member_idx);
+	MessageNoticeVO message_notice(Map<String, Object> param);
 	
 	//쪽지 불러오기 - from_member_idx마다 단 한개씩
 	List<MessageVO> message_dialogue(int to_member_idx);

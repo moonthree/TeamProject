@@ -93,22 +93,48 @@ $(document).ready (function () {
               <div class="tab-content" >
                 <div class="tab-pane fade show active" id="notice">
                 	<table class="table" style="border: none">
-						 <c:if test="${permitFunding.size()>0}">
-							<c:forEach var="item" items="${permitFunding}">
-							<!-- 보낸사람 & 시각  -->
+						 <c:if test="${notice.size()>0}">
+							<c:forEach var="item" items="${notice}">
+							<!-- 펀딩과 스토어를 나눔  -->
+							<c:if test="${ item.f_or_s eq 0 }">
+								<!-- 보낸사람 & 시각  -->
 							    <tr>
 							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
-							    	<th style="text-align:right;">보낸시각</th>
+							    	<th style="text-align:right;">
+							    		<fmt:parseDate var="time" value="${item.message_notice_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " />
+							    	</th>
 							    </tr>
-							<!-- 메세지 내용 -->
+								<!-- 메세지 내용 -->
 							    <tr onclick="location.href='../funding/view.do?funding_idx=${item.funding_idx}'" style="cursor:pointer;">
 							      	<th>
 								      	<div class="img-container">
 				                        	<img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top card_img" alt="funding_img">
 				                        </div>
 			                        </th>
-			                        <th>${ item.funding_title } 이 펀딩목록에 올라갔습니다! 지금 확인해보세요</th>
+			                        <th>${ item.message_content }</th>
+							    </tr>	
+							</c:if>
+							<c:if test="${ item.f_or_s eq 1 }">
+								<!-- 보낸사람 & 시각  -->
+							    <tr>
+							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자</th>
+							    	<th style="text-align:right;">
+							    		<fmt:parseDate var="time" value="${item.message_notice_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
+				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " />
+							    	</th>
 							    </tr>
+								<!-- 메세지 내용 -->
+							    <tr onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}'" style="cursor:pointer;">
+							      	<th>
+								      	<div class="img-container">
+				                        	<img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top card_img" alt="funding_img">
+				                        </div>
+			                        </th>
+			                        <th>${ item.message_content }</th>
+							    </tr>	
+							</c:if>
+							
 						  	</c:forEach>
 						</c:if>
 					</table>
