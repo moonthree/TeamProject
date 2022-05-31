@@ -12,7 +12,7 @@ public class MessageNoticeVO {
 	private int to_member_idx;
 	private int funding_idx;
 	private int store_idx;
-	private String f_or_s;
+	private int f_or_s;
 	private String message_content;
 	private String message_notice_date;
 	
@@ -65,10 +65,10 @@ public class MessageNoticeVO {
 	public void setStore_idx(int store_idx) {
 		this.store_idx = store_idx;
 	}
-	public String getF_or_s() {
+	public int getF_or_s() {
 		return f_or_s;
 	}
-	public void setF_or_s(String f_or_s) {
+	public void setF_or_s(int f_or_s) {
 		this.f_or_s = f_or_s;
 	}
 	public int getFrom_member_idx() {

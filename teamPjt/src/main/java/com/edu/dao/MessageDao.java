@@ -121,30 +121,29 @@ public class MessageDao {
 	
 	//스케쥴러
 	//소비자에게 펀딩 성공 공지 로그
-	public void FundingSuccess() {
-		//System.out.println("펀딩 성공 공지");
-		//1. 조건에 해당하는 펀딩 idx가져오기
-		List<FundingMainVO> fmv = sqlSession.selectList("MessageMapper.messageFundingList");
+//	public void FundingSuccess() {
+//		//System.out.println("펀딩 성공 공지");
+//		//조건에 해당하는 펀딩 idx가져오기
+//		List<FundingMainVO> fmv = sqlSession.selectList("MessageMapper.messageFundingList");
+//		
+//		for(int i=0 ; i<fmv.size() ; i++) {
+//			Map<String, Object> param = new HashMap<String, Object>();
+//			param.put("from_member_idx",fmv.get(i).getFrom_member_idx());
+//			param.put("to_member_idx",fmv.get(i).getTo_member_idx());
+//			param.put("funding_idx",fmv.get(i).getFunding_idx());
+//			param.put("message_content", "<span style=\"color:#fa6463\" >"+fmv.get(i).getFunding_title()+"</span> 펀딩이 100%를 달성했습니다.");
+//			param.put("f_or_s",0);
+//			//같은 행 있는지 카운트 부터 하고 없으면 넣기로..
+//			int sameRow = sqlSession.selectOne("MessageMapper.messageNoticeSameRow",param);
+//			//System.out.println("sameRow? : "+sameRow);
+//			if(sameRow == 0) { //같은 행이 없는 경우 로그를 넣는 작업
+//				sqlSession.insert("MessageMapper.insertLog",param);
+//			}else {
+//				//System.out.println("같은 행 존재");
+//			}
+//			
+//		}
 		
-		for(int i=0 ; i<fmv.size() ; i++) {
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("from_member_idx",fmv.get(i).getFrom_member_idx());
-			param.put("to_member_idx",fmv.get(i).getTo_member_idx());
-			param.put("funding_idx",fmv.get(i).getFunding_idx());
-			param.put("message_content", "<span style=\"color:#fa6463\" >"+fmv.get(i).getFunding_title()+"</span> 펀딩이 100%를 달성했습니다.");
-			param.put("f_or_s",0);
-			//같은 행 있는지 카운트 부터 하고 없으면 넣기로..
-			int sameRow = sqlSession.selectOne("MessageMapper.messageNoticeSameRow",param);
-			//System.out.println("sameRow? : "+sameRow);
-			if(sameRow == 0) { //같은 행이 없는 경우 로그를 넣는 작업
-				sqlSession.insert("MessageMapper.insertLog",param);
-			}else {
-				//System.out.println("같은 행 존재");
-			}
-			
-			
-		}
-		
-	}
+//	}
 
 }

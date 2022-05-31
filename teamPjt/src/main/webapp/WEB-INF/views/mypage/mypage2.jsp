@@ -165,6 +165,7 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 </head>
 <body>
 <c:import url="/header.do"></c:import>
+<c:import url="/message.do"></c:import>
 
 <main>
 	<div class="container">
