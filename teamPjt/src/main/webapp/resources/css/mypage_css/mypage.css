@@ -132,7 +132,7 @@ main {
     position: absolute;
     left: 0;
     opacity: .9;
-    background-image: linear-gradient(263deg,#e1e7ee 100%,#00b2b2 0);
+    background-image: linear-gradient(263deg,#e1e7ee 100%,#ffffff 0);
     width: 100%;
     height: 220px;
 	
