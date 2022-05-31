@@ -44,6 +44,15 @@
         border: none; 
     }
     @media screen and (max-width: 991.5px) { #outer { display: none; } }
+    
+   .card-title{
+   	display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    text-overflow: ellipsis; 
+	overflow: hidden;
+   } 
+
 </style>
 <title>내 정보</title>
 </head>

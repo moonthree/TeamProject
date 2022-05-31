@@ -90,16 +90,15 @@
 <body>
 <%-- <%@include file ="../header.jsp" %> --%>
 <c:import url="/header.do"></c:import>
-<c:import url="/message.do"></c:import>
+
 
 
 <main>
 	<div class="container">
 	  
 		<div style="text-align:center;">
-			 <span style="font-weight: 600; font-size: 24px; font-family: TmonMonsori;">관리자 Page 입니다. </span>
+			 <span style="font-weight: 600; font-size: 30px; font-family: TmonMonsori;">관리자 Page 입니다. </span>
 				<span style="font-family: TmonMonsori;" >${member.member_name}님의 <span style="color: red;">소비자</span> 정보 page 입니다.</span>
-
 		</div>
 		
 		

@@ -214,7 +214,8 @@
 	            <c:choose>
             	<c:when test="${flag eq 0 }">
 		            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-		                <iframe class="iframe" src="../resources/upload/store/${file_name}#toolbar=0" style="width:100%; height:150vh;"></iframe>
+		                <%-- <iframe class="iframe" src="../resources/upload/store/${file_name}#toolbar=0" style="width:100%; height:150vh;"></iframe> --%>
+		           		 <img src="../resources/upload/store/${file_name}" class="mainIMG" alt="...">
 		            </div>
 		            <!--공지-->
 		            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
@@ -223,7 +224,8 @@
 	            </c:when>
 	            <c:otherwise>
 	            <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">
-	                <iframe class="iframe" src="../resources/upload/store/${store.store_content}#toolbar=0" style="width:100%; height:150vh;"></iframe>
+	                <%-- <iframe class="iframe" src="../resources/upload/store/${store.store_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> --%>
+	           			<img src="../resources/upload/store/${store.store_content}" class="mainIMG" alt="...">
 	            </div>
 	            <!--공지-->
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
