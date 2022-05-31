@@ -139,7 +139,7 @@ public class MemberController {
 		
 		vo.setMember_phone(phone);
 		
-		// 소비자 계정 회원가입 이므로  DB의 member_level칼럼을 1로 지정
+		// 판매자 계정 회원가입 이므로  DB의 member_level칼럼을 1로 지정
 		
 		vo.setMember_level(1);
 		
@@ -226,5 +226,6 @@ public class MemberController {
 	public String find() {
 		return "member/emailpw_find";
 	}
+	
 
 }

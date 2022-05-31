@@ -51,8 +51,8 @@
 	</select>
 	
 	<!-- 비밀번호 찾기 MypageController2 (필요없음, 나중에 삭제할것)-->
-	<select id="findPw" resultType="String">
-		SELECT member_password
+	<select id="findPw" resultType="java.util.HashMap">
+		SELECT member_password, member_state
 		FROM   member
 	    WHERE  member_name = #{member_name}
 	   	AND    member_phone = #{member_phone}

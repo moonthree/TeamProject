@@ -43,7 +43,7 @@ public class MypageDao {
 		return sqlSession.selectOne("MypageMapper.findId", vo);
 	}
 	
-	public String findPw(ChangePwVO vo) {
+	public HashMap<String, Object> findPw(ChangePwVO vo) {
 		return sqlSession.selectOne("MypageMapper.findPw", vo);
 	}
 	

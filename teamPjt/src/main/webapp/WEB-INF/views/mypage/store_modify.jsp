@@ -20,6 +20,15 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/funding_register.css">
  
 </head>
+<script type="text/javascript">
+function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      //object.maxLength : 매게변수 오브젝트의 maxlength 속성 값입니다.
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }
+
+</script>
 <body>
 
     <c:import url="/header.do"></c:import>
@@ -78,9 +87,9 @@
                         <tr>
                         <!-- 펀딩 옵션  name 맞춤-->
                             <td><input name="store_option_name" type="text" class="text"  style="width:100%;" placeholder="옵션명"  value="${item.store_option_name}" disabled="disabled"/></td>
-                            <td><input name="store_option_price" type="number" min="0" class="text"  style="width:100%;"  placeholder="금액" value="${item.store_option_price}" disabled="disabled"/></td>
+                            <td><input name="store_option_price" type="number"  max="1000000000" class="text"  style="width:100%;"  placeholder="금액" value="${item.store_option_price}" disabled="disabled"/></td>
                             <td><input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" value="${item.store_option_detail}" disabled="disabled"/></td>
-                            <td><input name="store_option_stock" type="text" class="text"  style="width:100%;" placeholder="현재 수량" value="${item.store_option_stock}" disabled="disabled"/></td>
+                            <td><input name="store_option_stock" type="number" max="10000" class="text"  style="width:100%;" placeholder="현재 수량" value="${item.store_option_stock}" disabled="disabled"/></td>
                            	<td align="center"><button type="button" class="btn btn-info"  onclick ="PlusFn(this)">추가</button>
                         </tr> 
                         	</c:forEach>
@@ -107,7 +116,7 @@
 		Iam.css('visibility','hidden');
 	    var box = $(obj).parent();
 	    var newP = document.createElement('p');
-	    newP.innerHTML = "<input type='number' min='0' max='999' class='temp' name='store_option_plus'> <input type='button' value='취소' class='temp' onclick='remove(this)'>";
+	    newP.innerHTML = "<input type='number' min='1' max='9999' class='temp' maxlength='4' oninput='maxLengthCheck(this)' name='store_option_plus'> <input type='button' value='취소' class='temp' onclick='remove(this)'>";
 	    box.append(newP);
 	}
 	function remove(obj){
@@ -127,7 +136,7 @@ function checkFn() {
 	var length = plus.length;
 	var plusArr = new Array(0,0,0,0,0);
 	
-	for(var j =0; j<table_tr.length; j++){
+	for(var j = 0; j<table_tr.length; j++){
 		
 		
 		var p = table_tr.eq(j).children().eq(4).children("p");

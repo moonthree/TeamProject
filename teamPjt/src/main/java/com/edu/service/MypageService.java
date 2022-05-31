@@ -36,7 +36,7 @@ public interface MypageService {
 	String findId(MemberVO vo);
 	
 	//비밀번호 찾기
-	String findPw(ChangePwVO vo);
+	HashMap<String,Object> findPw(ChangePwVO vo);
 	
 	//비밀번호 변경
 	int changePw(ChangePwVO vo);	

@@ -29,6 +29,14 @@
         $(this).toggleClass("chip--active");
     });
 });
+    
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+          //object.maxLength : 매게변수 오브젝트의 maxlength 속성 값입니다.
+          object.value = object.value.slice(0, object.maxLength);
+        }    
+      }
+    
 </script>
 <body>
 
@@ -115,7 +123,7 @@
 			 <!-- 펀딩 옵션 필드 -->
             <div class="form-group">
                 <label>제품 옵션</label>
-                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다. (금액 최대 :1,000,000,000원, 수량 최대: 10000 )</div>
+                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다. (금액 최대 :999,999,999원, 수량 최대: 9999 )</div>
                 
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
@@ -128,11 +136,11 @@
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price" type="number" min="1" max="1000000000" maxlength="9" oninput="maxLengthCheck(this)"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" min="0" max="10000" name="funding_option_stock" style="width:100%;" placeholder="수량" />
+                                <input type="number" min="1" max="10000" name="funding_option_stock"  maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr>
@@ -152,11 +160,11 @@
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price" type="number" min="1" max="1000000000" maxlength="9" oninput="maxLengthCheck(this)" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="funding_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량" />
+                                <input type="number" class="text" name="funding_option_stock" min="1" max="10000" maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr id="addRow">
@@ -171,8 +179,8 @@
             </div>
             <div class="form-group">
                 <label>배송비</label>
-                <div class="input_description">배송비 추가 예정</div>
-                <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="배송 금액" min="0" style="width: calc(100% - 37px); display: inline;">
+                <div class="input_description">배송비 추가 예정 (최대 9,999원)</div>
+                <input name="funding_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송 금액" min="0" maxlength="4" oninput="maxLengthCheck(this)" max ="9999" style="width: calc(100% - 37px); display: inline;">
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
         </div>
@@ -279,10 +287,10 @@
 				
 				 if("" == $(form_control[i]).val() || null == $(form_control[i]).val()){
 
-					flag = false;
+						flag = false;
 					}  
 			}
-			if(flag ==false){
+			if(flag == false){
 				alert("입력하지 않은 양식이 존재합니다.");
 			}
 			

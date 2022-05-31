@@ -65,7 +65,7 @@ public class MypageServiceImp implements MypageService{
 
 	//비밀번호 찾기
 	@Override
-	public String findPw(ChangePwVO vo) {
+	public HashMap<String,Object> findPw(ChangePwVO vo) {
 		return mdao.findPw(vo);
 	}
 	
