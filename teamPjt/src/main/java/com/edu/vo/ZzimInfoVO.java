@@ -39,6 +39,37 @@ public class ZzimInfoVO {
 	private int store_express_fee;
 	private int store_views;
 	
+	//무한스크롤
+	private int startRowNumStore;
+	private int endRowNumStore;
+	private int rowCountStore;
+	private int totalRowStore;
+	
+	public int getStartRowNumStore() {
+		return startRowNumStore;
+	}
+	public void setStartRowNumStore(int startRowNumStore) {
+		this.startRowNumStore = startRowNumStore;
+	}
+	public int getEndRowNumStore() {
+		return endRowNumStore;
+	}
+	public void setEndRowNumStore(int endRowNumStore) {
+		this.endRowNumStore = endRowNumStore;
+	}
+	public int getRowCountStore() {
+		return rowCountStore;
+	}
+	public void setRowCountStore(int rowCountStore) {
+		this.rowCountStore = rowCountStore;
+	}
+	public int getTotalRowStore() {
+		return totalRowStore;
+	}
+	public void setTotalRowStore(int totalRowStore) {
+		this.totalRowStore = totalRowStore;
+	}
+	
 	public int getZzim_idx() {
 		return zzim_idx;
 	}

@@ -107,7 +107,7 @@
 	</select>
 	
 	
-	<!-- 스토어 검색 리스트 -->
+	<!-- 스토어 검색 리스트ssssssss -->
 	<select id="searchStoreList" parameterType="StoreVO" resultType="StoreVO">
 		SELECT 
 		    s.store_idx,
@@ -146,7 +146,7 @@
 				<otherwise>
 				</otherwise>
 			</choose>
-		WHERE s.store_title LIKE CONCAT('%${keyword}%')
+		WHERE s.store_title LIKE CONCAT('%${keyword}%') AND s.member_idx not in (7)
 		<choose>
 			<when test="sortNewStore != null">
 				order by store_idx desc limit #{startRowNumStore}, 8;
@@ -176,6 +176,7 @@
 		WHERE 1=1 
 		AND store_title LIKE CONCAT('%${keyword}%') 
 		AND store_permit_state = 1
+		AND member_idx not in (7)
 		<choose>
 			<when test="all != null">
 			</when>

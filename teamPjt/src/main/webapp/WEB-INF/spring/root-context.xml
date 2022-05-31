@@ -61,7 +61,7 @@
 		 
 		 
 		 <!-- MySQL dataSource -->
-		 <!-- 작업용 localhost 연결 -->
+ <!-- 작업용 localhost 연결 -->
      <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
@@ -85,7 +85,7 @@
 	</bean>
 	<!-- localhost 연결 끝 -->
 	
-	 <!-- 서버 연결 -->
+<!-- 서버 연결 -->
 	<!-- <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>

@@ -420,8 +420,11 @@ function notChange(){
                 <div class="order_detail_bottom">
                 	
                     <h5 id="change">
-                    	배송지 정보 
-                    	<button onclick="changeExpress(this)">변경</button>
+                    	배송지 정보
+                    	<c:if test="${detail.funding_order_pay_state eq 0 and detail.funding_current_state eq 0}">
+                    		<button onclick="changeExpress(this)">변경</button>	
+                    	</c:if>
+                    	
                    	</h5>
                     
                     <div class="odb_table_div">

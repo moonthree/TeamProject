@@ -96,7 +96,7 @@
           
 			<!-- 펀딩 기간 필드 -->
             <div class="form-group">
-                <label>펀딩 기간</label>&nbsp;<span class="ftime">*최소 15일 ~ 최대 6개월</span>
+                <label>펀딩 기간</label>&nbsp;<span class="ftime">*최소 15일 ~ 최대 2개월</span>
                 <br>
                 <!-- 펀딩 시작 기간 필드 -->
                 펀딩 오픈 :

@@ -44,27 +44,29 @@
 						on s.store_funding = 1 AND s.store_idx = sr.store_idx AND store_permit_state=1
 					</otherwise>
 				</choose>
+				WHERE member_idx not in (7)
 				order by sr.avg_star desc limit #{startRowNum}, 12;
 			</when>
 			<otherwise>
 					m.member_idx,
-					m.member_business_name
+					m.member_business_name,
+					m.member_level
 				FROM store s, member m
 				<choose>
 					<when test="fund != null">
-						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
 					</when>
 					<when test="dog != null">
-						where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1
+						where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
 					</when>
 					<when test="cat != null">
-						where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+						where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
 					</when>
 					<when test="other != null">
-						where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1
+						where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
 					</when>
 					<otherwise>
-						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
 					</otherwise>
 				</choose>
 				<choose>
@@ -94,19 +96,19 @@
 		FROM store
 		<choose>
 			<when test="fund != null">
-				where store_funding = 1 AND store_permit_state=1
+				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (7)
 			</when>
 			<when test="dog != null">
-				where store_category = 0 AND store_permit_state=1
+				where store_category = 0 AND store_permit_state=1 AND member_idx not in (7)
 			</when>
 			<when test="cat != null">
-				where store_category = 1 AND store_permit_state=1
+				where store_category = 1 AND store_permit_state=1 AND member_idx not in (7)
 			</when>
 			<when test="other != null">
-				where store_category = 2 AND store_permit_state=1
+				where store_category = 2 AND store_permit_state=1 AND member_idx not in (7)
 			</when>
 			<otherwise>
-				where store_funding = 1 AND store_permit_state=1
+				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (7)
 			</otherwise>
 		</choose>
 	</select>

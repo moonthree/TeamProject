@@ -17,7 +17,7 @@
 <title>수정페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="../resources/css/user_css/user.css">
 </head>
 <body>
 	
@@ -44,12 +44,27 @@
 	        height: 500
 	      });
     </script> 
-        <input type="submit" class="btn btn-primary" value="수정하기 ">
+        <!-- <input type="submit" class="btn btn-primary" value="수정하기 "> -->
+        
+        <div id="my_modal">
+            수정하시겠습니까?<br><br>
+            <input type="submit" class="btn btn-primary" value="네">
+            <!-- <a class="modal_close_btn"><input type="button" class="btn btn-primary" value="아니요"></a> -->
+            <a href="notice_view.do?board_idx=${vo.board_idx}"><input type="button" class="btn btn-primary" value="아니요"></a>
+            <a class="modal_close_btn" style="cursor:pointer;">X</a>
+        </div>
     </form>
+    <div class="float-md-right">
+			<button class="btn btn-primary" id="popup_open_btn">수정하기</button>
+		</div>
     </div>
     </section>
 			
+
+
+
 			
+		<script src="../resources/js/user/user.js"></script>
 			
 	
 </body>

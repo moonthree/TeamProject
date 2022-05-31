@@ -51,7 +51,7 @@ public class MessageController {
 			param.put("to_member_idx", login.getMember_idx());
 			param.put("message_notice_idx",notice_timeline.get(i).getMessage_notice_idx());
 			System.out.println("getF_or_s : "+notice_timeline.get(i).getF_or_s());
-			if(notice_timeline.get(i).getF_or_s()=="f") {
+			if(notice_timeline.get(i).getF_or_s()==0) {
 				param.put("f_or_s",0);
 			}else{
 				param.put("f_or_s",1);

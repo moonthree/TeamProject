@@ -358,9 +358,7 @@ public class MypageController {
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
-		
-		System.out.println("콘트롤러로 가져온 FUNDING_ORDER_IDX : "+funding_order_idx);
-		
+				
 		//funding_idx와 member_idx를 통한 funding_MainVO와 funding_orderVO가져오기
 		//위의 방식을 고쳐 funding_order_idx만으로 funding_orderVO를 가져올것이다
 		model.addAttribute("detail", mypageService.fundingDetail(funding_order_idx));
@@ -391,7 +389,6 @@ public class MypageController {
 		int member_idx = member.getMember_idx();
 		System.out.println("member_idx :" + member_idx);
 		System.out.println("store_idx : " + store_idx);
-		System.out.println("콘트롤러로 가져온 store_ORDER_IDX : "+store_order_idx);
 		
 		//store_order_idx로 store_orderVO를 가져오기
 		model.addAttribute("detail", mypageService.storeDetail(store_order_idx));
@@ -435,8 +432,11 @@ public class MypageController {
 			ZzimInfoVO mzl2 = mypageService.myZzimList2(param);
 			allZzimInfo.add(mzl2);
 		}
+		//찜 리스트 가져오기
 		model.addAttribute("myZzimList",allZzimInfo);
-		
+		//찜 개수 카운트
+		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
+
 		return "mypage/info_zzim";
 	}
 
