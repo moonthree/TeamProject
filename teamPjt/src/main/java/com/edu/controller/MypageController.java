@@ -153,8 +153,10 @@ public class MypageController {
 	         ,String funding_option_name, int []funding_option_price, String funding_option_detail, 
 	         int []funding_option_stock) throws IOException {
 	      
-	         String []strName = funding_option_name.split(",");
-	         String []strDetail = funding_option_detail.split(",");
+		   	System.out.println(funding_option_detail);
+		   
+	         String []strName = request.getParameterValues("funding_option_name");
+	         String []strDetail = request.getParameterValues("funding_option_detail");
 	      
 	         List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
 	      
@@ -224,7 +226,7 @@ public class MypageController {
 	         if(listresult > 0) {
 	            pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
 	         }
-	         //pw.println("<script>alert('상품 등록 성공');location.href='" + request.getContextPath() + "'" + "</script>");
+	      
 	      } else {
 	         pw.println("<script>alert('상품 등록 실패');location.href='" + request.getContextPath() + "/mypage/mypage.do'" + "</script>");
 	      }
@@ -291,8 +293,10 @@ public class MypageController {
 		  model.addAttribute("org_NoticeName",org_NoticeName);
 		  
 		
-		String []strName = funding_option_name.split(",");
-		String []strDetail = funding_option_detail.split(",");
+		String []strName = request.getParameterValues("funding_option_name");
+		String []strDetail = request.getParameterValues("funding_option_detail");
+		
+		
 		
 		List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
 		

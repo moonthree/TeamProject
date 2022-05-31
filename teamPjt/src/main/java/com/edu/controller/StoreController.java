@@ -532,9 +532,14 @@ public class StoreController {
 
 		   if(funding_idx == 0 ) {
 			   		System.out.println("기본 스토어  신청");
-			   	String []strName = store_option_name.split(",");
-		        String []strDetail = store_option_detail.split(",");
+					/*
+					 * String []strName = store_option_name.split(","); String []strDetail =
+					 * store_option_detail.split(",");
+					 */
 		      
+			   	 String []strName = request.getParameterValues("store_option_name");
+		         String []strDetail = request.getParameterValues("store_option_detail");
+			   		
 		         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
 		      
 		         String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
@@ -622,8 +627,13 @@ public class StoreController {
 		   }else {
 			   System.out.println("펀딩 성공후  스토어 신청");
 			   
-			   String []strName = store_option_name.split(",");
-		       String []strDetail = store_option_detail.split(",");
+				/*
+				 * String []strName = store_option_name.split(","); String []strDetail =
+				 * store_option_detail.split(",");
+				 */
+			   
+			   	 String []strName = request.getParameterValues("store_option_name");
+		         String []strDetail = request.getParameterValues("store_option_detail");
 		      
 		         List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
 		      
@@ -758,8 +768,8 @@ public class StoreController {
 			  model.addAttribute("org_NoticeName",org_NoticeName);
 			  model.addAttribute("login",mvo);
 			
-			String []strName = store_option_name.split(",");
-			String []strDetail = store_option_detail.split(",");
+			  String []strName = request.getParameterValues("store_option_name");
+		     String []strDetail = request.getParameterValues("store_option_detail");
 			
 			List<StoreOptionVO> optionVo = new ArrayList<StoreOptionVO>();
 			

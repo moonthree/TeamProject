@@ -57,6 +57,7 @@
                 <label>펀딩 목표 금액</label>
                 <div class="input_description">최소 __만 원 ~ 최대 __ 원으로 설정하세요.</div>
                 <input name="funding_target_price"  type="number" class="form-control" id="fTargetPrice" placeholder="목표 금액 입력" min="0" style="width: calc(100% - 37px); display: inline;">
+               
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
             <!-- 펀딩 썸네일 필드 (사진의 제목이 들어갈 것 같다.) -->
@@ -121,13 +122,13 @@
                         <tr style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" />
+                                <input name="funding_option_name" type="text" class="text" style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text" name="name2" style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
@@ -137,7 +138,7 @@
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="funding_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" />
+                                <input name="funding_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </table>
@@ -145,13 +146,13 @@
                         <tr id="addRow" style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="funding_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" />
+                                <input name="funding_option_name" type="text" class="text"  style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text" name="name2" style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
@@ -161,7 +162,7 @@
                         <tr id="addRow">
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="funding_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" />
+                                <input name="funding_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </textarea>
@@ -182,7 +183,7 @@
             <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
             <div class="form-group">
                 <label>프로젝트 계획</label>
-                <div class="input_description">PDF 파일로 등록하세요.</div>
+                <div class="input_description">jpg파일,png파일로 (사진 파일) 등록하세요.</div>
                 <div class="form-inline">
                 	<div class="filebox" style="width: 100%;">
                         <input name="funding_Detail_temp" type="file" class="form-control" id="funding_Detail_temp">

@@ -119,7 +119,8 @@
         <div class="tab-content" id="myTabContent">
             <!--프로젝트-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
-            	<iframe class="iframe" src="../resources/upload/funding/${org_DetailName}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
+            	<%-- <iframe class="iframe" src="../resources/upload/funding/${org_DetailName}#toolbar=0" style="width:100%; height:150vh;"></iframe>  --%>
+            	 <img src="../resources/upload/funding/${org_DetailName}" class="mainIMG" alt="...">
             </div>
             <!--공지-->
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">

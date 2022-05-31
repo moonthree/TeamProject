@@ -117,7 +117,8 @@
             	<c:when test="${flag eq 0 }">
             
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
-            	 <iframe class="iframe" src="../resources/upload/funding/${file_name}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
+            	 <%-- <iframe class="iframe" src="../resources/upload/funding/${file_name}#toolbar=0" style="width:100%; height:150vh;"></iframe>  --%>
+            	  <img src="../resources/upload/funding/${file_name}" class="mainIMG" alt="...">
             </div>
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
                <img src="../resources/upload/funding/${funding.funding_notice}" class="mainIMG" alt="...">
@@ -126,7 +127,8 @@
             <c:otherwise>
             <!--공지-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
-            	 <iframe class="iframe" src="../resources/upload/funding/${funding.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe> 
+            	 <%-- <iframe class="iframe" src="../resources/upload/funding/${funding.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe>  --%>
+            	 <img src="../resources/upload/funding/${funding.funding_content}" class="mainIMG" alt="...">
             </div>
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
                <img src="../resources/upload/funding/${file_name}" class="mainIMG" alt="...">

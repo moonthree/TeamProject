@@ -89,7 +89,7 @@
 <main>
 	<div class="container">
 		<div style="text-align:center;">
-			 <span style="font-weight: 600; font-size: 24px; font-family:TmonMonsori; ">관리자 Page 입니다. </span>
+			 <span style="font-weight: 600; font-size: 30px; font-family:TmonMonsori; ">관리자 Page 입니다. </span>
 				<span style="font-family: TmonMonsori;" >${member.member_name}님의 <span style="color: blue;">판매자</span> 정보 page 입니다.</span>
 		</div>
 		
@@ -284,10 +284,10 @@
                             <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
                             <p class="card-text" >
                               <div class="row">
-                                <div class="col">${ item.store_content }</div>
+                                <div class="col"><span style="font-family: TmonMonsori;">등록 날짜 : ${item.store_write_date }</span></div>
                               </div>                             
                               <div class="row" >
-                                <div class="col">
+                                <div class="col" align="right">
                                  
                                  	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 									 <button type="button" class="button-6" onclick="location.href='<%= request.getContextPath()%>/mypage/store_admin.do?store_idx=${item.store_idx}'">주문 내역 보기</button>
@@ -312,9 +312,6 @@
                 </div>
             </div>
        
-        
-<!--메세지 모탈 팝업 버튼 -->
-    <div id="messageModal" data-toggle="modal" data-target="#sidebar-right"><img src="../resources/image/message/message.png" width="70px"/></div>     
 </main>
 
 <c:import url="/footer.do"></c:import>

@@ -175,6 +175,11 @@
 				var pmath  = phne[z].value;
 				if(pmath.match(phonecc) == null){
 					phoneCheck = false;
+				}else{
+					if(Number(pmath) > 9999){
+						phoneCheck = false;
+					}
+					
 				}
 				
 			}
@@ -440,7 +445,7 @@
 								* 결제 취소 : 서포터가 프로젝트 종료 후 리워드의 발송 또는 제공 전까지 회사가 정한 특별한 사유가 있는 경우에 한하여 카드결제 등의 결제 취소를 요청함으로써 펀딩의 의사표시를 철회하는 것을 말합니다.<br>
 								* 펀딩금 : 프로젝트 종료 시점에 모집된 결제예약금 중 결제 기간(프로젝트 종료일로부터 4영업일) 종료 시 결제절차가 완료된 금원을 의미합니다<br>
 								<hr>
-								<div style="text-align: center;">
+								<div style="text-align: right ;">
 							    <a class="modal_close_btn">확인</a>
 							    </div>
 							</div>
@@ -539,7 +544,7 @@
 								
 								·선택 동의를 거부해도 펀딩 서비스(투자, 스타트업찾기 제외) 이용이 가능합니다.
 								<hr>
-								<div style="text-align: center">
+								<div style="text-align: right;">
 							    <a class="modal_close_btn">확인</a>
 							    </div>							   
 							</div>

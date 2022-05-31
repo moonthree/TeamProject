@@ -88,18 +88,6 @@
 
 <main>
 	<div class="container">
-		<div style="text-align:center;">
-			<table style="border:1px solid black; text-align : center; font-size : 20px;">
-				<thead>		
-					<tr>
-						<td style="width:20%"><a href="mypage2.do">마이페이지2</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/approval.do">상품 승인 페이지(관리자)</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리 페이지(관리자)</a></td>
-						<td style="width:20%"><a href="<%=request.getContextPath()%>/admin/management_member.do?check=3">회원 관리 페이지(관리자)</a></td>
-					</tr>
-				</thead>
-			</table>
-		</div>
 		<div class="mypage_background"></div>
             <div class="row">
             	<div class="col-md-12 mypage_header">

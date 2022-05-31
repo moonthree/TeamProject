@@ -147,9 +147,7 @@
                     <li class="nav-item">
                         <a class="navtext a_slide" href="<%=request.getContextPath()%>/event/event_main.do">기획전</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="navtext a_slide" href="<%=request.getContextPath()%>/mypage/mypage.do">1</a>
-                    </li>
+
                    
                     <li class="nav-item dropdown">
                        <div class="more">
