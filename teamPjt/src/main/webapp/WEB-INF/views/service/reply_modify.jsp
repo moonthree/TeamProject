@@ -19,8 +19,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>댓글 수정</h2>
+	
 	<div class="container">
+	<br><h3 style="display:inline;">댓글 수정</h3><br><br>
 	<div class="outer">
 		 <form action="reply_modify.do" method="post">
    <%--  <input type="hidden" name="sboard_idx" value="${vo.sboard_idx}">

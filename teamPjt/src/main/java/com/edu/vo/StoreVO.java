@@ -28,6 +28,7 @@ public class StoreVO {
 	private String member_business_num;
 	private String member_email;
 	private String member_name;
+	private String member_level;
 	
 	
 	private int funding_current_price;
@@ -395,6 +396,12 @@ public class StoreVO {
 	}
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
+	}
+	public String getMember_level() {
+		return member_level;
+	}
+	public void setMember_level(String member_level) {
+		this.member_level = member_level;
 	}
 	
 	
