@@ -82,7 +82,7 @@
 	
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> 
+	</bean>
 	<!-- localhost 연결 끝 -->
 	
 <!-- 서버 연결 -->

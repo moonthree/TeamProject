@@ -197,7 +197,7 @@
             <!-- 펀딩 프로젝트 상품 상세 pdf 필드 (pdf의 파일 이름이 들어갈 예정) -->
             <div class="form-group">
                 <label>프로젝트 계획</label>
-                <div class="input_description">jpg파일,png파일로 (사진 파일) 등록하세요.</div>
+                <div class="input_description">jpg파일, png파일로 (사진 파일) 등록하세요.</div>
                 <div class="form-inline">
                 	<div class="filebox" style="width: 100%;">
                         <input name="funding_Detail_temp" type="file" accept=".jpg, .png" class="form-control" id="funding_Detail_temp">
