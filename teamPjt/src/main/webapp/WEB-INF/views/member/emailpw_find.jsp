@@ -114,25 +114,50 @@ $(document).on('click','#findId',function(){
 
 //비밀번호 찾기
 $(document).on('click','#findPw',function(){
-
-	console.log("비밀번호 찾기");
+	var flag = true;
+    console.log("비밀번호 찾기");
 	console.log("이메일 : "+$("#emailInput2").val());
 	console.log("이름 : "+$("#nameInput2").val());
 	console.log("번호 : "+$("#telInput2").val());
 	
+	var e = $("#emailInput2").val();
+	var nameI = $("#nameInput2").val();
+	var tellI = $("#telInput2").val();
+	
+	if(e == null || e == "" || e == " "){
+		flag = false;
+	}
+	if (nameI == null || nameI == "" || nameI == " "){
+		flag = false;
+	}
+	if(tellI == null || tellI == "" || tellI == " "){
+		flag = false;
+	}
+	
+	
+	if(flag == false ){
+		alert('비밀번호 찾기의 양식을 모두 입력해주세요');
+	}
+	else{
 	
 	$.ajax({
 		url : "findPw.do",
 		type : "post",
 		data : {"member_email":$("#emailInput2").val(),"member_name":$("#nameInput2").val(),"member_phone":$("#telInput2").val()},
         success:function(data){
-        	$("#pwModal").modal("toggle");
-        	console.log(data);
+        	if(data == 'kakaoEamil'){
+        		
+        		alert('카카오 계정은 비밀번호 찾기를 할 수 없습니다. 카카오 계정을 확인해주세요');
+        	}
+        	else{
+        		$("#pwModal").modal("toggle");
+        	}
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
         	alert('입력하신 정보가 올바르지 않습니다');
         }
 	});
+	}
 });
 
 </script>

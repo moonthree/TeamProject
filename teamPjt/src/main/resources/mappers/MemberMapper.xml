@@ -22,6 +22,9 @@
 		   	,member_business_num
 		   	,member_business_name
 		   </if>
+		   <if test="member_password == null">
+		   ,member_state 
+		   </if>
 		   
 		)
 		VALUES(
@@ -39,6 +42,9 @@
 			 <if test="member_level == 1">
 			   	,#{member_business_num}
 			   	,#{member_business_name}
+		   </if>
+		   <if test="member_password == null">
+		  	 ,'K' 
 		   </if>
 		)
 	</insert>

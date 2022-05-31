@@ -153,7 +153,7 @@ public class MypageController {
 	         ,String funding_option_name, int []funding_option_price, String funding_option_detail, 
 	         int []funding_option_stock) throws IOException {
 	      
-		   	System.out.println(funding_option_detail);
+		   
 		   
 	         String []strName = request.getParameterValues("funding_option_name");
 	         String []strDetail = request.getParameterValues("funding_option_detail");
@@ -296,7 +296,7 @@ public class MypageController {
 		String []strName = request.getParameterValues("funding_option_name");
 		String []strDetail = request.getParameterValues("funding_option_detail");
 		
-		
+	
 		
 		List<Funding_optionVO> optionVo = new ArrayList<Funding_optionVO>();
 		

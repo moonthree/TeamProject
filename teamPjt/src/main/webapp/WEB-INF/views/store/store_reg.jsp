@@ -29,6 +29,14 @@
         $(this).toggleClass("chip--active");
     });
 });
+    
+    function maxLengthCheck(object){
+        if (object.value.length > object.maxLength){
+          //object.maxLength : 매게변수 오브젝트의 maxlength 속성 값입니다.
+          object.value = object.value.slice(0, object.maxLength);
+        }    
+      }
+    
 </script>
 <body>
 
@@ -129,7 +137,7 @@
 			 <!-- 펀딩 옵션 필드 -->
             <div class="form-group">
                 <label>제품 옵션</label>
-                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.(금액 최대 :1,000,000,000원, 수량 최대: 10000 )</div>
+                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.(금액 최대 : 999,999,999원, 수량 최대: 9,999 )</div>
                 
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
@@ -138,23 +146,23 @@
 
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" value="${item.funding_option_name}" />
+                                <input name="store_option_name" type="text" class="text" " style="width:100%;" placeholder="옵션명" value="${item.funding_option_name}" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액" value="${item.funding_option_price}"/>
+                                <input name="store_option_price" type="number" min="1" max="1000000000" class="text" style="width:100%;" maxlength="9" oninput="maxLengthCheck(this)"  placeholder="금액" value="${item.funding_option_price}"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="입력없을 시 자동으로 100개로 고정됩니다." value="100" />
+                                <input type="number" class="text" name="store_option_stock" min="1" max="10000" style="width:100%;" maxlength="4" oninput="maxLengthCheck(this)" placeholder="입력없을 시 자동으로 100개로 고정됩니다." value="100" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" value="${item.funding_option_detail}" />
+                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" value="${item.funding_option_detail}" />
                             </td>
                         </tr>
                         </c:forEach>
@@ -169,17 +177,17 @@
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액을 입력하세요."/>
+                                <input name="store_option_price" type="number" min="1" max="1000000000" class="text" maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액을 입력하세요."/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량을 입력하세요." />
+                                <input type="number" class="text" name="store_option_stock" min="1" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량을 입력하세요." />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세정보를 입력하세요." />
+                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세정보를 입력하세요." />
                             </td>
                         </tr>
                     </textarea>
@@ -188,9 +196,9 @@
             </div>
             <div class="form-group">
                 <label>배송비</label>
-                <div class="input_description">배송비 추가 예정</div>
+                <div class="input_description">배송비 추가 예정 (최대 9,999원)</div>
                 <!-- 배송비 -->
-                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송비를 입력하세요" min="0" style="width: calc(100% - 37px); display: inline;">
+                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송비를 입력하세요" min="0" max="9999" maxlength="4" oninput="maxLengthCheck(this)" style="width: calc(100% - 37px); display: inline;">
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
         </div>
@@ -301,7 +309,7 @@
 			 <!-- 펀딩 옵션 필드 -->
             <div class="form-group">
                 <label>제품 옵션</label>
-                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.(금액 최대 :1,000,000,000원, 수량 최대: 10000 )</div>
+                <div class="input_description">* 최대 5개까지의 옵션을 추가할 수 있습니다.(금액 최대 : 999,999,999원, 수량 최대: 9,999 )</div>
                 
                 <div id="div_main">
                     <table class="tablelist" id="Table" style='width:100%'>
@@ -309,23 +317,23 @@
 
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" />
+                                <input name="store_option_name" type="text" class="text" style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량"  />
+                                <input type="number" class="text" name="store_option_stock" min="0" max="10000"   maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량"  />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" />
+                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </table>
@@ -339,11 +347,11 @@
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000" style="width:100%;" placeholder="수량" />
+                                <input type="number" class="text" name="store_option_stock" min="0" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr id="addRow">
@@ -358,9 +366,9 @@
             </div>
             <div class="form-group">
                 <label>배송비</label>
-                <div class="input_description">배송비 추가 예정</div>
+                <div class="input_description">배송비 추가 예정 (최대 9,999원)</div>
                 <!-- 배송비 -->
-                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송비를 입력하세요." min="0" style="width: calc(100% - 37px); display: inline;">
+                <input name="store_express_fee"  type="number" class="form-control" id="fTargetPrice" placeholder="배송비를 입력하세요." max="9999" maxlength="4" oninput="maxLengthCheck(this)" min="0" style="width: calc(100% - 37px); display: inline;">
                 <span style="line-height: 20px; width: 37px; text-align: center; margin: 0px 7px auto;">원</span>
             </div>
         </div>

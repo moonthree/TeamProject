@@ -3,6 +3,7 @@ package com.edu.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -66,8 +67,27 @@ public class MypageController2 {
 		//1. 비밀번호 찾기에서 아이디, 이름, 폰번호 가져오기
 		String returnval = member_name + member_email + member_phone;
 		//1-2. mypageService에서 아이디, 이름, 폰 번호와 맞는 비밀번호 가져오기
-		String password = mypageService.findPw(vo);
+		HashMap<String, Object> check = mypageService.findPw(vo);
+		/*
+		 * System.out.println("비밀번호 : " +check.get("member_password"));
+		 * System.out.println("상태 : " +check.get("member_state"));
+		 */
+		String password = null;
+		String state = null;
+		
+		 password = (String) check.get("member_password");
+		 state = (String)check.get("member_state");
+		
+		if(state.equals("K")) {
+			System.out.println("카카오 계정임");
+			return "kakaoEamil";
+		}
+
 		System.out.println("찾아온 비밀번호 : "+password);
+		
+		
+		
+		
 		//1-3. controller단에서 비밀번호 랜덤으로 변경 후 changePw로 DB에 저장시킴
 		Random rnd =new Random();
 		StringBuffer buf =new StringBuffer();
@@ -104,6 +124,7 @@ public class MypageController2 {
         }
 		
 		return returnval;
+		
 	}
 	
 	//비밀번호 찾기 (이메일 전송 테스트)
