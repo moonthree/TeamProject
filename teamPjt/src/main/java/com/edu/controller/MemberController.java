@@ -167,10 +167,12 @@ public class MemberController {
 	
 		MemberVO member = memberService.selectOne(vo);
 		
+		//이미 중복 이메일이 있을경우
 		if(member != null) {
-			//카카오 회원으로 회원가입 이미 했을 경우 자동 로그인됨
-				
-				
+			
+			// 1. 그 이메일이 비밀번호가 null인가? 즉 이미 카카오 계정인 경우이므로 -> 바로 로그인 객체 등록해줌		
+			if(member.getMember_password() == null) {
+
 				HttpSession session = request.getSession(true);
 				
 				MemberVO login = new MemberVO();
@@ -179,11 +181,30 @@ public class MemberController {
 				login.setMember_password(member.getMember_password());
 				login.setMember_name(member.getMember_name());
 				
-				
+				/*여기 추가*/
+				login.setMember_addr(member.getMember_addr());
+				login.setMember_addr2(member.getMember_addr2());
+				login.setMember_level(member.getMember_level());
+				login.setMember_pet(member.getMember_pet());
+				login.setMember_phone(member.getMember_phone());
 				/*세션 등록 */
 				session.setAttribute("login", login);
 				
 				return "redirect:/.do";
+			}
+			//2. 그 이메일이 비밀번호가 null이 아니다?  즉 이미 카카오 계정과 같은 이메일로 자사 회원가입을 한 게 있으므로
+			//회원 가입 페이지로 이동하야한다. -- 해당 카카오 계정으로 쓰인 이메일은 사용할 수 없게 해야한다.
+			else {
+				
+				//model.addAttribute("kakaoVo", vo);
+				/*
+				 * request.setAttribute("msg",
+				 * "죄송하지만 해당 이메일 계정은 이미 다른 유저가 사용중입니다.\n 자사 회원가입 서비스를 이용해주세요.");
+				 * request.setAttribute("url","member/join_seller" );
+				 */
+				return "member/alert";
+			}
+			
 				
 		}else {
 				//카카오 회원으로 회원가입 한게 없을 경우

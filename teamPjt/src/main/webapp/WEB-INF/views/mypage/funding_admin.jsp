@@ -230,7 +230,14 @@
 	                            <td>
 	                            	<c:choose>
 	                            		<c:when test="${listMap.funding_express_state  eq 0}">
-	                            			<button onclick="fnSuccessEx(${listMap.funding_order_idx})" type="button" class="btn btn-info">배송</button>
+	                            			<c:choose>
+	                            				<c:when test="${login.member_level eq 2}">
+	                            					<span>배송 준비</span>
+	                            				</c:when>
+	                            				<c:otherwise>
+	                            					<button onclick="fnSuccessEx(${listMap.funding_order_idx})" type="button" class="btn btn-info">배송</button>
+	                            				</c:otherwise>
+	                            			</c:choose>
 	                            		</c:when>
 	                            		<c:when test="${listMap.funding_express_state  eq 1}">
 	                            			<span style="color: blue;">배송 완료</span>

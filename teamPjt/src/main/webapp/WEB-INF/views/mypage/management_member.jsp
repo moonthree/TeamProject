@@ -19,7 +19,22 @@
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/management_member.css">
 
+<script type="text/javascript">
+function FnMypage(idx) {
+	
+	console.log(idx);
+	var path = '<%=request.getContextPath()%>';
+	location.href= path+'/admin/mypage.do?member_idx='+idx;
+}
 
+function FnMypage_company(idx) {
+	console.log(idx);
+	var path = '<%=request.getContextPath()%>';
+	location.href= path+'/admin/mypage2.do?member_idx='+idx;
+}
+
+
+</script>
 </head>
 <body>
    <c:import url="/header.do"></c:import>
@@ -69,8 +84,8 @@
                         <tr>
                            <th>no.${status_sell.index+1}</th>
                             <th><span style="color:#106fc3;">${seller.member_idx}</span></th>
-                            <td class="tdtitle">${seller.member_name}</td>
-                            <td class="tdtitle">${seller.member_email}</td>
+                            <td class="tdtitle"><a href="javascript:void(0)" onclick="FnMypage(${seller.member_idx})">${seller.member_name}</a></td>
+                            <td class="tdtitle"><a href="javascript:void(0)" onclick="FnMypage(${seller.member_idx})">${seller.member_email}</a></td>
                             <td>회원</td>
                          <!--    <td>
                                  <button type="button" class="btn btn-outline-danger">추방</button>
@@ -118,17 +133,7 @@
                             <th class="tdtitle" scope="col" style="width : 15%">이름</th>
                             <th class="tdtitle" scope="col" style="width : 20%">이메일</th>
                              <th scope="col">상태
-                               <!--  <div class="dropdown stateDropdown">
-                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-expanded="false">
-                                        상태
-                                    </a>
-                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">전체</a>
-                                        <a class="dropdown-item" href="#">회원</a>
-                                        <a class="dropdown-item" href="#">탈퇴한 회원</a>
-                                    </div> 
-                                </div> -->
+
                             </th>
                            <!--  <th scope="col">버튼</th> -->
                         </tr>
@@ -138,8 +143,11 @@
                         <tr>
                            <th>no.${status_com.index+1}</th>
                             <th><span style="color:#106fc3;">${company.member_idx}</span></th>
-                            <td class="tdtitle">${company.member_name}</td>
-                            <td class="tdtitle">${company.member_email}</td>
+                            
+                          
+                            
+                            <td class="tdtitle"><a href="javascript:void(0)" onclick="FnMypage_company(${company.member_idx})" >${company.member_name}</a></td>
+                            <td class="tdtitle"><a href="javascript:void(0)" onclick="FnMypage_company(${company.member_idx})" >${company.member_email}</a></td>
                             <td>회원</td>
                           <!--   <td>
                                  <button type="button" class="btn btn-outline-danger">추방</button> 

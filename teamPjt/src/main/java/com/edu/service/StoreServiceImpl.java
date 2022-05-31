@@ -21,6 +21,7 @@ import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewLikeVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -170,6 +171,10 @@ public class StoreServiceImpl implements StoreService{
 		dao.storeReviewDelete(vo);
 	}
 	//스토어 리뷰 관리자 삭제
+	@Override
+	public void storeReviewLikeAdminDelete(StoreReviewLikeVO vo) {
+		dao.storeReviewLikeAdminDelete(vo);
+	}
 	@Override
 	public void storeReviewAdminDelete(StoreReviewVO vo) {
 		dao.storeReviewAdminDelete(vo);

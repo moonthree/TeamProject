@@ -109,31 +109,63 @@ if(message != null){alert(message);}
                             </tr>
                             <tr class="odp_tr2">
                                 <td>${detail.store_order_idx }</td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <a href="../store/store_view.do?store_idx=${detail.store_idx }&store_funding=${detail.store_funding}" class="odp_table_a">
-                                           
-                                                <img src="../resources/upload/store/${detail.store_thumbnail}">
-                                            </a>
-                                        </div>
-                                        <div class="col-9 odp_title" style="text-align: left;">
-                                            <c:forEach var="item" items="${ option }" varStatus="status">
-                                            	<span>선택${status.index+1}: ${ item.store_option_name }</span>
-                                            	<span>|</span>
-                                            	<span><fmt:formatNumber value="${ item.store_option_price }" type="number" />원 (${ item.store_order_option_select_count }개)</span>
-                                            	
-                                            	<br>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="odp_td">
-                                    <span><fmt:formatNumber value="${detail.store_express_fee }" type="number" />원</span><br>
-                                    <span class="odp_sub">${detail.member_name }</span><br>
-                                    <span class="odp_sub">(${detail.member_phone })</span>
-                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
-                                </td>
+                                <c:choose>
+                                	<c:when test="${detail.store_event_price eq 0}">
+                                		<td>
+		                                    <div class="row">
+		                                        <div class="col-3">
+		                                            
+		                                            <a href="../store/store_view.do?store_idx=${detail.store_idx }&store_funding=${detail.store_funding}" class="odp_table_a">
+		                                                <img src="../resources/upload/store/${detail.store_thumbnail}">
+		                                            </a>
+		                                        </div>
+		                                        <div class="col-9 odp_title" style="text-align: left;">
+		                                            <c:forEach var="item" items="${ option }" varStatus="status">
+		                                            	<span>선택${status.index+1}: ${ item.store_option_name }</span>
+		                                            	<span>|</span>
+		                                            	<span><fmt:formatNumber value="${ item.store_option_price }" type="number" />원 (${ item.store_order_option_select_count }개)</span>
+		                                            	
+		                                            	<br>
+		                                            </c:forEach>
+		                                        </div>
+		                                    </div>
+		                                </td>
+		                                <td class="odp_td">
+		                                    <span><fmt:formatNumber value="${detail.store_express_fee }" type="number" />원</span><br>
+		                                    <span class="odp_sub">${detail.member_name }</span><br>
+		                                    <span class="odp_sub">(${detail.member_phone })</span>
+		                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                                </td>
+                                	</c:when>
+                                	<c:otherwise>
+                                		<td>
+		                                    <div class="row">
+		                                        <div class="col-3">
+		                                            <a href="../store/store_view_event.do?store_idx=${detail.store_idx }&store_funding=${detail.store_funding}&event=${detail.store_event_price}" class="odp_table_a">
+		                                           
+		                                                <img src="../resources/upload/store/${detail.store_thumbnail}">
+		                                            </a>
+		                                        </div>
+		                                        <div class="col-9 odp_title" style="text-align: left;">
+		                                            <c:forEach var="item" items="${ option }" varStatus="status">
+		                                            	<span>선택${status.index+1}: ${ item.store_option_name }</span>
+		                                            	<span>|</span>
+		                                            	<span><fmt:formatNumber value="${item.store_option_price - item.store_option_price * detail.store_event_price /100}" maxFractionDigits="0" type="number" />원 (${ item.store_order_option_select_count }개)</span>
+		                                            	
+		                                            	<br>
+		                                            </c:forEach>
+		                                        </div>
+		                                    </div>
+		                                </td>
+		                                <td class="odp_td">
+		                                    <span><fmt:formatNumber value="${detail.store_express_fee }" type="number" />원</span><br>
+		                                    <span class="odp_sub">${detail.member_name }</span><br>
+		                                    <span class="odp_sub">(${detail.member_phone })</span>
+		                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                                </td>
+                                	</c:otherwise>
+                                </c:choose>
+	                                
 <!-- 0020 배송상태 -->
                                 <td class="odp_td" style="width: 10%">
                                 	<c:choose>
@@ -319,6 +351,8 @@ if(message != null){alert(message);}
                                       <input type="number" id="reviewWriteModal_store_idx" name="store_idx" value="${detail.store_idx }" style="display:none;">
                                       <input type="number" id="reviewWriteModal_member_idx" name="member_idx" value="${login.member_idx }" style="display:none;">
                                       <input type="hidden" id="rwm_store_order_idx" name="store_order_idx" value="${detail.store_order_idx }">
+                                      
+                                      
                                   </div>
                               </td>
                           </tr>
@@ -329,7 +363,7 @@ if(message != null){alert(message);}
                       </div>
                  
                       <div class="div2">
-                          <span class="bold">사진첨부</span><span class="thin">&nbsp;*올라온 사진을 클릭하면 삭제할 수 있어요</span><br>
+                          <span class="bold">사진첨부</span><span class="thin"><br>*5MB 이하의 png, jpg  형식의 파일만 첨부할 수 있어요.<br>*올라온 사진을 클릭하면 삭제할 수 있어요.</span><br>
                           	<button id="btn-upload" type="button" class="btn btn-outline-primary photoBtn">
                           		사진 첨부하기
                           	</button>
@@ -406,6 +440,36 @@ if(message != null){alert(message);}
                                       <input type="hidden" id="get_review_star" value="${review.store_review_star }">
                                       <input type="number" id="reviewModifyModal_store_idx" name="store_idx" value="${detail.store_idx }" style="display:none;">
                                       <input type="number" id="reviewModifyModal_member_idx" name="member_idx" value="${login.member_idx }" style="display:none;">
+                                      
+                                      
+                                      <c:choose>
+                                      	<c:when test="${review.store_review_photo1 eq null }"></c:when>
+                                      	<c:when test="${review.store_review_photo2 eq null }">
+                                      		<input type="hidden" id="photo1" class="photo" value="${review.store_review_photo1 }"/>
+                                      	</c:when>
+                                      	<c:when test="${review.store_review_photo3 eq null }">
+                                      		<input type="hidden" id="photo1" class="photo" value="${review.store_review_photo1 }"/>
+                                      		<input type="hidden" id="photo2" class="photo" value="${review.store_review_photo2 }"/>
+                                      	</c:when>
+                                      	<c:when test="${review.store_review_photo4 eq null }">
+                                      		<input type="hidden" id="photo1" class="photo" value="${review.store_review_photo1 }"/>
+                                      		<input type="hidden" id="photo2" class="photo" value="${review.store_review_photo2 }"/>
+                                      		<input type="hidden" id="photo3" class="photo" value="${review.store_review_photo3 }"/>
+                                      	</c:when>
+                                      	<c:when test="${review.store_review_photo5 eq null }">
+                                      		<input type="hidden" id="photo1" class="photo" value="${review.store_review_photo1 }"/>
+                                      		<input type="hidden" id="photo2" class="photo" value="${review.store_review_photo2 }"/>
+                                      		<input type="hidden" id="photo3" class="photo" value="${review.store_review_photo3 }"/>
+                                      		<input type="hidden" id="photo4" class="photo" value="${review.store_review_photo4 }"/>
+                                      	</c:when>
+                                      	<c:otherwise>
+                                      		<input type="hidden" id="photo1" class="photo" value="${review.store_review_photo1 }"/>
+                                      		<input type="hidden" id="photo2" class="photo" value="${review.store_review_photo2 }"/>
+                                      		<input type="hidden" id="photo3" class="photo" value="${review.store_review_photo3 }"/>
+                                      		<input type="hidden" id="photo4" class="photo" value="${review.store_review_photo4 }"/>
+                                      		<input type="hidden" id="photo5" class="photo" value="${review.store_review_photo5 }"/>
+                                      	</c:otherwise>
+                                      </c:choose>
                                   </div>
                               </td>
                           </tr>
@@ -416,7 +480,7 @@ if(message != null){alert(message);}
                       </div>
                  
                       <div class="div2">
-                          <span class="bold">사진첨부</span><span class="thin">&nbsp;*올라온 사진을 클릭하면 삭제할 수 있어요</span><br>
+                          <span class="bold">사진첨부</span><span class="thin"><br>*5MB 이하의 png, jpg  형식의 파일만 첨부할 수 있어요.<br>*올라온 사진을 클릭하면 삭제할 수 있어요.</span><br>
                           	<button id="btn-upload-modify" type="button" class="btn btn-outline-primary photoBtn">
                           		사진 첨부하기
                           	</button>
@@ -471,6 +535,7 @@ if(message != null){alert(message);}
                     <input type=hidden value="${detail.store_idx }" name="store_idx">
                     <input type=hidden value="${login.member_idx }" name="member_idx">
                     <input type=hidden value="${detail.store_order_idx }" name="store_order_idx">
+                    <input type=hidden value="${review.store_review_idx }" name="store_review_idx">
                 </div>
                 <div class="modal-footer write_modal_footer">
                     <button type="button" id="reviewDelBtn" class="qnaDeleteBtn qnaBtn btn btn-outline-danger">예</button>

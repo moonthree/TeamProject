@@ -20,7 +20,6 @@
                $(this).toggleClass("is-active");
            });
        });
-
     </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/header.css">
     
@@ -87,12 +86,38 @@
                             <span style="font-weight: bold;">${login.member_name}</span>
                         </div>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">프로필</a>
-                            <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
-                            <a class="dropdown-item" href="#">스토어 내역</a>
-                            <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                            <!-- 소비자 -->
+                        	<c:if test="${login.member_level == 0}">
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">마이페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/my_info.do">내 정보</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_store.do">스토어 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_zzim.do">찜 내역</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
+                            
+                        	<!-- 판매자 -->
+                        	<c:if test="${login.member_level == 1}">
+                        		<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">소비자 페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage2.do">판매자 페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/my_info.do">내 정보</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_store.do">스토어 내역</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
+                            
+                        	<!-- 관리자 -->
+                            <c:if test="${login.member_level == 2}">
+                            	<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/approval.do">상품 승인</a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/management_product.do">상품 관리</a>
+								<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/management_member.do">회원 관리</a>
+	                            <li><hr class="dropdown-divider"></li>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+                        	</c:if>
                         </div>
                     </div>
                 </div>
@@ -203,10 +228,12 @@
                         <div class="dropdown-menu dropdown-menu-right">
                         	<!-- 소비자 -->
                         	<c:if test="${login.member_level == 0}">
-    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">프로필</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">마이페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/my_info.do">내 정보</a>
 	                            <li><hr class="dropdown-divider"></li>
 	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
-	                            <a class="dropdown-item" href="#">스토어 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_store.do">스토어 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_zzim.do">찜 내역</a>
 	                            <li><hr class="dropdown-divider"></li>
 	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
                         	</c:if>
@@ -215,9 +242,10 @@
                         	<c:if test="${login.member_level == 1}">
                         		<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage.do">소비자 페이지</a>
     	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/mypage2.do">판매자 페이지</a>
+    	                    	<a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/my_info.do">내 정보</a>
 	                            <li><hr class="dropdown-divider"></li>
 	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_funding.do">펀딩 내역</a>
-	                            <a class="dropdown-item" href="#">스토어 내역</a>
+	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/info_store.do">스토어 내역</a>
 	                            <li><hr class="dropdown-divider"></li>
 	                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
                         	</c:if>

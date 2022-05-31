@@ -1,23 +1,35 @@
 package com.edu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.service.AdminService;
 import com.edu.service.MessageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
+import com.edu.service.MypageService;
+import com.edu.vo.FundingInfoDetailVO;
+import com.edu.vo.FundingMainVO;
+import com.edu.vo.MemberVO;
 import com.edu.vo.PageMaker;
 import com.edu.vo.PageMaker2;
 import com.edu.vo.Pagination;
 import com.edu.vo.Pagination2;
+import com.edu.vo.StoreInfoDetailVO;
 import com.edu.vo.StoreVO;
+import com.edu.vo.ZzimInfoVO;
 
 // 주석 version13 
 
@@ -35,6 +47,8 @@ public class AdminController {
 	private fundingMainService fundingMainService;
 	@Autowired
 	private StoreService storeService;
+	@Autowired
+	private MypageService mypageService;
 	
 	@RequestMapping(value = "/approval.do")
 	public String approval(Model model,Pagination page1, Pagination2 page2) {
@@ -177,8 +191,135 @@ public class AdminController {
 				int result = adminService.update_store2(store_idx);
 				return result;
 			}
+			//관리자용 mypage
+			@RequestMapping(value = "/mypage.do",method = RequestMethod.GET)
+			public String mypage_admin(Model model,int member_idx) {
+				// 세션에 있는 사용자의 정보 가져옴
+				
+				MemberVO admin = new MemberVO();
+				System.out.println(member_idx);
+				admin.setMember_idx(member_idx);
+			
+				
+				MemberVO member = mypageService.selectOne(admin);
+				
+				System.out.println(member.toString());
+				model.addAttribute("member", member);
+				
+				
+				
+				//펀딩리스트 3개씩 & 펀딩 개수
+				//s3f에  member_idx에 따른 funding_order_idx도 가져올 수 있어야함
+				List<FundingInfoDetailVO> s3f = mypageService.select3Funding(admin.getMember_idx());
+				
+				model.addAttribute("select3Funding",s3f);
+				model.addAttribute("countFunding",mypageService.countFunding(admin.getMember_idx()));
+				
+				//스토어리스트 3개씩 & 스토어 개수
+				List<StoreInfoDetailVO> s3s = mypageService.select3Store(admin.getMember_idx());
+				model.addAttribute("select3Store",s3s);
+				model.addAttribute("countStore",mypageService.countStore(admin.getMember_idx()));
+				
+				//찜리스트 3개씩 & 찜 개수
+//				List<ZzimVO> s3z = mypageService.select3Zzim(login.getMember_idx());
+//				model.addAttribute("select3Zzim",s3z);
+				//찜리스트
+				List<ZzimInfoVO> zzim_category = mypageService.getZzim_category(admin.getMember_idx());
+				List<ZzimInfoVO> allZzimInfo = new ArrayList<ZzimInfoVO>();
+				for(int i=0 ; i<zzim_category.size() ; i++) {
+					//찜 카테고리와 member_idx를 통해 뽑아와야함 그리고 다시 합치기
+					Map<String, Object> param = new HashMap<String, Object>();
+					param.put("zzim_category", zzim_category.get(i).getZzim_category());
+					param.put("member_idx", admin.getMember_idx());
+					param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
+					
+					ZzimInfoVO mzl2 = mypageService.myZzimList2(param);
+					allZzimInfo.add(mzl2);
+				}
+				model.addAttribute("myZzimList",allZzimInfo);
+				model.addAttribute("countZzim",mypageService.countZzim(admin.getMember_idx()));
+				
+				return "admin/admin_mypage";
+			}
+			
 		
-		
-	
+			@RequestMapping(value = "/my_info.do",method = RequestMethod.GET)
+			public String admin_my_info(Model model,int curridx) {
+				
+				
+				MemberVO admin = new MemberVO();
+				admin.setMember_idx(curridx);
+				MemberVO member = mypageService.selectOne(admin);
+				model.addAttribute("member", member);
+				
+				// 펀딩리스트4개씩
+				List<FundingInfoDetailVO> s4f = mypageService.select4Funding(admin.getMember_idx());
+				model.addAttribute("select4Funding",s4f);
+				
+				
+				// 스토어 리스트4개씩
+				List<StoreInfoDetailVO> s4S = mypageService.select4Store(admin.getMember_idx());
+				model.addAttribute("select4Store",s4S);
+				
+				return "admin/admin_my_info";
+			}
+			
+			
+			@RequestMapping(value = "/info_funding.do")
+			public String info_funding(Model model, int curridx) {
+				// 세션에 있는 사용자의 정보를 가져옴
+			
+				MemberVO admin = new MemberVO();
+				admin.setMember_idx(curridx);
+				MemberVO member = mypageService.selectOne(admin);
+				model.addAttribute("member", member);
+				
+				//펀딩리스트
+//				List<FundingMainVO> mfl = mypageService.myFundingList(login.getMember_idx());
+//				model.addAttribute("myFundingList",mfl);
+			
+				//펀딩리스트
+				List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(admin.getMember_idx());
+				model.addAttribute("myFundingList",mfl);
+				
+				return "admin/admin_info_funding";
+			}
+			
+			@RequestMapping(value = "/info_store.do")
+			public String info_store(Model model, int curridx) {
+				// 세션에 있는 사용자의 정보를 가져옴
+			
+				MemberVO admin = new MemberVO();
+				admin.setMember_idx(curridx);
+				MemberVO member = mypageService.selectOne(admin);
+				model.addAttribute("member", member);
+				
+				//스토어리스트
+				List<StoreInfoDetailVO> msl = mypageService.myStoreList(admin.getMember_idx());
+				model.addAttribute("myStoreList",msl);
+				
+				return "admin/admin_info_store";
+			}
+			
+			// 판매자 마이페이지
+			@RequestMapping(value = "/mypage2.do",method = RequestMethod.GET)
+			public String mypage2(Model model, int member_idx) {
+				// 세션에 있는 사용자의 정보 가져옴
+				
+				MemberVO admin = new MemberVO();
+				admin.setMember_idx(member_idx);
+				MemberVO member = mypageService.selectOne(admin);
+				model.addAttribute("member", member);
+
+				//판매자 펀딩 내역 가져오기
+				List<FundingMainVO> sfl = mypageService.sellerFundingList(admin.getMember_idx());
+				model.addAttribute("sellerFundingList",sfl);
+				
+				//판매자 스토어 내역 가져오기
+				List<StoreVO> ssl = mypageService.sellerStoreList(admin.getMember_idx());
+				model.addAttribute("sellerStoreList", ssl);
+				
+				return "admin/admin_mypage2";
+			}
 	
 }

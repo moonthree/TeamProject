@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 main {
     height: auto;
     min-height: 100%;
@@ -15,6 +16,45 @@ thead{
 
 .table td{
 	border: none;
+}
+.messageQnaBtn{
+	border: 1px solid #fa6462;
+	background-color: white;
+	border-radius : 20px;
+	color: #fa6462;
+}
+
+.notice{
+	background-color: #f9fafb;
+	padding : 20px;
+	margin-bottom: 10px;
+}
+#FVnotice > h4{
+	margin-top: 20px;
+	font-weight: bold
+}
+
+.hyphen{
+  margin:0;
+  padding:0;
+  list-style: none
+}
+.hyphen li{
+  position: relative;
+  margin: 2px 0 0 0;
+  padding: 0 0 4px 16px;
+  font-size:16px;
+  color: #000;
+}
+
+.hyphen li:before{
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 6px;  
+  width: 4px;
+  height: 1px;
+  background: #262626;
 }
 
 /*
@@ -39,6 +79,10 @@ thead{
 .ulviewTab{
     text-align: center;
     margin-top: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
 }
 
 .FVtitleImg{
@@ -81,14 +125,27 @@ thead{
 }
 
 .FVbtn2 {
-    width: 100%;
+    width: 49%;
     height: 50px;
     margin-bottom: 20px;
     border-radius: 5px;
     background-color: white;
+    border: 1px solid #e0e2e4;
 }
 
 .FVbtn2:hover{
+    color: red;
+}
+
+.chatBtn{
+	margin-top: 10px;
+    width: 49%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #e0e2e4;
+}
+.chatBtn:hover{
     color: red;
 }
 

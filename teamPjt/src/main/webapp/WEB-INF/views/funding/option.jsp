@@ -81,7 +81,7 @@
 						                        	<div style="font-size: 13px; margin-bottom: 5px; color: gray;">수량 </div>
 						                        	<p class="updown" style="cursor: pointer; width: 170px;">
 						                        		<button type="button" onclick="javascript:option.changePNum(${item.funding_option_idx});" class="down stockbtn">
-						                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="down" viewBox="0 0 16 16">
+						                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
 															  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 															  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 															</svg>
@@ -224,8 +224,8 @@
 	    //개별 수량 변경
 	    changePNum: function (pos) {
 	        var item = document.querySelector('input[name=p_num'+pos+']');
-	        var p_num = parseInt(item.getAttribute('value'));
-	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : event.target.value;
+	        var p_num = Number($("input[name=p_num"+pos+"]").val());
+	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : p_num;
 	        var stock = item.previousElementSibling.value;
 	        if(parseInt(newval) > stock){
 	        	alert('잔여수량 내에서 수량을 선택해주세요.');

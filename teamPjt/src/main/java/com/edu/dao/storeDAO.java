@@ -19,6 +19,7 @@ import com.edu.vo.FundingQnaVO;
 import com.edu.vo.Funding_optionVO;
 import com.edu.vo.StoreOptionVO;
 import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewLikeVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -96,6 +97,9 @@ public class storeDAO {
 		sqlSession.delete("StoreMapper.storeReviewDelete", vo);
 	}
 	// 스토어 리뷰 관리자 삭제
+	public void storeReviewLikeAdminDelete(StoreReviewLikeVO vo){
+		sqlSession.delete("StoreMapper.storeReviewLikeAdminDelete", vo);
+	}
 	public void storeReviewAdminDelete(StoreReviewVO vo){
 		sqlSession.delete("StoreMapper.storeReviewAdminDelete", vo);
 	}

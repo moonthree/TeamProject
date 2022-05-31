@@ -6,13 +6,25 @@ $(document).ready(function() {
 	$("#input_file").on("change", fileCheck);
 	$("#input_file_modify").on("change", fileCheck2);
 	
+	
+	
 });
-
-
 
 //리뷰 삭제 시작
 var reviewDelBtn = $("#reviewDelBtn");
 	reviewDelBtn.on("click", function(){
+		$.ajax({	
+        url: "reviewLikeDel",
+        type: "POST",
+        data: $("#reviewDelForm").serialize(),
+   	   success: function(){
+	
+          },
+          error: function(){
+              alert("추천 에러");
+          }   
+    	});	
+		
 		
 		$.ajax({	
             url: "reviewDel",
@@ -38,18 +50,23 @@ reviewDelNo.on("click", function(){
 $('input[type=radio][name=store_review_star]').change(function() {
     if (this.value == '5') {
         $(".myformSpan").text("최고");
+        $("input:radio[name='store_review_star']:radio[value=5]").attr("checked", true);
     }
     else if (this.value == '4') {
         $(".myformSpan").text("좋음");
+        $("input:radio[name='store_review_star']:radio[value=4]").attr("checked", true);
     }
     else if (this.value == '3') {
         $(".myformSpan").text("보통");
+        $("input:radio[name='store_review_star']:radio[value=3]").attr("checked", true);
     }
     else if (this.value == '2') {
         $(".myformSpan").text("별로");
+        $("input:radio[name='store_review_star']:radio[value=2]").attr("checked", true);
     }
     else if (this.value == '1') {
         $(".myformSpan").text("나쁨");
+        $("input:radio[name='store_review_star']:radio[value=1]").attr("checked", true);
     }
 });
 /*var modifyReview = $(".modifyReview");
@@ -75,6 +92,7 @@ $(function () {
     $('#btn-upload').click(function (e) {
         e.preventDefault();
         $('#input_file').click();
+        
     });
     $('#btn-upload-modify').click(function (m) {
 		m.preventDefault();
@@ -90,10 +108,40 @@ var fileNum = 0;
 // 첨부파일 배열
 var content_files = new Array();
 
+
+var regex = new RegExp("(.*?)\.(png|jpg)$");
+var maxSize = 5242880; //5MB
+        
+    function checkExtension(fileName, fileSize) {
+        if(fileSize >= maxSize) {
+            alert("파일 사이즈 초과");
+            return false;
+        }
+        
+        if(regex.test(fileName)) {
+            
+            return false;
+        }else{
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		}
+        return true;
+    }
+
+
 function fileCheck(e) {
     var files = e.target.files;   
+    
+    for(var i=0; i<files.length; i++) {
+        if(checkExtension(files[i].name, files[i].size)) {
+            return false;
+        }
+        var filesArr = Array.prototype.slice.call(files);
+    }
     // 파일 배열 담기
-    var filesArr = Array.prototype.slice.call(files);
+    
+    
+    
+    
     console.log(filesArr)
     // 파일 개수 확인 및 제한
     if (fileCount >= totalCount) {
@@ -200,20 +248,69 @@ console.log(option)
 	}
 	
 // 수정          수정                     수정          수정                   수정          수정 
+
+
 // 파일 현재 필드 숫자 totalCount랑 비교값
-var fileCountModify = 0;
+var fileCountModify = $(".photo").length;
 // 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
 var totalCountModify = 5;
 
 //파일 고유 넘버
 var fileNumModify = 0;
+
+var exist_photo = 0;
 // 첨부파일 배열
+var exist_photo_Modify = new Array();
 var content_files_Modify = new Array();
-  
+
+var modifyReview = $(".modifyReview");
+	modifyReview.on("click", function(){
+		var star = $("#get_review_star").val();
+		$("input:radio[name='store_review_star']:radio[value="+star+"]").attr("checked", true);
+		
+		$("#input_file_num_modify").text(fileCountModify);
+		if(fileCountModify>0){
+			for(exist_photo=0; exist_photo<fileCountModify; exist_photo++){
+				var photo_name = $(".photo:eq("+[exist_photo]+")").val();
+				exist_photo_Modify.push(photo_name);
+			    
+			    
+				console.log(exist_photo_Modify)
+				var img = document.createElement("img"); 
+				img.setAttribute("src", "../resources/upload/"+photo_name);
+				img.setAttribute('height', '135px');
+				img.setAttribute('width', '135px');
+				img.setAttribute('id', 'file'+exist_photo)
+				img.setAttribute('onclick', 'fileDeleteAjax(\'file' + exist_photo + '\')');
+				img.setAttribute('style', 'margin:0px 12px 10px 0px')
+				document.querySelector("#articlefileChangeModify").appendChild(img); 
+			}
+		}
+	});
+function fileDeleteAjax(exist_photo){
+	console.log(exist_photo)
+	var no = exist_photo.replace(/[^0-9]/g, "");
+	console.log(no)
+    exist_photo_Modify.splice(no, no+1);
+	$('#' + exist_photo).remove();
+	fileCountModify --;
+	$("#input_file_num_modify").text(fileCountModify);
+	console.log(exist_photo_Modify)
+}
+
+
   function fileCheck2(m) {
-    var filesModify = m.target.files;   
-    // 파일 배열 담기
-    var filesArrModify = Array.prototype.slice.call(filesModify);
+    var filesModify = m.target.files;
+    
+    for(var i=0; i<filesModify.length; i++) {
+        if(checkExtension(filesModify[i].name, filesModify[i].size)) {
+            return false;
+        }
+        // 파일 배열 담기
+        var filesArrModify = Array.prototype.slice.call(filesModify);
+    }
+    
+    console.log("filesArrModify:" + filesArrModify)
     // 파일 개수 확인 및 제한
     if (fileCountModify >= totalCountModify) {
       alert('파일은 최대 '+totalCountModify+'개까지 업로드 할 수 있습니다.');
@@ -226,6 +323,7 @@ var content_files_Modify = new Array();
       var readerModify = new FileReader();
       readerModify.onload = function (m) {
         content_files_Modify.push(f);
+        console.log("content_files_Modify: "+content_files_Modify)
       };
       readerModify.readAsDataURL(f);
     }); 
@@ -235,8 +333,8 @@ var content_files_Modify = new Array();
 			img.setAttribute("src", event.target.result);
 			img.setAttribute('height', '135px');
 			img.setAttribute('width', '135px');
-			img.setAttribute('id', 'file2'+fileNumModify)
-			img.setAttribute('onclick', 'fileDeleteModify(\'file2' + fileNumModify + '\')');
+			img.setAttribute('id', 'file'+fileNumModify)
+			img.setAttribute('onclick', 'fileDeleteModify(\'file' + fileNumModify + '\')');
 			img.setAttribute('style', 'margin:0px 12px 10px 0px')
 			document.querySelector("#articlefileChangeModify").appendChild(img); 
     }; 
@@ -250,10 +348,11 @@ var content_files_Modify = new Array();
   }
 function fileDeleteModify(fileNumModify){
     var no = fileNumModify.replace(/[^0-9]/g, "");
+    console.log(no)
     content_files_Modify[no-1].is_delete = true;
 	$('#' + fileNumModify).remove();
 	fileCountModify --;
-	$("#input_file_num").text(fileCountModify);
+	$("#input_file_num_modify").text(fileCountModify);
     console.log(content_files_Modify);
 }
 	
@@ -261,25 +360,27 @@ function fileDeleteModify(fileNumModify){
 	var reviewModifyModal = $("#reviewModifyModal");
 	function modifyAction(){
 		
-	var store_review_star = $(':radio[name="store_review_star"]:checked').val();
-	var reviewWriteModalContent = reviewModifyModal.find("textarea[name='store_review_content']");
-	var reviewWriteModalContent2 = reviewWriteModalContent.val();
-	
-	var form = $("form")[0];        
- 	var formData = new FormData(form);
-		formData.append("store_idx", reviewWriteModal_store_idx)
-		formData.append("member_idx", reviewWriteModal_member_idx)
-		formData.append("store_order_idx", rwm_store_order_idx)
-		formData.append("store_review_star", store_review_star)
-		formData.append("store_review_content", reviewWriteModalContent2)
-		formData.append("store_review_option", option)
-		for (var x = 0; x < content_files_Modify.length; x++) {
-			// 삭제 안한것만 담아 준다. 
-			if(!content_files_Modify[x].is_delete){
-				console.log(content_files_Modify[x]);
-				 formData.append("article_file2", content_files_Modify[x]);
+		var store_review_star = $(':radio[name="store_review_star"]:checked').val();
+		var reviewWriteModalContent = reviewModifyModal.find("textarea[name='store_review_content']");
+		var reviewWriteModalContent2 = reviewWriteModalContent.val();
+		
+		var form = $("form")[0];        
+	 	var formData = new FormData(form);
+			formData.append("store_idx", reviewWriteModal_store_idx)
+			formData.append("member_idx", reviewWriteModal_member_idx)
+			formData.append("store_order_idx", rwm_store_order_idx)
+			formData.append("store_review_star", store_review_star)
+			formData.append("store_review_content", reviewWriteModalContent2)
+			formData.append("store_review_option", option)
+			for (var x = 0; x < content_files_Modify.length; x++) {
+				// 삭제 안한것만 담아 준다. 
+				if(!content_files_Modify[x].is_delete){
+					console.log(content_files_Modify[x]);
+					 formData.append("article_file2", content_files_Modify[x]);
+				}
 			}
-		}
+			
+			formData.append("exist_photo", exist_photo_Modify)
    
  // 파일업로드 multiple ajax처리ss
        
@@ -296,10 +397,10 @@ function fileDeleteModify(fileNumModify){
    	    		alert("리뷰 수정에 성공했습니다.");
    	    		location.reload();
 			} else
-				alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+				alert("평점을 입력해주세요.");
    	      },
    	      error: function (xhr, status, error) {
-   	    	alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+   	    	alert("평점을 입력해주세요.");
    	     return false;
    	      }
    	    });

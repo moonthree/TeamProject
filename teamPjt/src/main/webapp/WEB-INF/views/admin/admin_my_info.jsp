@@ -77,14 +77,14 @@
 								</c:choose>
                         	</c:otherwise>
                         </c:choose>
-                        <img src="../resources/image/mypage/setting.png" alt="설정" class="setting_img"  onclick="location.href='my_info_modify.do'" style="cursor:pointer;">
+                        
                     </div>
                     <div class="profile-user-settings">
                         <h1 class="profile-user-name">${ member.member_name }</h1>
                         <h5>
                         	<c:choose>
                            		<c:when test="${ member.member_level eq 0 }">
-                           			소비자
+                           			일반 회원
                            		</c:when>
                            		<c:when test="${ member.member_level eq 1 }">
                            			판매자
@@ -126,7 +126,7 @@
                                 			고양이
                                 		</c:when>
                                 		<c:otherwise>
-                                			다른 반려동물
+                                			다른 동물
                                 		</c:otherwise>
                                 	</c:choose>
                                     
@@ -154,7 +154,7 @@
                  <c:forEach var="item" items="${select4Funding}">
                	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
                            	<div class="card-img-top">
-                                <div class="" onclick="location.href='info_funding_detail.do?funding_idx=${item.funding_idx}&funding_order_idx=${ item.funding_order_idx }'" style="cursor:pointer;">
+                                <div class="" style="cursor:pointer;">
                                     <img src="../resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
@@ -162,7 +162,7 @@
                                     	<c:choose>
                                     		<c:when test="${ item.funding_category eq 0 }">강아지 용품</c:when>
                                     		<c:when test="${ item.funding_category eq 1 }">고양이 용품</c:when>
-                                    		<c:when test="${ item.funding_category eq 2 }">반려동물 용품</c:when>
+                                    		<c:when test="${ item.funding_category eq 2 }">다른동물 용품</c:when>
                                     	</c:choose>
                                     </div>
                                     <div>
@@ -188,7 +188,7 @@
                  <c:forEach var="item" items="${select4Store}">
                	 <div class="col-lg-3 col-md-12" style="border-radius: 5px; padding: 20px; box-shadow: 1px 1px 100px 1px rgb(239, 239, 239);">
                            	<div class="card-img-top">
-                                <div class="" onclick="location.href='info_store_detail.do?store_idx=${item.store_idx}&store_order_idx=${ item.store_order_idx }'" style="cursor:pointer;">
+                                <div class=""  style="cursor:pointer;">
                                     <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="funding_img" width="100%">
                                 </div>
                                 <div class="card-body" style="margin-left: -20px;">
@@ -196,7 +196,7 @@
                                     	<c:choose>
                                     		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
                                     		<c:when test="${ item.store_category eq 1 }">고양이 용품</c:when>
-                                    		<c:when test="${ item.store_category eq 2 }">반려동물 용품</c:when>
+                                    		<c:when test="${ item.store_category eq 2 }">다른동물 용품</c:when>
                                     	</c:choose>
                                     </div>
                                     <div>

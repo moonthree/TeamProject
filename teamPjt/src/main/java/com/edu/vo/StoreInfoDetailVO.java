@@ -30,6 +30,7 @@ public class StoreInfoDetailVO {
 	private int store_order_total_price;
 	private int store_order_pay_state;
 	private Date store_order_date;
+	private int store_event_price;
 	
 	//funding_option
 	private String store_option_name;
@@ -219,6 +220,12 @@ public class StoreInfoDetailVO {
 	}
 	public void setMember_phone(String member_phone) {
 		this.member_phone = member_phone;
+	}
+	public int getStore_event_price() {
+		return store_event_price;
+	}
+	public void setStore_event_price(int store_event_price) {
+		this.store_event_price = store_event_price;
 	}
 
 }

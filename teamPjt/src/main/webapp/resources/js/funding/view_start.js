@@ -2,24 +2,22 @@
  * 
  */
  
-  // 하단 탭들 새로고침해도 유지하는 기능
- 	$('#myTab a').click(function(e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	  
-	  window.scrollTo(100, 100);
-	});
-	
-	// store the currently selected tab in the hash value
-	$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-	  var id = $(e.target).attr("href").substr(1);
-	  window.location.hash = id;
-	  window.scrollTo(100, 100);
-	});
-	
-	// on load of the page: switch to the currently selected tab
-	var hash = window.location.hash;
-	$('#myTab a[href="' + hash + '"]').tab('show');
+  
+ // 커뮤, 공지 등등 탭들 새로고침해도 유지하는 기능
+$('a[data-toggle="tab"]').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+});
+
+$('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    var id = $(e.target).attr("href");
+    localStorage.setItem('selectedTab', id);
+});
+
+var selectedTab = localStorage.getItem('selectedTab');
+if (selectedTab != null) {
+    $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');
+}
 	
 	
 	$(document).ready(function() {
@@ -87,8 +85,10 @@ var zzimBtn = $("#zzimBtn");
 			data : objParams,
 			success : function(){
 				//alert("찜 등록")
-				document.getElementsByClassName("doZzim")[0].style.display = "none";
-				document.getElementsByClassName("notZzim")[0].style.display = "block";
+				$(".doZzim").hide();
+				$(".notZzim").show();
+				//document.getElementsByClassName("doZzim")[0].style.display = "none";
+				//document.getElementsByClassName("notZzim")[0].style.display = "block";
 			},
 			error : function(){
                 alert("찜 등록 에러");
@@ -116,8 +116,11 @@ var zzimDelBtn = $("#zzimDelBtn");
 			data : objParams,
 			success : function(){
 				//alert("찜 취소")
-				document.getElementsByClassName("notZzim")[0].style.display = "none";
-				document.getElementsByClassName("doZzim")[0].style.display = "block";
+				$(".notZzim").hide();
+				$(".doZzim").show();
+				
+				//document.getElementsByClassName("notZzim")[0].style.display = "none";
+				//document.getElementsByClassName("doZzim")[0].style.display = "block";
 			},
 			error : function(){
                 alert("찜 취소 에러");

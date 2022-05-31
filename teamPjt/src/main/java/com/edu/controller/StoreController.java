@@ -44,6 +44,7 @@ import com.edu.vo.StoreOrderOptionVO;
 import com.edu.vo.StoreOrderPayVO;
 import com.edu.vo.StoreOrderVO;
 import com.edu.vo.StoreQnaVO;
+import com.edu.vo.StoreReviewLikeVO;
 import com.edu.vo.StoreReviewVO;
 import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimVO;
@@ -886,6 +887,11 @@ public class StoreController {
 		return result;		
 	}
 	//스토어 리뷰 관리자 삭제
+	@RequestMapping(value ="/reviewLikeAdminDel", method= RequestMethod.POST)
+	@ResponseBody
+	public void storeReviewLikeAdminDelete(StoreReviewLikeVO vo) throws Exception {
+		sts.storeReviewLikeAdminDelete(vo);
+	}
 	@RequestMapping(value ="/reviewAdminDel", method= RequestMethod.POST)
 	@ResponseBody
 	public void storeReviewAdminDelete(StoreReviewVO vo) throws Exception {
@@ -1057,6 +1063,13 @@ public class StoreController {
 		
 		String event = request.getParameter("event");
 		
+		//세션사용자정보 가져옴
+		session = request.getSession();
+		MemberVO login = (MemberVO)session.getAttribute("login");
+		MemberVO member = ms.selectOne(login);
+		model.addAttribute("member",member);
+		
+		
 		int event2 = Integer.parseInt(event);
 		
 		request.setAttribute("event", event2);
@@ -1065,6 +1078,26 @@ public class StoreController {
 		StoreVO store = sts.read(vo.getStore_idx(), vo.getStore_funding());
 		model.addAttribute("read", store );
 
+		int member_idx = 0;
+		if(login == null) {
+			member_idx = 0;
+		}else{
+			member_idx = login.getMember_idx();
+		}
+		Map<String, Integer> zzimMap = new HashMap<String, Integer>();
+		//찜
+		zzimMap.put("store_idx", vo.getStore_idx());
+		zzimMap.put("member_idx", member_idx);
+		
+		System.out.println(zzimMap);
+		
+		ZzimVO zzimResult = sts.selectZzimStore(zzimMap);
+		if(zzimResult == null) {
+			request.setAttribute("zzimResult", 0);
+		}else {
+			request.setAttribute("zzimResult", 1);
+		}
+		
 		int store_fund = store.getStore_funding();
 		
 		if(store_fund == 0) {
@@ -1226,12 +1259,6 @@ public class StoreController {
 		request.setAttribute("startPageQna", startPageQna);
 		
 		
-		//세션사용자정보 가져옴
-		session = request.getSession();
-		MemberVO login = (MemberVO)session.getAttribute("login");
-		MemberVO member = ms.selectOne(login);
-		model.addAttribute("member",member);
-
 		
 		// 옵션 출력
 		List<StoreOptionVO> optionlist = sts.storeOptionList(optionvo);
