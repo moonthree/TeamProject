@@ -64,6 +64,7 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="0"
                         aria-valuemin="0" aria-valuemax="100"></div>
+                        
                 </div>
                 <h3>0<span class="smalltext"> %달성</span></h3>
                 <h3>0<span class="smalltext"> 원 펀딩</span></h3>
