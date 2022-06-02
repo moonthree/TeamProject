@@ -134,6 +134,7 @@
 			fu.funding_permit_state,
 			fu.funding_current_state,
 			fu.funding_category,
+			fu.funding_express_fee,
 			fu.member_idx,
 			mem.member_idx,
 			mem.member_photo,

@@ -377,7 +377,14 @@
 		                        </c:choose>
 		                        </div>
 		                       	<span class="commuP3Span2">${read.memberVO.member_business_name }
-		                       		<button type="button" class="messageQnaBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                       		<c:if test="${login eq null}">
+				                		<button type="button" class="chatBtn" data-toggle="modal" data-target="#loginModal">
+					                		판매자 문의
+					                	</button>
+				                	</c:if>
+				                	<c:if test="${login ne null }">
+				                		<button type="button" class="messageQnaBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+				                	</c:if>
 		                       	</span>
 	                        </div> 
                         </div>

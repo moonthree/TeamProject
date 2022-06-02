@@ -146,7 +146,7 @@
 				<otherwise>
 				</otherwise>
 			</choose>
-		WHERE s.store_title LIKE CONCAT('%${keyword}%') AND s.member_idx not in (7)
+		WHERE s.store_title LIKE CONCAT('%${keyword}%') AND s.member_idx not in (5, 7, 8)
 		<choose>
 			<when test="sortNewStore != null">
 				order by store_idx desc limit #{startRowNumStore}, 8;
@@ -176,7 +176,7 @@
 		WHERE 1=1 
 		AND store_title LIKE CONCAT('%${keyword}%') 
 		AND store_permit_state = 1
-		AND member_idx not in (7)
+		AND member_idx not in (5, 7, 8)
 		<choose>
 			<when test="all != null">
 			</when>
