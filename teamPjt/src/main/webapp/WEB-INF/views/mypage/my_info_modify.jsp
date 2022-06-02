@@ -132,7 +132,7 @@
     			"<div class='input-group mb-3'>"+
     			"<input type='password' class='form-control' id='member_password0' name='member_password0' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div><br><br>"+
 
-    			"새 비밀번호"+
+    			"새 비밀번호 <div style='color:#fa6463'>8~16자의 영문 대소문자+숫자+특수문자만 가능합니다.</div>"+
     			"<div class='input-group mb-3'>"+
     			"<input type='password' class='form-control' id='member_password1' name='member_password1' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div>"+
     			
@@ -154,32 +154,49 @@
     	console.log($("#member_password0").val());
     	console.log($("#member_password1").val());
     	console.log($("#member_password2").val());
-    	if( $("#member_password1").val() != $("#member_password2").val() ){
-    		alert("비밀번호가 서로 다릅니다.");
-    		}else{
-    		console.log("비밀번호 같음");
-    		//ajax 통신할 준비
-    		//준비물 : 현재 비밀번호, 새 비밀번호
-    		$.ajax({
-    			url : "changePw.do",
-    			type : "post",
-    			data : {"member_password_old":$("#member_password0").val(),"member_password_new":$("#member_password1").val()},
-    	        success:function(data){
-    	        	if(data=="s"){
-    	        		alert("비밀번호가 변경되었습니다.");
-    	        		$(".alert-danger").remove();
-    	        		$("#checkPw").remove();
-        	        	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
-        	        	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw()'>변경</div>");
-    	        	}else{
-    	        		alert("현재 비밀번호가 틀립니다.")
-    	        	}    	        	
-    	        },
-    	        error: function (XMLHttpRequest, textStatus, errorThrown){
-    	        	alert('비밀번호 변경 에이잭스 오류');
-    	        }
-    		});
+    	
+    	var pw = $("#member_password1").val();
+    	var num = pw.search(/[0-9]/g);
+    	var eng = pw.search(/[a-z]/ig);
+    	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+    	if(pw.length < 8 || pw.length > 16){
+	    	alert("비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    	}else if(pw.search(/\s/) != -1){
+    		alert("비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    	}else if(num < 0 || eng < 0 || spe < 0 ){
+    		alert("비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    	}else { //모든 조건을 통과한 경우
+    		
+    		if( $("#member_password1").val() != $("#member_password2").val() ){
+        		alert("비밀번호가 서로 다릅니다.");
+        		}else{
+        		console.log("비밀번호 같음");
+        		//ajax 통신할 준비
+        		//준비물 : 현재 비밀번호, 새 비밀번호
+        		$.ajax({
+        			url : "changePw.do",
+        			type : "post",
+        			data : {"member_password_old":$("#member_password0").val(),"member_password_new":$("#member_password1").val()},
+        	        success:function(data){
+        	        	if(data=="s"){
+        	        		alert("비밀번호가 변경되었습니다.");
+        	        		$(".alert-danger").remove();
+        	        		$("#checkPw").remove();
+            	        	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
+            	        	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw()'>변경</div>");
+        	        	}else{
+        	        		alert("현재 비밀번호가 틀립니다.")
+        	        	}    	        	
+        	        },
+        	        error: function (XMLHttpRequest, textStatus, errorThrown){
+        	        	alert('비밀번호 변경 에이잭스 오류');
+        	        }
+        		});
+        	}
+    		
     	}
+    	
     	
     }
     
@@ -402,7 +419,7 @@
                     </tbody>
                 </table>
                 <div class="row"> 
-                    <div class="col-sm-12" style="text-align: right;"><button type="submit" class="btn btn-outline-dark" style="width: 100px;">저장</button></div>
+                    <div class="col-sm-12" style="text-align: right;"><button type="submit" class="btn btn-outline-dark" style="width: 100px;" onclick="alert('정보가 수정되었습니다.')">저장</button></div>
                 </div>
                 </form>
             </div>

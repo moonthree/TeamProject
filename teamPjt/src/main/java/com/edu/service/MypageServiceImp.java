@@ -21,6 +21,7 @@ import com.edu.vo.FileUploadVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
+import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_payVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreExpressVO;
@@ -481,6 +482,12 @@ public class MypageServiceImp implements MypageService{
 	public List<ZzimInfoVO> getZzim_category(int member_idx) {
 		return mdao.getZzim_category(member_idx);
 	}
+	//찜 내역 - 무한 스크롤
+	@Override
+	public ZzimInfoVO myZzimList1(ZzimInfoVO vo) {
+		return mdao.myZzimList1(vo);
+	}
+	//찜 내역 - 스크롤
 	@Override
 	public ZzimInfoVO myZzimList2(Map<String,Object> param) {
 		return mdao.myZzimList2(param);
@@ -518,6 +525,11 @@ public class MypageServiceImp implements MypageService{
 	public List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx) {
 		return mdao.fundingOptionDetail(funding_order_idx);
 	}
+	@Override
+	public int fundingOrderCount(Funding_orderVO vo) {
+		return mdao.fundingOrderCount(vo);
+	}
+	
 	
 	/*store_info_detail*/
 	@Override
@@ -607,6 +619,8 @@ public class MypageServiceImp implements MypageService{
 		
 		return mdao.update_FundingExpress(fundung_order_idx);
 	}
+
+	
 
 
 	

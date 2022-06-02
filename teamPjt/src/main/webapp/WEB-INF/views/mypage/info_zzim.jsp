@@ -47,7 +47,11 @@
             <!--펀딩&스토어&찜-->
             <div class="col-md-12 col-sm-12">
                 <!--찜 목록-->
-                <h2>찜 목록</h2>
+                <h2>
+                	찜 목록
+                    <input type=number id="totalPageCount" value="${totalPageCount}" style="display:none;"/>
+                    <input type=number id="totalRow" value="${totalRow}" style="display:none;"/>
+                </h2>
                 <br>
                 <div class="select_info">
 	          		<c:if test="${countZzim eq 0}">
@@ -59,9 +63,13 @@
 		          		</div>
 	          		</c:if>
 	          	</div>
+	          	<c:if test="${totalRow == 0 }">
+	        		찜 내역이 없습니다.
+	        	</c:if>
+            	<c:if test="${totalRow > 0 }">
 	          	<div class="zzim_cotainer">
-            		<c:if test="${myZzimList.size()>0}">
-						<c:forEach var="item" items="${myZzimList}">
+
+						<c:forEach var="item" items="${searchList}">
 							<!-- 펀딩 -->
 							<c:if test="${ item.zzim_category eq 0 }">
 					            <div class="zzim_inner">
@@ -130,8 +138,101 @@
 					            </div>
 							</c:if>
            							</c:forEach>
+           							</div>
            						</c:if>
            			</div>
+
+<script>
+//스크롤 처리 이벤트
+    //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
+    let currentPage=1;
+    //현재 페이지가 로딩중인지 여부를 저장할 변수이다.
+    let isLoading = false;
+    
+    let totalPageCount = document.getElementById('totalPageCount').value
+    let totalRow = document.getElementById('totalRow').value
+    console.log(totalPageCount);
+	$(document).ready(function(){
+		$(".back-to-top").hide();
+		$(".back-to-top-store").hide();
+	});
+    /* //웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
+    $(window).on("scroll", function(){
+        //위로 스크롤된 길이
+        let scrollTop=$(window).scrollTop();
+        //웹 브라우저 창의 높이
+        let windowHeight = $(window).height();
+        //문서 전체의 높이
+        let documentHeight=$(document).height();
+        //바닥까지 스크롤 되었는 지 여부를 알아낸다.
+        let isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+        if(isBottom){
+            //만일 현재 마지막 페이지라면
+            if(currentPage == isLoading){
+                return; //함수를 여기서 끝낸다.sssssssssss
+            }else if(currentPage == totalPageCount){
+            	return;
+            }
+            //현재 로딩 중이라고 표시한다.
+            isLoading = true;
+            //로딩바를 띄우고
+            $(".back-drop").show();
+    	}
+    }); */
+    $(".back-to-top").click(function(){
+    	location.reload()
+    	window.scrollTo(0, 0);
+    })
+    $(".back-to-top-store").click(function(){
+    	location.reload()
+    	window.scrollTo(0, 0);
+    })
+    
+    $(".back-drop").click(function(){
+        //요청할 페이지 번호를 1 증가시킨다.
+        currentPage++;
+        //추가로 받아올 페이지를 서버에 ajax요청을 하고ssssssssssssssssss
+        console.log("currentPage = "+currentPage)
+        
+        let currentContentNum = 8*currentPage;
+        if(currentContentNum > totalRow){
+        	currentContentNum = totalRow
+        }
+        $('#currentContentNum').text(currentContentNum);
+        
+       /*  GetList(currentPage); */
+       $.ajax({
+            url: "ajax_page.do",
+            method: "GET",
+            //검색 기능이 있는 경우 condition과 keyword를 함께 넘겨줘야한다. 안그러면 검색결과만 나와야 하는데 다른 것들으 덧붙여져 나온다.
+            data: "pageNum=" + currentPage + "&keyword=${keyword}",
+            async : false,
+            //ajax_page.jsp의 내용이 data로 들어온다.
+            success:function(data){
+                //console.log(data);
+                //응답된 문자열은 html 형식이다.(/ajax_page.jsp에 응답내용이 있다.)
+                //해당 문자열을 class.card-list-container div에 html로 해석하라고 추가한다.
+                $(".card-list2").append(data);
+                
+                /* $(".back-drop").hide(); */
+                
+                //로딩중이 아니라고 표시힌다.sssssssssss
+                isLoading=false;
+                console.log("ajax");
+            }
+        });
+       if(currentPage == totalPageCount){
+    	$(".back-drop").hide();
+       	$(".back-to-top").show();
+       	/* var a = $(".card-list").length;
+       	var b = a-1
+       	
+       	$(".card-list").last().find('div:eq(1)').append('<div class="col-md-4 col-sm-12"></div>')
+       	$(".card-list").last().find('div:eq(1)').append('<div class="col-md-4 col-sm-12"></div>')
+       	$(".card-list").last().css("width","100%") */
+       }
+	});
+</script>
 <%--                 <c:if test="${myZzimList.size()>0}"> --%>
 <%-- 				<c:forEach var="item" items="${myZzimList}"> --%>
 <!-- 					펀딩찜 -->

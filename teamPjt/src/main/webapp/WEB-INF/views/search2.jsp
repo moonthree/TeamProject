@@ -90,7 +90,6 @@
 						                        	</c:if>
 						                        	| ${item.memberVO.member_business_name }
 						                        </p>
-						                        <p>${item.funding_idx}(idx 테스트) | ${item.funding_views }(조회수 테스트) </p>
 						                        <div class="progress">
 						                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"
 						                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -172,7 +171,7 @@
 						                        <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
 						                            <div class="card-title">${item.store_title}</div>
 						                        </a>
-						                        <p class="card-price"><fmt:formatNumber value="${item.store_price }" type="number" />원</p><span>idxtest : ${item.store_idx}   viewTest : ${item.store_views}</span>
+						                        <p class="card-price"><fmt:formatNumber value="${item.store_price }" type="number" />원</p>
 						                        <input type="number" id="idx${status.index}" value="${item.store_idx}" style="display:none;">
 						                        <!--별점-->
 						                        <div>

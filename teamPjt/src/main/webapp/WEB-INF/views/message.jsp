@@ -106,7 +106,14 @@ $(document).ready (function () {
 								    	</c:if>
 								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx ne 0 }">
-								    		<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }
+								    		<!-- 프사 없는경우 -->
+									    	<c:if test="${ item.member_photo eq '' }">
+									    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img">  ${ item.member_name }
+									    	</c:if>
+									    	<!-- 프사 존재  -->
+									    	<c:if test="${ item.member_photo ne '' }">
+								    			<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img">  ${ item.member_name }
+								    		</c:if>
 								    	</c:if>
 							    	</th>
 							    	<th style="text-align:right;">
@@ -134,7 +141,14 @@ $(document).ready (function () {
 								    	</c:if>
 								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx ne 0 }">
-								    		<img src="<%=request.getContextPath()%>/resources/upload/"+${ item.member_photo } class="login_profile_img"> ${ item.member_name }
+								    		<!-- 프사 없는경우 -->
+									    	<c:if test="${ item.member_photo eq '' }">
+									    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> ${ item.member_name }
+									    	</c:if>
+									    	<!-- 프사 존재  -->
+									    	<c:if test="${ item.member_photo ne '' }">
+								    			<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }
+								    		</c:if>
 								    	</c:if>
 							    	</th>
 							    	<th style="text-align:right;">
@@ -166,19 +180,25 @@ $(document).ready (function () {
 							<c:if test="${0 ne item.funding_idx }">
 							<!-- 보낸사람 & 시각  -->	
 								<tr>
-							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
+							    	<th width="150px" style="border-bottom:2px solid black">
+							    		<!-- 프사 없는경우 -->
+								    	<c:if test="${ item.member_photo eq '' }">
+								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> ${ item.member_name }
+								    	</c:if>
+								    	<!-- 프사 존재  -->
+								    	<c:if test="${ item.member_photo ne '' }">
+							    			<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }
+							    		</c:if>
+							    	</th>
+							    	<!-- 메세지 보낸 날짜 -->
 							    	<th style="text-align:right;">
-							    		소비자 : ${ item.to_member_idx }<br>
-										판매자 : ${ item.from_member_idx }<br>
 										<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-				    	
 							    	</th>
 							    </tr>
 							<!-- 메세지 내용 -->
 							    <tr onclick="window.open('note.do?funding_idx=${item.funding_idx}&store_idx=0&message_idx=${item.message_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
 							      	<th>
-								      	${item.funding_idx }
 			                        </th>
 			                        <th>${ item.message_content }</th>
 							    </tr>
@@ -188,19 +208,25 @@ $(document).ready (function () {
 							<c:if test="${0 ne item.store_idx }">
 								<!-- 보낸사람 & 시각  -->
 								<tr>
-							    	<th width="150px" style="border-bottom:2px solid black"><img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }</th>
+							    	<th width="150px" style="border-bottom:2px solid black">
+										<!-- 프사 없는경우 -->
+								    	<c:if test="${ item.member_photo eq '' }">
+								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> ${ item.member_name }
+								    	</c:if>
+								    	<!-- 프사 존재  -->
+								    	<c:if test="${ item.member_photo ne '' }">
+							    			<img src="<%=request.getContextPath()%>/resources/upload/${ item.member_photo }" class="login_profile_img"> ${ item.member_name }
+							    		</c:if>
+							    	</th>
+							    	<!-- 메세지 보낸 날짜 -->
 							    	<th style="text-align:right;">
-							    		소비자 : ${ item.to_member_idx }<br>
-										판매자 : ${ item.from_member_idx }<br>
 										<fmt:parseDate var="time" value="${item.message_note_date }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				    	                <fmt:formatDate value="${time}" pattern="yyyy.MM.dd a KK:mm:ss " /> 
-				    	
 							    	</th>
 							    </tr>
 							<!-- 메세지 내용 -->
 							    <tr onclick="window.open('note.do?funding_idx=0&store_idx=${item.store_idx}&message_idx=${item.message_idx}','PopupWin', 'width=500,height=700');" style="cursor:pointer;">
 							      	<th>
-								      	${item.store_idx }
 			                        </th>
 			                        <th>${ item.message_content }</th>
 							    </tr>
