@@ -64,6 +64,7 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="0"
                         aria-valuemin="0" aria-valuemax="100"></div>
+                        
                 </div>
                 <h3>0<span class="smalltext"> %달성</span></h3>
                 <h3>0<span class="smalltext"> 원 펀딩</span></h3>
@@ -127,7 +128,7 @@
             	 <%-- <iframe class="iframe" src="../resources/upload/funding/${file_name}#toolbar=0" style="width:100%; height:150vh;"></iframe>  --%>
             	  <img src="../resources/upload/funding/${file_name}" style="width:100%;" alt="...">
             </div>
-            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
+            <div class="tab-pane fade" id="FVnotice" role="tabpanel" class="mainIMG"  aria-labelledby="FVnotice-tab">
             	<h4>판매자 공지</h4>
                <img src="../resources/upload/funding/${funding.funding_notice}" style="width:100%;" alt="...">
                <h4>펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h4>
@@ -161,7 +162,7 @@
             <!--공지-->
             <div class="tab-pane fade active show " id="FVproject" role="tabpanel" aria-labelledby="FVproject-tab">	
             	 <%-- <iframe class="iframe" src="../resources/upload/funding/${funding.funding_content}#toolbar=0" style="width:100%; height:150vh;"></iframe>  --%>
-            	 <img src="../resources/upload/funding/${funding.funding_content}" class="mainIMG" alt="...">
+            	 <img src="../resources/upload/funding/${funding.funding_content}"  alt="...">
             </div>
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
                <img src="../resources/upload/funding/${file_name}" class="mainIMG" alt="...">
