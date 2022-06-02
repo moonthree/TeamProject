@@ -336,6 +336,9 @@ public class MypageController {
 		List<FundingInfoDetailVO> mfl = mypageService.myFundingList2(login.getMember_idx());
 		model.addAttribute("myFundingList",mfl);
 		
+		//펀딩개수
+		model.addAttribute("countFunding",mypageService.countFunding(login.getMember_idx()));
+		
 		return "mypage/info_funding";
 	}
 	
@@ -350,6 +353,9 @@ public class MypageController {
 		//스토어리스트
 		List<StoreInfoDetailVO> msl = mypageService.myStoreList(login.getMember_idx());
 		model.addAttribute("myStoreList",msl);
+
+		//스토어개수
+		model.addAttribute("countStore",mypageService.countStore(login.getMember_idx()));
 		
 		return "mypage/info_store";
 	}

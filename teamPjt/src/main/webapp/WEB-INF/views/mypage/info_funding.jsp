@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mypage_css/mypage.css">
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
@@ -57,7 +58,16 @@
 			            </select>
                     </div>
                 </div>
-               
+               <div class="select_info">
+	          		<c:if test="${countFunding eq 0}">
+	          			<div class="no_list">펀딩 내역이 없습니다.</div>
+	          		</c:if>
+	          		<c:if test="${countFunding ne 0}">
+		          		<div class="box_num">
+		          			<span class="box_num_span">${countZzim}</span>건의 펀딩 내역이 있습니다.
+		          		</div>
+	          		</c:if>
+	          	</div>
                 <c:if test="${myFundingList.size()>0}">
 				<c:forEach var="item" items="${myFundingList}">
 						<div <c:if test="${param.funding_state ne null and item.funding_order_pay_state ne param.funding_state}">style="display:none"</c:if>>

@@ -97,11 +97,11 @@ $(document).on('click','#findId',function(){
 	        success:function(data){
 	        	if(data==""){
 	        		$("#getIdModal").modal("toggle");
-	           	 	var html = "해당하는 회원 정보가 없습니다 다시 입력해주세요 <br>"+data;
+	           	 	var html = "해당하는 회원 정보가 없습니다. 다시 입력해주세요 <br>"+data;
 	                $("#getId").html(html);
 	        	}else{
 	        		$("#getIdModal").modal("toggle");
-	           	 	var html = "조회한 이메일은 다음과 같습니다 <br>"+data;
+	           	 	var html = "조회한 이메일은 다음과 같습니다. <br><div style='color:#fa6463'>"+data+"</div>";
 	                $("#getId").html(html);
 	        	}
 	        },
@@ -114,6 +114,9 @@ $(document).on('click','#findId',function(){
 
 //비밀번호 찾기
 $(document).on('click','#findPw',function(){
+	//버튼 비활성화
+	$("#findPw").prop("disabled", true);
+	
 	var flag = true;
     console.log("비밀번호 찾기");
 	console.log("이메일 : "+$("#emailInput2").val());
@@ -137,6 +140,7 @@ $(document).on('click','#findPw',function(){
 	
 	if(flag == false ){
 		alert('비밀번호 찾기의 양식을 모두 입력해주세요');
+		$("#findPw").prop("disabled", false);
 	}
 	else{
 	
@@ -146,15 +150,17 @@ $(document).on('click','#findPw',function(){
 		data : {"member_email":$("#emailInput2").val(),"member_name":$("#nameInput2").val(),"member_phone":$("#telInput2").val()},
         success:function(data){
         	if(data == 'kakaoEamil'){
-        		
         		alert('카카오 계정은 비밀번호 찾기를 할 수 없습니다. 카카오 계정을 확인해주세요');
+        		$("#findPw").prop("disabled", false);
         	}
         	else{
         		$("#pwModal").modal("toggle");
+        		$("#findPw").prop("disabled", false);
         	}
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
         	alert('입력하신 정보가 올바르지 않습니다');
+        	$("#findPw").prop("disabled", false);
         }
 	});
 	}
