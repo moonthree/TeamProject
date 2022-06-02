@@ -897,7 +897,7 @@ public class MypageController {
 	}
 	
 	/*펀딩 제품 설명 pdf 변경*/
-	@RequestMapping(value="funding_modify_content.do", method=RequestMethod.GET)
+	@RequestMapping(value="/funding_modify_content.do", method=RequestMethod.GET)
 	public String modify_content(int funding_idx, Model model,int check) {
 		System.out.println("get메소드" +funding_idx);
 		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
@@ -908,7 +908,7 @@ public class MypageController {
 	}
 	
 	/*펀딩 공지사항 변경*/
-	@RequestMapping(value="funding_modify_notice.do", method=RequestMethod.GET)
+	@RequestMapping(value="/funding_modify_notice.do", method=RequestMethod.GET)
 	public String modify_notice(int funding_idx, Model model,int check) {
 		System.out.println("get메소드" +funding_idx);
 		FundingMainVO vo =  fms.select_fundingOne(funding_idx);
@@ -919,7 +919,7 @@ public class MypageController {
 	}
 	
 	/*펀딩 컨텐츠 변경*/
-	@RequestMapping(value = "funding_update_conetent.do",method=RequestMethod.POST)
+	@RequestMapping(value = "/funding_update_conetent.do",method=RequestMethod.POST)
 	public String update_content(MultipartFile funding_Detail_temp , HttpServletRequest request , Model model, int funding_idx, int flag) throws IllegalStateException, IOException {
 		
 		
@@ -946,7 +946,7 @@ public class MypageController {
 	}
 	
 	/*펀딩 공지사항 변경*/
-	@RequestMapping(value = "funding_update_notice.do",method=RequestMethod.POST)
+	@RequestMapping(value = "/funding_update_notice.do",method=RequestMethod.POST)
 	public String update_notice(MultipartFile funding_Notice_temp , HttpServletRequest request , Model model, int funding_idx, int flag) throws IllegalStateException, IOException {
 		
 		
@@ -974,7 +974,7 @@ public class MypageController {
 	
 	
 	
-	@RequestMapping(value="update_file.do",method = RequestMethod.POST)
+	@RequestMapping(value="/update_file.do",method = RequestMethod.POST)
 	public void update_file(int funding_idx, int check, String funding_content, String funding_notice, 
 			HttpServletResponse response, HttpServletRequest request) throws IOException {
 		//프로젝트 pdf 업데이트
