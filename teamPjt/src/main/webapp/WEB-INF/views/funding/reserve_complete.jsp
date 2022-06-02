@@ -128,7 +128,7 @@
             <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">취향 맞춤 펀딩 프로젝트</div>
-                <div class="row">
+                <div class="row" style="padding: 45px 100px;">
 					<c:choose>
 						<c:when test="${login.member_pet eq 0}">
 							<c:forEach var="item" items="${fundHomeDog}">

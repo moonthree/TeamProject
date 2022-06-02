@@ -27,10 +27,6 @@
 					    <th scope="row">상품명</th>
 					    <td>${info.store_title}</td>
 					  </tr>
-<!-- 					  <tr> -->
-<!-- 					    <th scope="row">배송 예정일</th> -->
-<!-- 					    <td><div id="express_date" style="display: inline;">배송 날짜</div></td> -->
-<!-- 					  </tr> -->
 					  <tr>
 					    <td colspan="2" style="border-bottom: none; color: gray;">
 					    	* 주문하신 상품의 주문이 완료되었습니다.<br>
@@ -87,7 +83,7 @@
             <div class="col-xs-12" style="width: 100%; margin-top: 50px;">
             	<hr>
                 <div style="font-size: 20pt; font-weight: bold; padding: 20px 0px;" class="col-md-12">스토어 추천 제품</div>
-                <div class="row">
+                <div class="row" style="padding: 45px 100px;">
                 	<div class="row">
                	   	<c:forEach var="item" items="${storeHomeFund}">
 	                   <div class="col-lg-2 col-sm-4 col-6">
