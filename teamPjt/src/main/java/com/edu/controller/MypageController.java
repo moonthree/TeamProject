@@ -42,6 +42,7 @@ import com.edu.vo.FundingCommunityVO;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_optionVO;
+import com.edu.vo.Funding_orderVO;
 import com.edu.vo.Funding_order_optionVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreInfoDetailVO;
@@ -354,13 +355,15 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/info_funding_detail.do", method = RequestMethod.GET)
-	public String info_funding_detail(Model model, FundingMainVO vo, HttpServletRequest request, @RequestParam("funding_order_idx") int funding_order_idx) {
+	public String info_funding_detail(Model model, Funding_orderVO fovo, FundingMainVO vo, HttpServletRequest request, @RequestParam("funding_order_idx") int funding_order_idx) {
 		
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
+		
+		//System.out.println("funding_order_idx = " + funding_order_idx);
 				
 		//funding_idx와 member_idx를 통한 funding_MainVO와 funding_orderVO가져오기
 		//위의 방식을 고쳐 funding_order_idx만으로 funding_orderVO를 가져올것이다
@@ -373,11 +376,33 @@ public class MypageController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("member_idx",login.getMember_idx());
 		param.put("funding_order_idx",funding_order_idx);
+		
+		/*
+		 * int funding_orderNum = mypageService.fundingOrderCount(fovo);
+		 * if(funding_order_idx > funding_orderNum) { param.put("funding_order_idx",
+		 * 99999); }else { param.put("funding_order_idx",funding_order_idx); }
+		 */
+		 
+		
 		model.addAttribute("express",mypageService.fundingExpressDetail(param));
 		
 		//funding_order_option은 따로 리스트형식으로 가져오기 - vo두개로 나눌것 첫번쨰껀 Funding_optionVO 두번째껀 Funding_order_optionVO
 		model.addAttribute("option",mypageService.fundingOptionDetail(funding_order_idx));
 		
+		/*
+		 * System.out.println(login.getMember_idx());
+		 * 
+		 * System.out.println(mypageService.fundingOrderCount(fovo));
+		 * 
+		 * int a = 0; if(mypageService.fundingExpressDetail(param).getMember_idx() ==
+		 * 0){ a = 0; }else { a =
+		 * mypageService.fundingExpressDetail(param).getMember_idx(); }
+		 * 
+		 * int b = login.getMember_idx();
+		 * 
+		 * if( a == b) { return "mypage/info_funding_detail"; }else { return
+		 * "mypage/mypage"; }
+		 */
 		return "mypage/info_funding_detail";
 	}
 
