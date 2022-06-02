@@ -454,7 +454,9 @@
 		AND	 	fp.funding_option_idx = foo.funding_order_option_select_idx
 		AND 	fo.funding_order_idx = #{funding_order_idx};
 	</select>
-	
+	<select id="fundingOrderCount" resultType = "int">
+		select count(funding_order_idx) from funding_order
+	</select>
 	<!-- store_info_detail -->
 	<!-- store & store_order -->
 	<select id="storeInfoDetail" parameterType="int" resultType="com.edu.vo.StoreInfoDetailVO">
