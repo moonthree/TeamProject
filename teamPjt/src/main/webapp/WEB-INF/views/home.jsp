@@ -43,7 +43,7 @@ section04 : 새로 오픈한 프로젝트
            </ol>
            <div class="carousel-inner">
                <div class="carousel-item active">
-               	   <a href="event/event_view.do?member_idx=1">
+               	   <a href="event/event_view.do?member_idx=5">
                    <img src="resources/image/event/01_main.png" class="d-block w-100" alt="...">
                    </a>
                    <div class="carousel-caption d-none d-md-block">
@@ -52,7 +52,7 @@ section04 : 새로 오픈한 프로젝트
                    </div>
                </div>
                <div class="carousel-item">
-               	   <a href="event/event_view.do?member_idx=2">
+               	   <a href="event/event_view.do?member_idx=7">
                    <img src="resources/image/event/03_main.png" class="d-block w-100" alt="...">
                    </a>
                    <div class="carousel-caption d-none d-md-block">
@@ -61,7 +61,7 @@ section04 : 새로 오픈한 프로젝트
                    </div>
                </div>
                <div class="carousel-item">
-               	   <a href="event/event_view.do?member_idx=7">
+               	   <a href="event/event_view.do?member_idx=8">
                    <img src="resources/image/event/02_main.png" class="d-block w-100" alt="...">
                    </a>
                    <div class="carousel-caption d-none d-md-block">
