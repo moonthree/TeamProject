@@ -40,34 +40,34 @@ public class ZzimInfoVO {
 	private int store_views;
 	
 	//무한스크롤
-	private int startRowNumStore;
-	private int endRowNumStore;
-	private int rowCountStore;
-	private int totalRowStore;
+	private int startRowNum;
+	private int endRowNum;
+	private int rowCount;
+	private int totalRow;
 	
-	public int getStartRowNumStore() {
-		return startRowNumStore;
+	public int getStartRowNum() {
+		return startRowNum;
 	}
-	public void setStartRowNumStore(int startRowNumStore) {
-		this.startRowNumStore = startRowNumStore;
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
 	}
-	public int getEndRowNumStore() {
-		return endRowNumStore;
+	public int getEndRowNum() {
+		return endRowNum;
 	}
-	public void setEndRowNumStore(int endRowNumStore) {
-		this.endRowNumStore = endRowNumStore;
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
 	}
-	public int getRowCountStore() {
-		return rowCountStore;
+	public int getRowCount() {
+		return rowCount;
 	}
-	public void setRowCountStore(int rowCountStore) {
-		this.rowCountStore = rowCountStore;
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
 	}
-	public int getTotalRowStore() {
-		return totalRowStore;
+	public int getTotalRow() {
+		return totalRow;
 	}
-	public void setTotalRowStore(int totalRowStore) {
-		this.totalRowStore = totalRowStore;
+	public void setTotalRow(int totalRow) {
+		this.totalRow = totalRow;
 	}
 	
 	public int getZzim_idx() {

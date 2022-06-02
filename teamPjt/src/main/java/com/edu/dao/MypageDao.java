@@ -73,15 +73,15 @@ public class MypageDao {
 	public List<ZzimVO> select3Zzim(int member_idx){
 		return sqlSession.selectList("MypageMapper.select3Zzim", member_idx);
 	}
-	
+	//구매한 펀딩 개수
 	public int countFunding(int member_idx) {
 		return sqlSession.selectOne("MypageMapper.countFunding", member_idx);
 	}
-	
+	//구매한 스토어 개수
 	public int countStore(int member_idx) {
 		return sqlSession.selectOne("MypageMapper.countStore", member_idx);
 	}
-	
+	//찜 개수
 	public int countZzim(int member_idx) {
 		return sqlSession.selectOne("MypageMapper.countZzim", member_idx);
 	}
@@ -105,6 +105,11 @@ public class MypageDao {
 	public List<ZzimInfoVO> getZzim_category(int member_idx){
 		return sqlSession.selectList("MypageMapper.getZzim_category", member_idx);
 	}
+	//찜 목록 - 무한 스크롤
+	public ZzimInfoVO myZzimList1(ZzimInfoVO vo){
+		return sqlSession.selectOne("MypageMapper.myZzimList1", vo);
+	}
+	//찜 목록 - 스크롤
 	public ZzimInfoVO myZzimList2(Map<String,Object> param){
 		return sqlSession.selectOne("MypageMapper.myZzimList2", param);
 	}

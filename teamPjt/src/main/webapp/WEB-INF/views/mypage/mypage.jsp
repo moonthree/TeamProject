@@ -429,6 +429,7 @@
 					          		</c:if>
 					          	</div>
 				            	<div class="mydiv" id="mydiv">
+				            	
 									<div class="zzim_cotainer">
 					            		<c:if test="${myZzimList.size()>0}">
 											<c:forEach var="item" items="${myZzimList}">
@@ -501,7 +502,8 @@
 												</c:if>
                 							</c:forEach>
                 						</c:if>
-                					</div>		
+                					</div>
+                					
 			            		</div>
 				            </div>
 				         </div>
