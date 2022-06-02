@@ -38,7 +38,6 @@
 			               	</c:if>
 			               	| ${item.memberVO.member_business_name }
 			               </p>
-			               <p>${item.funding_idx}(idx 테스트) | ${item.funding_views }(조회수 테스트) </p>
 			               <div class="progress">
 			                   <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${item.funding_current_price/item.funding_target_price*100}%"
 			                       aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>

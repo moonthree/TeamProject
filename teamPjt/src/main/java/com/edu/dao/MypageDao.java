@@ -1,6 +1,7 @@
 package com.edu.dao;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.Funding_expressVO;
 import com.edu.vo.Funding_order_payVO;
+import com.edu.vo.Funding_orderVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreExpressVO;
 import com.edu.vo.StoreInfoDetailVO;
@@ -134,6 +136,10 @@ public class MypageDao {
 	public List<FundingInfoDetailVO> fundingOptionDetail(int funding_order_idx) {
 		return sqlSession.selectList("MypageMapper.fundingOptionDetail", funding_order_idx);
 	}
+	public int fundingOrderCount(Funding_orderVO vo) {
+		return sqlSession.selectOne("MypageMapper.fundingOrderCount", vo);
+	}
+	
 	/*store_info_detail*/
 	//store & store_order
 	public StoreInfoDetailVO storeDetail(int store_order_idx){
