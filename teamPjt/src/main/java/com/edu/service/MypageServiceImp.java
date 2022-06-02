@@ -342,7 +342,7 @@ public class MypageServiceImp implements MypageService{
 	        		"																<td class=\"info-bullets__icon\" style=\"padding: 0 15px 0 0;\">\r\n" + 
 	        		"																	<img src=\"https://i.ibb.co/tmcVjnM/email.png\" style=\"width: 20px;\">\r\n" + 
 	        		"																</td>\r\n" + 
-	        		"																<td class=\"info-bullets__content\" style=\"color: #969696; font-size: 16px;\">contactPetDDing@gmail.com</td>\r\n" + 
+	        		"																<td class=\"info-bullets__content\" style=\"color: #969696; font-size: 16px;\">petdding@gmail.com</td>\r\n" + 
 	        		"															</tr>\r\n" + 
 	        		"														</table>\r\n" + 
 	        		"													</td>\r\n" + 

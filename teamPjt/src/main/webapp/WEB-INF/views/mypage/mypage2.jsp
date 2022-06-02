@@ -373,7 +373,7 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
                             <h5 class="card-title"style="font-weight: 600; margin-bottom: 10px;">${ item.store_title }</h5>
                             <p class="card-text" >
                               <div class="row">
-                                <div class="col">${ item.store_content }</div>
+                                <div class="col"></div>
                               </div>                             
                               <div class="row" >
                                 <div class="col">

@@ -54,19 +54,19 @@
 				FROM store s, member m
 				<choose>
 					<when test="fund != null">
-						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (5, 7, 8)
 					</when>
 					<when test="dog != null">
-						where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
+						where s.store_category = 0 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (5, 7, 8)
 					</when>
 					<when test="cat != null">
-						where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
+						where s.store_category = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (5, 7, 8)
 					</when>
 					<when test="other != null">
-						where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
+						where s.store_category = 2 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (5, 7, 8)
 					</when>
 					<otherwise>
-						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (7)
+						where s.store_funding = 1 AND s.member_idx = m.member_idx AND store_permit_state=1 AND s.member_idx not in (5, 7, 8)
 					</otherwise>
 				</choose>
 				<choose>
@@ -96,19 +96,19 @@
 		FROM store
 		<choose>
 			<when test="fund != null">
-				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (7)
+				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (5, 7, 8)
 			</when>
 			<when test="dog != null">
-				where store_category = 0 AND store_permit_state=1 AND member_idx not in (7)
+				where store_category = 0 AND store_permit_state=1 AND member_idx not in (5, 7, 8)
 			</when>
 			<when test="cat != null">
-				where store_category = 1 AND store_permit_state=1 AND member_idx not in (7)
+				where store_category = 1 AND store_permit_state=1 AND member_idx not in (5, 7, 8)
 			</when>
 			<when test="other != null">
-				where store_category = 2 AND store_permit_state=1 AND member_idx not in (7)
+				where store_category = 2 AND store_permit_state=1 AND member_idx not in (5, 7, 8)
 			</when>
 			<otherwise>
-				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (7)
+				where store_funding = 1 AND store_permit_state=1 AND member_idx not in (5, 7, 8)
 			</otherwise>
 		</choose>
 	</select>

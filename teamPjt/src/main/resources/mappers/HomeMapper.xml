@@ -137,6 +137,7 @@
 			store_views
 		FROM store
 		WHERE store_permit_state=1
+		AND member_idx not in (5, 7, 8)
 		ORDER BY store_views desc limit 0, 5;
 	</select>
 <!-- 실시간 랭킹 용도 끝-->
