@@ -79,7 +79,9 @@ public interface MypageService {
 	List<FundingMainVO> myZzimList(int member_idx);
 	//찜 카테고리 리스트
 	List<ZzimInfoVO> getZzim_category(int member_idx);
-	//찜내역2
+	//찜내역 - 무한스크롤
+	ZzimInfoVO myZzimList1(ZzimInfoVO vo);
+	//찜내역 - 스크롤
 	ZzimInfoVO myZzimList2(Map<String,Object> param);
 	
 	//판매자 펀딩목록 mypage2

@@ -97,7 +97,14 @@ td textarea{
 				    <tr>
 				    	<th width="12%">
 				    	<div class="box">
-				    		<img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+				    		<!-- 프사 없는경우 -->
+					    	<c:if test="${ photo eq '' }">
+					    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+					    	</c:if>
+					    	<!-- 프사 존재  -->
+					    	<c:if test="${ photo ne '' }">
+				    			<img src="<%=request.getContextPath()%>/resources/upload/${ photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+				    		<</c:if>
 				    	</div>	
 				    	</th>
 				    	
@@ -143,7 +150,14 @@ td textarea{
 				    	</td>
 				    	<td width="12%" style="text-align:right">
 				    		<div class="box" style="text-align:right">
-				    			<img src="<%=request.getContextPath()%>/resources/upload/${ member.member_photo }" class="login_profile_img" style="width:100%; height:100%; object-fit:cover;">
+				    			<!-- 프사 없는경우 -->
+						    	<c:if test="${ member.member_photo eq '' }">
+						    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+						    	</c:if>
+						    	<!-- 프사 존재  -->
+						    	<c:if test="${ member.member_photo ne '' }">
+					    			<img src="<%=request.getContextPath()%>/resources/upload//${ member.member_photo }" class="login_profile_img" style="width:50px; height:50px; object-fit:cover;">
+					    		<</c:if>
 				  			</div>
 				  		</td>
 				    </tr>

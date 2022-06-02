@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.MypageService;
 import com.edu.service.PaymentService;
+import com.edu.service.SearchService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
 import com.edu.vo.FileUploadVO;
@@ -115,6 +117,7 @@ public class MypageController {
 		model.addAttribute("myZzimList",allZzimInfo);
 		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
 		
+	
 		return "mypage/mypage";
 	}
 
@@ -408,8 +411,7 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/info_zzim.do")
-	public String info_zzim(Model model, FundingMainVO vo, HttpServletRequest request) throws Exception {
-		
+	public String info_zzim(Model model, HttpServletRequest request) throws Exception {
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
@@ -419,27 +421,141 @@ public class MypageController {
 		// 찜리스트
 		//List<FundingMainVO> mzl = mypageService.myZzimList(login.getMember_idx());
 		
+		
+		//찜 리스트 가져오기
+		//model.addAttribute("myZzimList",allZzimInfo);
+		//찜 개수 카운트
+		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
+
+		
+	
+		
+		
+		//무한 스크롤
+		final int PAGE_ROW_COUNT = 8; 							//한 페이지에 몇개씩 표시할 것인지
+		int pageNum = 1; 										//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		String strPageNum = request.getParameter("pageNum"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		System.out.println("strPageNum(페이지 번호) : "+strPageNum);
+		if(strPageNum != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNum = Integer.parseInt(strPageNum);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+			System.out.println("*바꾼 pageNum : "+pageNum);
+		}															
+		
+		int startRowNum = (pageNum -1) * PAGE_ROW_COUNT;		//보여줄 페이지의 시작 ROWNUM  0부터 시작
+		int rowCount = PAGE_ROW_COUNT;
+		ZzimInfoVO vo = new ZzimInfoVO();						//ROWNUM과 ROWCOUNT를 ZzimInfoVO 객체에 담는다.
+		vo.setStartRowNum(startRowNum);
+		vo.setRowCount(rowCount);
+		//찜 목록 얻어오기
 		//먼저 zzim_category 리스트를 가져와서 넣어줘야함..사이즈따라 for문돌림
 		List<ZzimInfoVO> zzim_category = mypageService.getZzim_category(login.getMember_idx());
 		List<ZzimInfoVO> allZzimInfo = new ArrayList<ZzimInfoVO>();
 		for(int i=0 ; i<zzim_category.size() ; i++) {
 			//찜 카테고리와 member_idx를 통해 뽑아와야함 그리고 다시 합치기
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("zzim_category", zzim_category.get(i).getZzim_category());
-			param.put("member_idx", login.getMember_idx());
-			param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
+//			Map<String, Object> param = new HashMap<String, Object>();
+//			param.put("zzim_category", zzim_category.get(i).getZzim_category());
+//			param.put("member_idx", login.getMember_idx());
+//			param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
 			
-			ZzimInfoVO mzl2 = mypageService.myZzimList2(param);
-			allZzimInfo.add(mzl2);
+			vo.setZzim_category(zzim_category.get(i).getZzim_category());
+			vo.setMember_idx(login.getMember_idx());
+			vo.setZzim_idx(zzim_category.get(i).getZzim_idx());
+			
+			ZzimInfoVO mzl1 = mypageService.myZzimList1(vo);
+			allZzimInfo.add(mzl1);
 		}
-		//찜 리스트 가져오기
-		model.addAttribute("myZzimList",allZzimInfo);
-		//찜 개수 카운트
-		model.addAttribute("countZzim",mypageService.countZzim(login.getMember_idx()));
-
+		//allZzimInfo = mypageService.myZzimList1(vo);
+		
+		// 찜한 개수
+		int totalRow = mypageService.countZzim(login.getMember_idx());
+		System.out.println("totalRow : "+totalRow);
+		// 전체 페이지의 갯수
+		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
+		int endRowNum = totalRow - (rowCount * (totalPageCount-1));
+		vo.setEndRowNum(endRowNum);
+		vo.setTotalRow(totalRow);
+		System.out.println("endRowNum : "+endRowNum);
+		System.out.println("totalPageCount : "+totalPageCount);
+		System.out.println("startRowNum : "+startRowNum);
+		
+		
+		request.setAttribute("searchList", allZzimInfo);
+		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("pageNum", pageNum);
+		
 		return "mypage/info_zzim";
 	}
+	// 무한스크롤로 불러오는 리스트
+	@RequestMapping(value = "/ajax_page.do")
+	public String fundAjaxList(HttpServletRequest request, HttpSession session) throws Exception {
+		// 세션에 있는 사용자의 정보를 가져옴
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		
+		final int PAGE_ROW_COUNT = 8; 							//한 페이지에 몇개씩 표시할 것인지
+		int pageNum = 1; 										//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+		String strPageNum = request.getParameter("pageNum"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+		if(strPageNum != null) {								//만일 페이지 번호가 파라미터로 넘어 온다면
+			pageNum = Integer.parseInt(strPageNum);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+		}															
+		
+		int startRowNum = (pageNum -1) * PAGE_ROW_COUNT;	//보여줄 페이지의 시작 ROWNUM  0부터 시작
+		int endRowNum= startRowNum * PAGE_ROW_COUNT - 1;				//보여줄 페이지의 끝 ROWNUM
+		int rowCount = PAGE_ROW_COUNT;
+		
+		System.out.println();
+		
+		
+		ZzimInfoVO vo = new ZzimInfoVO();							//ROWNUM과 ROWCOUNT를 FundingMainVO 객체에 담는다.
+		vo.setStartRowNum(startRowNum);
+		vo.setEndRowNum(endRowNum);
+		vo.setRowCount(rowCount);
+				
+		ArrayList<ZzimInfoVO> searchList = null;					//ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+		int totalRow = 0;										//전체 row의 개수를담을 지역변수를 미리 만든다.
 
+		//찜 목록 가져오기
+		List<ZzimInfoVO> zzim_category = mypageService.getZzim_category(login.getMember_idx());
+		List<ZzimInfoVO> allZzimInfo = new ArrayList<ZzimInfoVO>();
+		for(int i=0 ; i<zzim_category.size() ; i++) {
+			//찜 카테고리와 member_idx를 통해 뽑아와야함 그리고 다시 합치기
+//			Map<String, Object> param = new HashMap<String, Object>();
+//			param.put("zzim_category", zzim_category.get(i).getZzim_category());
+//			param.put("member_idx", login.getMember_idx());
+//			param.put("zzim_idx", zzim_category.get(i).getZzim_idx());
+			
+			vo.setZzim_category(zzim_category.get(i).getZzim_category());
+			vo.setMember_idx(login.getMember_idx());
+			vo.setZzim_idx(zzim_category.get(i).getZzim_idx());
+			
+			ZzimInfoVO mzl1 = mypageService.myZzimList1(vo);
+			allZzimInfo.add(mzl1);
+		}
+		// 찜의 개수
+		totalRow = mypageService.countZzim(login.getMember_idx());
+
+		
+		// 전체 페이지의 갯수
+		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
+		
+		request.setAttribute("searchList", allZzimInfo);
+		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("pageNum", pageNum);
+		
+		System.out.println("pageNum = " + pageNum);
+		System.out.println("startRowNum = " + startRowNum);
+		System.out.println("endRowNum = " + endRowNum);
+		System.out.println("rowCount = " + rowCount);
+		System.out.println("totalRow= " + totalRow);
+		System.out.println("totalPageCount=" + totalPageCount);
+
+		System.out.println("=====================");
+		
+		return "mypage/mypage_infinite_scroll_ajax";
+	}
+		
+		
 	@RequestMapping(value = "/my_info.do")
 	public String my_info(Model model, HttpServletRequest request) {
 
@@ -703,7 +819,7 @@ public class MypageController {
 			result = mypageService.deleteZzim2(deleteStoreZzim);
 		}
 		if(result > 0) { //찜성공
-			return "redirect:mypage.do";
+			return "redirect:info_zzim.do";
 		}else { //찜실패
 			System.out.println("찜실패");
 			return "redirect:mypage.do";

@@ -481,6 +481,12 @@ public class MypageServiceImp implements MypageService{
 	public List<ZzimInfoVO> getZzim_category(int member_idx) {
 		return mdao.getZzim_category(member_idx);
 	}
+	//찜 내역 - 무한 스크롤
+	@Override
+	public ZzimInfoVO myZzimList1(ZzimInfoVO vo) {
+		return mdao.myZzimList1(vo);
+	}
+	//찜 내역 - 스크롤
 	@Override
 	public ZzimInfoVO myZzimList2(Map<String,Object> param) {
 		return mdao.myZzimList2(param);
