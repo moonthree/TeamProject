@@ -225,9 +225,9 @@
 		           		 <img src="../resources/upload/store/${file_name}" style="width:100%;" alt="...">
 		            </div>
 		            <!--공지-->
-		            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
+		            <div class="tab-pane fade" id="FVnotice" role="tabpanel"  aria-labelledby="FVnotice-tab">
 		            	<h4>판매자 공지</h4>
-		              	<img src="../resources/upload/store/${store.store_notice}" style="width:100%;" alt="...">
+		              	<img src="../resources/upload/store/${store.store_notice}"  class="mainIMG" style="width:100%;" alt="...">
 		              	<h4>교환 및 환불 안내</h4>
 		                <div class="notice">교환 및 환불 문의는 '판매자 문의'로 신청해 주세요.</div>
 		                <h4>반품 보내실 주소</h4>
@@ -260,7 +260,7 @@
 	            <!--공지-->
 	            <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
 	            	 <h4>판매자 공지</h4>
-	              	 <img src="../resources/upload/store/${file_name}" style="width:100%;" alt="...">
+	              	 <img src="../resources/upload/store/${file_name}" style="width:100%;"  class="mainIMG" alt="...">
 	              	 <h4>교환 및 환불 안내</h4>
 	                <div class="notice">교환 및 환불 문의는 '판매자 문의'로 신청해 주세요.</div>
 	                <h4>반품 보내실 주소</h4>

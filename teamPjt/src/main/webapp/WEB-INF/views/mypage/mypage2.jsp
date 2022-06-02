@@ -80,7 +80,7 @@
 	}
 	
 	function Fnalert2(idx) {
-		if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니다. 그래도 하시겠습니까?")) {
+		if(confirm("수정 시 제품 설명 사진 파일을 다시 업로드 해야합니다. 그래도 하시겠습니까?")) {
 		
 			var funding_idx = idx;
 			
@@ -140,7 +140,7 @@ function Storealert1(idx) {
 //이미지 변경
 function Storealert2(idx) {
 	
-	if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니다. 그래도 하시겠습니까?")) {
+	if(confirm("수정 시 제품 설명 사진 파일을 다시 업로드 해야합니다. 그래도 하시겠습니까?")) {
 		
 		var store_idx = idx;
 		
