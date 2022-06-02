@@ -63,9 +63,6 @@
 		          		</div>
 	          		</c:if>
 	          	</div>
-	          	<c:if test="${totalRow == 0 }">
-	        		찜 내역이 없습니다.
-	        	</c:if>
             	<c:if test="${totalRow > 0 }">
 	          	<div class="zzim_cotainer">
 
