@@ -378,7 +378,7 @@
 		                        </div>
 		                       	<span class="commuP3Span2">${read.memberVO.member_business_name }
 		                       		<c:if test="${login eq null}">
-				                		<button type="button" class="chatBtn" data-toggle="modal" data-target="#loginModal">
+				                		<button type="button" class="messageQnaBtn" data-toggle="modal" data-target="#loginModal">
 					                		판매자 문의
 					                	</button>
 				                	</c:if>
