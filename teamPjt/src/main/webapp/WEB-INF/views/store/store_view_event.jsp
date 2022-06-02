@@ -161,7 +161,12 @@
 				        <div class="select_container">
 				            <div class="select_title">
 				                <div class="select_menu_title" id="select_menu_title">상품 선택</div>
-				                <div class="morebtn">↓</div>
+				                <div class="morebtn">
+				                	<span class="arrow">
+							            <span></span>
+							            <span></span>
+							        </span>
+				                </div>
 				            </div>
 				            <ul class="select_menu_content">
 				                <div>
@@ -209,11 +214,11 @@
 											</svg>
 		                        		</button>
 		                        		<!-- 수량  -->
-		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price - optionlist.store_option_price * event /100}">
+		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
 		                        		<input type="hidden" name="stock${optionlist.store_option_idx}" id="stock" value="${optionlist.store_option_stock}">
 		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
 		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">
-		                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+		                                	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="up bi bi-plus-square" viewBox="0 0 16 16">
 											  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 											  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 											</svg>
@@ -1566,9 +1571,10 @@ let option = {
 	    
 	    //개별 수량 변경
 	    changePNum: function (pos) {
-	        var item = document.querySelector('input[name=p_num'+pos+']');
-	        var p_num = parseInt(item.getAttribute('value'));
+	    	var item = document.querySelector('input[name=p_num'+pos+']');
+	        var p_num = Number($("input[name=p_num"+pos+"]").val());
 	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : p_num;
+	        
 	        var stock = item.previousElementSibling.value;
 	        if(parseInt(newval) > stock){
 	        	alert('잔여수량 내에서 수량을 선택해주세요.');
