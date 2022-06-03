@@ -8,9 +8,10 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+ <!--  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
@@ -21,6 +22,7 @@
             $(".dropdown-toggle").dropdown();
         });
     </script>
+    
     
     <link rel="stylesheet" type="text/css" href="../resources/css/mypage_css/management_product.css">
 </head>
@@ -79,10 +81,9 @@
                                   <c:if test="${funList.funding_category eq 1}">고양이</c:if>
                                   <c:if test="${funList.funding_category eq 2}">기타동물</c:if>
                                </td>
-                               <!-- <td>
-                                   <button type="button" onclick="updateStateFunding(this)" class="btn btn-outline-success">제품 보류</button>
-                                   <button type="button" onclick="updateStateFunding2(this)" class="btn btn-outline-danger" >제품 거절</button>
-                               </td> -->
+                                <td>
+                                   <button type="button" onclick="updateStateFunding(${funList.funding_idx})" class="btn btn-outline-success">변경</button>
+                               </td> 
                            </tr>
                         </c:forEach>
                     </tbody>
@@ -142,10 +143,9 @@
                                   <c:if test="${StoreList.store_category eq 1}">고양이</c:if>
                                   <c:if test="${StoreList.store_category eq 2}">기타동물</c:if>
                                </td>
-                              <!--  <td>
-                                   <button type="button" onclick="updateStateStore(this)" class="btn btn-outline-success">제품 보류</button>
-                                   <button type="button" onclick="updateStateStore2(this)" class="btn btn-outline-danger" >제품 거절</button>
-                               </td> -->
+                               <td>
+                                   <button type="button" onclick="updateStateStore(${StoreList.store_idx})" class="btn btn-outline-success">변경</button>
+                               </td> 
                            </tr>
                         </c:forEach>
                         </tbody>
@@ -207,6 +207,19 @@ $('#myTab #alink2').click(function(e) {
   // on load of the page: switch to the currently selected tab
   var hash = window.location.hash;
   $('#myTab a[href="' + hash + '"]').tab('show'); 
+
+  
+ 
+  function updateStateFunding(obj) {
+		
+	   location.href = "updateFunThum.do?funding_idx="+obj;
+	}
+  
+  function updateStateStore(obj) {
+		
+	   location.href = "updateStoreThum.do?store_idx="+obj;
+	}
+  
 
 </script>
 

@@ -13,7 +13,6 @@
 	main {
         height: auto;
         min-height: 100%;
-        padding-bottom: 300px;
     }
     .step_circle{
         display: table-cell;

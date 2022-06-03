@@ -369,7 +369,7 @@
 		                        			<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
 		                        		</div>
 		                        	</c:when>
-		                        	<c:otherwise>
+		                        	<c:otherwise>=
 		                        		<div class="profile_div">
 											<img src="../resources/upload/${read.memberVO.member_photo }" alt="profile_img" class="profile_img">
 										</div>

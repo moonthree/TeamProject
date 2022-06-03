@@ -48,7 +48,9 @@ public interface AdminService {
 	List<StoreVO>pro_store(Pagination2 page2);
 	int pro_StoreCount();
 	
-
+	
+	int funding_thumUpdate(FundingMainVO vo );
+	int store_Thumupdate(StoreVO vo);
 	
 	
 }
