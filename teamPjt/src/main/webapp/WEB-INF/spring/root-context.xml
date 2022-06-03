@@ -62,7 +62,7 @@
 		 
 		 <!-- MySQL dataSource -->
  <!-- 작업용 localhost 연결 -->
-     <bean id="dataSource"
+<!--      <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
@@ -82,11 +82,11 @@
 	
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> 
+	</bean>  -->
 	<!-- localhost 연결 끝 -->
 	
 <!-- 서버 연결 -->
-	<!-- <bean id="dataSource"
+	 <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
@@ -106,7 +106,7 @@
 	
 	<bean id="sqlSessoinTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> -->
+	</bean>
 	
 	
 	<!-- 서버 연결 ㄲ끝-->

@@ -167,6 +167,7 @@ public class MypageController {
 	         System.out.println(vo.toString());	 
 	         
 	         String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
+	         System.out.println(path);
 	         
 	         
 	         String thum = vo.getFunding_thumbnail();
