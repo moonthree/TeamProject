@@ -128,7 +128,7 @@
 												<div class="zzim_price">
 													<fmt:formatNumber value="${item.store_price}" type="number"/>원
 												</div>
-												<div>별점</div>
+												<div></div>
 											</div>
 					                    </div>
 					                </div>

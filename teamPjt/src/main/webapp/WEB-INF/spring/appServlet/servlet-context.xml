@@ -58,6 +58,11 @@
             <mapping path="/store/store_pay_complete.do"/>
             <mapping path="/mypage/mypage.do"/>
             <mapping path="/mypage/mypage2.do"/>
+            <mapping path="/mypage/my_info.do"/>
+            <mapping path="/mypage/my_info_modify.do"/>
+            <mapping path="/mypage/info_funding.do"/>
+            <mapping path="/mypage/info_store.do"/>
+            <mapping path="/mypage/info_zzim.do"/>
             <mapping path="/mypage/info_funding_detail.do"/>
             <mapping path="/mypage/info_store_detail.do"/>
             <mapping path="/mypage/funding_register.do"/>

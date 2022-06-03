@@ -383,7 +383,14 @@
 					                	</button>
 				                	</c:if>
 				                	<c:if test="${login ne null }">
-				                		<button type="button" class="messageQnaBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+				                		<c:if test="${read.member_idx eq login.member_idx }">
+				                			<button type="button" class="messageQnaBtn" onclick="alert('판매자 본인 입니다.')">
+						                		판매자 문의
+					                		</button>
+				                		</c:if>
+				                		<c:if test="${read.member_idx ne login.member_idx }">
+				                			<button type="button" class="messageQnaBtn" onclick="window.open('../mypage/note.do?funding_idx=${read.funding_idx}&store_idx=0&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+				                		</c:if>
 				                	</c:if>
 		                       	</span>
 	                        </div> 

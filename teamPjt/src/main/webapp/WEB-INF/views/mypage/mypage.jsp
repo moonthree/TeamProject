@@ -101,24 +101,24 @@
                 <div class="col-md-3 cols-sm-12">
                     <div class="my_top">
                         <c:choose>
-                               <c:when test="${ empty member.member_photo }">
-                                   <img src="../resources/image/111.png" alt="profile_img" class="profile_img">
-                               </c:when>
-                              
-                               <c:otherwise>
-                               <c:set var="photo" value="${member.member_photo }"></c:set>
+                        	<c:when test="${ empty member.member_photo }">
+                        		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
+                        	</c:when>
+                        	<c:otherwise>
+                        		<c:set var="photo" value="${member.member_photo }"></c:set>
 								<c:choose>
+									
 									<c:when test="${fn:contains(photo, 'http')}">
 										<img src="${photo}" class="profile_img">
 									</c:when>
-									
 									<c:otherwise>
-										 <img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img">
 									</c:otherwise>
-                            	</c:choose>
-                               </c:otherwise>
+								</c:choose>
+                        	</c:otherwise>
                         </c:choose>
-                        <p>${login.member_name}님</p>
+                        
+                        <p><strong>${login.member_name}님</strong></p>
                     </div>
                     <div class="my_middle">
                         <h5>쇼핑MY</h5>
@@ -494,7 +494,7 @@
 																	<div class="zzim_price">
 																		<fmt:formatNumber value="${item.store_price}" type="number"/>원
 																	</div>
-																	<div>별점</div>
+																	<div></div>
 																</div>
 										                    </div>
 										                </div>
