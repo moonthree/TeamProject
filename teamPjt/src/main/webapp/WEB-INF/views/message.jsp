@@ -142,7 +142,7 @@ $(document).ready (function () {
 								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx ne 0 }">
 								    		<!-- 프사 없는경우 -->
-									    	<c:if test="${ item.member_photo eq '' }">
+									    	<c:if test="${ item.member_photo eq '' }"> 
 									    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> ${ item.member_name }
 									    	</c:if>
 									    	<!-- 프사 존재  -->
