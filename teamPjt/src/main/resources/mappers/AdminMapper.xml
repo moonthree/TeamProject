@@ -181,8 +181,18 @@
 		AND store_idx > 0
 	</select>
 	
+	<update id="funding_thumUpdate" parameterType="fundingMainVO">
+		UPDATE funding
+		SET funding_thumbnail = #{funding_thumbnail}
+		WHERE funding_idx = #{funding_idx}
+	</update>
 	
 	
+<update id="store_thumUpdate" parameterType="StoreVO">
+		UPDATE store
+		SET  store_thumbnail = #{store_thumbnail}
+		WHERE store_idx = #{store_idx}
+	</update>
 	
 	
 	

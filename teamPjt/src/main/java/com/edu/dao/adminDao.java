@@ -114,6 +114,14 @@ public class adminDao {
 			return 	sqlSession.selectOne("adminMapper.pro_storeCount");
 		}
 		
+		public int funding_Thumupdate(FundingMainVO vo ) {
+			
+			return sqlSession.update("adminMapper.funding_thumUpdate", vo);
+		}
 		
-	
+		
+		public int store_Thumupdate(StoreVO vo ) {
+			
+			return sqlSession.update("adminMapper.store_thumUpdate", vo);
+		}
 }
