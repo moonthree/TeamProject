@@ -141,14 +141,12 @@
 	                <div class="viewExpress">
 	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
-	                    <span class="viewExpressPrice">
-	                    	<c:if test="${read.store_express_fee eq 0}">
-					        		무료 배송
-					        	</c:if>
-					        	<c:if test="${read.store_express_fee ne 0}">
-					        		<fmt:formatNumber value="${read.store_express_fee }" type="number" />원
-					        	</c:if>
-	                    </span>
+	                    <c:if test="${read.store_express_fee eq 0}">
+			        		<span class="viewExpressPrice">무료 배송</span>
+			        	</c:if>
+			        	<c:if test="${read.store_express_fee ne 0}">
+			        		<span class="viewExpressPrice"><fmt:formatNumber value="${read.store_express_fee }" type="number" />원</span>
+			        	</c:if>
 	                    <br>
 	                    <c:choose>
 	                    	<c:when test="${twoDayAfterDay eq '토' || twoDayAfterDay eq '일'}">
