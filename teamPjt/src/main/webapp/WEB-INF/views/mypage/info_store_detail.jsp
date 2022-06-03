@@ -134,7 +134,9 @@ if(message != null){alert(message);}
 		                                    <span><fmt:formatNumber value="${detail.store_express_fee }" type="number" />원</span><br>
 		                                    <span class="odp_sub">${detail.member_name }</span><br>
 		                                    <span class="odp_sub">(${detail.member_phone })</span>
-		                                    <button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+		                                    <c:if test="${detail.member_idx ne login.member_idx }">
+		                                    	<button type="button" class="" onclick="window.open('note.do?funding_idx=0&store_idx=${detail.store_idx}&message_idx=0','PopupWin', 'width=500,height=700');" >판매자 문의</button>
+                                			</c:if>
 		                                </td>
                                 	</c:when>
                                 	<c:otherwise>
