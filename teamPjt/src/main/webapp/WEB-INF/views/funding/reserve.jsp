@@ -28,11 +28,11 @@
 	<c:import url="/header.do"></c:import>
     <main>
     <!-- 펀딩 제목  -->
-	<div><h3>${param.funding_title }</h3></div>
+	<div><h3>${read.funding_title }</h3></div>
     <div class="container" style="margin-bottom: 6%;">
         <div class="row">
             <div class="col-xs-12" style="width: 100%;">
-            	<input type="hidden" name="funding_title" value="${param.funding_title}">
+            	<input type="hidden" name="funding_title" value="${read.funding_title}">
                 <div class="wrap" style="margin: 30px 0px 20px auto;">
                     <div class="step">
                         <div class="step_circle none_select_circle">옵션 선택</div>
@@ -114,8 +114,8 @@
                         <th scope="col" style="border-top: 1px solid gray;">최종 결제가</th>
                         <th scope="col" style="border-top: 1px solid gray; text-align: right;" colspan="2">
                         	<!-- 배송비 추가 해야 함 -->
-                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price}">
-                        	<fmt:formatNumber value="${param.sum_p_price}" type="number" />원
+                        	<input type="hidden" id="sumTotal_id" name="funding_order_total_price" value="${param.sum_p_price+read.funding_express_fee}">
+                        	<fmt:formatNumber value="${param.sum_p_price+read.funding_express_fee}" type="number" />원
                         	<div id="sumTotal"></div>
                         </th>
                     </tr>
