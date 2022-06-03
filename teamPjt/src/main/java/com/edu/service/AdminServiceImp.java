@@ -124,6 +124,17 @@ public class AdminServiceImp implements AdminService{
 	public int pro_StoreCount() {
 		return admindao.pro_storeCount();
 	}
+	
+	@Override
+	public int funding_thumUpdate(FundingMainVO vo) {
+	
+		return admindao.funding_Thumupdate(vo);
+	}
+	@Override
+	public int store_Thumupdate(StoreVO vo) {
+	
+		return admindao.store_Thumupdate(vo);
+	}
 
 	
 }

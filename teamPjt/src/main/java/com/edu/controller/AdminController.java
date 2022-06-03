@@ -1,12 +1,16 @@
 package com.edu.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +18,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.AdminService;
 import com.edu.service.MessageService;
+import com.edu.service.MypageService;
 import com.edu.service.StoreService;
 import com.edu.service.fundingMainService;
-import com.edu.service.MypageService;
 import com.edu.vo.FundingInfoDetailVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
@@ -322,4 +327,101 @@ public class AdminController {
 				return "admin/admin_mypage2";
 			}
 	
+			//펀딩 썸네일 바꾸기
+			@RequestMapping(value = "/updateFunThum.do",method = RequestMethod.GET)
+			public String updateFunThum(int funding_idx, Model model) {
+				model.addAttribute("funding_idx", funding_idx);
+				
+				return "admin/file_upload";
+			}
+			@RequestMapping(value = "/updateFunThum.do",method = RequestMethod.POST)
+			public void updateFunThum2(int funding_idx, MultipartFile file_upload, 
+					HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+				String path = request.getSession().getServletContext().getRealPath("/resources/upload/funding");
+				
+				String filename = file_upload.getOriginalFilename();
+				
+				File dir = new File(path);
+				
+				 if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+						dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
+					}
+				
+				
+				 //File dir1 = new File(path+"/"+filename);
+
+				 String extension1 = filename.substring(filename.lastIndexOf("."));
+				 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+		 		 File newdir4 = new File(path+"/"+savedThumName);
+
+		 		 /*파일 이름 난수로 변경*/
+		 		//dir1.renameTo(newdir4);
+		 		 // 업로드할 파일 명이 존재하는 경우
+		 		file_upload.transferTo(newdir4);
+				
+			 	
+				FundingMainVO vo = new FundingMainVO();
+				vo.setFunding_idx(funding_idx);
+				vo.setFunding_thumbnail(savedThumName);
+				
+				int result = adminService.funding_thumUpdate(vo);
+			    response.setContentType("text/html; charset=euc-kr;");
+				PrintWriter pw  = response.getWriter();
+				
+				if(result == 1) {
+					pw.println("<script>alert('수정 성공');location.href='" + request.getContextPath() + "/admin/management_product.do'" + "</script>");
+				}else {
+					pw.println("<script>alert('수정 실패');location.href='" + request.getContextPath() + "/admin/management_product.do'" + "</script>");
+				}
+				pw.flush();
+			}
+			
+			
+			//펀딩 썸네일 바꾸기
+			@RequestMapping(value = "/updateStoreThum.do",method = RequestMethod.GET)
+			public String updateStoreThum(int store_idx, Model model) {
+				model.addAttribute("store_idx", store_idx);
+				
+				return "admin/file_upload";
+			}
+			@RequestMapping(value = "/updateStoreThum.do",method = RequestMethod.POST)
+			public void updateStoreThum2(int store_idx, MultipartFile file_upload, 
+					HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+				String path = request.getSession().getServletContext().getRealPath("/resources/upload/store");
+				File dir = new File(path);
+				String filename = file_upload.getOriginalFilename();
+				
+				
+				 
+				 if (!dir.exists()) { // 해당 디렉토리가 존재하지 않는 경우
+						dir.mkdirs(); // 경로의 폴더가 없는 경우 상위 폴더에서부터 전부 생성
+					}
+				// File dir1 = new File(path+"/"+filename);
+				 String extension1 = filename.substring(filename.lastIndexOf("."));
+				 String savedThumName = UUID.randomUUID() + extension1; //저장될 파일 명
+		 		 File newdir4 = new File(path+"/"+savedThumName);
+		        
+		 		 System.out.println(filename);
+		 		 System.out.println(savedThumName);
+		 		 /*파일 이름 난수로 변경*/
+			 	// dir1.renameTo(newdir4);
+			 	file_upload.transferTo(newdir4);
+			 	StoreVO vo = new StoreVO();
+				
+				vo.setStore_idx(store_idx);
+				vo.setStore_thumbnail(savedThumName);
+				System.out.println(vo.toString());
+				int result = adminService.store_Thumupdate(vo);
+			    response.setContentType("text/html; charset=euc-kr;");
+				PrintWriter pw  = response.getWriter();
+				
+				if(result == 1) {
+					pw.println("<script>alert('수정 성공');location.href='" + request.getContextPath() + "/admin/management_product.do'" + "</script>");
+				}else {
+					pw.println("<script>alert('수정 실패');location.href='" + request.getContextPath() + "/admin/management_product.do'" + "</script>");
+				}
+				
+			}
+		
+			
 }
