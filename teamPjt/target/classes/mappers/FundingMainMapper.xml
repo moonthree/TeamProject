@@ -20,6 +20,7 @@
 		<result column="funding_permit_state" property="funding_permit_state"/>
 		<result column="funding_current_state" property="funding_current_state"/>
 		<result column="funding_category" property="funding_category"/>
+		<result column="funding_express_fee" property="funding_express_fee"/>
 		<result column="funding_views" property="funding_views"/>
 		<result column="funding_thumbnail" property="funding_thumbnail"/>
 		<result column="funding_content" property="funding_content"/>
