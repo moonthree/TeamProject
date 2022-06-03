@@ -85,8 +85,8 @@ td textarea{
 </head>
 <body>
 
-<div style="background-color: #fa6463; height:50px; text-align:center; ">
-	<div style=" color:white; margin-top:auto; font-size: 1.5em;">${ name }</div>
+<div style="background-color: #fa6463; height:40px; text-align:center; ">
+	<div style=" color:white; margin-top:auto; font-size: 1.5em;"><strong>${ name }</strong></div>
 </div>
 <div class="row">
 		 <c:if test="${messages.size()>0}">
@@ -201,12 +201,16 @@ td textarea{
 		<tr>
 			<td width="5%">
 				<label for="ex_file">
-					<img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer;">
+					<img src="<%=request.getContextPath()%>/resources/image/message/image.png" width="25px" style="cursor:pointer; padding-left: 10px">
 				</label>
 				<input type="file" accept="image/*" id="ex_file" name="fff" onchange=aa(); style="display:none;">
 			</td>
-			<td width="87%"><textarea rows='1' placeholder='메세지를 입력하세요' name="message_content"></textarea></td>
-			<td width="8%"><img src="<%=request.getContextPath()%>/resources/image/message/send.png" width="20px" alt="메세지 보내기 버튼" onclick="checkMessageSize()" style="cursor:pointer;"></td>
+			<td width="87%">
+				<div class="text_box">
+					<textarea rows='1' placeholder='메세지를 입력하세요' name="message_content"></textarea>
+				</div>
+			</td>
+			<td width="8%"><img src="<%=request.getContextPath()%>/resources/image/message/send.png" width="22px" alt="메세지 보내기 버튼" onclick="checkMessageSize()" style="cursor:pointer; padding-right: 20px"></td>
 		</tr>
 	</table>
 </form>
@@ -215,8 +219,8 @@ td textarea{
 	function checkMessageSize(){
 		console.log(textarea.value);
 		var str = textarea.value.replaceAll("\n","");
-		console.log(str);
-		if(str=="" || str==null){
+		var str2 = textarea.value.replaceAll(" ","");
+		if(str=="" || str2==""){
 			alert("메세지를 입력해주세요.");
 		}else{
 			document.getElementById('messageFrm').submit();

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!DOCTYPE html>
@@ -139,15 +140,23 @@
     			"새 비밀번호 확인"+
     			"<div class='input-group mb-3'>"+
     			"<input type='password' class='form-control' id='member_password2' name='member_password2' aria-label='Default' aria-describedby='inputGroup-sizing-default'></div>"+
+    			
+    			"<div class='row' style='text-align:right'><div class='col'><button type='button' class='btn btn-dark' onclick='changePw2()'>변경완료</button></div></div>"+
+    			
     			"</th></tr>"
     			);
     	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
-    	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw2()'>변경완료</div>");
+    	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='cancelPwChange()'>취소</div>");
 //     	<div class="input-group mb-3">
 //         	<input type="text" class="form-control" name="member_password" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_password }">
 //     	</div>
     }
-    
+    //비밀번호 변경 취소
+    function cancelPwChange(){
+    	$("#checkPw").remove();
+    	$("#pswd").children('td:eq(1)').children('div:eq(0)').remove();
+    	$("#pswd").children('td:eq(1)').prepend("<div style='color:blue; cursor:pointer;' onclick='changePw()'>변경</div>");
+    }
     //비밀번호 변경 ajax
     function changePw2(){
     	console.log(2);
@@ -287,6 +296,9 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.td{
+	background-color: #d1dce4;
+}
 </style>
 <title>내 정보 수정</title>
 </head>
@@ -301,10 +313,19 @@
                     <div class="profile-image">
                         <c:choose>
                         	<c:when test="${ empty member.member_photo }">
-                        		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                        		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
                         	</c:when>
                         	<c:otherwise>
-								<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
+                        		<c:set var="photo" value="${member.member_photo }"></c:set>
+								<c:choose>
+									
+									<c:when test="${fn:contains(photo, 'http')}">
+										<img src="${photo}" class="profile_img">
+									</c:when>
+									<c:otherwise>
+										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img">
+									</c:otherwise>
+								</c:choose>
                         	</c:otherwise>
                         </c:choose>
                     </div>
@@ -314,7 +335,7 @@
                         <h5>
                         	<c:choose>
                            		<c:when test="${ member.member_level eq 0 }">
-                           			일반 회원
+                           			<!-- 소비자 -->
                            		</c:when>
                            		<c:when test="${ member.member_level eq 1 }">
                            			판매자
@@ -328,7 +349,7 @@
                         <form name="aaa" action="upload.do" method="post" enctype="multipart/form-data">
 							<div class="filebox">
 							  <label for="ex_file">파일 업로드</label>
-							  <input type="file" id="ex_file" name="fff" onchange=aa();>
+							  <input accept="image/*" type="file" id="ex_file" name="fff" onchange=aa();>
 							  10Mb 이하의 JPG, GIF, PNG 파일을 지원합니다.
 							</div>
 							<input type="hidden" name="member_idx" value="${ member.member_idx }"/>
@@ -349,18 +370,17 @@
                 <table class="table" style="border-top: 3px solid #06113C;">
                     <tbody>
                         <tr>
-                            <td>이메일</td>
+                            <td class="td">이메일</td>
                             <td>${ member.member_email }</td>
                         </tr>
                         <tr id="pswd">
-                            <td>비밀번호</td>
+                            <td class="td">비밀번호</td>
                             <td style="text-align: right">
                             	<div style="color:blue; cursor:pointer;" onclick="changePw(this)">변경</div>
-                            	
                             </td>
                         </tr>
                         <tr>
-                            <td>전화번호</td>
+                            <td class="td">전화번호</td>
                             <td>
                                 <div class="input-group mb-3">
                                     <input type="tel" class="form-control m-input" name="member_phone" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
@@ -369,7 +389,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>주소</td>
+                            <td class="td">주소</td>
                             <td>
                                 <div class="form-group"> 
                                 <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="member_postnum" id="addr1" type="text" readonly="readonly" value="${ member.member_postnum }" >
@@ -381,7 +401,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>나머지 주소</td>
+                            <td class="td">나머지 주소</td>
                             <td>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" name="member_addr2" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${ member.member_addr2 }">
@@ -389,7 +409,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>선호 동물</td>
+                            <td class="td">선호 동물</td>
                             <td>
                                 <div class="input-group mb-3">
                                     <select class="custom-select" name="member_pet" id="inputGroupSelect01">
