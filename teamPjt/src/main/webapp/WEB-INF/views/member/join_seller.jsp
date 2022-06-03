@@ -305,7 +305,6 @@
 	main {
         height: auto;
         min-height: 100%;
-        padding-bottom: 300px;
     }
     button{
         margin-top: 10px;

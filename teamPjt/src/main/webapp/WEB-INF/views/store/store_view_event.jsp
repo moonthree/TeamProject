@@ -144,7 +144,12 @@
 	                <div class="viewExpress">
 	                	택배배송
 	                    <span class="middleBar">&nbsp;|&nbsp;</span>
-	                    <span class="viewExpressPrice"><fmt:formatNumber value="${read.store_express_fee }" type="number" /></span>원
+	                    <c:if test="${read.store_express_fee eq 0}">
+			        		<span class="viewExpressPrice">무료 배송</span>
+			        	</c:if>
+			        	<c:if test="${read.store_express_fee ne 0}">
+			        		<span class="viewExpressPrice"><fmt:formatNumber value="${read.store_express_fee }" type="number" />원</span>
+			        	</c:if>
 	                    <br>
 	                    <span class="viewDate">${twoDayAfterStr} <span class="viewDateText">도착 예정</span></span>
 	                </div>
@@ -236,7 +241,7 @@
 					        <!-- 배송비 -->
 					        <p>
 					        	<input type="hidden" name="express_fee" value="${read.store_express_fee}">
-					        	<c:if test="${read.store_express_fee eq 0}">
+					        	<c:if test="${read.store_express_fee eq null}">
 					        		배송비<span>무료 배송</span>
 					        	</c:if>
 					        	<c:if test="${read.store_express_fee ne 0}">

@@ -20,7 +20,7 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
-	<div class="event_view_headImg">
+	<div class="event_view_headImg container">
         <img src="../resources/image/event/${read.event_thumbnail }">
     </div>
     <div class="container event_view_container">

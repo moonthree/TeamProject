@@ -36,8 +36,7 @@
 
 </head>
 <body>
-
- <c:import url="/header.do"></c:import>
+<c:import url="/header.do"></c:import>
 <div class="main_text0">
         <h1 class="hh">문의사항</h1>
         <div class="contents1">자주하는 질문</div>
