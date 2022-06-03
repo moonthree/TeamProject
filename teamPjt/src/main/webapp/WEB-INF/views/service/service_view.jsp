@@ -131,14 +131,14 @@
 			 <div class="outer">
 		 <form action="<%=request.getContextPath() %>/reply/reply_write.do" method="post">
     <input type="hidden" name="sboard_idx" value="${vo.sboard_idx}">
-    <c:if test="${login.member_level >= 0}">
+    <c:if test="${login.member_level eq 2 || login.member_idx eq vo.member_idx}">
          <textarea id="reply_content" name="reply_content" rows="6" cols="148" placeholder="댓글을 입력하세요."></textarea>
          <br><br>
          
          <div class="float-md-right">
          <button class="btn btn-outline-success" type="submit" name="reply_content">댓글 등록</button>
          </div>
-         </c:if>
+    </c:if>
     </form>
 	</div>
 	
