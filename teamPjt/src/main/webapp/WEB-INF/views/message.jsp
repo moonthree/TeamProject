@@ -102,7 +102,7 @@ $(document).ready (function () {
 							    	<th width="150px" style="border-bottom:2px solid black">
 							    		<!-- 관리자가 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx eq 0 }">
-								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자
+								    		<img src="<%=request.getContextPath()%>/resources/image/111.png" class="login_profile_img"> PetDDing
 								    	</c:if>
 								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx ne 0 }">
@@ -137,7 +137,7 @@ $(document).ready (function () {
 							    	<th width="150px" style="border-bottom:2px solid black">
 								    	<!-- 관리자가 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx eq 0 }">
-								    		<img src="<%=request.getContextPath()%>/resources/image/KakaoTalk_20220418_121005755.png" class="login_profile_img"> 관리자
+								    		<img src="<%=request.getContextPath()%>/resources/image/111.png" class="login_profile_img"> PetDDing
 								    	</c:if>
 								    	<!-- 관리자가 아닌 사람이 보낸 경우 -->
 								    	<c:if test="${ item.from_member_idx ne 0 }">

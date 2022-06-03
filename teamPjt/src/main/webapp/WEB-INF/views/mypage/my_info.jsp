@@ -52,7 +52,9 @@
     text-overflow: ellipsis; 
 	overflow: hidden;
    } 
-
+	.td{
+		background-color: #d1dce4;
+	}
 </style>
 <title>내 정보</title>
 </head>
@@ -71,7 +73,7 @@
                     <div class="profile-image">
                         <c:choose>
                         	<c:when test="${ empty member.member_photo }">
-                        		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                        		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
                         	</c:when>
                         	<c:otherwise>
                         		<c:set var="photo" value="${member.member_photo }"></c:set>
@@ -93,7 +95,7 @@
                         <h5>
                         	<c:choose>
                            		<c:when test="${ member.member_level eq 0 }">
-                           			소비자
+                           			<!-- 소비자 -->
                            		</c:when>
                            		<c:when test="${ member.member_level eq 1 }">
                            			판매자
@@ -109,23 +111,23 @@
                     <table class="table" style="border-top: 2px solid #22577E; border-bottom:2px solid #22577E; ">
                         <tbody>
                             <tr>
-                                <td>이메일</td>
+                                <td class="td">이메일</td>
                                 <td>${ member.member_email }</td>
                             </tr>
                             <tr>
-                                <td>전화번호</td>
+                                <td class="td">전화번호</td>
                                 <td>
                                     ${ member.member_phone }
                                 </td>
                             </tr>
                             <tr>
-                                <td>배송지</td>
+                                <td class="td">배송지</td>
                                 <td>
                                     ${ member.member_addr }
                                 </td>
                             </tr>
                             <tr>
-                                <td>선호 동물</td>
+                                <td class="td">선호 동물</td>
                                 <td>
                                 	<c:choose>
                                 		<c:when test="${ member.member_pet eq 0 }">
