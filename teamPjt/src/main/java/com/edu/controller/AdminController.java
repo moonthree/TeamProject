@@ -37,6 +37,7 @@ import com.edu.vo.StoreVO;
 import com.edu.vo.ZzimInfoVO;
 
 // 주석 version13 
+ 
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -90,7 +91,8 @@ public class AdminController {
 		model.addAttribute("listStore", adminService.pro_store(page2));
 		PageMaker2 pageMaker_Two = new PageMaker2();
 		pageMaker_Two.setPage(page2);
-		pageMaker_Two.setTotalCount(adminService.store_Count());
+		//pageMaker_Two.setTotalCount(adminService.store_Count());
+		pageMaker_Two.setTotalCount(adminService.pro_StoreCount());
 		model.addAttribute("pageTwo", pageMaker_Two);	
 		
 		

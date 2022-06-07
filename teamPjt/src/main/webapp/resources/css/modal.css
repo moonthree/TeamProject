@@ -26,6 +26,21 @@
 .login_modalBtn{
 	width: 40%;
 	height: 60px;
+	
+	background-color: #fa6462 !important;
+	border: 1px solid #fa6462 !important;
+}
+.joinModalBtn{
+	width: 40%;
+	height: 60px;
+	border: 1px solid #fa6462 !important;
+	color: #fa6462 !important;
+	background-color: white !important;
+}
+.joinModalBtn:hover{
+	background-color: #fa6462 !important;
+	color: white !important;
+	border: 1px solid #fa6462 !important;
 }
 
 /*글 남기기 모달*/

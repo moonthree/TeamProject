@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#canvas{
+	position : fixed;
+	display : flex;
+	margin : auto;
+	margin-top : 350px;
+	right : 80%;
+	top : 40px;
+}

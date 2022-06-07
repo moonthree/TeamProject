@@ -64,7 +64,7 @@
 	          		</c:if>
 	          		<c:if test="${countFunding ne 0}">
 		          		<div class="box_num">
-		          			<span class="box_num_span">${countZzim}</span>건의 펀딩 내역이 있습니다.
+		          			<span class="box_num_span">${myFundingList.size()}</span>건의 펀딩 내역이 있습니다.
 		          		</div>
 	          		</c:if>
 	          	</div>
@@ -132,8 +132,11 @@
 							              	<c:if test="${endDate - nowDate < 0}">
 							              		<div class="col-md-6">펀딩 마감</div>
 							              	</c:if>
-							              	<c:if test="${endDate - nowDate >= 0}">
+							              	<c:if test="${endDate - nowDate > 0}">
 							              		<div class="col-md-6">${endDate - nowDate} 일 남음</div>
+							              	</c:if>
+							              	<c:if test="${endDate - nowDate eq 0}">
+							              		<div class="col-md-6">펀딩 마감</div>
 							              	</c:if>
 			                                <div class="col-md-6" style="text-align: right; color:red;">${Math.round(item.funding_current_price/item.funding_target_price*100)}% 달성</div>
 			                              </div>

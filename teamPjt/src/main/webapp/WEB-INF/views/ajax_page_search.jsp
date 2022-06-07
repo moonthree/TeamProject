@@ -18,7 +18,7 @@
        <div class="row fundingRow card-list-container thumbnails">
        	<c:forEach var="item" items="${searchListSearch}">
        		<div class="col-md-3 col-sm-12 item">
-				<div class="card">
+				<div class="card search_fund_card">
 			           <a href="funding/view.do?funding_idx=${item.funding_idx} ">
 			           	<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top img2" alt="...">
 			           </a>

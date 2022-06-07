@@ -415,7 +415,7 @@
 		FROM store_qna AS qna
 		JOIN member AS mem 
 		ON qna.store_idx = #{store_idx} and qna.member_idx = mem.member_idx and qna.depth = 0
-		order by store_qna_idx desc limit ${startRowNumQna}, 9;
+		order by store_qna_idx desc limit ${startRowNumQna}, 10;
 	</select>
 	<!-- 스토어 qna 댓글 답변-->
 	<select id="readStoreQnaAnswer" resultType="StoreQnaVO" parameterType="java.util.HashMap">

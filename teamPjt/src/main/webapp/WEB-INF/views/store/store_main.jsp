@@ -147,7 +147,7 @@
 		                            </div>
 		                            <div class="starNum">
 		                                <span id="starAverage${status.index}" class="starAverage"></span> 
-		                                <span class="starTotal">|&nbsp;(<span id="starTotal${status.index }">423</span>)</span>
+		                                <span class="starTotal">|&nbsp;(<span id="starTotal${status.index }"></span>)</span>
 		                            </div>
 		                        </div>
 		                    </div>

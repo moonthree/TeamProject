@@ -665,7 +665,7 @@
 		                            <td style="width:10%; padding:10px 0px 0px 0px;" class="tdImg">
 		                            	<c:choose>
 			                        		<c:when test="${ empty reviewList.member_photo }">
-					                     		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+					                     		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
 					                     	</c:when>
 					                     	<c:otherwise>
 												<img src="../resources/upload/${reviewList.member_photo }" alt="profile_img" class="profile_img">
@@ -1374,7 +1374,7 @@
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
                             <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
-                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                            <br>4.4. 구매한 상품에 대한 리뷰는 마이페이지에서 남길 수 있습니다.
                         </p>
                         
                     
@@ -1422,7 +1422,7 @@
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
                             <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
-                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                            <br>4.4. 구매한 상품에 대한 리뷰는 마이페이지에서 남길 수 있습니다.
                         </p>
                     </div>
                     <div class="modal-footer write_modal_footer">

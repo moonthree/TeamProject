@@ -51,7 +51,7 @@
 	          		</c:if>
 	          		<c:if test="${countStore ne 0}">
 		          		<div class="box_num">
-		          			<span class="box_num_span">${countZzim}</span>건의 구매 내역이 있습니다.
+		          			<span class="box_num_span">${myStoreList.size()}</span>건의 구매 내역이 있습니다.
 		          		</div>
 	          		</c:if>
 	          	</div>

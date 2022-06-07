@@ -105,8 +105,6 @@ $('.doAnswer').click(function(){
         //비밀글 적용 여부e=funding_qna_secret]').attr('value', 1);
 		$('input[name=funding_qna_secret]').attr('value', 0);
 		
-		var a = $(".qna_funding_idx").val()
-		alert(a)
 		
 		//본문 작성 여부
 		if(qnaAnswerValue == ""){

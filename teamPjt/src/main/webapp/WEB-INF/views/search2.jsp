@@ -18,7 +18,60 @@
 </head>
 <body>
 <c:import url="/header.do"></c:import>
+<canvas id="canvas" width="700" height="700"></canvas>
+    <script type="importmap">
+    	{
+          "imports": {
+            "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+            "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+            "OrbitControls" : "http://fenixrepo.fao.org/cdn/js/threejs/4.4/OrbitControls.js"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GLTFLoader } from 'GLTFLoader';
+        import * as THREE from 'three';
+        import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 
+        let scene = new THREE.Scene();
+        let renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#canvas'),
+            antialias : true
+        });
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        let camera = new THREE.PerspectiveCamera(30, 1);
+        camera.position.set(200, 200, 200);
+        scene.background = new THREE.Color('white');
+
+		scene.position.x = 0;
+        scene.position.y = 0;
+        scene.position.z = 0;
+		let xstep = 0;
+		let ystep = 0;
+		let zstep = 0;
+        let controls = new OrbitControls(camera, renderer.domElement);
+
+        let loader = new GLTFLoader();
+        loader.load('resources/shiba/scene.gltf', function (gltf) {
+            scene.add(gltf.scene);
+            renderer.render(scene, camera);
+            function animate() {
+				 xstep += 0.01;
+                ystep += 0.1;
+                zstep += 0.01;
+                gltf.scene.position.x = (8 * Math.cos(xstep));
+                gltf.scene.position.y = (1 * Math.abs(Math.sin(ystep)));
+                gltf.scene.position.z = (8 * Math.sin(zstep));
+                gltf.scene.rotation.y -= 0.01;
+                requestAnimationFrame(animate)
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate()
+        });
+
+    </script>
     <main>
         <div class="container" style="margin-top: 6%; margin-bottom: 6%;">
         	<!-- 검색 제목 -->
@@ -140,7 +193,7 @@
             
             <div id="storePlace">
 	            <div class="search_result_num">
-	                <div>스토어
+	                <div class="search_result_z">스토어
 	                    <span>${totalRowStore}</span>개
 	                    <input type=number id="totalPageCountStore" value="${totalPageCountStore}" style="display:none;"/>
 	                    <input type=number id="totalRowStore" value="${totalRowStore}" style="display:none;"/>

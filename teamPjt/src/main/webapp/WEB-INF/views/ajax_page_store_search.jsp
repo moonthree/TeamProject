@@ -75,7 +75,12 @@
 	                         </svg>
 	                     </div>
 	                     <div class="starNum">
-	                         <span class="starAverage">${item.avg_star }</span> 
+	                         <c:if test="${item.avg_star > 0}">
+                           		<span class="starAverage">${item.avg_star }</span>
+                           	</c:if>
+                            <c:if test="${item.avg_star eq null}">
+                           		<span class="starAverage">0</span>
+                           	</c:if>
 	                     </div>
 	                 </div>
 	             </div>
