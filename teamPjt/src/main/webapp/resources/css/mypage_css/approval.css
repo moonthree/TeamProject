@@ -10,6 +10,7 @@ main {
     text-align: left;
     font-weight: bold;
     color: #693907;
+    margin-top: 20px;
 }
 
 a.nav-item{

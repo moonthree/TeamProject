@@ -12,7 +12,7 @@
 
 h1 {
   font-size: 48px;
-  font-weight: 100;
+  font-weight: 600;
 }
 .contents1{
   font-size: 20px;
@@ -28,6 +28,7 @@ h1 {
 .contents1_bold{
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 18px;
 }
 /* --- */
 
@@ -105,7 +106,6 @@ h1 {
 
 .main_text0{
   width: 100%;
-  height:601px;
   margin-top: -100px;
   background: #f1f2f3;
 }
@@ -123,21 +123,21 @@ h1 {
   height: 302px;
   /* background: orange; */
   margin:auto;
-  margin-top:100px;
+  margin-top:80px;
 }
 .icons > li {
   flex: 1;
   background: white;
-  margin-top:49px;
-  height:302px;
   text-align: center;
+  padding: 50px 10px;
+  height: 260px;
 }
 .icons > li > .icon_img{
   margin-top:18px;
 }
 
 .icons > li:not(:last-child){
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 
@@ -149,18 +149,17 @@ h1 {
   height: 302px;
   /* background: orange;  */
   margin:auto;
-  margin-top:100px;
 }
 .icons2 > li {
   flex: 1;
   background: white;
-  margin-top:49px;
-  height:302px;
   text-align: center;
+  padding: 50px 10px;
+  height: 260px;
 }
 
 .icons2 > li:not(:last-child){
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 
@@ -170,18 +169,18 @@ h1 {
   height: 302px;
   /* background: orange;  */
   margin:auto;
-  margin-top:100px;
+  margin-top:40px;
 }
 .icons3 > li {
   flex: 1;
   background: white;
-  margin-top:49px;
-  height:302px;
   text-align: center;
+  padding: 50px 10px;
+  height: 260px;
 }
 
 .icons3 > li:not(:last-child){
-  margin-right: 20px;
+  margin-right: 40px;
 }
 
 

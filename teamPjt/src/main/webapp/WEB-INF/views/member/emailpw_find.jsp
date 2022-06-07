@@ -181,7 +181,7 @@ $(document).on('click','#findPw',function(){
         <div class="row" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px;">
         <!-- 아이디 찾기  -->
             <div class="col-md-6">
-                <div style="font-weight: 600; color: #22577E; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 2px solid #22577E;">이메일 찾기</div>
+                <div style="font-weight: 600; color: #fa6462; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 2px solid #fa6462;">이메일 찾기</div>
                 <table style="margin: 20px; border-collapse: separate; border-spacing: 0 10px;">
                     <tr>
                         <th>이름</th>
@@ -198,13 +198,13 @@ $(document).on('click','#findPw',function(){
                     </tr>
                 </table>
                 <div style="text-align: center; margin-top: -10px;">
-                    <button type="button" class="btn btn-primary" style="background-color: #5584AC; border: none;" id="findId">이메일 찾기</button>
+                    <button type="button" class="btn btn-primary" style="background-color: #fa6462; border: none;" id="findId">이메일 찾기</button>
                 </div>
             </div>
             
         <!-- 비밀번호 찾기  -->
             <div class="col-md-6">
-                <div style="font-weight: 600; color: #22577E; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 2px solid #22577E;">비밀번호 찾기</div>
+                <div style="font-weight: 600; color: #fa6462; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 2px solid #fa6462;">비밀번호 찾기</div>
                 <table style="margin: 20px; border-collapse: separate; border-spacing: 0 10px;">
                     <tr>
                         <th>이메일</th>
@@ -225,7 +225,7 @@ $(document).on('click','#findPw',function(){
                     </tr>
                 </table>
                 <div style="text-align: center; margin-bottom: 15px;">
-                    <button type="button" class="btn btn-primary" style="background-color: #5584AC; border: none;" id="findPw">비밀번호 찾기</button>
+                    <button type="button" class="btn btn-primary" style="background-color: #fa6462; border: none;" id="findPw">비밀번호 찾기</button>
                 </div>
             </div>
         </div>

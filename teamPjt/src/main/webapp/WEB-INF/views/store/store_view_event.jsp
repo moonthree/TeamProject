@@ -219,7 +219,7 @@
 											</svg>
 		                        		</button>
 		                        		<!-- 수량  -->
-		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
+		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price - optionlist.store_option_price * event /100}">
 		                        		<input type="hidden" name="stock${optionlist.store_option_idx}" id="stock" value="${optionlist.store_option_stock}">
 		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
 		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">

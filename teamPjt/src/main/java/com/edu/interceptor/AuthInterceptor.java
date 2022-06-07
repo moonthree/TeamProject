@@ -30,7 +30,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 					path = uri + "?" + query;
 				}
 			}
-			session.setAttribute("dest", path.substring(5));
+			System.out.println(path);
+			session.setAttribute("dest", path.substring(9));
 			response.sendRedirect("../member/login.do");
 			return false;
 		}

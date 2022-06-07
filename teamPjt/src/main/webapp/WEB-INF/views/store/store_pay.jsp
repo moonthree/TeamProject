@@ -74,15 +74,8 @@
         <div class="row" style="margin-top: 30px;">
 	        <!-- 구매자 정보 -->
             <div class="col-md-6">
-	        <div class="addressInfo_div section_title">구매자 정보</div>
+	        <div class="section_title">구매자 정보</div>
                 <table class="table table-borderless card buyer_card">
-<!--                     <thead> -->
-<!--                       <tr> -->
-<!--                         <th scope="col" colspan="2"> -->
-<!--                             <div style="font-size: 25px;">구매자 정보</div> -->
-<!--                         </th> -->
-<!--                       </tr> -->
-<!--                     </thead> -->
                     <tbody style="display: inline-table;">
                       <tr>
                         <th scope="row" width="30%">이름</th>
@@ -138,7 +131,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="number" class="form-control address1_input" name="store_express_postnum1" placeholder="우편번호">
+                        	    <input type="number" class="form-control address1_input" name="store_express_postnum1" placeholder="우편번호" readonly="readonly">
                             </div>
                             <div class="col-sm-5">
                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address();" style="background-color: #fa6462; border: none;">주소 찾기</button>
@@ -147,7 +140,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="store_express_addr1_1" placeholder="기본 주소">
+                                <input type="text" class="form-control address2_input" name="store_express_addr1_1" placeholder="기본 주소" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -176,9 +169,6 @@
                             <div class="col-sm-4">
                         	    <input type="text" class="form-control address1_input" name="store_express_postnum2" value="${member.member_postnum}" readonly="readonly">
                             </div>
-                            <div class="col-sm-5">
-<!--                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button> -->
-                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
@@ -194,13 +184,6 @@
                         </div>
                 	</div>
                 </div>
-<!--                 <hr> -->
-<!--                 <div> -->
-<!--                     <div style="font-weight: bold; margin-bottom: 10px;">배송 시 요청사항 (선택)</div> -->
-<!--                     <div> -->
-<!--                         <input type="text" class="form-control" id=""> -->
-<!--                     </div> -->
-<!--                 </div> -->
             </div>
         </div>
         
@@ -335,48 +318,33 @@
 	function execution_daum_address(){
 		   new daum.Postcode({
 		        oncomplete: function(data) {
-		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		            
-		        	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 	                var addr = ''; // 주소 변수
 	                var extraAddr = ''; // 참고항목 변수
 	 
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 	                    addr = data.roadAddress;
 	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
 	                    addr = data.jibunAddress;
 	                }
 	 
-	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
 	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
 	                        extraAddr += data.bname;
 	                    }
-	                    // 건물명이 있고, 공동주택일 경우 추가한다.
 	                    if(data.buildingName !== '' && data.apartment === 'Y'){
 	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
 	                    }
-	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 	                    if(extraAddr !== ''){
 	                        extraAddr = ' (' + extraAddr + ')';
 	                    }
-	                 	// 추가해야할 코드
-	                    // 주소변수 문자열과 참고항목 문자열 합치기
 	                      addr += extraAddr;
 	                
 	                } else {
 	                	addr += ' ';
 	                }
 	 
-	             	// 제거해야할 코드
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                $(".address1_input").val(data.zonecode);
 	                $(".address2_input").val(addr);				
-	                // 커서를 상세주소 필드로 이동한다.
 	                $(".address3_input").attr("readonly", false);
 	                $(".address3_input").focus();	 
 		            
@@ -483,10 +451,10 @@
                         	$('input[name=store_express_phone1]').focus();
                         }, 0);
                         return false;
-                      } else if (funding_express_phone1.length != 13) {
+                      } else if (store_express_phone1.length != 13) {
                           alert('휴대폰 번호를 정확히 입력해주세요.');
                           setTimeout(function(){
-                          	$('input[name=funding_express_phone1]').focus();
+                          	$('input[name=store_express_phone1]').focus();
                           }, 0);
                         return false;
                       } else if (store_express_postnum1 == '') {
@@ -508,23 +476,14 @@
                     		IMP.request_pay({
                     			pg: 'html5_inicis',
                     			/*
-                    				'kakao':카카오페이,
-                    				'html5_inicis':이니시스(웹표준결제)
-                    				'nice':나이스페이
-                    				'jtnet':제이티넷
-                    				'uplus':LG유플러스
-                    				'danal':다날
-                    				'payco':페이코
-                    				'syrup':시럽페이
-                    				'paypal':페이팔
+                    				'kakao':카카오페이, 'html5_inicis':이니시스(웹표준결제),
+                    				'nice':나이스페이, 'jtnet':제이티넷, 'uplus':LG유플러스,
+                    				'danal':다날, 'payco':페이코, 'syrup':시럽페이, 'paypal':페이팔
                     			*/
                     			pay_method: 'card',
                     			/*
-                    				'samsung':삼성페이,
-                    				'card':신용카드,
-                    				'trans':실시간계좌이체,
-                    				'vbank':가상계좌,
-                    				'phone':휴대폰소액결제
+                    				'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체,
+                    				'vbank':가상계좌, 'phone':휴대폰소액결제
                     			*/
                     			merchant_uid: 'merchant_' + new Date().getTime(),
                     			name: 'petdding', //결제창에서 보여질 이름  name: '${param.store_title}'
@@ -606,7 +565,6 @@
 	    var zIndex = 9999;
 	    var modal = $('#' + id);
 	
-	    // 모달 div 뒤에 희끄무레한 레이어
 	    var bg = $('<div>')
 	        .css({
 	            position: 'fixed',
@@ -616,7 +574,6 @@
 	            width: '100%',
 	            height: '100%',
 	            overflow: 'auto',
-	            // 레이어 색갈은 여기서 바꾸면 됨
 	            backgroundColor: 'rgba(0,0,0,0.4)'
 	        })
 	        .appendTo('body');
@@ -625,11 +582,7 @@
 	        .css({
 	            position: 'fixed',
 	            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-	
-	            // 시꺼먼 레이어 보다 한칸 위에 보이기
 	            zIndex: zIndex + 1,
-	
-	            // div center 정렬
 	            top: '50%',
 	            left: '50%',
 	            transform: 'translate(-50%, -50%)',
@@ -637,7 +590,6 @@
 	            webkitTransform: 'translate(-50%, -50%)'
 	        })
 	        .show()
-	        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 	        .find('.modal_close_btn')
 	        .on('click', function() {
 	            bg.remove();

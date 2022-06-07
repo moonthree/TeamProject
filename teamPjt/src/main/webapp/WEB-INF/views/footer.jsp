@@ -136,8 +136,8 @@
                 <br>
                 <div style="margin-bottom: 20px;">
                     <div style="font-weight: bold;">이메일(24시간 접수 가능)</div>
-			                    펀딩 : help.funding@petdding@.kr<br>
-			                    스토어 : help.store@petdding@.kr<br>
+			                    펀딩 : help.funding@petdding.kr<br>
+			                    스토어 : help.store@petdding.kr<br>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">

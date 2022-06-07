@@ -23,20 +23,6 @@ main {
     color: black;
 }
 
-.dropdown{
-    display: inline;
-}
-
-.dropdown-toggle{
-    margin-right: 20px;
-    height: 40px;
-    width: 120px;
-}
-.dropdown-menu a{
-    font-weight: 500;
-    margin-top: 10px;
-}
-
 .search_result{
     margin: 0 auto;
     padding: 0 16px 30px;
@@ -50,7 +36,7 @@ main {
 }
 
 .search_result_num span{
-    color:#00b2b2;
+    color:#fa6462;
 }
 .seemore{
     background-color: transparent!important;
@@ -66,4 +52,30 @@ main {
     width: 16px;
     height: 18px;
     font-size: 18px;
+}
+
+/* modal btn */
+.modal_btn{
+	color: #fa6462;
+    border-color: #fa6462;
+}
+.modal_btn:hover{
+	color: white;
+	background-color: #fa6462;
+	border-color: #fa6462;
+}
+.btn-outline-info:focus {
+    box-shadow: none;
+}
+.btn-outline-info:not(:disabled):not(.disabled):active {
+    color: #fff;
+    background-color: #fa6462;
+    border-color: #fa6462;
+}
+.FVbtn{
+	background-color: #fa6462 !important;
+	border: none;
+}
+.FVbtn:hover{
+	background-color: #f24f49 !important;
 }
