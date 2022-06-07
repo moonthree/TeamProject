@@ -130,22 +130,22 @@
 		LEFT OUTER JOIN (select AVG(sr.store_review_star) as 'avg_star', store_idx from store_review sr group by store_idx) sr
 		ON s.store_idx = sr.store_idx 
 			AND s.store_idx = sr.store_idx
-			<choose>
-				<when test="all != null">
-				</when>
-				<when test="dog != null">
-					AND s.store_category = 0
-				</when>
-				<when test="cat != null">
-					AND s.store_category = 1
-				</when>
-				<when test="other != null">
-					AND s.store_category = 2
-				</when>
-				<otherwise>
-				</otherwise>
-			</choose>
-		WHERE s.store_title LIKE CONCAT('%${keyword}%') AND s.member_idx not in (5, 7, 8) AND s.store_permit_state = 1 
+		WHERE s.store_title LIKE CONCAT('%${keyword}%') AND s.member_idx not in (5, 7, 8) AND s.store_permit_state = 1
+		<choose>
+			<when test="all != null">
+			</when>
+			<when test="dog != null">
+				AND s.store_category = 0
+			</when>
+			<when test="cat != null">
+				AND s.store_category = 1
+			</when>
+			<when test="other != null">
+				AND s.store_category = 2
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 		<choose>
 			<when test="sortNewStore != null">
 				order by store_idx desc limit #{startRowNumStore}, 8;
