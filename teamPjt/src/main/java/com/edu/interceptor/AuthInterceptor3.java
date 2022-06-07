@@ -27,7 +27,7 @@ public class AuthInterceptor3 extends HandlerInterceptorAdapter {
 				if(request.getMethod().equalsIgnoreCase("get")) {
 					path = uri + "?" + query;
 				}
-				session.setAttribute("dest", path.substring(5));
+				session.setAttribute("dest", path.substring(9));
 				response.sendRedirect("../member/login.do");
 				return false;
 			}
