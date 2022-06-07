@@ -175,6 +175,7 @@ public class MypageController {
 	         String notice = vo.getFunding_notice();
 	         
 	         
+	         
 	         File dir1 = new File(path+"/"+thum);
 	         File dir2 = new File(path+"/"+content);
 	         File dir3 = new File(path+"/"+notice);
