@@ -135,23 +135,23 @@
                         <tr style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="funding_option_name" type="text" class="text" style="width:100%;" placeholder="옵션명" />
+                                <input name="funding_option_name" class="table_form"  type="text"  style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="1" max="1000000000" maxlength="9" oninput="maxLengthCheck(this)"  style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price"  class="table_form" type="number" min="1" max="1000000000" maxlength="9" oninput="maxLengthCheck(this)"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" min="1" max="10000" name="funding_option_stock"  maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
+                                <input type="number" min="1"  max="10000" name="funding_option_stock" class="table_form" maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="funding_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
+                                <input name="funding_option_detail" type="text" class="table_form" style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </table>
@@ -159,23 +159,23 @@
                         <tr id="addRow" style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="funding_option_name" type="text" class="text"  style="width:100%;" placeholder="옵션명" />
+                                <input name="funding_option_name" type="text" class="table_form"  style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="funding_option_price" type="number" min="1" max="1000000000" maxlength="9" oninput="maxLengthCheck(this)" class="text"  style="width:100%;"  placeholder="금액"/>
+                                <input name="funding_option_price" type="number" min="1" max="1000000000" class="table_form" maxlength="9" oninput="maxLengthCheck(this)" class="text"  style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="funding_option_stock" min="1" max="10000" maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
+                                <input type="number" class="table_form" name="funding_option_stock" min="1" max="10000" maxlength="4" oninput="maxLengthCheck(this)" style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="funding_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
+                                <input name="funding_option_detail" type="text" class="table_form"  style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </textarea>
@@ -287,17 +287,38 @@
 		else{
 			
 			var form_control = $("#funding_upload input.form-control");
+			var table_form = $(".table_form");
+		
+			
 			var flag = true;
+			var tableFlag = true;
 			for(var i=0; i<form_control.length; i++){	
 				
 				 if("" == $(form_control[i]).val() || null == $(form_control[i]).val()){
 
-						flag = false;
+					flag = false;
 					}  
 			}
-			if(flag == false){
+			
+			for(var z=0; z<table_form.length; z++){	
+				
+				 if("" == $(table_form[z]).val() || null == $(table_form[z]).val()){
+
+					 tableFlag = false;
+					}  
+			}
+			
+			if(flag == false && tableFlag == false ){
 				alert("입력하지 않은 양식이 존재합니다.");
 			}
+			else if (flag == true  && tableFlag == false ){
+				alert("옵션에서 입력하지 않은 양식이 존재합니다.");
+			 
+			}
+			else if (flag == false  && tableFlag == true ){
+				alert("입력하지 않은 양식이 존재합니다.");
+			}
+			
 			
 			else{
 			

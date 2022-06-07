@@ -42,6 +42,7 @@
 
 <c:import url="/header.do"></c:import>
 <main id="wrapper">   
+
 <!-- 펀딩 성공 후 스토어 신청일 경우 --> 
 <c:if test="${check eq 1}">
          	 <div class="container">
@@ -146,23 +147,23 @@
 
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" " style="width:100%;" placeholder="옵션명" value="${item.funding_option_name}" />
+                                <input name="store_option_name" type="text"  class="table_form"  style="width:100%;" placeholder="옵션명" value="${item.funding_option_name}" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="1" max="1000000000" class="text" style="width:100%;" maxlength="9" oninput="maxLengthCheck(this)"  placeholder="금액" value="${item.funding_option_price}"/>
+                                <input name="store_option_price" type="number" min="1" max="1000000000"  class="table_form"  style="width:100%;" maxlength="9" oninput="maxLengthCheck(this)"  placeholder="금액" value="${item.funding_option_price}"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="1" max="10000" style="width:100%;" maxlength="4" oninput="maxLengthCheck(this)" placeholder="입력없을 시 자동으로 100개로 고정됩니다." value="100" />
+                                <input type="number"  name="store_option_stock" min="1" max="10000" style="width:100%;" maxlength="4" oninput="maxLengthCheck(this)" placeholder="입력없을 시 자동으로 100개로 고정됩니다." value="100" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" value="${item.funding_option_detail}" />
+                                <input name="store_option_detail" type="text"  class="table_form"  style="width:100%;" placeholder="상세" value="${item.funding_option_detail}" />
                             </td>
                         </tr>
                         </c:forEach>
@@ -171,23 +172,23 @@
                         <tr id="addRow" style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명을 입력하세요." />
+                                <input name="store_option_name" type="text"  class="table_form" style="width:100%;" placeholder="옵션명을 입력하세요." />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="1" max="1000000000" class="text" maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액을 입력하세요."/>
+                                <input name="store_option_price" type="number" min="1" max="1000000000"  class="table_form" maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액을 입력하세요."/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="1" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량을 입력하세요." />
+                                <input type="number"  class="table_form"  name="store_option_stock" min="1" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량을 입력하세요." />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세정보를 입력하세요." />
+                                <input name="store_option_detail" type="text"  class="table_form"  style="width:100%;" placeholder="상세정보를 입력하세요." />
                             </td>
                         </tr>
                     </textarea>
@@ -317,23 +318,23 @@
 
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" style="width:100%;" placeholder="옵션명" />
+                                <input name="store_option_name" class="table_form" type="text" class="text" style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price" class="table_form" type="number" min="0" max="1000000000" class="text"  maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000"   maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량"  />
+                                <input type="number" class="text" class="table_form" name="store_option_stock" min="0" max="10000"   maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량"  />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text"  style="width:100%;" placeholder="상세" />
+                                <input name="store_option_detail" class="table_form" type="text"  style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </table>
@@ -341,23 +342,23 @@
                         <tr id="addRow" style="border-top: 2px solid #333C83;">
                             <th scope="row">옵션명</th>
                             <td colspan="3">
-                                <input name="store_option_name" type="text" class="text" name="name1" style="width:100%;" placeholder="옵션명" />
+                                <input name="store_option_name"  class="table_form" type="text"   style="width:100%;" placeholder="옵션명" />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">금액</th>
                             <td>
-                                <input name="store_option_price" type="number" min="0" max="1000000000" class="text"  maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
+                                <input name="store_option_price"  class="table_form" type="number" min="0" max="1000000000"   maxlength="9" oninput="maxLengthCheck(this)" style="width:100%;"  placeholder="금액"/>
                             </td>
                             <th scope="row">수량</th>
                             <td>
-                                <input type="number" class="text" name="store_option_stock" min="0" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량" />
+                                <input type="number"   class="table_form" name="store_option_stock" min="0" max="10000"  maxlength="4" oninput="maxLengthCheck(this)"style="width:100%;" placeholder="수량" />
                             </td>
                         </tr>
                         <tr id="addRow">
                             <th scope="row">상세</th>
                             <td colspan="3">
-                                <input name="store_option_detail" type="text" class="text" name="name3" style="width:100%;" placeholder="상세" />
+                                <input name="store_option_detail"  class="table_form" type="text"   style="width:100%;" placeholder="상세" />
                             </td>
                         </tr>
                     </textarea>
@@ -421,7 +422,7 @@
 <script>
 
      var count = 0;
-     console.log(count);
+   
      // 추가 버튼 클릭시
      $('#ADD').bind('click', function aaaa() {                
          count++;
@@ -449,6 +450,7 @@
     
 <script type="text/javascript">
 	var flagg = false;
+	
 	function Fn_prieview_store(){
 		var path = '<%=request.getContextPath()%>';
 		var midx = $("#member_idx").val();
@@ -459,7 +461,11 @@
 		else{
 			
 			var form_control = $("#store_upload input.form-control");
+			var table_form = $(".table_form");
+		
+			
 			var flag = true;
+			var tableFlag = true;
 			for(var i=0; i<form_control.length; i++){	
 				
 				 if("" == $(form_control[i]).val() || null == $(form_control[i]).val()){
@@ -467,12 +473,31 @@
 					flag = false;
 					}  
 			}
-			if(flag == false){
+			
+			for(var z=0; z<table_form.length; z++){	
+				
+				 if("" == $(table_form[z]).val() || null == $(table_form[z]).val()){
+
+					 tableFlag = false;
+					}  
+			}
+			
+			if(flag == false && tableFlag == false ){
+				alert("입력하지 않은 양식이 존재합니다.");
+			}
+			else if (flag == true  && tableFlag == false ){
+				alert("옵션에서 입력하지 않은 양식이 존재합니다.");
+			 
+			}
+			else if (flag == false  && tableFlag == true ){
 				alert("입력하지 않은 양식이 존재합니다.");
 			}
 			
+			
 			else{
 			
+			
+				
 			var theForm =  document.querySelector('form[name=store_upload]');
 			var notice_path = document.getElementById("store_Notice_temp");
 			var thumnail_path = document.getElementById("store_thumbnail_temp");
