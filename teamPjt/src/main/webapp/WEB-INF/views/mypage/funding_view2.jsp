@@ -165,7 +165,7 @@
             	 <img src="../resources/upload/funding/${funding.funding_content}"  alt="...">
             </div>
             <div class="tab-pane fade" id="FVnotice" role="tabpanel" aria-labelledby="FVnotice-tab">
-               <img src="../resources/upload/funding/${file_name}" class="mainIMG" alt="...">
+               <img src="../resources/upload/funding/${file_name}" class="img2" alt="...">
             </div>
             </c:otherwise>
             </c:choose>
