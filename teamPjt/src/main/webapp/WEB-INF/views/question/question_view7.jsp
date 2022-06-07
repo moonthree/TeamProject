@@ -74,10 +74,10 @@
     
     <li>
       
-      <div class="contents1_bold">와디즈 스토어 수수료 (부가세 별도)</div>
+      <div class="contents1_bold">Petdding 스토어 수수료 (부가세 별도)</div>
       <div class="contents2">
-        와디즈 스토어 입점 수수료 : 10% (PG사 수수료 포함)<br>
-        와디즈 온리 스토어 입점 수수료 : 20% (PG사 수수료 포함)<br>
+        Petdding 스토어 입점 수수료 : 10% (PG사 수수료 포함)<br>
+        Petdding 온리 스토어 입점 수수료 : 20% (PG사 수수료 포함)<br>
       </div>
 
     </li>

@@ -988,7 +988,9 @@ public class StoreController {
 		PrintWriter pw = response.getWriter();
 		if(result>0) {
 			// 저장 완료
-			pw.println("<script>alert('결제가 완료되었습니다.');location.href='store_pay_complete.do?store_idx="+store_idx+"';</script>");
+			pw.println("<script>"
+//					+ "alert('결제가 완료되었습니다.');"
+					+ "location.href='store_pay_complete.do?store_idx="+store_idx+"';</script>");
 		}else {
 			// 저장 안됭
 			pw.println("<script>alert('결제가 실패하었습니다.');location.href='reserInteger.parseIntve.do';</script>");

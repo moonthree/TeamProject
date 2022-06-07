@@ -57,6 +57,7 @@ a.navtext:active {
 
 .header li{
 	margin-bottom: 7px;
+	padding: 0px 10px 0px 10px;
 }
 /* 검색 */
 .search_container{

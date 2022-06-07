@@ -194,8 +194,8 @@
 	
 	<ul>
 		<li>★ 펫띵 대표 고객센터 : 1111-1111</li>
-		<li>★ 펫띵 펀딩상담 : help.funding@petdding.kr</li>
-		<li>★ 펫띵 스토어상담 : help.store@petdding.kr</li>
+		<li>★ 펫띵 펀딩상담 : help.funding@petdding.com</li>
+		<li>★ 펫띵 스토어상담 : help.store@petdding.com</li>
 		<li>★ 이메일(24시간 접수 가능)</li>
 	</ul>
    </div>

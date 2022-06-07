@@ -572,7 +572,7 @@ public class FundingController {
 		}else {
 			// 저장 안됭
 			pw.println("<script>"
-//					+ "alert('결제 예약이 실패하었습니다.');"
+					+ "alert('결제 예약이 실패하었습니다.');"
 					+ "location.href='reserInteger.parseIntve.do';</script>");
 		}
 		pw.flush();
