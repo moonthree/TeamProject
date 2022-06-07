@@ -327,8 +327,8 @@
         margin-top: 0px;
     }
     .box{
-	    width: 125px;
-	    height: 125px; 
+	    width: 100px;
+	    height: 100px; 
 	    border-radius: 70%;
 	    overflow: hidden;
     }
@@ -339,7 +339,7 @@
 	}
     
 </style>
-<title>Insert title here</title>
+<title>판매자 회원가입</title>
 </head><body>
 
 	<% request.setCharacterEncoding("UTF-8");%>
@@ -371,9 +371,9 @@
                     </div>
                     <!-- http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg -->
 
-                     <div class="form-group">
-                        <label for="exampleInputPassword1">프로필</label>
-                         <div class="form-inline box ">
+                     <div class="form-group" style="display: flex;">
+                        <label for="exampleInputPassword1" style="height: 24px;">프로필</label>
+                         <div class="form-inline box " style="margin: 10px 40px 0px;">
                          <c:if test="${kakaoVo == null}">
                         	<img src="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg" class="rounded float-left profile" alt="...">
                          	<input type="hidden" name="member_photo">
@@ -415,8 +415,8 @@
                     <div class="form-group"> 
                      <label for="exampleFormControlInput1">주소</label>
                     
-						<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="member_postnum" id="addr1" type="text" readonly="readonly" >
-						    <button type="button" class="btn btn-secondary" onclick="execPostCode();"><i class="fa fa-search"></i>주소 찾기</button>                               
+						<input class="form-control" style="width: 40%; display: inline; margin-left: 20px;" placeholder="우편번호" name="member_postnum" id="addr1" type="text" readonly="readonly" >
+						    <button type="button" class="btn btn-secondary" onclick="execPostCode();" style="margin: 0px 10px 5px;"><i class="fa fa-search"></i>주소 찾기</button>                               
 						</div>
 						<div class="form-group">
 						    <input name="member_addr" class="form-control" style="top: 5px;" placeholder="도로명 주소"  id="addr2" type="text" readonly="readonly" />

@@ -82,11 +82,6 @@
 					    </td>
 					  </tr>
 					</table>
-<!--                     <div style="font-size: 18px; line-height: 3;}"> -->
-<!-- 						프로젝트 성공 종료 시 <div id="pay_date" style="display: inline;">결제 날짜</div>에 결제됩니다.<br> -->
-<!-- 						결제 성공 시 <div id="express_date" style="display: inline;">배송 날짜</div>에 발송 예정입니다.<br> -->
-<%-- 						* 펀딩 내역 > <a href="#">펀딩 상세</a>에서 ${read.funding_end_date}까지 펀딩을 취소 및 변경하실 수 있습니다. --%>
-<!--                     </div> -->
                     <div style="display: inline-block; text-align: center; width: 100%; margin: 15px 0;">
                     <c:forEach var="item" items="${myFundingList}" varStatus="i">
                     	<c:if test="${i.first}">

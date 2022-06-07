@@ -1661,7 +1661,6 @@ let option = {
 	        //sum
 	        var sum = document.getElementById('sum'+pos);
 	        sum.textContent = (newval * price).formatNumber()+"원";
-	        // item.parentElement.parentElement.nextElementSibling.lastElementChild.textContent = (newval * price).formatNumber()+"원";
 
 	        this.reCalc();
 	        this.updateUI();

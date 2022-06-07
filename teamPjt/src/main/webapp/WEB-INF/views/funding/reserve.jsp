@@ -123,17 +123,11 @@
             </div>
         </div>
         <div class="row" style="margin-top: 30px;">
-            <!-- 구매자 정보 -->
-            <div class="col-md-6" style="padding: 30px;">
+	        <!-- 구매자 정보 -->
+            <div class="col-md-6">
+	        <div class="section_title">구매자 정보</div>
                 <table class="table table-borderless card buyer_card">
-                    <thead>
-                      <tr>
-                        <th scope="col" colspan="2">
-                            <div style="font-size: 25px;">구매자 정보</div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <tbody style="display: inline-table;">
                       <tr>
                         <th scope="row" width="30%">이름</th>
                         <td>${member.member_name}</td>
@@ -146,24 +140,13 @@
                         <th scope="row">이메일</th>
                         <td>${member.member_email}</td>
                       </tr>
-                      <tr>
-                          <td colspan="2" style="padding-top: 0px">
-                              <hr>
-                            <div class="form-check" style="text-align: left;">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" style="zoom: 1.5;">
-                                <label class="form-check-label" for="defaultCheck1" style="cursor:pointer; ">
-                                  	<span style="font-weight: bold">(선택)</span> 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.
-                                </label>
-                              </div>
-                          </td>
-                      </tr>
                     </tbody>
                 </table>
             </div>
             
             <!-- 배송지 정보 -->
-            <div class="col-md-6" style="padding: 30px;">
-                <div class="addressInfo_div" style="font-size: 25px; font-weight: bold; padding: 20px 0px;">배송지 정보</div>
+            <div class="col-md-6" style="padding: 0px 30px;">
+                <div class="addressInfo_div section_title">배송지 정보</div>
 
                 <!-- 선택 버튼  (새로입력/기존주소) -->
                 <div class="addressInfo_button_div">
@@ -223,96 +206,74 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}" readonly="readonly">
+                            	<input type="text" class="form-control" name="store_express_name2" value="${member.member_name}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                          		<input type="tel" onkeyup="mobile_keyup(this)" class="form-control m-input telCheckSize" name="funding_express_phone2" id="telInput" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
-                                    aria-label="Default" aria-describedby="inputGroup-sizing-default" value="${member.member_phone}" readonly="readonly">
+                            	<input type="text" class="form-control" name="store_express_phone2" value="${member.member_phone}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}" readonly="readonly">
-                            </div>
-                            <div class="col-sm-5">
-<!--                                 <button type="button" class="btn btn-primary address_search_btn" onclick="execution_daum_address()" style="background-color: #83BD75; border: none;">주소 찾기</button> -->
+                        	    <input type="text" class="form-control address1_input" name="store_express_postnum2" value="${member.member_postnum}" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}" readonly="readonly">
+                                <input type="text" class="form-control address2_input" name="store_express_addr1_2" value="${member.member_addr}" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}" readonly="readonly">
+                                <input type="text" class="form-control address3_input" name="store_express_addr2_2" value="${member.member_addr2}" readonly="readonly">
                             </div>
                         </div>
                 	</div>
                 </div>
-<!--                 <hr> -->
-<!--                 <div> -->
-<!--                     <div style="font-weight: bold; margin-bottom: 10px;">배송 시 요청사항 (선택)</div> -->
-<!--                     <div> -->
-<!--                         <input type="text" class="form-control" id=""> -->
-<!--                     </div> -->
-<!--                 </div> -->
             </div>
         </div>
-
+        
         <div class="row">
             <!-- 결제 정보 -->
             <!-- 임시로 value 1로 전부 입력해둠 -->
             <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보</div>
             <div class="col-lg-7">
-<!--                 <div class="form-group"> -->
-<!--                     <div class="form-check form-check-inline"> -->
-<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3" checked> -->
-<!--                         <label class="form-check-label" for="inlineRadio3">직접 입력</label> -->
-<!--                     </div> -->
-<!--                     <div class="form-check form-check-inline"> -->
-<!--                         <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4"> -->
-<!--                         <label class="form-check-label" for="inlineRadio4">네이버 페이</label> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--                 <hr> -->
                 <div>
                      <div class="form-group">
                          <label for="formGroupExampleInput" style="font-weight: bold;">신용(체크)카드번호</label>
                          <div class="row">
                              <div class="col">
-                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required" value="1111">
+                                 <input type="number" name="card_num" id="card_num1" oninput='handleOnInput(this, 4)' class="form-control" required="required">
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required value="1111">
+                                 <input type="password" name="card_num" id="card_num2" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required value="1111">
+                                 <input type="password" name="card_num" id="card_num3" class="form-control" maxlength="4" required>
                              </div>
                              <div class="col">
-                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required value="1111">
+                                 <input type="number" name="card_num" id="card_num4" oninput='handleOnInput(this, 4)' class="form-control" required>
                              </div>
                          </div>
                      </div>
                      <div class="form-row">
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">유효기간</label>
-                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required value="11/11">
+                             <input type="text" name="funding_order_pay_card_valid" class="form-control validdate" onkeyup="date_keyup(this)" id="" placeholder="MM/YY" maxlength="5" required>
                          </div>
                          <div class="form-group col-md-6">
                              <label for="" style="font-weight: bold;">카드 비밀번호</label>
-                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required value="11">
+                             <input type="password" name="funding_order_pay_card_password" class="form-control" id="" placeholder="앞 2자리" maxlength="2" required>
                          </div>
                      </div>
                      <div class="form-group">
                          <label for="" style="font-weight: bold;">생년월일 (주민번호 앞 6자리)</label>
-                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required value="111111">
+                         <input type="number" name="funding_order_pay_register_num" oninput='handleOnInput(this, 6)' class="form-control" id="" maxlength="6" required>
                      </div>   
                 </div>
             </div>
@@ -325,9 +286,6 @@
                         </li>
                         <li>
                             1차 결제 실패 시 실패일로부터 3 영업일 동안 재 결제를 실행합니다.
-                        </li>
-                        <li>
-							결제 예약 이후, 결제 정보를 변경하려면 마이페이지 > 나의 펀딩의 결제 정보에서 결제 정보를 변경해주세요.
                         </li>
                     </ul>
                 </div>
@@ -360,7 +318,7 @@
                                 <label class="custom-control-label" for="chk1"><span style="font-weight: bold">(필수)</span> 개인정보 제3자 제공 동의</label>
                             </div>
                         </td>
-                        <td>
+                        <td style="text-align: right;">
                             <!-- 모달창 -->
                             <div id="my_modal" style="text-align: left">
 							 	<div style="font-weight: bold; font-size: 22px;">개인정보 제3자 제공 동의</div>
@@ -381,7 +339,7 @@
                                 <label class="custom-control-label" for="chk2"><span style="font-weight: bold">(필수)</span> 후원 유의사항 확인</label>
                             </div>
                         </td>
-                        <td>
+                        <td style="text-align: right;">
                         	<div class="accordion" id="accordionExample">
 							  <div>
 							    <div>
@@ -436,10 +394,6 @@
 	function execution_daum_address(){
 		   new daum.Postcode({
 		        oncomplete: function(data) {
-		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		            
-		        	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 	                var addr = ''; // 주소 변수
 	                var extraAddr = ''; // 참고항목 변수
 	 
@@ -452,8 +406,6 @@
 	 
 	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
 	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
 	                        extraAddr += data.bname;
 	                    }
@@ -473,11 +425,8 @@
 	                	addr += ' ';
 	                }
 	 
-	             	// 제거해야할 코드
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                $(".address1_input").val(data.zonecode);
 	                $(".address2_input").val(addr);				
-	                // 커서를 상세주소 필드로 이동한다.
 	                $(".address3_input").attr("readonly", false);
 	                $(".address3_input").focus();	 
 		            
@@ -663,7 +612,7 @@
 	    var zIndex = 9999;
 	    var modal = $('#' + id);
 	
-	    // 모달 div 뒤에 희끄무레한 레이어
+	    // 모달 div 뒤에 레이어
 	    var bg = $('<div>')
 	        .css({
 	            position: 'fixed',
@@ -673,7 +622,6 @@
 	            width: '100%',
 	            height: '100%',
 	            overflow: 'auto',
-	            // 레이어 색갈은 여기서 바꾸면 됨
 	            backgroundColor: 'rgba(0,0,0,0.4)'
 	        })
 	        .appendTo('body');
@@ -683,10 +631,8 @@
 	            position: 'fixed',
 	            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
 	
-	            // 시꺼먼 레이어 보다 한칸 위에 보이기
 	            zIndex: zIndex + 1,
 	
-	            // div center 정렬
 	            top: '50%',
 	            left: '50%',
 	            transform: 'translate(-50%, -50%)',
@@ -694,7 +640,6 @@
 	            webkitTransform: 'translate(-50%, -50%)'
 	        })
 	        .show()
-	        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 	        .find('.modal_close_btn')
 	        .on('click', function() {
 	            bg.remove();

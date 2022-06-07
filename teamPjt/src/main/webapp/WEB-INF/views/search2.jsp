@@ -80,7 +80,7 @@
                     <span class="search_keyword" id="keywordInput">${keyword }</span>
                     검색결과
                 </div>
-                <button type="button" id="filterModalBtn" class="btn btn-outline-info" data-toggle="modal" data-target="#filterModal">
+                <button type="button" id="filterModalBtn" class="btn btn-outline-info modal_btn" data-toggle="modal" data-target="#filterModal">
 		            필터
 		        </button>
 		        <span class="filter_span2">펀딩</span>
@@ -396,8 +396,8 @@
 	                    </div>
 	                </div>
 	                <div class="footer">
-	                    <button type="button" class="btn btn-outline-info" id="filterResetBtn">초기화</button>
-	                    <button type="button" class="btn btn-info" id="filterDoBtn">적용 하기</button>
+	                    <button type="button" class="btn btn-outline-info modal_btn" id="filterResetBtn">초기화</button>
+	                    <button type="button" class="btn btn-info FVbtn" id="filterDoBtn">적용 하기</button>
 	                </div>
             </div>
         </div>

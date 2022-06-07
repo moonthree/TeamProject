@@ -105,10 +105,10 @@ main {
     zoom: 1.5;
 }
 .login_btn{
-    background: #fa6462 !important;
-    border: 1px solid #fa6462 !important;
+    background: #fa6462;
+    border: 1px solid #fa6462;
     color: #fff !important;
-    box-shadow: none !important;
+    box-shadow: none;
     font-size: 17px;
     font-weight: 600;
     height: 48px;
@@ -116,10 +116,13 @@ main {
     width: 100%;
     border-radius: 5px;
 }
+.login_btn:hover{
+	background-color: #f24f49;
+}
 .find_loca{
     display: flex;
     justify-content: end;
-    margin: 20px 0px 30px;
+    margin: 25px 0px 35px;
     font-size: 15px;
 }
 .login_find{

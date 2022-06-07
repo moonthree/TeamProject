@@ -47,7 +47,6 @@ h1 {
 }
 
 
-
 .searchArea > form > input{
   border:none;
   width:250px;
@@ -91,7 +90,6 @@ h1 {
 }
 .amount > li > div {
   text-align: center;
-  margin-top:37px;
   height:57px;
 }
 
@@ -112,11 +110,10 @@ h1 {
 
 .main_text0{
   width: 100%;
-  height:601px;
+  height:800px;
   margin-top:-132px;
   background: #f1f2f3;
   padding:100px;
-  margin-bottom:100px;
 }
 .main_text0 > h1{
   padding-top:116px;

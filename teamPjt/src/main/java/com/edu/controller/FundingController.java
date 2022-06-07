@@ -566,10 +566,14 @@ public class FundingController {
 		PrintWriter pw = response.getWriter();
 		if(result>0) {
 			// 저장 완료
-			pw.println("<script>alert('결제 예약이 완료되었습니다.');location.href='reserve_complete.do?funding_idx="+funding_idx+"';</script>");
+			pw.println("<script>"
+//					+ "alert('결제 예약이 완료되었습니다.');"
+					+ "location.href='reserve_complete.do?funding_idx="+funding_idx+"';</script>");
 		}else {
 			// 저장 안됭
-			pw.println("<script>alert('결제 예약이 실패하었습니다.');location.href='reserInteger.parseIntve.do';</script>");
+			pw.println("<script>"
+//					+ "alert('결제 예약이 실패하었습니다.');"
+					+ "location.href='reserInteger.parseIntve.do';</script>");
 		}
 		pw.flush();
 		

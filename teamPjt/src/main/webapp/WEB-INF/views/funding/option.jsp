@@ -81,7 +81,7 @@
 						                        	<div style="font-size: 13px; margin-bottom: 5px; color: gray;">수량 </div>
 						                        	<p class="updown" style="cursor: pointer; width: 170px;">
 						                        		<button type="button" onclick="javascript:option.changePNum(${item.funding_option_idx});" class="down stockbtn">
-						                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+						                        			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="down" viewBox="0 0 16 16">
 															  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 															  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 															</svg>
@@ -167,7 +167,6 @@
                 </div>
                 <br>
                 <div>
-<!--                     <button type="button" onclick="document.getElementById('orderform').submit();" class="btn btn-secondary" style="background-color: #83BD75; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button> -->
                     <button type="button" onclick="javascript:checkone();" class="btn btn-secondary" style="background-color: #fa6462; border: none; width: 150px; height: 50px; font-weight: bold;">다음 단계로 ></button>
                 </div>
             </div>

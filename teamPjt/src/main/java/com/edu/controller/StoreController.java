@@ -1025,9 +1025,9 @@ public class StoreController {
 		List<StoreInfoDetailVO> msl = ms.myStoreList(login.getMember_idx());
 		model.addAttribute("myStoreList", msl);
 		
-		ArrayList<StoreVO> storeHomeView = null;
-		storeHomeView = (ArrayList<StoreVO>) hs.storeHomeView(vo);
-		request.setAttribute("storeHomeView", storeHomeView);
+		ArrayList<StoreVO> storeHomeFund = null;
+		storeHomeFund = (ArrayList<StoreVO>) hs.storeHomeFund(vo);;
+		request.setAttribute("storeHomeFund", storeHomeFund);
 
 		return "store/store_pay_complete";
 	}
