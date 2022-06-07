@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -347,22 +345,25 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 				                </div>
                	
 				 <!-- 스토어 -->
+				 
 				<div id="store" role="tabpanel" aria-labelledby="store-tab" class="tab-pane fade px-4 py-5">
 				         <div class="mydiv" id="mydiv">
 					<c:if test="${sellerStoreList.size()>0}">
 					<c:forEach var="item" items="${sellerStoreList}">
+					
                     <div class="card mb-3">
-                      <div class="row g-0">
+                    <div class="row item" onclick="location.href='../store/store_view.do?store_idx=${item.store_idx}'" style="cursor:pointer;">
+                      
                         <div class="col-lg-5 col-md-6">
                           <!--이미지-->
 	                      <div class="card img-container">
                             <div class="embed-responsive embed-responsive-4by3" style="margin-top:10px">
-                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="funding_img">
+                              <img src="../resources/upload/store/${item.store_thumbnail}" class="card-img-top embed-responsive-item" alt="store_img">
                             </div>
 	                      </div>
                         </div>
                         <div class="col-lg-7 col-md-6">
-                          <div class="card-body" style="margin-left: -20px;">
+                          <div class="card-body" style="margin-left:20px;">
                             <div style="font-weight:100">
                             	<c:choose>
                             		<c:when test="${ item.store_category eq 0 }">강아지 용품</c:when>
@@ -375,8 +376,13 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
                               <div class="row">
                                 <div class="col"></div>
                               </div>                             
-                              <div class="row" >
-                                <div class="col">
+                              
+                            </p>
+                          </div>
+                        </div> 
+                    </div>
+                    	<div class="row" >
+                                <div class="col" align="right">
                                  
                                  	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 									 <button type="button" class="button-6" onclick="location.href='<%= request.getContextPath()%>/mypage/store_admin.do?store_idx=${item.store_idx}'">관리</button>
@@ -395,10 +401,6 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 									</div>
                                 </div>
                               </div>
-                            </p>
-                          </div>
-                        </div> 
-                      </div>
                     </div>
                     </c:forEach>
                     </c:if>
