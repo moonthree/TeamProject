@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="../resources/css/store_css/store_pay_complete.css">
-<link rel="stylesheet" type="text/css" href="../resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/resources/css/store_css/store_pay_complete.css">
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/resources/css/home.css">
 <title>스토어 주문 완료</title>
 </head>
 <body>
@@ -86,12 +86,12 @@
 	               	   	<c:forEach var="item" items="${storeHomeFund}">
 		                   <div class="col-sm-4">
 		                       <div class="card section01_card">
-		                           <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
-			                            <img src="resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
+		                           <a href="store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
+			                            <img src="<%= request.getContextPath()%>/resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
 			                       </a>
 		                           <div class="card-body">
 		                               <p class="card-text section01_title">
-		                               		<a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
+		                               		<a href="store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
 		                               			${item.store_title}
 		                               		</a>
 		                               </p>

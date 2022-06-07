@@ -102,17 +102,16 @@
                     <div class="my_top">
                         <c:choose>
                         	<c:when test="${ empty member.member_photo }">
-                        		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
+                        		<a href="mypage.do"><img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img"></a>
                         	</c:when>
                         	<c:otherwise>
                         		<c:set var="photo" value="${member.member_photo }"></c:set>
 								<c:choose>
-									
 									<c:when test="${fn:contains(photo, 'http')}">
-										<img src="${photo}" class="profile_img">
+										<a href="mypage.do"><img src="${photo}" class="profile_img"></a>
 									</c:when>
 									<c:otherwise>
-										<img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img">
+										<a href="mypage.do"><img src="<%=request.getContextPath()%>/resources/upload/${member.member_photo }" class="profile_img"></a>
 									</c:otherwise>
 								</c:choose>
                         	</c:otherwise>
@@ -122,12 +121,18 @@
                     </div>
                     <div class="my_middle">
                         <h5>쇼핑MY</h5>
-                        <a href="info_funding.do">내가 펀딩한 상품<span>></span></a><br>
-                        <a href="info_store.do">내가 구매한 상품<span>></span></a><br>
-                        <a href="info_zzim.do">내가 찜한 상품<span>></span></a>
+                        <div>
+	                        <a href="info_funding.do">나의 펀딩 내역<span>&nbsp;&nbsp;></span></a><br>
+                        </div>
+                        <div>
+	                        <a href="info_store.do">나의 구매 내역<span>&nbsp;&nbsp;></span></a><br>
+                        </div>
+                        <div>
+	                        <a href="info_zzim.do">나의 찜 내역<span>&nbsp;&nbsp;></span></a>
+                        </div>
                     </div>
                     <div class="my_bottom">
-                        <p>
+                        <div>
                             <a href="my_info.do">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
                                     viewBox="0 0 16 20">
@@ -136,8 +141,8 @@
                                 </svg>
                                 &nbsp;<span>내 정보</span>
                             </a>
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <a href="../notice/notice_list.do">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-megaphone"
                                     viewBox="0 0 16 20">
@@ -146,8 +151,8 @@
                                 </svg>
                                 &nbsp;공지사항
                             </a>
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <a href="../service/service_list.do">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-question-circle"
                                     viewBox="0 0 16 20">
@@ -157,7 +162,7 @@
                                 </svg>
                                 &nbsp;고객센터
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-9 cols-sm-12" >

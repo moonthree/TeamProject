@@ -206,31 +206,31 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">이름</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="store_express_name2" value="${member.member_name}" readonly="readonly">
+                            	<input type="text" class="form-control" name="funding_express_name2" value="${member.member_name}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                           	<label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">연락처</label>
                           	<div class="col-sm-9">
-                            	<input type="text" class="form-control" name="store_express_phone2" value="${member.member_phone}" readonly="readonly">
+                            	<input type="text" class="form-control" name="funding_express_phone2" value="${member.member_phone}" readonly="readonly">
                           	</div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label" style="font-weight: bold;">주소</label>
                             <div class="col-sm-4">
-                        	    <input type="text" class="form-control address1_input" name="store_express_postnum2" value="${member.member_postnum}" readonly="readonly">
+                        	    <input type="text" class="form-control address1_input" name="funding_express_postnum2" value="${member.member_postnum}" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address2_input" name="store_express_addr1_2" value="${member.member_addr}" readonly="readonly">
+                                <input type="text" class="form-control address2_input" name="funding_express_addr1_2" value="${member.member_addr}" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control address3_input" name="store_express_addr2_2" value="${member.member_addr2}" readonly="readonly">
+                                <input type="text" class="form-control address3_input" name="funding_express_addr2_2" value="${member.member_addr2}" readonly="readonly">
                             </div>
                         </div>
                 	</div>
