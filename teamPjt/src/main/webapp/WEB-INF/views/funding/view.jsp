@@ -452,16 +452,20 @@
                         <span style="opacity: 0.7;">펀딩 종료전에 남긴 글입니다.</span>
                     </div>
                     <div class="col-md-3 col-sm-12" style="text-align: right;">
-                    	<c:if test="${read.funding_current_state eq 0 }">
-                    	
-                    	</c:if>
-                    	<c:if test="${login eq null}">
-                    		<button type="button" class="btn btn-outline-info btn-lg commubtn" id="writeModalButton" data-toggle="modal" data-target="#loginModal">글 남기기</button>
-                    	</c:if>
-                    	<c:if test="${login ne null}">
-                    		<button type="button" id="commuWriteBtn" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#writeModal">글 남기기</button>
-                    		<button type="button" id="commuModifyBtn" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#modifyModal" style= "display:none;">수정하기</button>                    		
-                    	</c:if>
+                    	<c:choose>
+		                	<c:when test="${read.funding_current_state eq 1 }">
+		                		<button class="btn btn-outline-info btn-lg commubtn">펀딩 종료</button>
+		                	</c:when>
+		                	<c:when test="${read.funding_current_state eq 0 }">
+		                		<c:if test="${login eq null}">
+		                    		<button type="button" class="btn btn-outline-info btn-lg commubtn" id="writeModalButton" data-toggle="modal" data-target="#loginModal">글 남기기</button>
+		                    	</c:if>
+		                    	<c:if test="${login ne null}">
+		                    		<button type="button" id="commuWriteBtn" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#writeModal">글 남기기</button>
+		                    		<button type="button" id="commuModifyBtn" class="btn btn-outline-info btn-lg commubtn" data-toggle="modal" data-target="#modifyModal" style= "display:none;">수정하기</button>                    		
+		                    	</c:if>
+		                	</c:when>
+                		</c:choose>
                     </div>
                 </div>
                 <!-- 현재 시간 계산 -->
@@ -494,7 +498,7 @@
                     			<th scope="row" style= "width: 10%; border-radius: 70%">
                     				<c:choose>
 		                        		<c:when test="${ empty commentList.memberVO.member_photo }">
-				                     		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+				                     		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
 				                     	</c:when>
 				                     	<c:otherwise>
 											<img src="../resources/upload/${commentList.memberVO.member_photo }" alt="profile_img" class="profile_img">
