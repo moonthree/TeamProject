@@ -66,6 +66,8 @@
             <mapping path="/mypage/info_funding_detail.do"/>
             <mapping path="/mypage/info_store_detail.do"/>
             <mapping path="/mypage/funding_register.do"/>
+            <mapping path="/mypage/funding_modify.do"/>
+            <mapping path="/mypage/funding_admin.do"/>
             <mapping path="/mypage/store_admin.do"/>
             <mapping path="/admin/approval.do"/>
             <mapping path="/admin/management_product.do"/>

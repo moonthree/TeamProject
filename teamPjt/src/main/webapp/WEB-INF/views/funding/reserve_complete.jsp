@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_reserve_complete.css">
-<link rel="stylesheet" type="text/css" href="../resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/resources/css/funding_css/funding_reserve_complete.css">
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/resources/css/home.css">
 <script>
 	window.onload = function(){
 		var end_date = document.getElementById('end_date').value;
@@ -129,12 +129,12 @@
 							<c:forEach var="item" items="${fundHomeDog}">
 								<div class="col-sm-4">
 						   			<div class="card section01_card">
-						   	   			<a href="funding/view.do?funding_idx=${item.funding_idx}">
+						   	   			<a href="view.do?funding_idx=${item.funding_idx}">
 											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 										</a>
 										<div class="card-body">
 							    			<p class="card-text section01_title">
-								        		<a href="funding/view.do?funding_idx=${item.funding_idx}">
+								        		<a href="view.do?funding_idx=${item.funding_idx}">
 													${item.funding_title}
 								    			</a>
 											</p>
@@ -155,12 +155,12 @@
 							<c:forEach var="item" items="${fundHomeCat}">
 								<div class="col-sm-4">
 								   <div class="card section01_card">
-								   	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
+								   	   <a href="view.do?funding_idx=${item.funding_idx}">
 											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 										</a>
 										<div class="card-body">
 										    <p class="card-text section01_title">
-										        <a href="funding/view.do?funding_idx=${item.funding_idx}">
+										        <a href="view.do?funding_idx=${item.funding_idx}">
 													${item.funding_title}
 											    </a>
 											</p>
@@ -181,12 +181,12 @@
 							<c:forEach var="item" items="${fundHomeOther}">
 								<div class="col-sm-4">
 								   <div class="card section01_card">
-								   	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
+								   	   <a href="view.do?funding_idx=${item.funding_idx}">
 											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 										</a>
 									<div class="card-body">
 										<p class="card-text section01_title">
-											<a href="funding/view.do?funding_idx=${item.funding_idx}">
+											<a href="view.do?funding_idx=${item.funding_idx}">
 												${item.funding_title}
 								   			</a>
 										</p>
@@ -207,12 +207,12 @@
 							<c:forEach var="item" items="${fundHomeDog}">
 								<div class="col-sm-4">
 						   			<div class="card section01_card">
-						   	   			<a href="funding/view.do?funding_idx=${item.funding_idx}">
+						   	   			<a href="view.do?funding_idx=${item.funding_idx}">
 											<img src="<%= request.getContextPath()%>/resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
 										</a>
 										<div class="card-body">
 							    			<p class="card-text section01_title">
-								        		<a href="funding/view.do?funding_idx=${item.funding_idx}">
+								        		<a href="view.do?funding_idx=${item.funding_idx}">
 													${item.funding_title}
 								    			</a>
 											</p>

@@ -22,7 +22,7 @@
                 <div class="row" style="align-items: center; line-height: 3;">
                     <div class="col-lg-2 col-sm-6" >
                         <div>
-                            <a class="footer_a" href="#">
+                            <a class="footer_a" href="<%=request.getContextPath()%>/notice/notice_list.do">
                                	 공지사항
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -84,21 +84,21 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li>
                                     <div style="font-weight: bold;">광고 서비스 문의</div>
-                                    <div style="font-size: 11pt;">pdAD@petdding.kr</div>
+                                    <div style="font-size: 11pt;">pdAD@petdding.com</div>
                                 </li>
                                 <li>
                                     <div style="font-weight: bold;">파트너 제휴 문의</div>
-                                    <div style="font-size: 11pt;">pdPartnership@petdding.kr</div>
+                                    <div style="font-size: 11pt;">pdPartnership@petdding.com</div>
                                 </li>
                                 <li>
                                     <div style="font-weight: bold;">IP 제휴 문의</div>
-                                    <div style="font-size: 11pt;">pdIP@petdding.kr</div>
+                                    <div style="font-size: 11pt;">pdIP@petdding.com</div>
                                 </li>
                             </ul>
                         </ul>
                     </div>
                     <div class="col-lg-2 col-sm-6">
-                        <a href="#" class="footer_a">정책 · 약관
+                        <a href="<%=request.getContextPath()%>/notice/notice_list.do?board_idx=2" class="footer_a">정책 · 약관
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -109,7 +109,7 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-sm-6">
-                        <a href="#" class="footer_a">개인정보처리방침
+                        <a href="<%=request.getContextPath()%>/notice/notice_list.do?board_idx=4" class="footer_a">개인정보방침
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -136,8 +136,8 @@
                 <br>
                 <div style="margin-bottom: 20px;">
                     <div style="font-weight: bold;">이메일(24시간 접수 가능)</div>
-			                    펀딩 : help.funding@petdding.kr<br>
-			                    스토어 : help.store@petdding.kr<br>
+			                    펀딩 : help.funding@petdding.com<br>
+			                    스토어 : help.store@petdding.com<br>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">

@@ -205,9 +205,8 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
 		              
                     </div>
                     <div class="my_bottom">
-                        
-                        <p>
-                            <a href="#">
+                        <div>
+                            <a href="../notice/notice_list.do">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-megaphone"
                                     viewBox="0 0 16 20">
                                     <path
@@ -215,9 +214,9 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
                                 </svg>
                                 &nbsp;공지사항
                             </a>
-                        </p>
-                        <p>
-                            <a href="#">
+                        </div>
+                        <div>
+                            <a href="../service/service_list.do">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-question-circle"
                                     viewBox="0 0 16 20">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -226,7 +225,7 @@ if(confirm("수정 시 제품 설명 pdf 파일을 다시 업로드 해야합니
                                 </svg>
                                 &nbsp;고객센터
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-9 cols-sm-12">
