@@ -366,7 +366,7 @@
 	                            <c:choose>
 		                        	<c:when test="${empty read.memberVO.member_photo}">
 		                        		<div class="profile_div">
-		                        			<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+		                        			<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
 		                        		</div>
 		                        	</c:when>
 		                        	<c:otherwise>=
@@ -452,6 +452,9 @@
                         <span style="opacity: 0.7;">펀딩 종료전에 남긴 글입니다.</span>
                     </div>
                     <div class="col-md-3 col-sm-12" style="text-align: right;">
+                    	<c:if test="${read.funding_current_state eq 0 }">
+                    	
+                    	</c:if>
                     	<c:if test="${login eq null}">
                     		<button type="button" class="btn btn-outline-info btn-lg commubtn" id="writeModalButton" data-toggle="modal" data-target="#loginModal">글 남기기</button>
                     	</c:if>
@@ -828,7 +831,7 @@
 	      	<h4>로그인이 필요합니다.</h4>
 	      </div>
 	      <div class="modal-footer login_modal_footer">
-	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_select.do'" class="login_modalBtn btn btn-outline-info btn-lg">회원가입</button>
+	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/member/join_select.do'" class="joinModalBtn btn btn-outline-info btn-lg">회원가입</button>
 	        <button type="button" onclick="javascript:location.href='<%= request.getContextPath()%>/funding/view.do?funding_idx=${read.funding_idx}&login=1wwwwwwwwwwww321weqwff3443wrewew'"  class="login_modalBtn btn btn-info btn-lg">로그인</button>
 	      </div>
 	    </div>

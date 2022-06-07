@@ -1,4 +1,6 @@
 @charset "UTF-8";
+
+
 main {
     height: auto;
     min-height: 100%;
@@ -38,7 +40,7 @@ main {
 	border-bottom: 1px solid #e2e2e2;
 	/* 1px solid #e9e9e9; */
 }
-.card:hover{
+.card>a:hover{
 	transform: scale(1.04);
 	box-shadow: 10px 10px 5px 1px #dadce0;
 }

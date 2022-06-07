@@ -269,7 +269,7 @@
         <div class="row">
             <!-- 결제 정보 -->
             <!-- 임시로 value 1로 전부 입력해둠 -->
-            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보   ///  임시로 전부 입력해놓음</div>
+            <div style="font-size: 25px; font-weight: bold; padding: 20px 0px;" class="col-md-12">결제 정보</div>
             <div class="col-lg-7">
 <!--                 <div class="form-group"> -->
 <!--                     <div class="form-check form-check-inline"> -->

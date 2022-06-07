@@ -1,7 +1,22 @@
 @charset "UTF-8";
+#canvas{
+	position : absolute;
+	display : flex;
+	margin-top : 400px;
+	right : 30%;
+	top : 40px;
+}
+@media (min-width: 0px) and (max-width: 1230px) {
+	#canvas{
+		display:none;
+	}
+    
+}
+
 main {
     height: auto;
     min-height: 100%;
+    z-index: 1;
 }
 
 .search-box{
@@ -47,10 +62,14 @@ main {
     font-size: 20px;
     font-weight: 600;
     margin: 30px 0px;
+    z-index: 2;
+}
+.search_result_z{
+	z-index: 2;
 }
 
 .search_result_num span{
-    color:#00b2b2;
+    color:#fa6462;
 }
 .seemore{
     background-color: transparent!important;
