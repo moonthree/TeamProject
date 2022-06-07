@@ -407,6 +407,9 @@ select::-ms-expand {
 	overflow: hidden; 
 	white-space: nowrap;
 }
+.qnaDivContent > a{
+	cursor: pointer !important;
+}
 
 /*
 0516 추가
@@ -497,7 +500,7 @@ select::-ms-expand {
 }
 .tdImg > img{
     width: 100%;
-    height: 100%;
+    height: 80px;
     border-radius: 50%;
 }
 tbody{

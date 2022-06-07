@@ -40,7 +40,7 @@ if(message != null){alert(message);}
                 <div class="my_top">
                     <c:choose>
                        	<c:when test="${ empty member.member_photo }">
-                       		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                       		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
                        	</c:when>
                        	<c:otherwise>
 							<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
@@ -213,11 +213,12 @@ if(message != null){alert(message);}
                     <h5>주문/결제 금액 정보</h5>
                     <div class="odm_talbe_div">
                         <table class="odm_table" style="width: 100%;">
-                            <tr>
+                     		 <tr>
                                 <td class="odm_td" style="width: 33%;">
                                     <span class="bold">최초주문금액</span>
                                     <div class="odm_td_div">
                                         상품금액 <span><fmt:formatNumber value="${ detail.store_order_total_price - detail.store_express_fee}" type="number" />원</span>
+                                        
                                         <br>
                                         배송비 <span>+<fmt:formatNumber value="${ detail.store_express_fee }" type="number" />원</span>
                                     </div>

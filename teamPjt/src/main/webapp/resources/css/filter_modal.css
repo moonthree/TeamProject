@@ -5,6 +5,17 @@
  /*
     필터 모달 시작
 */
+#filterModalBtn{
+	border: 1px solid #fa6462 !important;
+	color: #fa6462 !important;
+	background-color: white !important;
+}
+#filterModalBtn:hover{
+	border: 1px solid #fa6462 !important;
+	color: white !important;
+	background-color: #fa6462 !important;
+}
+
 .bold{
     font-weight: bold;
 }
@@ -65,9 +76,20 @@
 }
 #filterResetBtn{
     width: 49%;
+    border: 1px solid #fa6462 !important;
+	color: #fa6462 !important;
+	background-color: white !important;
+}
+#filterResetBtn:hover{
+	border: 1px solid #fa6462 !important;
+	color: white !important;
+	background-color: #fa6462 !important;
 }
 #filterDoBtn{
     width: 49%;
+    border: 1px solid #fa6462 !important;
+	color: white !important;
+	background-color: #fa6462 !important;
 }
 /*하단 버튼 끝*/
 

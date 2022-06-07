@@ -217,7 +217,7 @@ function notChange(){
                 <div class="my_top">
                     <c:choose>
                        	<c:when test="${ empty member.member_photo }">
-                       		<img src="../resources/image/111.png" alt="profile_img" class="profile_img">
+                       		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
                        	</c:when>
                        	<c:otherwise>
 							<img src="../resources/upload/${member.member_photo }" alt="profile_img" class="profile_img">
@@ -340,7 +340,13 @@ function notChange(){
 	                                			펀딩 진행중
 	                                		</c:if>
 	                                		<c:if test="${ detail.funding_current_state eq 1 }">
-												펀딩 성공
+												펀딩 성공<br>
+												<c:if test="${express.funding_express_state eq 0}">
+													발송 대기중
+												</c:if>
+												<c:if test="${express.funding_express_state eq 1}">
+													발송 완료
+												</c:if>
 							        		</c:if>
 							        		<c:if test="${ detail.funding_current_state eq 2 }">
 												펀딩 실패

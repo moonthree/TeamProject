@@ -54,7 +54,7 @@ $(".img").click(function(){
 	var photo = $(this).data('id6');
 	var photo2 =""
 	if(photo == ""){
-		photo2 = "../resources/image/111.png"
+		photo2 = "../resources/image/KakaoTalk_20220418_121005755.png"
 	}else{
 		photo2 = "../resources/upload/"+photo
 	}

@@ -14,7 +14,7 @@ a:link {
 a:visited {
     color: black;
 }
-.card:hover{
+.card-img:hover{
 	transform: scale(1.04);
 	box-shadow: 10px 10px 5px 1px #dadce0;
 }
@@ -185,9 +185,9 @@ select {
 /* 별점 */
 
 .rating {
-    width: 83.5px;
+    width: 83px;
     height: 17.5px;
-    
+   
     position: relative;
     background-color: gray;
 }
@@ -198,7 +198,7 @@ select {
     appearance: none;
     border: none;
     display: inline-block;
-    height: 18px;
+    height: 18px; 
     padding-bottom: 1px;
     width: 100%;
     color: orange;

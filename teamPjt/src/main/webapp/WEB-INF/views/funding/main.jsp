@@ -18,6 +18,7 @@
         
      
     <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/funding_css/funding_main_shiba.css">
     <!-- <script src="../resources/js/funding_js/infiniteScroll.js"></script> -->
     
  	<style type="text/css">
@@ -26,6 +27,58 @@
 </head>
 <body>
 	<c:import url="/header.do"></c:import>
+	<canvas id="canvas" width="300" height="300"></canvas>
+    <script type="importmap">
+    	{
+          "imports": {
+            "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+            "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+            "OrbitControls" : "http://fenixrepo.fao.org/cdn/js/threejs/4.4/OrbitControls.js"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GLTFLoader } from 'GLTFLoader';
+        import * as THREE from 'three';
+        import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
+
+        let scene = new THREE.Scene();
+        let renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#canvas'),
+            antialias : true
+        });
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        let camera = new THREE.PerspectiveCamera(30, 1);
+        camera.position.set(200, 200, 200);
+        scene.background = new THREE.Color('white');
+
+		scene.position.x = 0;
+        scene.position.y = 0;
+        scene.position.z = 0;
+		let xstep = 0;
+		let ystep = 0;
+		let zstep = 0;
+        let controls = new OrbitControls(camera, renderer.domElement);
+
+        let loader = new GLTFLoader();
+        loader.load('../resources/shiba/scene.gltf', function (gltf) {
+            scene.add(gltf.scene);
+            renderer.render(scene, camera);
+            function animate() {
+                gltf.scene.rotation.y -= 0.01;
+				gltf.scene.rotation.x += 0.01;
+				gltf.scene.rotation.z -= 0.01;
+                requestAnimationFrame(animate)
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate()
+        });
+
+    </script>
+	
+	
 	<main>
 	<div class="container">
 		<form action="main.do" method="get" id="abcde">

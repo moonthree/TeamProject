@@ -219,7 +219,7 @@
 											</svg>
 		                        		</button>
 		                        		<!-- 수량  -->
-		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price}">
+		                        		<input type="hidden" name="price${optionlist.store_option_idx}" id="price${optionlist.store_option_idx}" value="${optionlist.store_option_price - optionlist.store_option_price * event /100}">
 		                        		<input type="hidden" name="stock${optionlist.store_option_idx}" id="stock" value="${optionlist.store_option_stock}">
 		                                <input type="number" name="p_num${optionlist.store_option_idx}" id="p_num${optionlist.store_option_idx}" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:option.changePNum(${optionlist.store_option_idx});" autocomplete="off">
 		                                <button type="button"  onclick="javascript:option.changePNum(${optionlist.store_option_idx});" class="up stockbtn">
@@ -1338,7 +1338,7 @@
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
                             <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
-                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                            <br>4.4. 구매한 상품에 대한 리뷰는 마이페이지에서 남길 수 있습니다.
                         </p>
                         
                     
@@ -1386,7 +1386,7 @@
                             1.1. 본 프로젝트와 무관한 광고성, 욕설, 비방 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있습니다. 
                             <br>2.2. 해당 내용으로 인해 판매자, 소비자, 제3자에게 피해가 발생되지 않도록 유의하시기 바랍니다.
                             <br>3.3. 전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의해 주시기 바랍니다.
-                            <br>4.4. 응원 및 체험 리뷰는 커뮤니티에 남겨 주세요.
+                            <br>4.4. 구매한 상품에 대한 리뷰는 마이페이지에서 남길 수 있습니다.
                         </p>
                     </div>
                     <div class="modal-footer write_modal_footer">

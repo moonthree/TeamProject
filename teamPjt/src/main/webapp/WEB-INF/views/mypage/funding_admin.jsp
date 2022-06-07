@@ -71,6 +71,7 @@
 	   </div>
 	</c:if>
 	<c:if test="${!empty listMap}">
+		<div class="container" style="margin-top: 6%;">
 		<div class="containerbox" style="margin-top: 6%;">
 				<h1>펀딩 관리</h1>
 				<span style="font-family: TmonMonsori;">펀딩 진행중인 상품입니다.  ${listMap.size() }명 참여 중</span>
@@ -130,7 +131,7 @@
 	                </table>
 				</div>
 			</div>	
-
+		</div>
 	</c:if>
 	</main>
 </c:if> <!-- 펀딩 진행중인 상품 관리 페이지 -->
@@ -175,6 +176,7 @@
 	   </div>
 	</c:if>
 	<c:if test="${!empty listMap}">
+		<div class="container" style="margin-top: 6%;">
 		<div class="containerbox" style="margin-top: 6%;">
 				<h1>펀딩 관리</h1>
 				<span style="font-family: TmonMonsori;">축하드립니다. 펀딩 성공에 성공한 제품 페이지입니다. ${listMap.size()}명 참여</span>
@@ -254,7 +256,7 @@
 	                </table>
 				</div>
 			</div>	
-
+	</div>
 	</c:if>
 	</main>
 </c:if> <!-- 펀딩 진행중인 상품 관리 페이지 -->		

@@ -364,6 +364,7 @@ public class StoreController {
 
 		//펀딩 qna 댓글 리스트
 		
+		final int PAGE_ROW_COUNT_QNA = 10; 	 
 		int pageNumQna = 1;
 		
 		String strPageNumQna = request.getParameter("pageNumQna"); 	//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
@@ -371,8 +372,8 @@ public class StoreController {
 			pageNumQna = Integer.parseInt(strPageNumQna);				//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
 		}	
 		
-		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
-		int rowCountQna = PAGE_ROW_COUNT;
+		int startRowNumQna = (pageNumQna -1) * PAGE_ROW_COUNT_QNA + 0;	//보여줄 페이지의 시작 ROWNUM  0부터 시작ss
+		int rowCountQna = PAGE_ROW_COUNT_QNA;
 		
 		sqvo.setStartRowNumQna(startRowNumQna);
 		
@@ -392,17 +393,17 @@ public class StoreController {
 		System.out.println("startRowNumQna = " + startRowNumQna);
 			
 		// 전체 페이지의 개수
-		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT);
+		int totalPageCountQna = (int)Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT_QNA);
 		
 		int endPageQna = (int) (Math.ceil(pageNumQna / (double)displayPageNum) * displayPageNum);
 		int startPageQna = (endPageQna - displayPageNum) + 1;
 		
-		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT));
+		int tempEndPageQna = (int) (Math.ceil(totalRowQna / (double)PAGE_ROW_COUNT_QNA));
 		if (endPageQna > tempEndPageQna) {
 			endPageQna = tempEndPageQna;
 		}
 		boolean prevQna = startPageQna == 1 ? false : true;
-		boolean nextQna = endPageQna * PAGE_ROW_COUNT >= totalRowQna ? false : true;
+		boolean nextQna = endPageQna * PAGE_ROW_COUNT_QNA >= totalRowQna ? false : true;
 		
 		request.setAttribute("listQna", listQna);
 		request.setAttribute("totalPageCountQna", totalPageCountQna);
