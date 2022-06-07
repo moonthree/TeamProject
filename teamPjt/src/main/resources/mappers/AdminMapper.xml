@@ -113,7 +113,7 @@
 		,store_category
 		FROM store
 		WHERE store_permit_state = 0
-		order by store_idx asc limit #{rowStart},10
+		order by store_idx desc limit #{rowStart},10
 	</select>
 	<!-- 스토어 제품 page -->
 	<select id="store_Count" resultType="int">
@@ -171,7 +171,7 @@
 		,store_category
 		FROM store
 		WHERE store_permit_state = 1
-		order by store_idx asc limit #{rowStart},10
+		order by store_idx desc limit #{rowStart},10
 	</select>
 	<!-- 스토어 제품 page -->
 	<select id="pro_storeCount" resultType="int">

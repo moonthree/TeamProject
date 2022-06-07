@@ -172,7 +172,7 @@
 		FROM funding_detail_community AS commu
 		JOIN member AS mem 
 		ON commu.funding_idx = #{funding_idx} and commu.member_idx = mem.member_idx
-		order by funding_detail_community_idx desc limit #{startRowNum}, 9; 
+		order by funding_detail_community_idx desc limit #{startRowNum}, 10; 
 	</select>
 	
 	<!-- 펀딩 커뮤니티 댓글 작성 -->
@@ -255,7 +255,7 @@
 		FROM funding_qna AS qna
 		JOIN member AS mem 
 		ON qna.funding_idx = #{funding_idx} and qna.member_idx = mem.member_idx and qna.depth = 0
-		order by funding_qna_idx desc limit ${startRowNumQna}, 9;
+		order by funding_qna_idx desc limit ${startRowNumQna}, 10;
 	</select>
 	
 	<!-- 펀딩 qna 댓글 답변-->

@@ -8,6 +8,7 @@
 .event_view_headImg > img {
     width: 100%;
     height: 350px;
+    margin-top : 20px;
 }
 .event_view_container{
     margin-top: 20px;

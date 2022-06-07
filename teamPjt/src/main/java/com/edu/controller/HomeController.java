@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.edu.service.EventService;
 import com.edu.service.HomeService;
 import com.edu.service.MypageService;
 import com.edu.service.SearchService;
+import com.edu.vo.EventVO;
 import com.edu.vo.FundingMainVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.StoreVO;
@@ -27,6 +29,9 @@ import com.edu.vo.StoreVO;
 @RequestMapping(value = "/")
 public class HomeController {
 	@Autowired
+	private EventService es;
+	
+	@Autowired
 	private SearchService service;
 	
 	@Autowired
@@ -36,13 +41,18 @@ public class HomeController {
 	private HomeService hs;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model,  HttpServletRequest request, FundingMainVO vo, StoreVO svo) throws Exception {
+	public String home(Locale locale, Model model,  HttpServletRequest request, EventVO evo, FundingMainVO vo, StoreVO svo) throws Exception {
 		
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
+		
+		
+		ArrayList<EventVO> eventMain = null;
+		eventMain = (ArrayList<EventVO>) es.eventMain(evo);
+		
 		
 		//
 		ArrayList<FundingMainVO> fundHomeAll = null;
@@ -81,6 +91,7 @@ public class HomeController {
 		request.setAttribute("storeHomeView", storeHomeView);
 		
 		request.setAttribute("storeHomeFund", storeHomeFund);
+		request.setAttribute("eventMain", eventMain);
 		
 		return "home";
 	}
@@ -106,12 +117,16 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/index.do")
-	public String home2(Model model,  HttpServletRequest request, FundingMainVO vo, StoreVO svo) throws Exception {
+	public String home2(Model model,  HttpServletRequest request, EventVO evo, FundingMainVO vo, StoreVO svo) throws Exception {
 		// 세션에 있는 사용자의 정보를 가져옴
 		HttpSession session = request.getSession();
 		MemberVO login = (MemberVO) session.getAttribute("login");
 		MemberVO member = mypageService.selectOne(login);
 		model.addAttribute("member", member);
+		
+		
+		ArrayList<EventVO> eventMain = null;
+		eventMain = (ArrayList<EventVO>) es.eventMain(evo);
 		
 		//
 		ArrayList<FundingMainVO> fundHomeAll = null;
@@ -150,7 +165,7 @@ public class HomeController {
 		request.setAttribute("storeHomeView", storeHomeView);
 		
 		request.setAttribute("storeHomeFund", storeHomeFund);
-	
+		request.setAttribute("eventMain", eventMain);
 		return "home";
 	}
 	

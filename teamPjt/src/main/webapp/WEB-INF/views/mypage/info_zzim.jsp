@@ -59,7 +59,7 @@
 	          		</c:if>
 	          		<c:if test="${countZzim ne 0}">
 		          		<div class="box_num">
-		          			<span class="box_num_span">${countZzim}</span>건의 찜 내역이 있습니다.
+		          			<span class="box_num_span">${totalRow}</span>건의 찜 내역이 있습니다.
 		          		</div>
 	          		</c:if>
 	          	</div>

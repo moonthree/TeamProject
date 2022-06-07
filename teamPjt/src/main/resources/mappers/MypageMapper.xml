@@ -611,7 +611,7 @@
 		WHERE  store_idx = #{store_idx}
 		AND    so.store_order_idx = se.store_order_idx
 		AND	   so.member_idx = m.member_idx
-		ORDER BY so.store_order_idx DESC
+		ORDER BY so.store_order_idx desc
 	</select>
 	
 		<!-- 펀딩 관리 페이지 -->

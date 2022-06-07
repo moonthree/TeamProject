@@ -37,12 +37,35 @@ section04 : 새로 오픈한 프로젝트
 <main>
        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
            <ol class="carousel-indicators">
-               <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-               <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-               <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+           		<c:forEach var="item" items="${eventMain}" varStatus = "status">
+           			<c:set var="listClass" value="a"></c:set>
+           			<c:if test="${status.index eq 0 }">
+           				<c:set var="listClass" value="active"></c:set>
+           			</c:if>
+           			
+               		<li data-target="#carouselExampleCaptions" data-slide-to="${status.index }" class="${listClass }"></li>
+               </c:forEach>
+               <!-- <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+               <li data-target="#carouselExampleCaptions" data-slide-to="2"></li> -->
            </ol>
            <div class="carousel-inner">
-               <div class="carousel-item active">
+           		<c:forEach var="item" items="${eventMain}" varStatus = "status">
+           			<c:set var="listClass" value="a"></c:set>
+           			<c:if test="${status.index eq 0 }">
+           				<c:set var="listClass" value="active"></c:set>
+           			</c:if>
+	           		<div class="carousel-item ${listClass }">
+	               	   <a href="event/event_view.do?member_idx=${item.member_idx}">
+	                   <img src="resources/image/event/${item.event_thumbnail }" class="d-block w-100" alt="...">
+	                   </a>
+	                   <div class="carousel-caption d-none d-md-block">
+	                       <h3 class="main_image"></h3>
+	                       <p></p>
+	                   </div>
+	               </div>
+           		</c:forEach>
+           	</div>
+               <!-- <div class="carousel-item active">
                	   <a href="event/event_view.do?member_idx=5">
                    <img src="resources/image/event/01_main.png" class="d-block w-100" alt="...">
                    </a>
@@ -69,7 +92,7 @@ section04 : 새로 오픈한 프로젝트
                        <p></p>
                    </div>
                </div>
-           </div>
+           </div> -->
            <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                <span class="sr-only">Previous</span>
@@ -98,11 +121,11 @@ section04 : 새로 오픈한 프로젝트
                        </p>
                        <div class="row">
                        	   <c:if test="${login eq null}">
-                       	   		<c:forEach var="item" items="${fundHomeAll}">
+                       	   		<c:forEach var="item" items="${fundHomeAll}" varStatus="status">
                        	   			<div class="col-sm-4">
-		                               <div class="card section01_card hover_card">
+		                               <div class="card section01_card">
 		                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
-		                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+		                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 		                                   </a>
 		                                   <div class="card-body">
 		                                       <p class="card-text section01_title">
@@ -134,9 +157,9 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 0}">
                        	   				<c:forEach var="item" items="${fundHomeDog}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card hover_card">
+				                               <div class="card section01_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
-				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 				                                   </a>
 				                                   <div class="card-body">
 				                                       <p class="card-text section01_title">
@@ -166,9 +189,9 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 1}">
                        	   				<c:forEach var="item" items="${fundHomeCat}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card hover_card">
+				                               <div class="card section01_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
-				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 				                                   </a>
 				                                   <div class="card-body">
 				                                       <p class="card-text section01_title">
@@ -198,9 +221,9 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:when test="${login.member_pet eq 2}">
                        	   				<c:forEach var="item" items="${fundHomeOther}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card hover_card">
+				                               <div class="card section01_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
-				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 				                                   </a>
 				                                   <div class="card-body">
 				                                       <p class="card-text section01_title">
@@ -230,9 +253,9 @@ section04 : 새로 오픈한 프로젝트
                        	   			<c:otherwise>
                        	   				<c:forEach var="item" items="${fundHomeDog}">
 		                       	   			<div class="col-sm-4">
-				                               <div class="card section01_card hover_card">
+				                               <div class="card section01_card">
 				                               	   <a href="funding/view.do?funding_idx=${item.funding_idx}">
-				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+				                                   		<img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 				                                   </a>
 				                                   <div class="card-body">
 				                                       <p class="card-text section01_title">
@@ -320,7 +343,7 @@ section04 : 새로 오픈한 프로젝트
 	                                       </div>
 	                                       <div class="col-4 section01_rank_img section01_rank_img01">
 	                                           <a href="funding/view.do?funding_idx=${item.funding_idx}">
-		                                   		   <img src="resources/upload/funding/${item.funding_thumbnail}" class="card-img-top" alt="...">
+		                                   		   <img src="resources/upload/funding/${item.funding_thumbnail}" class="hover_card card-img-top" alt="...">
 		                                   	   </a>
 	                                       </div>
 	                                   </div>
@@ -358,9 +381,9 @@ section04 : 새로 오픈한 프로젝트
 	                                               </p>
 	                                           </div>
 	                                       </div>
-	                                       <div class="col-4 section01_rank_img01">
+	                                       <div class="col-4 section01_rank_img section01_rank_img01">
 	                                           <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
-						                            <img src="resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
+						                            <img src="resources/upload/store/${item.store_thumbnail}" class="hover_card card-img-top" alt="...">
 						                       </a>
 	                                       </div>
 	                                   </div>
@@ -384,9 +407,9 @@ section04 : 새로 오픈한 프로젝트
                <div class="row section03_carttop">
                	   <c:forEach var="item" items="${storeHomeFund}">
 	                   <div class="col-lg-2 col-sm-4 col-6">
-	                       <div class="card section03_card hover_card">
+	                       <div class="card section03_card">
 	                           <a href="store/store_view.do?store_idx=${item.store_idx}&store_funding=${item.store_funding}">
-		                            <img src="resources/upload/store/${item.store_thumbnail}" class="card-img-top" alt="...">
+		                            <img src="resources/upload/store/${item.store_thumbnail}" class="hover_card card-img-top" alt="...">
 		                       </a>
 	                           <div class="card-body">
 	                               <p class="card-text section03_title">
@@ -430,9 +453,9 @@ section04 : 새로 오픈한 프로젝트
                <div class="row section04_row01">
                	   <c:forEach var="item" items="${fundHomeNew}">
                	   		<div class="col-lg-4">
-	                       <div class="row no-gutters section04_card hover_card">
+	                       <div class="row no-gutters section04_card">
 	                           <div class="col-6">
-	                               <a href="funding/view.do?funding_idx=${item.funding_idx}">
+	                               <a href="funding/view.do?funding_idx=${item.funding_idx}" class="section04_a">
                                    		<img src="resources/upload/funding/${item.funding_thumbnail}" class="section04_img card-img-top" alt="...">
                                    </a>
 	                           </div>
@@ -450,11 +473,14 @@ section04 : 새로 오픈한 프로젝트
 	                                   <p class="card-title">
 	                                   		<fmt:parseDate var="start" value="${item.funding_start_date }" pattern="yyyy-MM-dd"/>
 	                                   		<fmt:parseNumber var="startDate" value="${start.time / (1000*60*60*24)}" integerOnly="true" />
-	                                   		<c:if test="${nowDate - startDate le 1}">
+	                                   		<c:if test="${nowDate - startDate - 1 lt 1}">
 	                                   			오늘 오픈!
 	                                   		</c:if>
-	                                   		<c:if test="${nowDate - startDate gt 1}">
-	                                   			${nowDate - startDate}일 전
+	                                   		<c:if test="${nowDate - startDate - 1 eq 1}">
+	                                   			어제 오픈!
+	                                   		</c:if>
+	                                   		<c:if test="${nowDate - startDate - 1 gt 1}">
+	                                   			${nowDate - startDate - 1}일 전 오픈!
 	                                   		</c:if>
 	                                   </p>
 	                               </div>

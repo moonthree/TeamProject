@@ -3,7 +3,8 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html> 
+
 <!-- //git 넘기기용 -->
 <head>
 <meta charset="UTF-8">
@@ -37,17 +38,17 @@
 	    		    Kakao.API.request({
 	    		        url: '/v2/user/me',
 	    		        success: function(response) {
-	    		            console.log(response);
+	    		           //console.log(response);
 	    		            var account = response.kakao_account;
 							
 							$('#form-kakao-login input[name=member_email]').val(account.email);
 							$('#form-kakao-login input[name=member_name]').val(account.profile.nickname);
 							
-							//섬네일 이미지
+						/* 	//섬네일 이미지
 							console.log(account.profile.thumbnail_image_url);
 							
 							//프로필 이미지
-							console.log(account.profile.profile_image_url);
+							console.log(account.profile.profile_image_url); */
 							
 							
 							$('#form-kakao-login input[name=member_photo]').val(account.profile.thumbnail_image_url);
