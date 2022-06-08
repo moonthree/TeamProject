@@ -50,6 +50,9 @@ public class storeDAO {
 	public List<StoreReviewVO> storeReviewList(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectList("StoreMapper.storeReviewList", vo);
 	}
+	public List<StoreReviewVO> storeReviewList2(StoreReviewVO vo) throws Exception{
+		return sqlSession.selectList("StoreMapper.storeReviewList2", vo);
+	}
 	// 스토어 리뷰 카운트
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception{
 		return sqlSession.selectOne("StoreMapper.countStoreReviewList", vo);

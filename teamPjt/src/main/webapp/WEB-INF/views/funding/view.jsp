@@ -448,7 +448,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-9 col-sm-12">
-                        <h4 class="commuH4">응원 · 의견 · 체험리뷰&nbsp;<span class="commuTotalNum">${listCommu.size() }</span></h4>
+                        <h4 class="commuH4">응원 · 의견 · 체험리뷰&nbsp;<span class="commuTotalNum">${totalRow }</span></h4>
                         <span style="opacity: 0.7;">펀딩 종료전에 남긴 글입니다.</span>
                     </div>
                     <div class="col-md-3 col-sm-12" style="text-align: right;">
@@ -495,13 +495,13 @@
 						
 						
                     		<tr>
-                    			<th scope="row" style= "width: 10%; border-radius: 70%">
+                    			<th scope="row" style= "width: 10%;">
                     				<c:choose>
 		                        		<c:when test="${ empty commentList.memberVO.member_photo }">
-				                     		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img">
+				                     		<img src="../resources/image/KakaoTalk_20220418_121005755.png" alt="profile_img" class="profile_img" style="width:100%; height:70px; border-radius:50%;">
 				                     	</c:when>
 				                     	<c:otherwise>
-											<img src="../resources/upload/${commentList.memberVO.member_photo }" alt="profile_img" class="profile_img">
+											<img src="../resources/upload/${commentList.memberVO.member_photo }" alt="profile_img" class="profile_img" style="width:100%; height:70px; border-radius:50%;">
 				                     	</c:otherwise>
 			                        </c:choose>
                     			</th>

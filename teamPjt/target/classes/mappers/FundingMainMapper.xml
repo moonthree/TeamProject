@@ -144,11 +144,11 @@
 		JOIN member as mem
 		WHERE funding_idx = #{funding_idx} AND fu.member_idx = mem.member_idx
 	</select>
-	<!-- 펀딩 오더 카운트 -->
+	<!-- 펀딩 오더 카운트ss -->
 	<select id="orderCount" resultType = "int">
 		SELECT COUNT(funding_order_idx)
 		FROM funding_order
-		WHERE funding_idx= #{funding_idx} AND funding_order_pay_state=0 OR funding_order_pay_state=1
+		WHERE funding_idx= #{funding_idx} AND funding_order_pay_state not in (2)
 	</select>
 	<!-- 조회수 증가 -->
 	<update id="fundingViews" parameterType="int">

@@ -65,6 +65,10 @@ public class StoreServiceImpl implements StoreService{
 		ArrayList<StoreReviewVO> storeReviewList = (ArrayList<StoreReviewVO>) dao.storeReviewList(vo);
 		return storeReviewList;
 	}
+	public List<StoreReviewVO> storeReviewList2(StoreReviewVO vo) throws Exception {
+		ArrayList<StoreReviewVO> storeReviewList2 = (ArrayList<StoreReviewVO>) dao.storeReviewList2(vo);
+		return storeReviewList2;
+	}
 	//스토어 리뷰 카운트
 	@Override
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception {

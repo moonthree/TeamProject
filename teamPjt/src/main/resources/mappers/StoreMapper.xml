@@ -197,6 +197,27 @@
 			</otherwise>
 		</choose>
 	</select>
+	<select id="storeReviewList2" parameterType="StoreReviewVO" resultType="StoreReviewVO">
+		SELECT
+			sr.store_review_idx,
+			sr.store_idx,
+			sr.member_idx,
+			sr.store_review_star,
+			sr.store_review_like,
+			sr.store_review_content,
+			sr.store_review_regdate,
+			sr.store_review_option,
+			sr.store_review_photo1,
+			sr.store_review_photo2,
+			sr.store_review_photo3,
+			sr.store_review_photo4,
+			sr.store_review_photo5,
+			m.member_name,
+			m.member_photo
+		FROM store_review sr, member m
+		WHERE sr.store_idx = #{store_idx} and sr.member_idx = m.member_idx
+		order by store_review_idx desc
+	</select>
 	<!-- 스토어 리뷰 카운트 -->
 	<select id="countStoreReviewList" parameterType="StoreReviewVO" resultType="int">
 		SELECT COUNT(store_review_idx)

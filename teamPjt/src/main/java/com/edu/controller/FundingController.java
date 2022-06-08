@@ -253,6 +253,7 @@ public class FundingController {
 		//System.out.println("endPage = " + endPage);
 		//System.out.println("startPage = " + startPage);
 		
+		request.setAttribute("totalRow", totalRow);
 		request.setAttribute("listCommu", listCommu);
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("pageNum", pageNum);

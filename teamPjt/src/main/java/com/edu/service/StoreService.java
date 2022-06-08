@@ -29,6 +29,7 @@ public interface StoreService {
 	public StoreVO read(int store_idx, int store_funding) throws Exception;
 	// 스토어 리뷰 리스트
 	List<StoreReviewVO> storeReviewList(StoreReviewVO vo) throws Exception;
+	List<StoreReviewVO> storeReviewList2(StoreReviewVO vo) throws Exception;
 	// 스토어 리뷰 카운트
 	public int countStoreReviewList(StoreReviewVO vo) throws Exception;
 	// 스토어 리뷰 사진만 가져오기

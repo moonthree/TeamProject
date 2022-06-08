@@ -303,9 +303,11 @@ public class StoreController {
 		int rowCount = PAGE_ROW_COUNT;
 		srvo.setStartRowNum(startRowNum);
 		ArrayList<StoreReviewVO> storeReviewList = null;
+		ArrayList<StoreReviewVO> storeReviewList2 = null;
 		int totalRow = 0;
 		
 		storeReviewList = (ArrayList<StoreReviewVO>) sts.storeReviewList(srvo);
+		storeReviewList2 = (ArrayList<StoreReviewVO>) sts.storeReviewList2(srvo);
 		totalRow = sts.countStoreReviewList(srvo);
 		
 		System.out.println("리뷰개수: "+totalRow);
@@ -323,6 +325,7 @@ public class StoreController {
 		boolean prev = startPage == 1 ? false : true;
 		boolean next = endPage * PAGE_ROW_COUNT >= totalRow ? false : true;
 		
+		request.setAttribute("storeReviewList2", storeReviewList2);
 		request.setAttribute("storeReviewList", storeReviewList);
 		request.setAttribute("storeReviewPhoto", storeReviewPhoto);
 		request.setAttribute("totalPageCount", totalPageCount);

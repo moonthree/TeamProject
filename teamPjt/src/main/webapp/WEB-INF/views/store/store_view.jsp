@@ -598,7 +598,7 @@
 	            <div class="reviewMiddlePhoto">
 	                <p>포토</p>
 	                <div id="reviewMiddlePhoto">
-	                	<c:forEach begin="0" end="20" items="${storeReviewList}" var="reviewList" varStatus="status">
+	                	<c:forEach begin="0" end="20" items="${storeReviewList2}" var="reviewList" varStatus="status">
 	                		<fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
                             <fmt:formatDate var="regdate2" value="${regdate}" pattern="yyyy-MM-dd" />
 			                <c:choose>
@@ -1212,7 +1212,7 @@
       </div>
       <div class="modal-body login_modal_body">
       	<h4>갤러리</h4>
-      	<c:forEach items="${storeReviewList}" var="reviewList" varStatus="status">
+      	<c:forEach items="${storeReviewList2}" var="reviewList" varStatus="status">
       		<fmt:parseDate var="regdate" value="${reviewList.store_review_regdate }" pattern="yyyy-MM-dd" />
             <fmt:formatDate var="regdate2" value="${regdate}" pattern="yyyy-MM-dd" />
         	<c:choose>
@@ -1641,7 +1641,7 @@ let option = {
 
 	        var stock = item.previousElementSibling.value;
 	        if(parseInt(newval) > stock){
-	        	alert('잔여수량 내에서 수량을 선택해주세요.');
+	        	alert('최대 '+stock+'개 까지 구매가능합니다.');
 	        	item.setAttribute('value', 1);
 	        	item.value = 1;
 	        	newval = 1;
